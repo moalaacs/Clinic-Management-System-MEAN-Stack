@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 /* require all needed modules */
 const doctorSchema = require("../Models/doctorModel");
 const clinicSchema = require("../Models/clinicModel");
+const appointmentSchema = require("../Models/appointmentModel");
 const users = require("../Models/usersModel");
-
 /* require helper functions (filter,sort,slice,paginate) */
 const {
   filterData,
@@ -13,6 +13,8 @@ const {
   sliceData,
   paginateData,
   mapSpecilityToSpecilization,
+  checkDateInFuture,
+  dayToDate,
 } = require("../helper/helperfns");
 
 // Create a new doctor
@@ -84,6 +86,14 @@ exports.addDoctor = async (request, response, next) => {
           .json({ message: `Phone number Already in use` });
       }
     }
+    request.body.schedule.forEach((element) => {
+      if (element.start < element.end)
+        return response
+          .status(200)
+          .json(
+            `In ${element.day}'s schedule, starting time ${element.start} can't be less than ending time ${element.end}`
+          );
+    });
     const hash = await bcrypt.hash(request.body.password, 10);
     let now = new Date();
     let age = now.getFullYear() - request.body.dateOfBirth.split("/")[2];
@@ -439,11 +449,13 @@ exports.patchDoctorById = async (request, response, next) => {
 // Get a doctor by ID
 exports.getDoctorById = async (request, response, next) => {
   try {
-    let doctor = await doctorSchema.find({ _id: request.params.id }).populate({
-      path: "_clinic",
-      options: { strictPopulate: false },
-      select: { _specilization: 1, _address: 1, _id: 0 },
-    });
+    let doctor = await doctorSchema
+      .findOne({ _id: request.params.id })
+      .populate({
+        path: "_clinic",
+        options: { strictPopulate: false },
+        select: { _specilization: 1, _address: 1, _id: 0 },
+      });
     if (!doctor) {
       return next(new Error("doctor not found"));
     }
@@ -472,6 +484,74 @@ exports.removeDoctorById = async (request, response, next) => {
     response
       .status(200)
       .json({ message: "Doctor removed successfully.", doctor });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addExcuse = async (request, response, next) => {
+  try {
+    let daySent = request.params.day.replaceAll("-", "/");
+    let doctor = await doctorSchema.findOne({ _id: request.params.id });
+    if (!doctor) {
+      return next(new Error("doctor not found"));
+    }
+    if (!checkDateInFuture(daySent))
+      return response.status(200).json("Can't add excuse for old days");
+    if (doctor._excuses.find((element) => element == daySent))
+      return response.status(200).json("This Day already added to excuses");
+    let deletedAppointments = await appointmentSchema
+      .find(
+        {
+          _date: daySent,
+          _doctorId: request.params.id,
+        },
+        { _id: 1, _patientId: 1 }
+      )
+      .populate({
+        path: "_patientId",
+        select: { _id: 0, _email: 1, _fname: 1, _lname: 1 },
+      });
+    let deletedAppointmentsEmails = deletedAppointments.map(
+      (element) => element._id
+    );
+    await appointmentSchema.deleteMany({
+      _date: daySent,
+      _doctorId: request.params.id,
+    });
+    await doctorSchema.updateOne(
+      { _id: request.params.id },
+      {
+        $push: { _excuses: daySent },
+        $pull: { _appointments: { $in: deletedAppointmentsEmails } },
+      }
+    );
+
+    response
+      .status(200)
+      .json("Excuse Add Successfully. We hope everything is okey");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteExcuse = async (request, response, next) => {
+  try {
+    let doctor = await doctorSchema.findOne({ _id: request.params.id });
+    if (!doctor) {
+      return next(new Error("doctor not found"));
+    }
+    let daySent = request.params.day.replaceAll("-", "/");
+    if (!checkDateInFuture(daySent))
+      return response.status(200).json("Can't remove excuse for old days");
+    if (!doctor._excuses.find((element) => element == daySent))
+      return response.status(200).json("This Day doesn't exist in excuses");
+    else
+      await doctorSchema.updateOne(
+        { _id: request.params.id },
+        { $pull: { _excuses: daySent } }
+      );
+    response.status(200).json("Excuse Removed Successfully. Welcome back!");
   } catch (error) {
     next(error);
   }

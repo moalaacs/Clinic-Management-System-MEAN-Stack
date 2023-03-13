@@ -308,6 +308,12 @@ let doctorPatchValidation = [
 let numberIdParamsValidation = [
   param("id").isInt().withMessage("ID must be number"),
 ];
+let excuseValidation = [
+  param("id").isInt().withMessage("ID must be number"),
+  param("day")
+    .matches(/^\d{2}-\d{2}-\d{4}$/)
+    .withMessage("Invalid date format, should be DD-MM-YYY"),
+];
 let employeeValidation = [
   validatePerson,
   check("salary").isInt().withMessage("salary should be number"),
@@ -335,7 +341,9 @@ let medicineValidation = [
     .isString()
     .withMessage("Production Date should be a string"),
   check("expiry").isString().withMessage("Expiry Date should be a string"),
-  check("leaflet").isString().withMessage("Medicine leaflet should be a string"),
+  check("leaflet")
+    .isString()
+    .withMessage("Medicine leaflet should be a string"),
   check("price").isInt().withMessage("Medicine Price should be a Number"),
   check("quantity").isInt().withMessage("Medicine Price should be a Number"),
 ];
@@ -364,6 +372,8 @@ let medicinePatchValidation = [
 ];
 let validateAppointment = [
   check("patientId").isNumeric().withMessage("Patient Id should be a number"),
+  check("patientType")
+  .isIn(["patient", "doctor", "employee"]),
   check("doctorId").isNumeric().withMessage("Doctor Id should be a number"),
   check("clinicId").isNumeric().withMessage("clinic Id should be a number"),
   check("date")
@@ -380,10 +390,9 @@ let validateAppointment = [
     .withMessage("Invalid appointment status"),
 ];
 let validatePatchAppointment = [
-  check("patientId")
-    .optional()
-    .isNumeric()
-    .withMessage("Patient Id should be a number"),
+  check("patientId").optional().isNumeric().withMessage("Patient Id should be a number"),
+  check("patientType").optional()
+  .isIn(["patient", "doctor", "employee"]),
   check("doctorId")
     .optional()
     .isNumeric()
@@ -485,6 +494,9 @@ let validatePatchPrescription = [
 ];
 let validateInvoice = [
   check("patientId").isNumeric().withMessage("Patient Id should be a number"),
+  check("patientType")
+  .isIn(["patient", "doctor", "employee"])
+  .withMessage("Invalid patient Type"),
   check("clinicId").isNumeric().withMessage("clinic Id should be a number"),
   check("services")
     .isArray()
@@ -518,10 +530,10 @@ let validateInvoice = [
     .withMessage("amountDue should be a number"),
 ];
 let validatePatchInvoice = [
-  check("patientId")
-    .optional()
-    .isNumeric()
-    .withMessage("Patient Id should be a number"),
+  check("patientId").optional().isNumeric().withMessage("Patient Id should be a number"),
+  check("patientType").optional()
+  .isIn(["patient", "doctor", "employee"])
+  .withMessage("Invalid patient Type"),
   check("clinicId")
     .optional()
     .isNumeric()
@@ -568,26 +580,28 @@ let validateLogin = [
 ];
 
 let validatePayment = [
-  check('amount')
-    .not().isEmpty()
+  check("amount")
+    .not()
+    .isEmpty()
     .withMessage("Amount is required")
     .isNumeric()
     .withMessage("Amount must be a number"),
-  check('card_number')
-    .not().isEmpty()
-    .withMessage("Card number is required"),
-  check('exp_month')
-    .not().isEmpty()
+  check("card_number").not().isEmpty().withMessage("Card number is required"),
+  check("exp_month")
+    .not()
+    .isEmpty()
     .withMessage("Expiration month is required")
     .isNumeric()
     .withMessage("Expiration month must be a number"),
-  check('exp_year')
-    .not().isEmpty()
+  check("exp_year")
+    .not()
+    .isEmpty()
     .withMessage("Expiration year is required")
     .isNumeric()
     .withMessage("Expiration year must be a number"),
-  check('cvc')
-    .not().isEmpty()
+  check("cvc")
+    .not()
+    .isEmpty()
     .withMessage("CVC is required")
     .isNumeric()
     .withMessage("CVC must be a number"),
@@ -611,5 +625,6 @@ module.exports = {
   validateInvoice,
   validatePatchInvoice,
   validateLogin,
-  validatePayment
+  excuseValidation,
+  validatePayment,
 };

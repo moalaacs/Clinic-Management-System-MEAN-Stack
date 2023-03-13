@@ -529,6 +529,21 @@ const mapDateToDay = (date) => {
   }
 };
 
+const dayToDate = (day) => {
+  let testdaySent = day;
+  testdaySent = testdaySent.split("/");
+  testdaySent = testdaySent[1] + "/" + testdaySent[0] + "/" + testdaySent[2];
+  return testdaySent;
+};
+
+const checkDateInFuture = (daySent) => {
+  let testdaySent = daySent;
+  testdaySent = testdaySent.split("/");
+  testdaySent = testdaySent[1] + "/" + testdaySent[0] + "/" + testdaySent[2];
+  if (new Date(testdaySent).getTime() > new Date().getTime()) return true;
+  return false;
+};
+
 module.exports = {
   filterData,
   paginateData,
@@ -538,4 +553,6 @@ module.exports = {
   mapSpecilityToSpecilization,
   dateBetween,
   mapDateToDay,
+  checkDateInFuture,
+  dayToDate,
 };

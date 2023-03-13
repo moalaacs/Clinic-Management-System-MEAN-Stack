@@ -17,7 +17,16 @@ const serviceSchema = new mongoose.Schema(
 /*** crete schema for invoices collection ***/
 const invoiceSchema = new mongoose.Schema({
   _id: {type: String, required: true},
-  patient_Id: { type: Number, required: true, ref: "patient" },
+  patientId: {
+    type: Number,
+    required: true,
+    ref: "user"
+  },
+  patientType: {
+    type: String,
+    required: true,
+    enum: ["patient", "doctor", "employee"],
+  },
   clinic_Id: { type: Number, required: true, ref: "clinic" },
   services: [serviceSchema],
   total: {

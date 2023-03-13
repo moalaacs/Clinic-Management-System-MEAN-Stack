@@ -6,6 +6,7 @@ const {
   doctorValidation,
   doctorPatchValidation,
   numberIdParamsValidation,
+  excuseValidation,
 } = require("../Middlewares/validateData");
 const router = express.Router();
 const { setMulter } = require("../Middlewares/multer");
@@ -24,7 +25,11 @@ router
 
 router
   .route("/doctor/:id")
-  .all(numberIdParamsValidation, validatorMiddleware,authorizationMW.access("doctor"))
+  .all(
+    numberIdParamsValidation,
+    validatorMiddleware,
+    authorizationMW.access("doctor")
+  )
   .get(controller.getDoctorById)
   .put(
     upload.single("photo"),
@@ -40,4 +45,9 @@ router
   )
   .delete(controller.removeDoctorById);
 
+router
+  .route("/doctor/excuse/:id/:day")
+  .all(excuseValidation, validatorMiddleware, authorizationMW.access("doctor"))
+  .post(controller.addExcuse)
+  .delete(controller.deleteExcuse);
 module.exports = router;

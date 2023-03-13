@@ -16,7 +16,7 @@ const appointmentRouter = require("./Routes/appointmentRouter");
 const prescriptionRouter = require("./Routes/prescriptionRouter");
 const invoiceRouter = require("./Routes/invoiceRouter");
 const paymentRouter = require("./Routes/paymentRouter");
-const showAppointmentRouter = require("./Routes/showAppointment");
+const showAppointmentRouter = require("./Routes/showAppointmentRouter");
 const {
   checkAppointmentsDaily,
 } = require("./Middlewares/dailyAppointmentCheck");
