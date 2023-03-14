@@ -10,11 +10,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
+import { MedicineComponent } from './medicine/medicine.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MedicineComponent
   ],
   imports: [
     BrowserModule,
