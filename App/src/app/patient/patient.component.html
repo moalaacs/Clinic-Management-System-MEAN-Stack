@@ -1,0 +1,46 @@
+<div class="patient-container">
+  <mat-toolbar color="primary">
+    <span class="patient-title">Patient List</span>
+    <span class="patient-spacer"></span>
+    <button mat-raised-button color="accent" routerLink="/patient/new">
+      Add Patient
+    </button>
+  </mat-toolbar>
+  <mat-card class="patient-card" *ngFor="let patient of patients">
+    <mat-card-header>
+      <mat-card-title>{{ patient.fname }} {{ patient.lname }}</mat-card-title>
+      <mat-card-subtitle
+        >{{ patient.gender }}, {{ patient.age }} years old</mat-card-subtitle
+      >
+    </mat-card-header>
+    <img
+      mat-card-image
+      [src]="patient.image || 'https://via.placeholder.com/150'"
+    />
+    <mat-card-content>
+      <p><strong>Contact Number:</strong> {{ patient.contactNumber }}</p>
+      <p><strong>Email:</strong> {{ patient.email }}</p>
+      <p><strong>Address:</strong> {{ patient.address }}</p>
+      <p><strong>Medical History:</strong> {{ patient.medicalHistory }}</p>
+      <p><strong>Invoices:</strong></p>
+      <ul>
+        <li *ngFor="let invoice of patient.invoices">
+          {{ invoice.invoice_id }} - Total: {{ invoice.total }}, Total Due:
+          {{ invoice.totalDue }}, Status: {{ invoice.status }}
+        </li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/patient/{{ patient.id }}"
+      >
+        Edit
+      </button>
+      <button mat-raised-button color="warn" (click)="deletePatient(patient)">
+        Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
