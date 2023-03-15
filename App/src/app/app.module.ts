@@ -11,19 +11,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { MedicineComponent } from './medicine/medicine.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MedicineComponent
+    MedicineComponent,
+    PrescriptionComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,NgbModule,
-    FormsModule,ReactiveFormsModule,
+    HttpClientModule, NgbModule,
+    FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule
   ],
   providers: [NgbActiveModal],
