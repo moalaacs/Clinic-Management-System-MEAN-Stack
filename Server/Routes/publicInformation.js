@@ -9,9 +9,3 @@ router.route("/clinicsinfo/:speciality").get(controller.getClinicsBySpecilizatio
 router.route("/clinicsinfo/:id").get(controller.getClinicInformationById);
 router.route("/clinicservice/:speciality").get(controller.getServicesBySpecilization);
 module.exports = router;
-
-
-
-
-
-

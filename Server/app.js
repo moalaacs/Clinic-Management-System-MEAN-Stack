@@ -60,6 +60,7 @@ async function connectToServer() {
     console.log("Connected to database");
     app.listen(port, () => {
       console.log("I am listening...", port);
+      checkAppointmentsDaily();
     });
   }
 }
@@ -74,7 +75,6 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // c- Routes (End points)  middleware
-checkAppointmentsDaily();
 /* Show Available Schedule */
 app.use(publicInformationRouter);
 /* Register patient */
