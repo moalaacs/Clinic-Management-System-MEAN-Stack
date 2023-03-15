@@ -19,6 +19,35 @@ exports.getAllWeeklySchedule = async (request, response, next) => {
         next(error);
     }
 };
+exports.getClinicsBySpecilization = async (request, response, next) => {
+    try {
+        let speciality=request.params.speciality;
+        speciality=speciality.replace(speciality[0],speciality[0].toUpperCase());
+      const clinics= await clinicSchema.find({_specilization:speciality}, { _id: 0,_address:1,_contactNumber:1,_weeklySchedule:1 });
+        response.status(200).json(clinics);
+    } catch (error) {
+        next(error);
+    }
+};
+exports.getClinicInformationById = async (request, response, next) => {
+    try {
+      const clinic= await clinicSchema.find({_id:request.params.id}, { _id: 0,_services:0,_email:0 });
+        response.status(200).json(clinic);
+    } catch (error) {
+        next(error);
+    }
+};
+exports.getServicesBySpecilization = async (request, response, next) => {
+    try {
+        let speciality=request.params.speciality;
+        speciality=speciality.replace(speciality[0],speciality[0].toUpperCase());
+      const clinicServices= await clinicSchema.find({_specilization:speciality}, { _id: 0,_services:1 });
+        response.status(200).json(clinicServices);
+    } catch (error) {
+        next(error);
+    }
+};
+
 const reqNamesToSchemaNames = (query) => {
     const fieldsToReplace = {
         id: "_id",
