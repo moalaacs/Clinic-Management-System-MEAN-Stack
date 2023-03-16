@@ -1,0 +1,7 @@
+<hr>
+<div *ngFor="let item of clinics">
+    <h4>{{item._contactNumber}}</h4>
+    <h4>{{item._address.city}} {{item._address.street}} , {{item._address.country}} , {{item._address.zipCode}}</h4>
+    <h4 *ngFor="let schedule of item._weeklySchedule">{{schedule.day}} , From {{schedule.start}} , To {{schedule.end}}</h4>
+</div>
+<router-outlet></router-outlet>

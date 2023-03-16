@@ -10,11 +10,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
+import { SpecilizationComponent } from './body/clinic/specilization/specilization.component';
+import { ServicesComponent } from './body/clinic/services/services.component';
+import { ClinicsInfoComponent } from './body/clinic/clinics-info/clinics-info.component';
+import { ClinicsInfoByIdComponent } from './body/clinic/clinics-info-by-id/clinics-info-by-id.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SpecilizationComponent,
+    ServicesComponent,
+    ClinicsInfoComponent,
+    ClinicsInfoByIdComponent,
   ],
   imports: [
     BrowserModule,
