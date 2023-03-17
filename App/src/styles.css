@@ -10,5 +10,147 @@
   margin: 0;
   padding: 0;
 }
-html, body { height: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #273cb442;
+  border-radius: 10px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8adbf;
+}
+
+.is-valid {
+  border-color: green !important;
+}
+
+.is-invalid {
+  border-color: red !important;
+}
+
+textarea {
+  resize: none;
+}
+
+.btn-disabled {
+  background-color: #1255c1 !important;
+  color: #fffdfd !important;
+  border: 1PX solid #1255c1 !important;
+  cursor: not-allowed !important;
+
+}
+
+.btn-primaryClr {
+  background-color: #0c4095;
+  color: #ffffff;
+  border: 1px solid #0c4095;
+}
+
+.btn-primaryClr:hover:not(:disabled) {
+  background-color: #082a60;
+  color: #ffffff;
+  border: 1px solid #082a60;
+}
+
+.btn-primaryClr:focus {
+  box-shadow: none !important;
+}
+
+
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 16px;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+}
+
+.styled-table thead tr {
+  background-color: #0c4095;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+.styled-table td:first-child, .styled-table th:first-child {
+  padding-left: 30px;
+}
+.styled-table td:last-child, .styled-table th:last-child {
+  padding: 12px 30px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  /* background-color: #f3f3f3; */
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #0c4095;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #0c4095;
+}
+
+#addButton {
+  width: fit-content;
+  padding: 6px 12px;
+}
+
+.button{
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+}
+
+.back-button{
+  color:#0c4095 !important ;
+}
+
+.save-button {
+  background-color: #0c4095 !important;
+  color: white !important;
+}
+.delete-button {
+  background-color: red !important;
+  color: white !important;
+}
+.cancel-button {
+  background-color: gray !important;
+  color: white !important;
+}
+
+

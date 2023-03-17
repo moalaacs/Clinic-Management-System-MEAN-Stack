@@ -47,6 +47,14 @@ function dateOfBirthValidator(value) {
   );
 }
 
+const invoicesSchema = new mongoose.Schema({
+  invoice_id: { type: String },
+  total: { type: Number },
+  totalDue: { type: Number },
+  status: { type: String },
+},  { _id: false });
+
+
 const personSchema = new mongoose.Schema(
   {
     _fname: { type: String, required: true, validate: nameValidator },
@@ -88,6 +96,8 @@ const personSchema = new mongoose.Schema(
     _address: addressSchema,
     _password: { type: String, required: true },
     _image: { type: String, required: true, default: "images\\default.jpeg" },
+    _medicalHistory: { type: String },
+    invoices: [invoicesSchema],
   },
   { _id: false }
 );

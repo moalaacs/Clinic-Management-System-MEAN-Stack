@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("mongoose-validator");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
+
 const phoneNumberValidator = [
   validator({
     validator: "matches",
@@ -33,6 +35,13 @@ const userSchema = new mongoose.Schema({
     default: 0,
   },
   _password: { type: String, required: true },
+});
+
+/*** auto increment for _id field ***/
+userSchema.plugin(AutoIncrement, {
+  id: "user_seq",
+  inc_field: "_id",
+  start_seq: 100000,
 });
 
 module.exports = mongoose.model("user", userSchema);

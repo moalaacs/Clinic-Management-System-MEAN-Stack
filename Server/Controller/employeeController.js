@@ -14,7 +14,10 @@ const {
   sortData,
   sliceData,
   paginateData,
+  responseFormat
 } = require("../helper/helperfns");
+
+/* Get */
 
 //get all Employees
 exports.getAllEmployees = async (request, response, next) => {
@@ -24,18 +27,43 @@ exports.getAllEmployees = async (request, response, next) => {
       {
         path: "_clinic",
         options: { strictPopulate: false },
-        select: { _id: 0, _specilization: 1, _address: 1 },
+        select: {  _specilization: 1, _address: 1 },
       },
     ]);
     Employees = sortData(Employees, query);
     Employees = paginateData(Employees, request.query);
     Employees = sliceData(Employees, request.query);
 
-    response.status(200).json(Employees);
+    const count = await employeeSchema.countDocuments(query);
+
+    response.status(200).json(responseFormat(true, Employees, "Employees retrieved successfully", parseInt(request.query.page), parseInt(request.query.limit), count, Math.ceil(count / parseInt(request.query.limit))));
+
   } catch (error) {
     next(error);
   }
 };
+
+// Get a employee by ID
+exports.getEmployeeById = async (request, response, next) => {
+  try {
+    const employee = await employeeSchema.findById(request.params.id).populate({
+      path: "_clinic",
+      options: { strictPopulate: false },
+      select: { _specilization: 1, _address: 1 },
+    });
+    if (!employee) {
+      return response.status(404).json(responseFormat(false, {}, "Employee not found", 0, 0, 0, 0));
+
+    }
+    response.status(200).json(responseFormat(true, employee, "Employee retrieved successfully", 0, 0, 0,0));
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+/*  Post  */
 
 // Add a new Employee
 exports.addEmployee = async (request, response, next) => {
@@ -43,16 +71,14 @@ exports.addEmployee = async (request, response, next) => {
     let testEmailandPhone = await users.findOne({
       $or: [
         { _email: request.body.email },
-        { _contactNumber: request.body.phone },
+        { _contactNumber: request.body.phoneNumber },
       ],
     });
     if (testEmailandPhone) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
+        return response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
       } else {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+        return response.status(400).json(responseFormat(false, {}, "Phone number Already in use", 0, 0, 0, 0));
       }
     }
     const hash = await bcrypt.hash(request.body.password, 10);
@@ -67,14 +93,15 @@ exports.addEmployee = async (request, response, next) => {
       _dateOfBirth: request.body.dateOfBirth,
       _age: age,
       _gender: request.body.gender,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _email: request.body.email,
       _address: request.body.address,
       _password: hash,
-      _clinic: request.body.clinic,
+      _clinic: request.body.clinicId,
       _monthlyRate: request.body.salary,
       _workingHours: request.body.workingHours,
       _medicalHistory: request.body.medicalHistory,
+      _role: request.body.role,
     };
     if (request.file) {
       sentObject._image = request.file.path;
@@ -85,41 +112,41 @@ exports.addEmployee = async (request, response, next) => {
       _idInSchema: savedEmployee._id,
       _role: "employee",
       _email: request.body.email,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _password: hash,
     });
     await newUser.save();
     response
-      .status(201)
-      .json({ message: "Employee created successfully.", employee });
+    .status(201)
+    .json(responseFormat(true, employee, "Employee added successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
 
+/*  Put  */
+
 // Edit a Employee
 exports.putEmployee = async (request, response, next) => {
   try {
+    console.log(request.body);
     let employeeExists = await employeeSchema.findOne({
       _id: request.params.id,
     });
-    if (!employeeExists)
-      return response
-        .status(400)
-        .json({ message: `Employee ${request.params.id} not found` });
+    if (!employeeExists){
+      return response.status(400).json(responseFormat(false, {}, `Employee not found`, 0, 0, 0, 0));
+    }
     let testEmailandPhone = await users.findOne({
       $or: [
         { _email: request.body.email },
-        { _contactNumber: request.body.phone },
+        { _contactNumber: request.body.phoneNumber },
       ],
     });
-    if (testEmailandPhone) {
+    if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
-      } else if (testEmailandPhone._contactNumber == request.body.phone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+        return   response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
+      } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
+        return  response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
       }
     }
     const hash = await bcrypt.hash(request.body.password, 10);
@@ -134,11 +161,11 @@ exports.putEmployee = async (request, response, next) => {
       _dateOfBirth: request.body.dateOfBirth,
       _age: age,
       _gender: request.body.gender,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _email: request.body.email,
       _address: request.body.address,
       _password: hash,
-      _clinic: request.body.clinic,
+      _clinic: request.body.clinicId,
       _monthlyRate: request.body.salary,
       _workingHours: request.body.workingHours,
       _medicalHistory: request.body.medicalHistory,
@@ -151,7 +178,7 @@ exports.putEmployee = async (request, response, next) => {
       {
         $set: {
           _email: request.body.email,
-          _contactNumber: request.body.phone,
+          _contactNumber: request.body.phoneNumber,
         },
       }
     );
@@ -163,15 +190,24 @@ exports.putEmployee = async (request, response, next) => {
     );
 
     response
-      .status(200)
-      .json({ message: "Employee updated successfully.", updatedEmployee });
+    .status(200)
+    .json(responseFormat(true, updatedEmployee, "Employee updated successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
 
+
+/*  Patch  */
+
 exports.patchEmployee = async (request, response, next) => {
   try {
+    let employeeExists = await employeeSchema.findOne({
+      _id: request.params.id,
+    });
+    if (!employeeExists){
+      return response.status(400).json(responseFormat(false, {}, `Employee not found`, 0, 0, 0, 0));
+    }
     let tempEmployee = {};
     if (request.body.firstname) {
       tempEmployee._fname = request.body.firstname;
@@ -179,28 +215,27 @@ exports.patchEmployee = async (request, response, next) => {
     if (request.body.lastname) {
       tempEmployee._lname = request.body.lastname;
     }
-    if (request.body.phone) {
-      tempEmployee._contactNumber = request.body.phone;
+    if (request.body.phoneNumber) {
+      tempEmployee._contactNumber = request.body.phoneNumber;
     }
     if (request.body.medicalHistory) {
       tempEmployee._medicalHistory = request.body.medicalHistory;
     }
-    if (request.body.clinic) {
+    if (request.body.clinicId) {
       let employeeExists = await clinicSchema.find({
-        _id: request.body.clinic,
+        _id: request.body.clinicId,
       });
-      if (!employeeExists)
-        return response
-          .status(400)
-          .json({ message: `Clinic ${request.body.clinic} not found` });
-      tempEmployee._clinics = request.body.clinic;
+      if (!employeeExists){
+        return response.status(400).json(responseFormat(false, {}, `Clinic ${request.body.clinic} not found`, 0, 0, 0, 0));
+        }
+      tempEmployee._clinics = request.body.clinicId;
     }
     if (request.body.email) {
       let testEmail = await users.findOne({
         _email: request.body.email,
       });
-      if (testEmail) {
-        return response.status(400).json({ message: `Email Already in use` });
+      if (testEmail && testEmail._idInSchema != request.params.id) {
+        return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       }
       await users.updateOne(
         { _idInSchema: request.params.id },
@@ -228,7 +263,7 @@ exports.patchEmployee = async (request, response, next) => {
         if (request.body.address.zipCode)
           tempEmployee["_address.zipCode"] = request.body.address.zipCode;
       } else {
-        return response.status(200).json({ message: `Address can't be empty` });
+        return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
       }
     }
     if (request.body.gender) {
@@ -256,13 +291,13 @@ exports.patchEmployee = async (request, response, next) => {
       { _id: request.params.id },
       { $set: tempEmployee }
     );
-    if (request.body.email && request.body.phone) {
+    if (request.body.email && request.body.phoneNumber) {
       await users.updateOne(
         { _idInSchema: request.params.id },
         {
           $set: {
             _email: request.body.email,
-            _contactNumber: request.body.phone,
+            _contactNumber: request.body.phoneNumber,
           },
         }
       );
@@ -271,36 +306,22 @@ exports.patchEmployee = async (request, response, next) => {
         { _idInSchema: request.params.id },
         { $set: { _email: request.body.email } }
       );
-    } else if (request.body.phone) {
+    } else if (request.body.phoneNumber) {
       await users.updateOne(
         { _idInSchema: request.params.id },
-        { $set: { _contactNumber: request.body.phone } }
+        { $set: { _contactNumber: request.body.phoneNumber } }
       );
     }
+    
     response
-      .status(200)
-      .json({ message: "Employee updated successfully.", tempEmployee });
+    .status(200)
+    .json(responseFormat(true, tempEmployee, "Employee updated successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
 
-// Get a employee by ID
-exports.getEmployeeById = async (request, response, next) => {
-  try {
-    const employee = await employeeSchema.findById(request.params.id).populate({
-      path: "_clinic",
-      options: { strictPopulate: false },
-      select: { _id: 0, _specilization: 1, _address: 1 },
-    });
-    if (!employee) {
-      return next(new Error("Employee not found"));
-    }
-    response.status(200).json(employee);
-  } catch (error) {
-    next(error);
-  }
-};
+/* Delete */
 
 // Remove a Employee
 exports.removeEmployeeById = async (request, response, next) => {
@@ -309,11 +330,9 @@ exports.removeEmployeeById = async (request, response, next) => {
       request.params.id || request.body.id
     );
     if (!employee) {
-      return next(new Error("Employee not found"));
+      return response.status(404).json(responseFormat(false, {}, "Employee not found", 0, 0, 0, 0));
     }
-    response
-      .status(201)
-      .json({ message: "Employee removed successfully.", employee });
+    response.status(200).json(responseFormat(true, employee, "Employee deleted successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
@@ -327,14 +346,15 @@ const reqNamesToSchemaNames = (query) => {
     dateOfBirth: "_dateOfBirth",
     age: "_age",
     gender: "_gender",
-    phone: "_contactNumber",
+    phoneNumber: "_contactNumber",
     email: "_email",
     address: "_address",
     profileImage: "_image",
-    clinic: "_clinic",
     salary: "_monthlyRate",
     workingHours: "_workingHours",
     medicalHistory: "_medicalHistory",
+    clinicId: "_clinic",
+    role: "_role"
   };
 
   const replacedQuery = {};
