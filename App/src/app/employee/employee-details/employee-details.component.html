@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row my-5">
+    <div class="text-end">
+      <button mat-button class="button back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+    </div>
+  </div>
+  <mat-card class="my-5 employee-card">
+    <mat-card-header class="employee-card-header">
+      <mat-card-title>Employee details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="employee">
+        <h2 class="employee-name">
+          {{ employee.firstname }} {{ employee.lastname }}
+        </h2>
+        <p><strong>Date of Birth:</strong> {{ employee.dateOfBirth }}</p>
+        <p><strong>Age:</strong> {{ employee.age }}</p>
+        <p><strong>Gender:</strong> {{ employee.gender }}</p>
+        <p><strong>Phone Number:</strong> {{ employee.phoneNumber }}</p>
+        <p><strong>Email:</strong> {{ employee.email }}</p>
+        <p>
+          <strong>Address:</strong> {{ employee.address.street }},
+          {{ employee.address.city }}, {{ employee.address.country }},
+          {{ employee.address.zipCode }}
+        </p>
+        <p>
+          <strong>Clinic:</strong> {{ employee.clinicId._specilization }}
+          <br />
+          <strong>Clinic Address:</strong>
+          {{ employee.clinicId._address.street }},
+          {{ employee.clinicId._address.city }},
+          {{ employee.clinicId._address.country }},
+          {{ employee.clinicId._address.zipCode }}
+        </p>
+        <p><strong>Salary:</strong> {{ employee.salary }}</p>
+        <p><strong>Working Hours:</strong> {{ employee.workingHours }}</p>
+        <p><strong>Role:</strong> {{ employee.role }}</p>
+
+        <div *ngIf="employee.medicalHistory">
+          <p><strong>Medical History:</strong> {{ employee.medicalHistory }}</p>
+        </div>
+        <div class="invoices" *ngIf="employee.invoices?.length > 0">
+          <h3 class="mat-subheading-1">Invoices</h3>
+          <mat-accordion *ngIf="employee.invoices?.length > 0">
+            <mat-expansion-panel *ngFor="let invoice of employee.invoices">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="mat-panel-title"
+                  >Invoice {{ invoice.invoice_id }}</mat-panel-title
+                >
+              </mat-expansion-panel-header>
+              <mat-panel-description class="mat-panel-description">
+                <p><strong>Total:</strong> {{ invoice.total }}</p>
+
+                <p><strong>Total Due:</strong> {{ invoice.totalDue }}</p>
+
+                <p><strong>Status:</strong> {{ invoice.status }}</p>
+              </mat-panel-description>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

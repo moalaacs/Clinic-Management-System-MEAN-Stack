@@ -67,11 +67,13 @@ header nav ul li.active > a {
 
 
 .btn-primary{
-  background-color: #006ba6 !important;
+  background-color: #0c4095 !important;
   color: #fff !important;
+  border: 1px solid #0c4095 !important;
 }
 .btn-primary:hover {
-  background-color: #004c77 !important;
+  background-color: #082a60 !important;
+  border: 1PX solid #082a60 !important;
 }
 .btn-secondary {
   border: 1px solid #333 ;
@@ -80,8 +82,8 @@ header nav ul li.active > a {
 }
 
 .btn-secondary:hover {
-  color: #006ba6 !important;
-  border: 1px solid #006ba6 !important;
+  color: #0c4095 !important;
+  border: 1px solid #0c4095 !important;
 }
 
 .burger-menu {
@@ -144,7 +146,7 @@ header nav ul li.active > a {
   }
 
   header.sticky .menu-container a:hover {
-    color: #006ba6;
+    color: #0c4095;
   }
 
   header.sticky .menu-container .close-menu {
@@ -158,7 +160,7 @@ header nav ul li.active > a {
   }
 
   header.sticky .menu-container .close-menu:hover {
-    color: #006ba6;
+    color: #0c4095;
   }
 }
 

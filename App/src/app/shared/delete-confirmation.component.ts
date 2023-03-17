@@ -6,7 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   template: `
   <div class="wrapper">
   <h1 mat-dialog-title class="title">Confirm Deletion</h1>
-  <p mat-dialog-content class="content">Are you sure you want to delete this patient?</p>
+  <p mat-dialog-content class="content">Are you sure you want to delete?</p>
   <div mat-dialog-actions class="buttons-div">
     <button mat-button (click)="cancel()" class="button cancel-button">Cancel</button>
     <button mat-button color="warn" (click)="confirm()" class="button delete-button">Delete</button>

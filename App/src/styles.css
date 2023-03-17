@@ -54,6 +54,7 @@ textarea {
 .btn-disabled {
   background-color: #1255c1 !important;
   color: #fffdfd !important;
+  border: 1PX solid #1255c1 !important;
   cursor: not-allowed !important;
 
 }
@@ -61,11 +62,13 @@ textarea {
 .btn-primaryClr {
   background-color: #0c4095;
   color: #ffffff;
+  border: 1px solid #0c4095;
 }
 
 .btn-primaryClr:hover:not(:disabled) {
   background-color: #082a60;
   color: #ffffff;
+  border: 1px solid #082a60;
 }
 
 .btn-primaryClr:focus {
@@ -91,8 +94,14 @@ textarea {
 
 .styled-table th,
 .styled-table td {
-  padding: 12px 10px 12px 30px;
+  padding: 12px 10px;
   vertical-align: middle;
+}
+.styled-table td:first-child, .styled-table th:first-child {
+  padding-left: 30px;
+}
+.styled-table td:last-child, .styled-table th:last-child {
+  padding: 12px 30px;
 }
 
 .styled-table tbody tr {

@@ -122,7 +122,7 @@ exports.putPatientById = async (request, response, next) => {
         { _contactNumber: request.body.phoneNumber },
       ],
     });
-    if (testEmailandPhone) {
+    if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
       if (testEmailandPhone._email == request.body.email) {
         return   response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
@@ -246,7 +246,7 @@ exports.patchPatientById = async (request, response, next) => {
         ],
         $ne: { _idInSchema: request.params.id },
       });
-      if (testEmailandPhone) {
+      if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
         if (testEmailandPhone._email == request.body.email) {
           return  response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
         } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
@@ -267,7 +267,7 @@ exports.patchPatientById = async (request, response, next) => {
       let testPhone = await users.findOne({
         _contactNumber: request.body.phoneNumber,
       });
-      if (testPhone) {
+      if (testPhone && testPhone._idInSchema != request.params.id) {
         return  response.status(400).json(responseFormat(false, {}, "Phone number Already in use", 0, 0, 0, 0));
       } else {
         await users.updateOne(
@@ -280,7 +280,7 @@ exports.patchPatientById = async (request, response, next) => {
         _email: request.body.email,
         _id: { $ne: request.params.id }
       });
-      if (testEmail) {
+      if (testEmail && testEmail._idInSchema != request.params.id) {
         return response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
         
       } else {

@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Patient } from '../../models/patient';
 import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
@@ -121,7 +120,6 @@ export class PatientEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     this.patientForm.value.dateOfBirth = this.datePipe.transform(this.patientForm.value.dateOfBirth, 'dd/MM/yyyy');
     const formData = new FormData();
     if (this.patientForm.value.image) {
@@ -133,7 +131,7 @@ export class PatientEditComponent implements OnInit {
     const savePatient: Observable<any> = this.patientService.patchPatientById(this.patientId,patient, this.patientForm.value.image)
     savePatient.subscribe(
       (data) => {
-        this.snackBar.open('Patient saved successfully.', 'Close', {
+        this.snackBar.open('Patient updated successfully.', 'Close', {
           duration: 3000
         });
         this.router.navigate(['/patient']);

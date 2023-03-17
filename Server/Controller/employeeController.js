@@ -27,7 +27,7 @@ exports.getAllEmployees = async (request, response, next) => {
       {
         path: "_clinic",
         options: { strictPopulate: false },
-        select: { _id: 0, _specilization: 1, _address: 1 },
+        select: {  _specilization: 1, _address: 1 },
       },
     ]);
     Employees = sortData(Employees, query);
@@ -49,7 +49,7 @@ exports.getEmployeeById = async (request, response, next) => {
     const employee = await employeeSchema.findById(request.params.id).populate({
       path: "_clinic",
       options: { strictPopulate: false },
-      select: { _id: 0, _specilization: 1, _address: 1 },
+      select: { _specilization: 1, _address: 1 },
     });
     if (!employee) {
       return response.status(404).json(responseFormat(false, {}, "Employee not found", 0, 0, 0, 0));
@@ -101,6 +101,7 @@ exports.addEmployee = async (request, response, next) => {
       _monthlyRate: request.body.salary,
       _workingHours: request.body.workingHours,
       _medicalHistory: request.body.medicalHistory,
+      _role: request.body.role,
     };
     if (request.file) {
       sentObject._image = request.file.path;
@@ -128,6 +129,7 @@ exports.addEmployee = async (request, response, next) => {
 // Edit a Employee
 exports.putEmployee = async (request, response, next) => {
   try {
+    console.log(request.body);
     let employeeExists = await employeeSchema.findOne({
       _id: request.params.id,
     });
@@ -140,7 +142,7 @@ exports.putEmployee = async (request, response, next) => {
         { _contactNumber: request.body.phoneNumber },
       ],
     });
-    if (testEmailandPhone) {
+    if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
       if (testEmailandPhone._email == request.body.email) {
         return   response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
@@ -200,14 +202,12 @@ exports.putEmployee = async (request, response, next) => {
 
 exports.patchEmployee = async (request, response, next) => {
   try {
-
     let employeeExists = await employeeSchema.findOne({
       _id: request.params.id,
     });
     if (!employeeExists){
       return response.status(400).json(responseFormat(false, {}, `Employee not found`, 0, 0, 0, 0));
     }
-
     let tempEmployee = {};
     if (request.body.firstname) {
       tempEmployee._fname = request.body.firstname;
@@ -233,9 +233,8 @@ exports.patchEmployee = async (request, response, next) => {
     if (request.body.email) {
       let testEmail = await users.findOne({
         _email: request.body.email,
-        $ne: { _idInSchema: request.params.id },
       });
-      if (testEmail) {
+      if (testEmail && testEmail._idInSchema != request.params.id) {
         return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       }
       await users.updateOne(

@@ -17,31 +17,31 @@ import { MatListModule } from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 
-import { PatientRoutingModule } from './patient-routing.module';
-import { PatientListComponent } from './patient-list/patient-list.component';
-import { PatientDetailsComponent } from './patient-details/patient-details.component';
-import { PatientAddComponent } from './patient-add/patient-add.component';
-import { PatientEditComponent } from './patient-edit/patient-edit.component';
+import { EmployeeRoutingModule } from './employee-routing.module';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmployeeAddComponent } from './employee-add/employee-add.component';
+
 
 
 @NgModule({
   declarations: [
-    PatientListComponent,
-    PatientDetailsComponent,
-    PatientAddComponent,
-    PatientEditComponent
+    EmployeeListComponent,
+    EmployeeDetailsComponent,
+    EmployeeEditComponent,
+    EmployeeAddComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,PatientRoutingModule,
+    FormsModule,EmployeeRoutingModule,
     MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule,
     ReactiveFormsModule,MatSnackBarModule,MatDatepickerModule,MatButtonModule,
     MatToolbarModule,MatProgressBarModule,MatGridListModule,MatIconModule,MatListModule
-    ,MatExpansionModule,MatNativeDateModule,MatDialogModule
+    ,MatExpansionModule,MatNativeDateModule,MatDialogModule,MatSelectModule
   ]
 })
-
-
-export class PatientModule { }
+export class EmployeeModule { }

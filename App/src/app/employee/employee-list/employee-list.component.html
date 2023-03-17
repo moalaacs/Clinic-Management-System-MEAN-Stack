@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mt-5">
     <div class="text-end">
-      <a [routerLink]="['/patient/add']">
+      <a [routerLink]="['/employee/add']">
         <button
           type="button"
           class="btn btn-sm btn-primaryClr me-2 col-2"
@@ -23,28 +23,38 @@
           <th scope="col">Age</th>
           <th scope="col">Phone Number</th>
           <th scope="col">Address</th>
+          <th scope="col">Role</th>
+          <th scope="col">Clinic Address</th>
+          <th scope="col">Clinic Specialization</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of patients; let i = index">
+        <tr *ngFor="let employee of employees; let i = index">
           <td scope="row">{{ i + 1 }}</td>
-          <td>{{ patient.firstname }} {{ patient.lastname }}</td>
-          <td>{{ patient.email }}</td>
-          <td>{{ patient.age }}</td>
-          <td>{{ patient.phoneNumber }}</td>
+          <td>{{ employee.firstname }} {{ employee.lastname }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.age }}</td>
+          <td>{{ employee.phoneNumber }}</td>
           <td>
-            {{ patient.address.country }}, {{ patient.address.city }},
-            {{ patient.address.street }}
+            {{ employee.address.country }}, {{ employee.address.city }},
+            {{ employee.address.street }}
           </td>
+          <td>{{ employee.role }}</td>
+          <td>
+            {{ employee.clinicId._address.street }},
+            {{ employee.clinicId._address.city }},
+            {{ employee.clinicId._address.country }}
+          </td>
+          <td>{{ employee.clinicId._specilization }}</td>
           <td>
             <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
-              <a [routerLink]="['/patient/edit/', patient.id]">
+              <a [routerLink]="['/employee/edit/', employee.id]">
                 <button type="button" class="btn btn-sm btn-primary me-2">
                   <i class="fa fa-edit"></i>
                 </button>
               </a>
-              <a [routerLink]="['/patient/details/', patient.id]">
+              <a [routerLink]="['/employee/details/', employee.id]">
                 <button class="btn btn-sm btn-dark me-2">
                   <i class="fa fa-eye"></i>
                 </button>
@@ -52,7 +62,7 @@
               <a>
                 <button
                   class="btn btn-sm btn-danger"
-                  (click)="deletePatient(patient.id)"
+                  (click)="deleteEmployee(employee.id)"
                 >
                   <i class="fa fa-trash"></i>
                 </button>

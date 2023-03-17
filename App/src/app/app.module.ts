@@ -19,7 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { PatientModule } from './patient/patient.module';
-
+import { DoctorModule } from './doctor/doctor.module';
+import { EmployeeModule } from './employee/employee.module';
 
 
 @NgModule({
@@ -28,13 +29,12 @@ import { PatientModule } from './patient/patient.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,NgbModule,
-    FormsModule,ReactiveFormsModule,
-    LandingPageModule, FlexLayoutModule,PatientModule,
-    MatSlideToggleModule,MatCardModule,MatFormFieldModule,MatInputModule,MatNativeDateModule,
-    MatIconModule
+    FormsModule,ReactiveFormsModule, FlexLayoutModule,
+    MatSlideToggleModule,MatCardModule,MatFormFieldModule,
+    MatInputModule,MatNativeDateModule,MatIconModule,
+    AppRoutingModule,LandingPageModule,PatientModule,DoctorModule,EmployeeModule
   ],
   providers: [NgbActiveModal,DatePipe],
   bootstrap: [AppComponent]
