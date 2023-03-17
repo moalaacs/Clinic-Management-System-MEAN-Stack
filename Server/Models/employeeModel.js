@@ -3,14 +3,6 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const personSchema = require("./personModel");
 
 
-const invoicesSchema = new mongoose.Schema({
-  invoice_id: { type: String },
-  total: { type: Number },
-  totalDue: { type: Number },
-  status: { type: String },
-},  { _id: false });
-
-
 /*** crete schema for employees collection ***/
 const employeeSchema = new mongoose.Schema(
   Object.assign({}, personSchema.obj, {
@@ -19,8 +11,6 @@ const employeeSchema = new mongoose.Schema(
     _monthlyRate: { type: Number },
     _workingHours: { type: Number, min: 0, max: 24 },
     _role: { type: String, required: true, enum: ['receptionist', 'nurse'] },
-    _medicalHistory: { type: String },
-    invoices: [invoicesSchema]
   })
 );
 

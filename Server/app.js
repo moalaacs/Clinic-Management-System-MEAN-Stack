@@ -2,6 +2,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors");
+
 
 /**** Import Routes *****/
 const registerRouter = require("./Routes/registerRouter");
@@ -64,6 +66,7 @@ async function connectToServer() {
   }
 }
 connectToServer();
+app.use(cors());
 
 /**** Middlewares ****/
 
@@ -73,6 +76,8 @@ app.use(morgan("dev"));
 // b- body parser middleware
 app.use(express.json());
 
+
+
 // c- Routes (End points)  middleware
 checkAppointmentsDaily();
 /* Show Available Schedule */
@@ -80,9 +85,9 @@ app.use(showAppointmentRouter);
 /* Register patient */
 app.use(registerRouter);
 /* Authenticate user */
-app.use(authenticate);
+// app.use(authenticate);
 /* Authorization user */
-app.use(authorizationMW);
+// app.use(authorizationMW);
 
 /*Routes*/
 app.use(doctorRouter);

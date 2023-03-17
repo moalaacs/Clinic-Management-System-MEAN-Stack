@@ -1,5 +1,4 @@
 import { Person } from './person';
-import { Invoices } from './person';
 
 export interface Employee extends Person {
   id: number;
@@ -7,6 +6,4 @@ export interface Employee extends Person {
   monthlyRate: number;
   workingHours: number;
   role: "receptionist" | "nurse";
-  medicalHistory: string;
-  invoices: Invoices[];
 }

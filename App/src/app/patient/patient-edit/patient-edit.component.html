@@ -1,0 +1,479 @@
+<!-- <div class="container mt-4">
+  <div class="row my-5">
+    <div class="text-end">
+      <button type="button" class="btn btn-primaryClr" (click)="goBack()">
+        <i class="fa fa-arrow-left"></i> Back
+      </button>
+    </div>
+  </div>
+  <h1>Edit Patient</h1>
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" novalidate>
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstname" />
+          <mat-error
+            *ngIf="
+              patientForm.get('firstname')?.invalid &&
+              patientForm.get('firstname')?.touched
+            "
+          >
+            Please enter a valid first name.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastname" />
+          <mat-error
+            *ngIf="
+              patientForm.get('lastname')?.invalid &&
+              patientForm.get('lastname')?.touched
+            "
+          >
+            Please enter a valid last name.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            formControlName="dateOfBirth"
+            [min]="minDate"
+            [max]="maxDate"
+            [value]="defaultDate"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error
+            *ngIf="
+              patientForm.get('dateOfBirth')?.invalid &&
+              patientForm.get('dateOfBirth')?.touched
+            "
+          >
+            Please enter a valid date of birth.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-radio-group formControlName="gender">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" />
+          <mat-error
+            *ngIf="
+              patientForm.get('phoneNumber')?.invalid &&
+              patientForm.get('phoneNumber')?.touched
+            "
+          >
+            Please enter a valid phone number.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error
+            *ngIf="
+              patientForm.get('email')?.invalid &&
+              patientForm.get('email')?.touched
+            "
+          >
+            Please enter a valid email address.
+          </mat-error>
+        </mat-form-field>
+
+        <div formGroupName="address">
+          <mat-form-field appearance="fill">
+            <mat-label>State</mat-label>
+            <input matInput formControlName="street" />
+            <mat-error
+              *ngIf="
+                patientForm.get('street')?.invalid &&
+                patientForm.get('street')?.touched
+              "
+            >
+              Please enter a valid state.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" />
+            <mat-error
+              *ngIf="
+                patientForm.get('city')?.invalid &&
+                patientForm.get('city')?.touched
+              "
+            >
+              Please enter a valid city.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+            <mat-error
+              *ngIf="
+                patientForm.get('country')?.invalid &&
+                patientForm.get('country')?.touched
+              "
+            >
+              Please enter a valid country.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Zip Code</mat-label>
+            <input matInput formControlName="zipCode" />
+            <mat-error
+              *ngIf="
+                patientForm.get('zipCode')?.invalid &&
+                patientForm.get('zipCode')?.touched
+              "
+            >
+              Please enter a valid zip code.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-error
+            *ngIf="
+              patientForm.get('password')?.invalid &&
+              patientForm.get('password')?.touched
+            "
+          >
+            Please enter a valid password.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Medical History</mat-label>
+          <textarea
+            matInput
+            formControlName="medicalHistory"
+            rows="4"
+            cols="50"
+            resize="none"
+          ></textarea>
+          <mat-error
+            *ngIf="
+              patientForm.get('medicalHistory')?.invalid &&
+              patientForm.get('medicalHistory')?.touched
+            "
+          >
+            Please enter a valid medical history.
+          </mat-error>
+        </mat-form-field>
+        <div class="buttons">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="patientForm.invalid"
+            class="button button-save"
+          >
+            Save
+          </button>
+
+          <button
+            mat-raised-button
+            type="button"
+            color="warn"
+            class="button button-delete"
+            *ngIf="patientId"
+            (click)="onDelete()"
+          >
+            Delete
+          </button>
+          <button
+            mat-raised-button
+            type="button"
+            class="button button-cancel"
+            (click)="goBack()"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+<div class="container">
+  <div class="row my-5">
+    <div class="text-end">
+      <button mat-button class="button back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+    </div>
+  </div>
+  <mat-card class="py-4 mb-5">
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="form p-3">
+      <div
+        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+      >
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstname" required />
+          <mat-error
+            *ngIf="
+              patientForm.get('firstname')?.invalid &&
+              (patientForm.get('firstname')?.dirty ||
+                patientForm.get('firstname')?.touched)
+            "
+          >
+            <span *ngIf="patientForm.get('firstname')?.errors?.['pattern']">
+              {{ validationMessages.firstname.pattern }}
+            </span>
+            <span *ngIf="patientForm.get('firstname')?.errors?.['minlength']">
+              {{ validationMessages.firstname.minlength }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastname" required />
+          <mat-error
+            *ngIf="
+              patientForm.get('lastname')?.invalid &&
+              (patientForm.get('lastname')?.dirty ||
+                patientForm.get('lastname')?.touched)
+            "
+          >
+            <span *ngIf="patientForm.get('lastname')?.errors?.['pattern']">
+              {{ validationMessages.lastname.pattern }}
+            </span>
+            <span *ngIf="patientForm.get('lastname')?.errors?.['minlength']">
+              {{ validationMessages.lastname.minlength }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div
+        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+      >
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" required />
+          <mat-error
+            class="error-message"
+            *ngIf="
+              patientForm.get('phoneNumber')?.invalid &&
+              (patientForm.get('phoneNumber')?.dirty ||
+                patientForm.get('phoneNumber')?.touched)
+            "
+          >
+            <span *ngIf="patientForm.get('phoneNumber')?.errors?.['pattern']">
+              {{ validationMessages.phoneNumber.pattern }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required />
+          <mat-error
+            class="error-message"
+            *ngIf="
+              patientForm.get('email')?.invalid &&
+              (patientForm.get('email')?.dirty ||
+                patientForm.get('email')?.touched)
+            "
+          >
+            <span *ngIf="patientForm.get('email')?.errors?.['email']">{{
+              validationMessages.email.email
+            }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div
+        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+      >
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dateOfBirth"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="
+              patientForm.get('dateOfBirth')?.invalid &&
+              (patientForm.get('dateOfBirth')?.dirty ||
+                patientForm.get('dateOfBirth')?.touched)
+            "
+          >
+            <span *ngIf="patientForm.get('dateOfBirth')?.errors?.['pattern']">
+              {{ validationMessages.dateOfBirth.pattern }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required />
+          <mat-error
+            *ngIf="
+              patientForm.get('password')?.invalid &&
+              (patientForm.get('password')?.dirty ||
+                patientForm.get('password')?.touched)
+            "
+          >
+            <span *ngIf="patientForm.get('password')?.errors?.['pattern']">
+              {{ validationMessages.password.pattern }}
+            </span>
+            <span *ngIf="patientForm.get('password')?.errors?.['minlength']">
+              {{ validationMessages.password.minlength }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div formGroupName="address">
+        <div
+          class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        >
+          <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+            <mat-label>Street</mat-label>
+            <input matInput formControlName="street" required />
+            <mat-error
+              class="error-message"
+              *ngIf="
+                patientForm.get('address.street')?.invalid &&
+                (patientForm.get('address.street')?.dirty ||
+                  patientForm.get('address.street')?.touched)
+              "
+            >
+              <span
+                *ngIf="patientForm.get('address.street')?.errors?.['pattern']"
+                >{{ validationMessages.address.street.pattern }}</span
+              >
+              <span
+                *ngIf="patientForm.get('address.street')?.errors?.['minlength']"
+                >{{ validationMessages.address.street.minlength }}</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" required />
+            <mat-error
+              class="error-message"
+              *ngIf="
+                patientForm.get('address.city')?.invalid &&
+                (patientForm.get('address.city')?.dirty ||
+                  patientForm.get('address.city')?.touched)
+              "
+            >
+              <span
+                *ngIf="patientForm.get('address.city')?.errors?.['pattern']"
+                >{{ validationMessages.address.city.pattern }}</span
+              >
+              <span
+                *ngIf="patientForm.get('address.city')?.errors?.['minlength']"
+                >{{ validationMessages.address.city.minlength }}</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div
+          class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        >
+          <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" required />
+
+            <mat-error
+              class="error-message"
+              *ngIf="
+                patientForm.get('address.country')?.invalid &&
+                (patientForm.get('address.country')?.dirty ||
+                  patientForm.get('address.country')?.touched)
+              "
+            >
+              <span
+                *ngIf="patientForm.get('address.country')?.errors?.['pattern']"
+                >{{ validationMessages.address.country.pattern }}</span
+              >
+              <span
+                *ngIf="patientForm.get('address.country')?.errors?.['minlength']"
+                >{{ validationMessages.address.country.minlength }}</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+            <mat-label>Zip Code</mat-label>
+            <input matInput formControlName="zipCode" required />
+
+            <mat-error
+              class="error-message"
+              *ngIf="
+                patientForm.get('address.zipCode')?.invalid &&
+                (patientForm.get('address.zipCode')?.dirty ||
+                  patientForm.get('address.zipCode')?.touched)
+              "
+            >
+              <span
+                *ngIf="patientForm.get('address.zipCode')?.errors?.['pattern']"
+                >{{ validationMessages.address.zipCode.pattern }}</span
+              >
+              <span
+                *ngIf="patientForm.get('address.zipCode')?.errors?.['minlength']"
+                >{{ validationMessages.address.zipCode.minlength }}</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+      >
+        <div
+          class="d-flex flex-column justify-content-center gap-2 col-12 col-md-5"
+        >
+          <mat-radio-group formControlName="gender" class="form-field">
+            <mat-radio-button value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+          </mat-radio-group>
+          <div class="d-flex gap-1">
+            <label for="photo">Profile Photo: </label>
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+          </div>
+        </div>
+        <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
+          <mat-label>Medical History</mat-label>
+          <textarea matInput formControlName="medicalHistory"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row d-flex justify-content-end me-5 pe-3">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!patientForm.valid"
+        >
+          Update Patient
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

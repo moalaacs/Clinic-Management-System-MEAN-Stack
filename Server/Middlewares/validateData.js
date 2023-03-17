@@ -113,7 +113,7 @@ let validatePerson = [
   check("gender")
     .isIn(["male", "female"])
     .withMessage("gender must be either male or female"),
-  check("phone")
+  check("phoneNumber")
     .matches(/^01[0125](\-)?[0-9]{8}$/)
     .withMessage("Contact number should be a number"),
   check("password").isStrongPassword().withMessage("password should be strong"),

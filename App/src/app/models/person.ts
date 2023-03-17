@@ -1,4 +1,4 @@
-interface Address {
+export interface Address {
   street: string;
   city: string;
   country: string;
@@ -14,14 +14,16 @@ export interface Invoices {
 }
 
 export interface Person {
-  fname: string;
-  lname: string;
+  firstname: string;
+  lastname: string;
   dateOfBirth: string;
   age: number;
   gender: string;
-  contactNumber: string;
+  phoneNumber: string;
   email: string;
   address: Address;
   password: string;
-  image: string;
+  image: string | ArrayBuffer | null;
+  medicalHistory: string;
+  invoices: Invoices[];
 }

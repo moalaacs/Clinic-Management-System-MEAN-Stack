@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { LandingPageRoutingModule } from './landing-page-routing.module';
 
 import { LandingPageComponent } from './landing-page.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,7 +19,8 @@ import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
-    CommonModule, FlexLayoutModule
+    CommonModule, FlexLayoutModule,
+    LandingPageRoutingModule
   ],
   declarations: [LandingPageComponent, HeaderComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, BlogSectionComponent, BrandPartnersSectionComponent, FooterComponent],
 

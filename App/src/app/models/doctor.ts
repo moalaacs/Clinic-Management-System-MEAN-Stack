@@ -1,5 +1,4 @@
 import { Person } from './person';
-import { Invoices } from './person';
 
 
 export interface Schedule {

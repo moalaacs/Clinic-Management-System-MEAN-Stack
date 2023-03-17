@@ -161,3 +161,13 @@ header nav ul li.active > a {
     color: #006ba6;
   }
 }
+
+
+.active a {
+  font-weight: bold;
+  color: #b4272d;
+}
+
+.nav-item .nav-link {
+  cursor: pointer;
+}
