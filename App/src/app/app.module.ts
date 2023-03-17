@@ -14,10 +14,10 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
-import { SignInComponent } from './signIn/signIn.component';
 import { PatientModule } from './patient/patient.module';
 
 
@@ -25,7 +25,6 @@ import { PatientModule } from './patient/patient.module';
 @NgModule({
   declarations: [
     AppComponent,
-      SignInComponent,
   ],
   imports: [
     BrowserModule,

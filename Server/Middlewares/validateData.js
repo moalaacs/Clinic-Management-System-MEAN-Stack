@@ -140,6 +140,10 @@ let validatePerson = [
     .withMessage("zip code should be a number")
     .isLength({ min: 5, max: 5 })
     .withMessage("length of zip code should be 5 characters"),
+    check("medicalHistory")
+    .optional()
+    .isString()
+    .withMessage("medical history should be a string"),
 ];
 let validatePatchPerson = [
   check("_id").optional().isNumeric().withMessage("Id should be a number"),
@@ -165,7 +169,7 @@ let validatePatchPerson = [
     .optional()
     .isIn(["male", "female"])
     .withMessage("gender must be either male or female"),
-  check("phone")
+  check("phoneNumber")
     .optional()
     .matches(/^01[0125](\-)?[0-9]{8}$/)
     .withMessage("Contact number should be a number"),
@@ -201,20 +205,16 @@ let validatePatchPerson = [
     .withMessage("zip code should be a number")
     .isLength({ min: 5, max: 5 })
     .withMessage("length of zip code should be 5 characters"),
-];
-let validatePatient = [
-  validatePerson,
-  check("medicalHistory")
+    check("medicalHistory")
     .optional()
     .isString()
     .withMessage("medical history should be a string"),
+];
+let validatePatient = [
+  validatePerson
 ];
 let validatePatchPatient = [
   validatePatchPerson,
-  check("medicalHistory")
-    .optional()
-    .isString()
-    .withMessage("medical history should be a string"),
 ];
 let doctorValidation = [
   validatePerson,
@@ -250,10 +250,8 @@ let doctorValidation = [
   check("schedule.*.end")
     .matches(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
     .withMessage("Invalid End time format, should be in the form 00:00"),
-    check("medicalHistory")
-    .optional()
-    .isString()
-    .withMessage("medical history should be a string"),
+    check("clinicId").isInt().withMessage("clinicId should be a number"),
+
 ];
 let doctorPatchValidation = [
   validatePatchPerson,
@@ -300,10 +298,7 @@ let doctorPatchValidation = [
     .optional()
     .matches(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
     .withMessage("Invalid End time format, should be in the form 00:00"),
-    check("medicalHistory")
-    .optional()
-    .isString()
-    .withMessage("medical history should be a string"),
+    check("clinicId").optional().isInt().withMessage("clinicId should be a number"),
 ];
 let numberIdParamsValidation = [
   param("id").isInt().withMessage("ID must be number"),
@@ -316,24 +311,19 @@ let excuseValidation = [
 ];
 let employeeValidation = [
   validatePerson,
+  check("ClinicId").isInt().withMessage("ClinicId should be number"),
   check("salary").isInt().withMessage("salary should be number"),
   check("workingHours").isInt().withMessage("workingHours should be number"),
-  check("medicalHistory")
-    .optional()
-    .isString()
-    .withMessage("medical history should be a string"),
 ];
 let employeePatchValidation = [
   validatePatchPerson,
+  check("ClinicId").optional().isInt().withMessage("ClinicId should be number"),
+
   check("salary").optional().isInt().withMessage("salary should be number"),
   check("workingHours")
     .optional()
     .isInt()
     .withMessage("workingHours should be number"),
-    check("medicalHistory")
-    .optional()
-    .isString()
-    .withMessage("medical history should be a string"),
 ];
 let medicineValidation = [
   check("name").isString().withMessage("Name should be a string"),

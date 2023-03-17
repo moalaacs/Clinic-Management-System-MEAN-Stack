@@ -171,3 +171,29 @@ header nav ul li.active > a {
 .nav-item .nav-link {
   cursor: pointer;
 }
+
+
+
+
+.mat-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fill-remaining-space {
+  flex-grow: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .mat-toolbar {
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+  }
+
+  .fill-remaining-space {
+    display: none;
+  }
+}

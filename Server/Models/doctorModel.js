@@ -92,6 +92,51 @@ const doctorSchema = new mongoose.Schema(
     ],
   })
 );
+
+
+doctorSchema.set('toJSON', {
+  transform: function(doc, ret) {
+    ret.firstname = ret._fname;
+    ret.lastname = ret._lname;
+    ret.dateOfBirth = ret._dateOfBirth;
+    ret.age = ret._age;
+    ret.gender = ret._gender;
+    ret.phoneNumber = ret._contactNumber;
+    ret.email = ret._email;
+    ret.password = ret._password;
+    ret.address = ret._address;
+    ret.image  = ret._image;
+    ret.id = ret._id;
+    ret.medicalHistory = ret._medicalHistory;
+    ret.speciality = ret._specilization;
+    ret.schedule = ret._schedule;
+    ret.clinicId = ret._clinic;
+    ret.appointments = ret._appointments;
+    ret.excuses = ret._excuses;
+
+
+    delete ret._fname;
+    delete ret._lname;
+    delete ret._dateOfBirth;
+    delete ret._age;
+    delete ret._gender;
+    delete ret._contactNumber;
+    delete ret._email;
+    delete ret._password;
+    delete ret._image;
+    delete ret._medicalHistory
+    delete ret._address;
+    delete ret._id;
+    delete ret._specilization;
+    delete ret._schedule;
+    delete ret._clinic;
+    delete ret._appointments;
+    delete ret._excuses;
+
+    delete ret.__v;
+  }
+});
+
 /*** auto increment for _id field ***/
 doctorSchema.plugin(AutoIncrement, {
   id: "doctor_seq",

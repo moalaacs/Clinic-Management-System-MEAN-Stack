@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
+
+
 
 import { LandingPageRoutingModule } from './landing-page-routing.module';
 
@@ -20,7 +27,7 @@ import { FooterComponent } from './footer/footer.component';
 @NgModule({
   imports: [
     CommonModule, FlexLayoutModule,
-    LandingPageRoutingModule
+    LandingPageRoutingModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
   ],
   declarations: [LandingPageComponent, HeaderComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, BlogSectionComponent, BrandPartnersSectionComponent, FooterComponent],
 
