@@ -11,6 +11,10 @@ import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { ClinicModule } from './body/clinic/clinic.module';
 import { SpecilityToImagePipe } from './pipes/specility-to-image.pipe';
+import { AppointmentAddComponent } from './body/appointment/appointment-add/appointment-add.component';
+import { AppointmentDetailsComponent } from './body/appointment/appointment-details/appointment-details.component';
+import { MedicineModule } from './body/medicine/medicine.module';
+import { AppointmentModule } from './body/appointment/appointment.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +27,7 @@ import { SpecilityToImagePipe } from './pipes/specility-to-image.pipe';
     HttpClientModule, NgbModule,
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
-    ClinicModule
+    ClinicModule, MedicineModule, AppointmentModule
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]
