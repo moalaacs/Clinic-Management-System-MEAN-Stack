@@ -31,7 +31,7 @@ exports.getClinicsBySpecilization = async (request, response, next) => {
 };
 exports.getClinicInformationById = async (request, response, next) => {
     try {
-      const clinic= await clinicSchema.find({_id:request.params.id}, { _id: 0,_services:0,_email:0 });
+      const clinic= await clinicSchema.findOne({_id:request.params.id}, { _id: 0,_services:0,_email:0 });
         response.status(200).json(clinic);
     } catch (error) {
         next(error);
@@ -41,8 +41,21 @@ exports.getServicesBySpecilization = async (request, response, next) => {
     try {
         let speciality=request.params.speciality;
         speciality=speciality.replace(speciality[0],speciality[0].toUpperCase());
-      const clinicServices= await clinicSchema.find({_specilization:speciality}, { _id: 0,_services:1 });
-        response.status(200).json(clinicServices);
+        const clinicServices= await clinicSchema.findOne({_specilization:speciality}, { _id: 0,_services:1 });
+        if(!clinicServices)response.status(201).json("No Such Specilization");
+        response.status(200).json(clinicServices._services);
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getAvailableServices = async (request, response, next) => {
+    try {
+      let availableServices= await clinicSchema.find({}, { _id: 0,_specilization:1 });
+      if(!availableServices)return response.status(201).json("No available services yet.")
+      availableServices=availableServices.map(element=>element._specilization);
+      availableServices=availableServices.filter((item, index) => availableServices.indexOf(item) === index)
+        response.status(200).json(availableServices);
     } catch (error) {
         next(error);
     }

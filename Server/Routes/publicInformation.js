@@ -5,13 +5,8 @@ const router = express.Router();
 
 // to show available appointemnt
 router.route("/schedules").get(controller.getAllWeeklySchedule);
-router.route("/clinicsinfo/:speciality").get(controller.getClinicsBySpecilization);
+router.route("/clinicsspecilization/:speciality").get(controller.getClinicsBySpecilization);
 router.route("/clinicsinfo/:id").get(controller.getClinicInformationById);
 router.route("/clinicservice/:speciality").get(controller.getServicesBySpecilization);
+router.route("/availablespecilizations").get(controller.getAvailableServices);
 module.exports = router;
-
-
-
-
-
-

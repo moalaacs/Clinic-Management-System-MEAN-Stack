@@ -99,7 +99,7 @@ const clinicSchema = new mongoose.Schema({
   },
   _services: [{ type: serviceSchema }],
   _weeklySchedule: [scheduleSchema],
-  _doctors: [{ type: Number, unique: true }],
+  _doctors: [{ type: Number,ref:"doctor"}],
 });
 
 /* auto increment for _id field */
