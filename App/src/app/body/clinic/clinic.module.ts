@@ -8,7 +8,6 @@ import { ClinicsInfoComponent } from './clinics-info/clinics-info.component';
 import { ClinicsInfoByIdComponent } from './clinics-info-by-id/clinics-info-by-id.component';
 import { AddClinicComponent } from './add-clinic/add-clinic.component';
 import { SpecilizationComponent } from './specilization/specilization.component';
-
 @NgModule({
   declarations: [
     ClinicComponent, ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent, SpecilizationComponent

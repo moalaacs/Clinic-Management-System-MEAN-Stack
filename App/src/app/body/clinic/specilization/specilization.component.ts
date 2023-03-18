@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClinicService } from 'src/app/service/clinic.service';
 @Component({
   selector: 'app-specilization',
@@ -6,11 +6,25 @@ import { ClinicService } from 'src/app/service/clinic.service';
   styleUrls: ['./specilization.component.css']
 })
 export class SpecilizationComponent implements OnInit {
-  availableSpecilization:string[];
-  constructor(private clinicService:ClinicService){
-    this.availableSpecilization=[];
+  availableSpecilization: string[];
+  constructor(private clinicService: ClinicService) {
+    this.availableSpecilization = [];
   }
   ngOnInit() {
-      this.clinicService.getPublicAvailableSpecilization().subscribe((data) => this.availableSpecilization=data);
+    this.clinicService.getPublicAvailableSpecilization().subscribe((data) => this.availableSpecilization = data);
+  }
+  spToImg(value: string): string {
+    switch (value) {
+      case "Surgical": return "knife"
+      case "Pediatrics": return "infant"
+      case "Women's Health": return "women"
+      case "Cardiology": return "healthy-heart"
+      case "Neurology": return "brain"
+      case "Dental": return "tooth"
+      case "Physical Therapy": return "exercise"
+      case "Radiologic": return "x-ray"
+      case "Dermatology": return "spots"
+      default: return ""
+    }
   }
 }
