@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { NotfoundComponent } from "./notfound/notfound.component"
+import { RouterModule, Routes } from '@angular/router';
+import { AdminComponent } from './admin/admin.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { AuthGuard } from './guard/auth.guard';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { PatientComponent } from './patient/patient.component';
+import { RegisterComponent } from './register/register.component';
+
+
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule),
-    pathMatch: 'full'
-  },
-  {
-    path: 'clinic',
-    loadChildren: () => import('./body/clinic/clinic.module').then(m => m.ClinicModule)
-  }
+  {path:'',component:HomeComponent},
+  {path:'register',component:RegisterComponent},
+  {path:'login',component:LoginComponent},
+  {path:'admin',component:AdminComponent,canActivate:[AuthGuard]},
+  {path:'employee',component:EmployeeComponent,canActivate:[AuthGuard]},
+  {path:'patient',component:PatientComponent,canActivate:[AuthGuard]}
 ];
+
 @NgModule({
-  declarations: [NotfoundComponent],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })

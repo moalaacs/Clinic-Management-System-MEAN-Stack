@@ -1,31 +1,47 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common'; 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LandingPageModule } from './landing-page/landing-page.module';
-import { ClinicModule } from './body/clinic/clinic.module';
-import { SpecilityToImagePipe } from './pipes/specility-to-image.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from 'src/material.moudel';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { PatientComponent } from './patient/patient.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe,
+    RegisterComponent,
+    HomeComponent,
+    LoginComponent,
+    AdminComponent,
+    EmployeeComponent,
+    PatientComponent,
+    
+    
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule, NgbModule,
-    FormsModule, ReactiveFormsModule,
-    LandingPageModule, FlexLayoutModule,
-    ClinicModule
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    CommonModule,
+    ToastrModule.forRoot()
   ],
-  providers: [NgbActiveModal],
+  exports:[MaterialModule],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

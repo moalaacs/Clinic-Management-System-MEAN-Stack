@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-header>
+    <h2>Registeration</h2>
+  </mat-card-header>
+  <mat-card-content style="width: 500px;">
+    <form class="example-form" [formGroup]="registerform" (ngSubmit)="proceedregister()">
+      <mat-form-field class="fullwidth">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstname">
+      </mat-form-field>
+      <mat-form-field class="fullwidth">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastname">
+      </mat-form-field>
+      <mat-form-field class="fullwidth">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password">
+      </mat-form-field>
+      <mat-form-field class="fullwidth">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+      <mat-form-field class="fullwidth">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+      <br>
+      <div style="display: flex;justify-content: space-around;">
+        <select name="city" id="city" matInput formControlName="address.city" class="mat-mdc-button">
+          <option value="">Select-City</option>
+          <option *ngFor="let address of addresses;" value={{address.city}}>{{address.city}}</option>
+        </select>
+        <select name="country" id="country" matInput formControlName="address.country" class="mat-mdc-button">
+          <option value="">Select-Country</option>
+          <option value="Egypt">Egypt</option>
+        </select>
+        <select name="zipcode" id="zipcode" formControlName="address.zipCode" class="mat-mdc-button">
+          <option value="">Select-zipCode</option>
+          <option *ngFor="let address of addresses;" value={{address.zipcode}}>{{address.zipcode}}</option>
+        </select>
+      </div>
+      <br>
+      <mat-form-field class="fullwidth">
+        <mat-label>Enter your street</mat-label>
+        <input type="text" matInput formControlName="address.street">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="fullwidth">
+        <mat-label>Date Of Birth</mat-label>
+        <input type="date" matInput formControlName="dateOfBirth">
+      </mat-form-field>
+      <div>
+        <input type="file" (change)="getFile($event)">
+      </div>
+      <br>
+      <mat-radio-group formControlName="gender" aria-label="Select an option" style="width: 500px;">
+        <mat-radio-button value="male" style="margin-right: 20px;">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+      </mat-radio-group>
+      <div>
+        <button mat-raised-button color="primary" style="margin-right: 20px;">Submit</button>
+        <a routerLink="/login" mat-raised-button color="accent">Back to Login</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
