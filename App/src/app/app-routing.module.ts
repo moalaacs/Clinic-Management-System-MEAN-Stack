@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NotfoundComponent } from "./notfound/notfound.component"
 const routes: Routes = [
   {
     path: '',
@@ -9,9 +10,10 @@ const routes: Routes = [
   {
     path: 'clinic',
     loadChildren: () => import('./body/clinic/clinic.module').then(m => m.ClinicModule)
-  },
+  }
 ];
 @NgModule({
+  declarations: [NotfoundComponent],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
