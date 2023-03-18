@@ -17,11 +17,15 @@ export class ClinicService {
   } //Done
   getPublicClinicInfoById (id:number){
     return this.http.get<{_contactNumber:string,_address:{street:string,city:string,country:string,zipCode:number},_weeklySchedule:{day:string,start:string,end:string}[],_doctors:Object[],_specilization:string}>(this.baseURL+`/clinicsinfo/${id}`);
-  }
+  } //Done
   getPublicClinicsBySpeciality (speciality:string){
     return this.http.get<{_contactNumber:string,_address:{street:string,city:string,country:string,zipCode:number},_weeklySchedule:{day:string,start:string,end:string}[]}[]>(this.baseURL+`/clinicsspecilization/${speciality}`);
   } //Done
   getPublicAvailableSpecilization(){
     return this.http.get<string[]>(this.baseURL+"/availablespecilizations");
   } //Done
+  addClinic(body:Object){
+    console.log(body);
+    return this.http.post<Object>(this.baseURL+this.authorizedURL,body);
+  }
 }

@@ -6,11 +6,11 @@ import { ClinicService } from 'src/app/service/clinic.service';
   styleUrls: ['./specilization.component.css']
 })
 export class SpecilizationComponent implements OnInit {
-  services:string[];
+  availableSpecilization:string[];
   constructor(private clinicService:ClinicService){
-    this.services=[];
+    this.availableSpecilization=[];
   }
   ngOnInit() {
-      this.clinicService.getPublicAvailableSpecilization().subscribe((data) => this.services=data);
+      this.clinicService.getPublicAvailableSpecilization().subscribe((data) => this.availableSpecilization=data);
   }
 }

@@ -85,10 +85,10 @@ app.use(express.json());
 app.use(publicInformationRouter);
 /* Register patient */
 app.use(registerRouter);
-/* Authenticate user */
-app.use(authenticate);
-/* Authorization user */
-app.use(authorizationMW);
+// /* Authenticate user */
+// app.use(authenticate);
+// /* Authorization user */
+// app.use(authorizationMW);
 
 /*Routes*/
 app.use(doctorRouter);

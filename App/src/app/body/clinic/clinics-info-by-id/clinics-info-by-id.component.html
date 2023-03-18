@@ -1,38 +1,39 @@
 <div class="alert alert-primary">
-<h4>Specilization</h4>
-<h5>{{clinic._specilization}}</h5>
-<h4>Address</h4>
-<h5>{{clinic._address.city}} , {{clinic._address.street}} , {{clinic._address.country}}</h5>
-<h4>Contact Number</h4>
-<h5>{{clinic._contactNumber}}</h5>
-<h4>Weekly Schedule</h4>
-<table>
-    <thead>
-        <tr>
-            <th>Day</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let schedule of clinic._weeklySchedule">
-            <td>{{schedule.day}}</td>
-            <td>{{schedule.start}}</td>
-            <td>{{schedule.end}}</td>
-        </tr>
-    </tbody>
-</table>
-<h4>Registered Doctors</h4>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let doctor of clinic._doctors">
-            <td>{{doctor}}</td>
-        </tr>
-    </tbody>
-</table>
+    <h4>Specilization</h4>
+    <h5>{{clinic._specilization}}</h5>
+    <h4>Address</h4>
+    <h5>{{clinic._address.city}} , {{clinic._address.street}} , {{clinic._address.country}}</h5>
+    <h4>Contact Number</h4>
+    <h5>{{clinic._contactNumber}}</h5>
+    <h4>Weekly Schedule</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let schedule of clinic._weeklySchedule">
+                <td>{{schedule.day}}</td>
+                <td>{{schedule.start}}</td>
+                <td>{{schedule.end}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4>Registered Doctors</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let doctor of clinic._doctors">
+                <td>{{doctor}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<button class="btn btn-danger col-12" routerLink="/clinic">Back</button>

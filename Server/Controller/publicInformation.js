@@ -54,7 +54,7 @@ exports.getAvailableServices = async (request, response, next) => {
       let availableServices= await clinicSchema.find({}, { _id: 0,_specilization:1 });
       if(!availableServices)return response.status(201).json("No available services yet.")
       availableServices=availableServices.map(element=>element._specilization);
-      availableServices.filter((item, index) => availableServices.indexOf(item) === index)
+      availableServices=availableServices.filter((item, index) => availableServices.indexOf(item) === index)
         response.status(200).json(availableServices);
     } catch (error) {
         next(error);
