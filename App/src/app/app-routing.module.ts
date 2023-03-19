@@ -9,15 +9,15 @@ const routes: Routes = [
   },
   {
     path: 'clinic',
-    loadChildren: () => import('./body/clinic/clinic.module').then(m => m.ClinicModule)
+    loadChildren: () => import('./clinic/clinic.module').then(m => m.ClinicModule)
   },
   {
     path: 'medicine',
-    loadChildren: () => import('./body/medicine/medicine.module').then(m => m.MedicineModule)
+    loadChildren: () => import('./medicine/medicine.module').then(m => m.MedicineModule)
   },
   {
     path: 'appointment',
-    loadChildren: () => import('./body/appointment/appointment.module').then(m => m.AppointmentModule)
+    loadChildren: () => import('./appointment/appointment.module').then(m => m.AppointmentModule)
   },
   {
     path: 'appointmentReports',
