@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Medicine } from 'src/app/class/medicine';
-import { MedicineService } from 'src/app/service/medicine.service';
+import { Medicine } from 'src/app/models/medicine';
+import { MedicineService } from 'src/app/services/medicine.service';
 
 @Component({
   selector: 'app-medicine-details',

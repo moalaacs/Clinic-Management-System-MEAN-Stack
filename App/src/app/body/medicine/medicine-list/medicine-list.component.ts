@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Medicine } from 'src/app/class/medicine';
-import { MedicineService } from 'src/app/service/medicine.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Medicine } from 'src/app/models/medicine';
+import { MedicineService } from 'src/app/services/medicine.service';
 
 @Component({
   selector: 'app-medicine-list',

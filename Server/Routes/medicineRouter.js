@@ -11,7 +11,7 @@ const router = express.Router();
 
 router
   .route("/medicine")
-  .all(authorizationMW.accessClinicResources("employee", "doctor"))
+  //.all(authorizationMW.accessClinicResources("employee", "doctor"))
   .get(controller.getAllMedicine)
   .post(medicineValidation, validatorMiddleware, controller.addMedicine);
 

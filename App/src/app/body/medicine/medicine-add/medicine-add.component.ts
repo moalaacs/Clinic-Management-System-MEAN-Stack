@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { MedicineService } from 'src/app/service/medicine.service';
 import { Location } from '@angular/common';
-import { Medicine } from 'src/app/class/medicine';
+import { Medicine } from 'src/app/models/medicine';
+import { MedicineService } from 'src/app/services/medicine.service';
 
 @Component({
   selector: 'app-medicine-add',
