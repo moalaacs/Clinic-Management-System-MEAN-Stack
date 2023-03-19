@@ -1,14 +1,19 @@
-<header class="sticky-top">
+<header class="">
   <div class="logo">
     <a routerLink="/"> Logo </a>
   </div>
   <nav>
     <ul>
-      <li><a routerLink="/clinic">Clinics</a></li>
       <li><a routerLink="/services">Services</a></li>
       <li><a routerLink="/appointment">Appointment</a></li>
       <li><a routerLink="/about">About</a></li>
       <li><a routerLink="/contact-us">Contact Us</a></li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/patient">Patients</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/employee">Employees</a>
+      </li>
       <li><a routerLink="/sign-in" class="btn btn-primary">Sign In</a></li>
       <li><a routerLink="/sign-up" class="btn btn-secondary">Sign Up</a></li>
     </ul>
@@ -17,3 +22,45 @@
     <i class="fa fa-bars"></i>
   </button>
 </header>
+
+<!-- <mat-toolbar color="primary">
+  <a mat-button routerLink="/">Clinic Name</a>
+  <span class="fill-remaining-space"></span>
+  <div fxHide.gt-sm>
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div fxShow.gt-sm>
+    <a mat-button routerLink="/services">Services</a>
+    <a mat-button routerLink="/appointment">Appointment</a>
+    <a mat-button routerLink="/about">About</a>
+    <a mat-button routerLink="/contact">Contact Us</a>
+    <a mat-button routerLink="/login">Login / Signup</a>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" (click)="sidenav.toggle()">Clinic Name</a>
+      <a mat-list-item routerLink="/services" (click)="sidenav.toggle()"
+        >Services</a
+      >
+      <a mat-list-item routerLink="/appointment" (click)="sidenav.toggle()"
+        >Appointment</a
+      >
+      <a mat-list-item routerLink="/about" (click)="sidenav.toggle()">About</a>
+      <a mat-list-item routerLink="/contact" (click)="sidenav.toggle()"
+        >Contact Us</a
+      >
+      <a mat-list-item routerLink="/login" (click)="sidenav.toggle()"
+        >Login / Signup</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->

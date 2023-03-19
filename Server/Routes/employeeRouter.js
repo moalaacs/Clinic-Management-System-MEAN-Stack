@@ -13,7 +13,7 @@ const router = express.Router();
 
 router
   .route("/employee")
-  .all(authorizationMW.access())
+  // .all(authorizationMW.access())
   .get(controller.getAllEmployees)
   .post(
     upload.single("photo"),
@@ -27,7 +27,7 @@ router
   .all(
     numberIdParamsValidation,
     validatorMiddleware,
-    authorizationMW.access("employee")
+    // authorizationMW.access("employee")
   )
   .get(controller.getEmployeeById)
   .patch(

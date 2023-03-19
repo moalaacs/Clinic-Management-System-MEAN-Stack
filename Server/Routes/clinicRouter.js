@@ -12,7 +12,7 @@ const router = express.Router();
 
 router
   .route("/clinic")
-  // .all(authorizationMW.access())
+  .all(authorizationMW.access())
   .get(controller.getAllClinics)
   .post(validateClinic, validatorMiddleware, controller.addClinic);
 
@@ -21,7 +21,7 @@ router
   .all(
     numberIdParamsValidation,
     validatorMiddleware,
-    // authorizationMW.access()
+    authorizationMW.access()
   )
   .get(controller.getClinicById)
   .patch(validatePatchClinic, validatorMiddleware, controller.patchClinicById)

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
-import { ClinicService } from 'src/app/service/clinic.service';
-import { MyErrorStateMatcher } from 'src/app/class/ErrorStateMatcher';
+import { ClinicService } from 'src/app/services/clinic.service';
+import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
 @Component({
   selector: 'app-add-clinic',
   templateUrl: './add-clinic.component.html',

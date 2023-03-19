@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClinicService } from 'src/app/service/clinic.service';
+import { ClinicService } from 'src/app/services/clinic.service';
 @Component({
   selector: 'app-specilization',
   templateUrl: './specilization.component.html',

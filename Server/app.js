@@ -2,6 +2,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors");
+
 
 /**** Import Routes *****/
 const registerRouter = require("./Routes/registerRouter");
@@ -16,7 +18,7 @@ const appointmentRouter = require("./Routes/appointmentRouter");
 const prescriptionRouter = require("./Routes/prescriptionRouter");
 const invoiceRouter = require("./Routes/invoiceRouter");
 const paymentRouter = require("./Routes/paymentRouter");
-const publicInformationRouter = require("./Routes/publicInformation");
+const showAppointmentRouter = require("./Routes/showAppointmentRouter");
 const {
   checkAppointmentsDaily,
 } = require("./Middlewares/dailyAppointmentCheck");
@@ -60,34 +62,31 @@ async function connectToServer() {
     console.log("Connected to database");
     app.listen(port, () => {
       console.log("I am listening...", port);
-      checkAppointmentsDaily();
     });
   }
 }
 connectToServer();
+app.use(cors());
 
 /**** Middlewares ****/
 
 // a- logger middleware
 app.use(morgan("dev"));
 
-app.use((request,response,next)=>{
-  response.header("Access-Control-Allow-Origin","*");
-  response.header("Access-Control-Allow-Methods","GET,POST,DELETE,PUT,OPTIONS");
-  response.header("Access-Control-Allow-Headers","Content-Type,Authorization")
-  next();
-})
 // b- body parser middleware
 app.use(express.json());
 
+
+
 // c- Routes (End points)  middleware
+checkAppointmentsDaily();
 /* Show Available Schedule */
-app.use(publicInformationRouter);
+app.use(showAppointmentRouter);
 /* Register patient */
 app.use(registerRouter);
-// /* Authenticate user */
+/* Authenticate user */
 // app.use(authenticate);
-// /* Authorization user */
+/* Authorization user */
 // app.use(authorizationMW);
 
 /*Routes*/

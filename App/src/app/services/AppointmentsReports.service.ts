@@ -12,7 +12,4 @@ export class AppointmentsReportsService {
   getAllAppointmentsReports() {
     return this.http.get<Appointment>(this.baseUrl);
   }
-  getDailyAppointmentsReports(){
-    return this.http.get<Appointment>(this.baseUrl)
-  }
 }

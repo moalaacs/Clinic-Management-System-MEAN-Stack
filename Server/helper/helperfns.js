@@ -544,6 +544,19 @@ const checkDateInFuture = (daySent) => {
   return false;
 };
 
+const responseFormat = (success, data, message, page, perPage, total, totalPages) => {
+  return {
+    success,
+    data,
+    message,
+    page,
+    perPage,
+    total,
+    totalPages
+  };
+}
+
+
 module.exports = {
   filterData,
   paginateData,
@@ -555,4 +568,5 @@ module.exports = {
   mapDateToDay,
   checkDateInFuture,
   dayToDate,
+  responseFormat
 };

@@ -15,7 +15,10 @@ const {
   mapSpecilityToSpecilization,
   checkDateInFuture,
   dayToDate,
+  responseFormat
 } = require("../helper/helperfns");
+
+/* Get */
 
 // Create a new doctor
 exports.getAllDoctors = async (request, response, next) => {
@@ -31,12 +34,39 @@ exports.getAllDoctors = async (request, response, next) => {
     doctors = sortData(doctors, query);
     doctors = paginateData(doctors, request.query);
     doctors = sliceData(doctors, request.query);
-    response.status(200).json({ doctors });
+
+    const count = await doctorSchema.countDocuments(query);
+
+
+    response.status(200).json(responseFormat(true, doctors, "Doctors retrieved successfully", parseInt(request.query.page), parseInt(request.query.limit), count, Math.ceil(count / parseInt(request.query.limit))));
+
   } catch (error) {
     next(error);
   }
 };
-// Edit a doctor
+
+// Get a doctor by ID
+exports.getDoctorById = async (request, response, next) => {
+  try {
+    let doctor = await doctorSchema
+      .findOne({ _id: request.params.id })
+      .populate({
+        path: "_clinic",
+        options: { strictPopulate: false },
+        select: { _specilization: 1, _address: 1, _id: 0 },
+      });
+    if (!doctor) {
+      return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
+    }
+    response.status(200).json(responseFormat(true, doctor, "Doctor retrieved successfully", 0, 0, 0, 0));
+  } catch (error) {
+    next(error);
+  }
+};
+
+/*  Post  */
+
+// add a doctor
 exports.addDoctor = async (request, response, next) => {
   try {
     let doctorSpecilatyToClinicSpecilization = mapSpecilityToSpecilization(
@@ -46,10 +76,9 @@ exports.addDoctor = async (request, response, next) => {
       { _specilization: doctorSpecilatyToClinicSpecilization },
       { _id: 1, _specilization: 1, _weeklySchedule: 1, _doctors: 1 }
     );
-    if (existingClinics.length == 0)
-      return response.status(400).json({
-        message: `Sorry, We don't have a department for ${request.body.speciality} yet`,
-      });
+    if (existingClinics.length == 0){
+      return response.status(400).json(responseFormat(false, {}, `Sorry, We don't have a department for ${request.body.speciality} yet`, 0, 0, 0, 0));
+    }
     let acceptedClinic;
     for (let i = 0; i < existingClinics.length; i++) {
       if (existingClinics[i]._doctors.length < 10) {
@@ -58,41 +87,32 @@ exports.addDoctor = async (request, response, next) => {
       }
     }
     if (!acceptedClinic) {
-      return response.status(400).json({
-        message: `Sorry, No available clinic for this doctor to be added`,
-      });
+      return response.status(400).json(responseFormat(false, {}, `Sorry, No available clinic for this doctor to be added`, 0, 0, 0, 0));
     }
     let testNameOfDoctor = await doctorSchema.find({
       _fname: request.body.firstname,
       _lname: request.body.lastname,
     });
     if (testNameOfDoctor != 0) {
-      return response.status(400).json({
-        message: `There already a doctor with such name`,
-      });
+      return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
     }
     let testEmailandPhone = await users.findOne({
       $or: [
         { _email: request.body.email },
-        { _contactNumber: request.body.phone },
+        { _contactNumber: request.body.phoneNumber },
       ],
     });
     if (testEmailandPhone) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
+        return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       } else if (testEmailandPhone._contactNumber == request.body.phone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+        return response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
       }
     }
     request.body.schedule.forEach((element) => {
-      if (element.start < element.end)
-        return response
-          .status(200)
-          .json(
-            `In ${element.day}'s schedule, starting time ${element.start} can't be less than ending time ${element.end}`
-          );
+      if (element.start < element.end){
+        return response.status(200).json(responseFormat(false, {}, `In ${element.day}'s schedule, starting time ${element.start} can't be less than ending time ${element.end}`, 0, 0, 0, 0));
+      }
     });
     const hash = await bcrypt.hash(request.body.password, 10);
     let now = new Date();
@@ -106,7 +126,7 @@ exports.addDoctor = async (request, response, next) => {
       _dateOfBirth: request.body.dateOfBirth,
       _age: age,
       _gender: request.body.gender,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _email: request.body.email,
       _address: request.body.address,
       _password: hash,
@@ -114,6 +134,7 @@ exports.addDoctor = async (request, response, next) => {
       _clinic: acceptedClinic._id,
       _schedule: request.body.schedule,
       _medicalHistory: request.body.medicalHistory,
+
     };
     if (request.file) {
       sentObject._image = request.file.path;
@@ -145,41 +166,40 @@ exports.addDoctor = async (request, response, next) => {
 
     await newUser.save();
     response
-      .status(201)
-      .json({ message: "Doctor created successfully.", doctor });
+    .status(201)
+    .json(responseFormat(true, doctor, "Doctor added successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
+
 // Full Edit a doctor
 exports.putDoctorById = async (request, response, next) => {
   try {
     let foundDoctor = await doctorSchema.findOne({ _id: request.params.id });
-    if (!foundDoctor)
-      response.status(200).json({ message: "Doctor not found" });
+    if (!foundDoctor){
+      return response.status(400).json(responseFormat(false, {}, `Doctor not found`, 0, 0, 0, 0));
+    }
 
     let tryFirstandLastName = await doctorSchema.findOne({
       _fname: request.body.firstname,
       _lname: request.body.lastname,
     });
-    if (tryFirstandLastName)
-      return response.status(400).json({
-        message: `There already a doctor with such name`,
-      });
+    if (tryFirstandLastName && tryFirstandLastName._id != request.params.id) {
+      return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
+    }
 
     let testEmailandPhone = await users.findOne({
       $or: [
         { _email: request.body.email },
-        { _contactNumber: request.body.phone },
+        { _contactNumber: request.body.phoneNumber },
       ],
     });
-    if (testEmailandPhone) {
+    if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
-      } else if (testEmailandPhone._contactNumber == request.body.phone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+        return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
+      } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
+        return response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
       }
     }
     let doctorSpecilatyToClinicSpecilization = mapSpecilityToSpecilization(
@@ -189,21 +209,18 @@ exports.putDoctorById = async (request, response, next) => {
       { _specilization: doctorSpecilatyToClinicSpecilization },
       { _id: 1, _specilization: 1, _weeklySchedule: 1, _doctors: 1 }
     );
-    if (existingClinics.length == 0)
-      return response.status(400).json({
-        message: `Sorry, We don't have a department for ${request.body.speciality} yet`,
-      });
+    if (existingClinics.length == 0){
+      return response.status(400).json(responseFormat(false, {}, `Sorry, We don't have a department for ${request.body.speciality} yet`, 0, 0, 0, 0));
+    }
     let acceptedClinic;
-    for (var i = 0; i < existingClinics.length; i++) {
+    for (let i = 0; i < existingClinics.length; i++) {
       if (existingClinics[i]._doctors.length < 10) {
         acceptedClinic = existingClinics[i];
         break;
       }
     }
     if (!acceptedClinic) {
-      return response.status(400).json({
-        message: `Sorry, No available clinic for this doctor to be added`,
-      });
+      return response.status(400).json(responseFormat(false, {}, `Sorry, No available clinic for this doctor to be added`, 0, 0, 0, 0));
     }
 
     const hash = await bcrypt.hash(request.body.password, 10);
@@ -218,7 +235,7 @@ exports.putDoctorById = async (request, response, next) => {
       _dateOfBirth: request.body.dateOfBirth,
       _age: age,
       _gender: request.body.gender,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _email: request.body.email,
       _address: request.body.address,
       _password: hash,
@@ -265,18 +282,19 @@ exports.putDoctorById = async (request, response, next) => {
     );
 
     response
-      .status(200)
-      .json({ status: "Doctor updated successfully", sentObject });
+    .status(200)
+    .json(responseFormat(true, sentObject, "Doctor updated successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
-// Get all doctors
+// patch doctors
 exports.patchDoctorById = async (request, response, next) => {
   try {
     let foundDoctor = await doctorSchema.findOne({ _id: request.params.id });
-    if (!foundDoctor)
-      return response.status(200).json({ message: "Doctor not found." });
+    if (!foundDoctor){
+      return response.status(400).json(responseFormat(false, {}, `Doctor not found`, 0, 0, 0, 0));
+    }
     let tempDoctor = {};
     if (request.body.firstname) {
       tempDoctor._fname = request.body.firstname;
@@ -304,7 +322,7 @@ exports.patchDoctorById = async (request, response, next) => {
         if (request.body.address.zipCode)
           tempDoctor["_address.zipCode"] = request.body.address.zipCode;
       } else {
-        return response.status(200).json({ message: `Address can't be empty` });
+        return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
       }
     }
     if (request.body.gender) {
@@ -322,7 +340,7 @@ exports.patchDoctorById = async (request, response, next) => {
     if (request.file) {
       tempDoctor._image = request.file.path;
     }
-    if (request.body.phone) {
+    if (request.body.phoneNumber) {
       tempDoctor._contactNumber = request.body.phone;
     }
     if (request.body.email) {
@@ -340,43 +358,41 @@ exports.patchDoctorById = async (request, response, next) => {
         _fname: request.body.firstname,
         _lname: request.body.lastname,
       });
-      if (tryFirstandLastName)
-        return response.status(400).json({
-          message: `There already a doctor with such name`,
-        });
+      if (tryFirstandLastName && tryFirstandLastName._id != request.params.id){
+        return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
+      }
+
     } else if (request.body.firstname) {
       let tryFirstName = await doctorSchema.find({
         _fname: request.body.firstname,
       });
-      if (tryFirstName.length > 0)
-        return response.status(400).json({
-          message: `There already a doctor with such name`,
-        });
+      if (tryFirstName.length > 0){
+        return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
+      }
     } else if (request.body.lastname) {
       let tryLastName = await doctorSchema.find({
         _lname: request.body.lastname,
       });
-      if (tryLastName.length > 0)
-        return response.status(400).json({
-          message: `There already a doctor with such name`,
-        });
+      if (tryLastName.length > 0){
+        return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
+      }
     }
     //_____UPDATES_____//
     //check duplicate email/phone & update usermodel => last
-    if (request.body.phone && request.body.email) {
+    if (request.body.phoneNumber && request.body.email) {
       let testEmailandPhone = await users.findOne({
         $or: [
           { _email: request.body.email },
-          { _contactNumber: request.body.phone },
+          { _contactNumber: request.body.phoneNumber },
         ],
+        $ne: { _idInSchema: request.params.id },
+
       });
-      if (testEmailandPhone) {
+      if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
         if (testEmailandPhone._email == request.body.email) {
-          return response.status(400).json({ message: `Email Already in use` });
-        } else if (testEmailandPhone._contactNumber == request.body.phone) {
-          return response
-            .status(400)
-            .json({ message: `Phone number Already in use` });
+          return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
+        } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
+          return response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
         }
       } else {
         await users.updateOne(
@@ -384,31 +400,29 @@ exports.patchDoctorById = async (request, response, next) => {
           {
             $set: {
               _email: request.body.email,
-              _contactNumber: request.body.phone,
+              _contactNumber: request.body.phoneNumber,
             },
           }
         );
       }
-    } else if (request.body.phone) {
+    } else if (request.body.phoneNumber) {
       let testPhone = await users.findOne({
-        _contactNumber: request.body.phone,
+        _contactNumber: request.body.phoneNumber,
       });
-      if (testPhone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+      if (testPhone && testPhone._idInSchema != request.params.id) {
+        return response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
-          { $set: { _contactNumber: request.body.phone } }
+          { $set: { _contactNumber: request.body.phoneNumber } }
         );
       }
     } else if (request.body.email) {
       let testEmail = await users.findOne({
         _email: request.body.email,
       });
-      if (testEmail) {
-        return response.status(400).json({ message: `Email Already in use` });
+      if (testEmail && testEmail._idInSchema != request.params.id) {
+        return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
@@ -440,37 +454,24 @@ exports.patchDoctorById = async (request, response, next) => {
     }
 
     response
-      .status(200)
-      .json({ message: "Doctor updated successfully.", tempDoctor });
+    .status(200)
+    .json(responseFormat(true, tempDoctor, "Doctor updated successfully", 0, 0, 0, 0));
+
   } catch (error) {
     next(error);
   }
 };
-// Get a doctor by ID
-exports.getDoctorById = async (request, response, next) => {
-  try {
-    let doctor = await doctorSchema
-      .findOne({ _id: request.params.id })
-      .populate({
-        path: "_clinic",
-        options: { strictPopulate: false },
-        select: { _specilization: 1, _address: 1, _id: 0 },
-      });
-    if (!doctor) {
-      return next(new Error("doctor not found"));
-    }
-    response.status(200).json(doctor);
-  } catch (error) {
-    next(error);
-  }
-};
+
+/* Delete */
 // Remove a doctor
 exports.removeDoctorById = async (request, response, next) => {
   try {
     const doctor = await doctorSchema.findOneAndDelete({
       _id: request.params.id,
     });
-    if (!doctor) return response.status(200).json("Doctor not found");
+    if (!doctor) {
+      return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
+    }
     await users.deleteOne({ _idInSchema: request.params.id });
     await clinicSchema.updateOne(
       { _id: doctor._clinic },
@@ -481,9 +482,7 @@ exports.removeDoctorById = async (request, response, next) => {
         },
       }
     );
-    response
-      .status(200)
-      .json({ message: "Doctor removed successfully.", doctor });
+    response.status(200).json(responseFormat(true, doctor, "Doctor deleted successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
@@ -494,12 +493,14 @@ exports.addExcuse = async (request, response, next) => {
     let daySent = request.params.day.replaceAll("-", "/");
     let doctor = await doctorSchema.findOne({ _id: request.params.id });
     if (!doctor) {
-      return next(new Error("doctor not found"));
+      return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
     }
-    if (!checkDateInFuture(daySent))
-      return response.status(200).json("Can't add excuse for old days");
-    if (doctor._excuses.find((element) => element == daySent))
-      return response.status(200).json("This Day already added to excuses");
+    if (!checkDateInFuture(daySent)){
+      return response.status(400).json(responseFormat(false, {}, "Can't add excuse for old days", 0, 0, 0, 0));
+    }
+    if (doctor._excuses.find((element) => element == daySent)){
+      return response.status(400).json(responseFormat(false, {}, "This Day already added to excuses", 0, 0, 0, 0));
+    }
     let deletedAppointments = await appointmentSchema
       .find(
         {
@@ -527,9 +528,7 @@ exports.addExcuse = async (request, response, next) => {
       }
     );
 
-    response
-      .status(200)
-      .json("Excuse Add Successfully. We hope everything is okey");
+    response.status(200).json(responseFormat(true, {}, "Excuse Add Successfully. We hope everything is okey", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
@@ -539,19 +538,21 @@ exports.deleteExcuse = async (request, response, next) => {
   try {
     let doctor = await doctorSchema.findOne({ _id: request.params.id });
     if (!doctor) {
-      return next(new Error("doctor not found"));
+      return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
     }
     let daySent = request.params.day.replaceAll("-", "/");
-    if (!checkDateInFuture(daySent))
-      return response.status(200).json("Can't remove excuse for old days");
-    if (!doctor._excuses.find((element) => element == daySent))
-      return response.status(200).json("This Day doesn't exist in excuses");
+    if (!checkDateInFuture(daySent)){
+      return response.status(200).json(responseFormat(false, {}, "Can't remove excuse for old days", 0, 0, 0, 0));
+    }
+    if (!doctor._excuses.find((element) => element == daySent)){
+      return response.status(200).json(responseFormat(false, {}, "This Day doesn't exist in excuses", 0, 0, 0, 0));
+    }
     else
       await doctorSchema.updateOne(
         { _id: request.params.id },
         { $pull: { _excuses: daySent } }
       );
-    response.status(200).json("Excuse Removed Successfully. Welcome back!");
+      return response.status(200).json(responseFormat(false, {}, "Excuse Removed Successfully. Welcome back!", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
@@ -565,14 +566,16 @@ const reqNamesToSchemaNames = (query) => {
     dateOfBirth: "_dateOfBirth",
     age: "_age",
     gender: "_gender",
-    phone: "_contactNumber",
+    phoneNumber: "_contactNumber",
     email: "_email",
     address: "_address",
     profileImage: "_image",
     speciality: "_specilization",
-    clinic: "_clinics",
+    clinicId: "_clinics",
     medicalHistory: "_medicalHistory",
-
+    schedule: "_schedule",
+    appointments: "_appointments",
+    excuses: "_excuses",
   };
 
   const replacedQuery = {};

@@ -11,7 +11,11 @@ const {
   sortData,
   sliceData,
   paginateData,
+  responseFormat
 } = require("../helper/helperfns");
+
+
+/* Get */
 
 //get all patients
 exports.getAllPatients = async (request, response, next) => {
@@ -22,12 +26,31 @@ exports.getAllPatients = async (request, response, next) => {
     patients = paginateData(patients, request.query);
     patients = sliceData(patients, request.query);
 
-    response.status(200).json({ patients });
+    const count = await patientSchema.countDocuments(query);
+
+    response.status(200).json(responseFormat(true, patients, "Patients retrieved successfully", parseInt(request.query.page), parseInt(request.query.limit), count, Math.ceil(count / parseInt(request.query.limit))));
+  } catch (error) {
+    next(error);
+  }
+
+
+};
+
+// Get a patient by ID
+exports.getPatientById = async (request, response, next) => {
+  try {
+    const patient = await patientSchema.findOne({
+      _id: request.params.id,
+    });
+    if (!patient) {
+      return response.status(400).json(responseFormat(false, {}, "Patient not found", 0, 0, 0, 0));
+    }
+    response.status(200).json(responseFormat(true, patient, "Patient retrieved successfully", 0, 0, 0,0));
   } catch (error) {
     next(error);
   }
 };
-
+/*  Post  */
 // Add a new patient
 exports.addPatient = async (request, response, next) => {
   try {
@@ -35,16 +58,14 @@ exports.addPatient = async (request, response, next) => {
     let testEmailandPhone = await users.findOne({
       $or: [
         { _email: request.body.email },
-        { _contactNumber: request.body.phone },
+        { _contactNumber: request.body.phoneNumber },
       ],
     });
     if (testEmailandPhone) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
-      } else if (testEmailandPhone._contactNumber == request.body.phone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+        return response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
+      } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
+        return response.status(400).json(responseFormat(false, {}, "Phone number Already in use", 0, 0, 0, 0));
       }
     }
 
@@ -61,7 +82,7 @@ exports.addPatient = async (request, response, next) => {
       _dateOfBirth: request.body.dateOfBirth,
       _age: age,
       _gender: request.body.gender,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _email: request.body.email,
       _address: request.body.address,
       _password: hash,
@@ -76,37 +97,36 @@ exports.addPatient = async (request, response, next) => {
       _idInSchema: savedPatient._id,
       _role: "patient",
       _email: request.body.email,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _password: hash,
     });
     await newUser.save();
-    response
+
+      response
       .status(201)
-      .json({ message: "Patient created successfully.", savedPatient });
+      .json(responseFormat(true, savedPatient, "Patient added successfully", 0, 0, 0, 0));
   } catch (error) { next(error); }
 };
+
+/*  Put  */
 
 // Put a patient
 exports.putPatientById = async (request, response, next) => {
   try {
     let patientExists = await patientSchema.find({ _id: request.params.id });
     if (!patientExists)
-      return response
-        .status(400)
-        .json({ message: `Patient ${request.params.id} not found` });
+    return response.status(400).json(responseFormat(false, {}, `Patient not found`, 0, 0, 0, 0));
     let testEmailandPhone = await users.findOne({
       $or: [
         { _email: request.body.email },
-        { _contactNumber: request.body.phone },
+        { _contactNumber: request.body.phoneNumber },
       ],
     });
-    if (testEmailandPhone) {
+    if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
-      } else if (testEmailandPhone._contactNumber == request.body.phone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+        return   response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
+      } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
+        return  response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
       }
     }
     const hash = await bcrypt.hash(request.body.password, 10);
@@ -121,7 +141,7 @@ exports.putPatientById = async (request, response, next) => {
       _dateOfBirth: request.body.dateOfBirth,
       _age: age,
       _gender: request.body.gender,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _email: request.body.email,
       _address: request.body.address,
       _password: hash,
@@ -135,7 +155,7 @@ exports.putPatientById = async (request, response, next) => {
       {
         $set: {
           _email: request.body.email,
-          _contactNumber: request.body.phone,
+          _contactNumber: request.body.phoneNumber,
         },
       }
     );
@@ -145,20 +165,22 @@ exports.putPatientById = async (request, response, next) => {
         $set: sentObject,
       }
     );
-    response
+      response
       .status(200)
-      .json({ message: "Patient updated successfully.", updatedPatient });
+      .json(responseFormat(true, updatedPatient, "Patient updated successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
+
+/*  Patch  */
 
 // Patch a patient
 exports.patchPatientById = async (request, response, next) => {
   try {
     let foundPatient = await patientSchema.findOne({ _id: request.params.id });
     if (!foundPatient)
-      return response.status(200).json({ message: "Patient not found." });
+      return response.status(400).json(responseFormat(false, {}, "patient not found", 0, 0, 0, 0));
     let tempPatient = {};
     if (request.body.firstname) {
       tempPatient._fname = request.body.firstname;
@@ -192,7 +214,7 @@ exports.patchPatientById = async (request, response, next) => {
         if (request.body.address.zipCode)
           tempPatient["_address.zipCode"] = request.body.address.zipCode;
       } else {
-        return response.status(200).json({ message: `Address can't be empty` });
+        return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
       }
     }
     if (request.body.gender) {
@@ -207,28 +229,28 @@ exports.patchPatientById = async (request, response, next) => {
       }
       tempPatient._age = age;
     }
-    if (request.body.phone) {
-      tempPatient._contactNumber = request.body.phone;
+    if (request.body.phoneNumber) {
+      tempPatient._contactNumber = request.body.phoneNumber;
     }
     if (request.body.email) {
       tempPatient._email = request.body.email;
     }
+
     //_____UPDATES_____//
     //check duplicate email/phone & update usermodel => last
-    if (request.body.phone && request.body.email) {
+    if (request.body.phoneNumber && request.body.email) {
       let testEmailandPhone = await users.findOne({
         $or: [
           { _email: request.body.email },
-          { _contactNumber: request.body.phone },
+          { _contactNumber: request.body.phoneNumber },
         ],
+        $ne: { _idInSchema: request.params.id },
       });
-      if (testEmailandPhone) {
+      if (testEmailandPhone && testEmailandPhone._idInSchema != request.params.id) {
         if (testEmailandPhone._email == request.body.email) {
-          return response.status(400).json({ message: `Email Already in use` });
-        } else if (testEmailandPhone._contactNumber == request.body.phone) {
-          return response
-            .status(400)
-            .json({ message: `Phone number Already in use` });
+          return  response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
+        } else if (testEmailandPhone._contactNumber == request.body.phoneNumber) {
+          return response.status(400).json(responseFormat(false, {}, "Phone number Already in use", 0, 0, 0, 0));
         }
       } else {
         await users.updateOne(
@@ -236,31 +258,31 @@ exports.patchPatientById = async (request, response, next) => {
           {
             $set: {
               _email: request.body.email,
-              _contactNumber: request.body.phone,
+              _contactNumber: request.body.phoneNumber,
             },
           }
         );
       }
-    } else if (request.body.phone) {
+    } else if (request.body.phoneNumber) {
       let testPhone = await users.findOne({
-        _contactNumber: request.body.phone,
+        _contactNumber: request.body.phoneNumber,
       });
-      if (testPhone) {
-        return response
-          .status(400)
-          .json({ message: `Phone number Already in use` });
+      if (testPhone && testPhone._idInSchema != request.params.id) {
+        return  response.status(400).json(responseFormat(false, {}, "Phone number Already in use", 0, 0, 0, 0));
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
-          { $set: { _contactNumber: request.body.phone } }
+          { $set: { _contactNumber: request.body.phoneNumber } }
         );
       }
     } else if (request.body.email) {
       let testEmail = await users.findOne({
         _email: request.body.email,
+        _id: { $ne: request.params.id }
       });
-      if (testEmail) {
-        return response.status(400).json({ message: `Email Already in use` });
+      if (testEmail && testEmail._idInSchema != request.params.id) {
+        return response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
+        
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
@@ -273,14 +295,15 @@ exports.patchPatientById = async (request, response, next) => {
       { _id: request.params.id },
       { $set: tempPatient }
     );
-
-    response
+      response
       .status(200)
-      .json({ message: "Patient updated successfully.", tempPatient });
+      .json(responseFormat(true, tempPatient, "Patient updated successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
 };
+
+/* Delete */
 
 // Remove a patient
 exports.removePatientById = async (request, response, next) => {
@@ -289,30 +312,16 @@ exports.removePatientById = async (request, response, next) => {
       request.params.id || request.body.id
     );
     if (!patient) {
-      return next(new Error("patient not found"));
+      return response.status(400).json(responseFormat(false, {}, "Patient not found", 0, 0, 0, 0));
     }
-    response
-      .status(201)
-      .json({ message: "Patient removed successfully.", patient });
+    response.status(200).json(responseFormat(true, patient, "Patient deleted successfully", 0, 0, 0, 0));
+
+
   } catch (error) {
     next(error);
   }
 };
 
-// Get a patient by ID
-exports.getPatientById = async (request, response, next) => {
-  try {
-    const patient = await patientSchema.findOne({
-      _id: request.params.id,
-    });
-    if (!patient) {
-      return next(new Error("patient not found"));
-    }
-    response.status(200).json(patient);
-  } catch (error) {
-    next(error);
-  }
-};
 
 const reqNamesToSchemaNames = (query) => {
   const fieldsToReplace = {
@@ -322,7 +331,7 @@ const reqNamesToSchemaNames = (query) => {
     dateOfBirth: "_dateOfBirth",
     age: "_age",
     gender: "_gender",
-    phone: "_contactNumber",
+    phoneNumber: "_contactNumber",
     email: "_email",
     address: "_address",
     profileImage: "_image",
