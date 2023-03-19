@@ -9,6 +9,8 @@ import {MatSortModule} from "@angular/material/sort"
 import {MatDialogModule} from "@angular/material/dialog"
 import {MatSelectModule} from "@angular/material/select"
 import {MatCheckboxModule} from "@angular/material/checkbox"
+import {MatDatepickerModule} from "@angular/material/datepicker"
+import { MatNativeDateModule } from "@angular/material/core";
 
 
 @NgModule({
@@ -22,7 +24,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox"
         MatSortModule,
         MatDialogModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+        
     ]
 })
 export class MaterialModule { }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { AuthService } from './../_services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,8 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.service.isLoggedIn()) {
-      console.log(this.service.isLoggedIn());
       if (route.url.length > 0) {
         let menu = route.url[0].path;
-        console.log(menu);
         if ((menu == 'employee'||menu == 'patient' ||menu == 'admin') && (this.service.getRole() == 'admin')) {
           return true;
         } else if ( menu=="patient" && this.service.getRole() == 'patient') {

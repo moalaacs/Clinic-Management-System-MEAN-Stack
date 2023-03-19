@@ -1,9 +1,0 @@
-<div class="d-flex just-content-center align-items-center flex-wrap gap-4">
-    <a *ngFor="let item of availableSpecilization"
-        class="d-flex flex-column just-content-center align-items-center alert alert-primary mx-1"
-        routerLink="/speciallity/{{item}}">
-        <span class="fw-bold mb-4">{{item}}</span>
-        <img style="width: 100px !important;" src="../../../../assets/servicesIcons/{{spToImg(item)}}.png">
-    </a>
-</div>
-<button class="btn btn-primary col-12" routerLink="/clinic">Back</button>

@@ -1,9 +1,0 @@
-<div *ngFor="let item of clinics" class="alert alert-warning">
-    <h4>{{item._contactNumber}}</h4>
-    <h4>{{item._address.city}} {{item._address.street}} , {{item._address.country}} , {{item._address.zipCode}}</h4>
-    <h4 *ngFor="let schedule of item._weeklySchedule">{{schedule.day}} , From {{schedule.start}} , To {{schedule.end}}
-    </h4>
-</div>
-<button routerLink="/services/{{speciallity}}" class="btn btn-danger mb-3 col-12">Available {{speciallity}}
-    Services</button>
-<button class="btn btn-dark col-12" routerLink="/clinic/availablespecilization">Back</button>

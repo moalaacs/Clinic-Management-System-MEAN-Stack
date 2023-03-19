@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from './../_services/auth.service';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,25 +19,29 @@ export class LoginComponent {
     sessionStorage.clear();
   }
   token: any;
-  decodedToken: any;
-  helper = new JwtHelperService();
 
   loginform = this.builder.group({
-    email: this.builder.control('', Validators.required),
-    password: this.builder.control('', Validators.required),
+    email: this.builder.control(
+      '',
+      Validators.compose([Validators.required, Validators.email])
+    ),
+    password: this.builder.control(
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+        ),
+      ])
+    ),
   });
 
   proceedlogin() {
     if (this.loginform.valid) {
-      console.log(this.loginform.value);
-      this.service.LoginUser(this.loginform.value).subscribe((_token) => {
+      this.service.loginUser(this.loginform.value).subscribe((_token) => {
         this.token = _token;
-        console.log(this.token);
-        this.decodedToken = this.helper.decodeToken(this.token.token);
-        console.log(this.decodedToken);
         if (this.token) {
-          sessionStorage.setItem('email', this.decodedToken.email);
-          sessionStorage.setItem('role', this.decodedToken.role);
+          sessionStorage.setItem('token', this.token.token);
           this.router.navigate(['']);
         } else {
           this.toastr.error('Invalid credentials');

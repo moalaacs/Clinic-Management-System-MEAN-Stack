@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,13 +9,12 @@ import { MaterialModule } from 'src/material.moudel';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './Auth/register/register.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './Auth/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { PatientComponent } from './patient/patient.component';
-
 
 @NgModule({
   declarations: [
@@ -26,9 +25,6 @@ import { PatientComponent } from './patient/patient.component';
     AdminComponent,
     EmployeeComponent,
     PatientComponent,
-    
-    
-    
   ],
   imports: [
     BrowserModule,
@@ -38,10 +34,10 @@ import { PatientComponent } from './patient/patient.component';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  exports:[MaterialModule],
+  exports: [MaterialModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
