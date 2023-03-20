@@ -15,11 +15,15 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.service.isLoggedIn()) {
       if (route.url.length > 0) {
-        let menu = route.url[0].path;
-        if ((menu == 'employee' || menu == 'patient' || menu == 'admin') && (this.service.getRole() == 'admin')) {
-          return true;
-        } else if (menu == "patient" && this.service.getRole() == 'patient') {
-          return true;
+        //console.log(route.url);
+        //let menu = route.url[0].path;
+        //let menu =document.location.href;
+        let menu = document.location.pathname;
+        console.log(menu)
+        if ((menu == '/doctor/add' || menu == '/doctor/edit/:id' || menu== 'emplyee/add'|| menu == 'employee/edit/:id') && (this.service.getRole() == 'patient')) {
+          return false;
+        } else if (menu == "add" && this.service.getRole() == 'patient') {
+          return false;
         } else if (menu == "employee" && this.service.getRole() == 'employee') {
           return true;
         } else {
@@ -31,6 +35,7 @@ export class AuthGuard implements CanActivate {
         return true;
       }
     } else {
+      this.tostr.warning('You dont have access.');
       this.router.navigate(['login']);
       return false;
     }
