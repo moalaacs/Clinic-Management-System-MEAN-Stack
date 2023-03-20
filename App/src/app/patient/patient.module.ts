@@ -17,15 +17,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
 import { PatientRoutingModule } from './patient-routing.module';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { PatientAddComponent } from './patient-add/patient-add.component';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
-
-
 @NgModule({
   declarations: [
     PatientListComponent,

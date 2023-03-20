@@ -22,10 +22,15 @@ import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { HeaderComponent } from './landing-page/header/header.component';
+import { LoginComponent } from './Auth/login/login.component';
+import { RegisterComponent } from './Auth/register/register.component';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent
+    SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent, RegisterComponent, LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +40,9 @@ import { HeaderComponent } from './landing-page/header/header.component';
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
-    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule,
+    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot()
   ],
-  providers: [NgbActiveModal],
+  providers: [NgbActiveModal, ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotfoundComponent } from "./notfound/notfound.component"
+import { LoginComponent } from './Auth/login/login.component';
+import { RegisterComponent } from './Auth/register/register.component';
+import { MaterialModule } from 'src/material.moudel';
+
 const routes: Routes = [
   {
     path: '',
@@ -29,11 +33,13 @@ const routes: Routes = [
   },
   { path: 'doctor', loadChildren: () => import('./doctor/doctor.module').then(m => m.DoctorModule) },
   { path: 'employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: NotfoundComponent }
 ];
 @NgModule({
   declarations: [NotfoundComponent],
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes), MaterialModule],
+  exports: [RouterModule, MaterialModule]
 })
 export class AppRoutingModule { }

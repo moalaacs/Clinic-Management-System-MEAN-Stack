@@ -84,3 +84,5 @@ mat-expansion-panel-description p {
 .mat-mdc-card-header{
   padding: 16px !important;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
