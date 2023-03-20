@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ADDRESS } from './../../models/Address';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -17,8 +17,9 @@ export class RegisterComponent {
   constructor(
     private builder: FormBuilder,
     private service: AuthService,
+    private toastr: ToastrService,
     private router: Router,
-    private toastr: ToastrService
+    private _snackBar: MatSnackBar
   ) { }
 
   registerform = this.builder.group({
@@ -84,15 +85,23 @@ export class RegisterComponent {
   }
 
   proceedregister() {
+    let rC = this;
     if (this.registerform.valid) {
       this.service
         .registerUser(this.registerform.value, this.file)
-        .subscribe(() => {
-          this.toastr.success(
-            'Please contact admin for enable access.',
-            'Registered successfully'
-          );
-          this.router.navigate(['login']);
+        .subscribe({
+          next() {
+            rC.toastr.success(
+              'Please contact admin for enable access.',
+              'Registered successfully'
+            );
+            rC.router.navigate(['login']);
+          },
+          error(err) {
+            rC._snackBar.open(err.error, "", {
+              duration: 3000,
+            });
+          },
         });
     } else {
       this.toastr.warning('Please enter valid data.');

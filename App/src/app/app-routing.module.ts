@@ -4,7 +4,7 @@ import { NotfoundComponent } from "./notfound/notfound.component"
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { MaterialModule } from 'src/material.moudel';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 const routes: Routes = [
   {
     path: '',
@@ -39,7 +39,7 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [NotfoundComponent],
-  imports: [RouterModule.forRoot(routes), MaterialModule],
+  imports: [RouterModule.forRoot(routes), MaterialModule, MatSnackBarModule],
   exports: [RouterModule, MaterialModule]
 })
 export class AppRoutingModule { }

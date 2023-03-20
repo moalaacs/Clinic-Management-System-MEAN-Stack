@@ -20,6 +20,7 @@ export class AuthService {
     // dob=formatDate(dob, 'dd/MM/yyyy', 'en').replace(/\b0/g, '');
     // console.log(dob);
     patient.photo = photo;
+    console.log(patient);
     return this.http.post<Patient>(`${this.baseUrl}/register`, patient);
   }
 

@@ -25,7 +25,7 @@ import { HeaderComponent } from './landing-page/header/header.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
-    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot()
+    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
+    MatSnackBarModule
   ],
   providers: [NgbActiveModal, ToastrService],
   bootstrap: [AppComponent]
