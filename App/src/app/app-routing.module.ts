@@ -5,6 +5,8 @@ import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { MaterialModule } from 'src/material.moudel';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthGuard } from './Auth/guard/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -43,17 +45,17 @@ const routes: Routes = [
   {
     path: 'patient',
     loadChildren: () =>
-      import('./patient/patient.module').then((m) => m.PatientModule),
+      import('./patient/patient.module').then((m) => m.PatientModule),canActivate:[AuthGuard]
   },
   {
     path: 'doctor',
     loadChildren: () =>
-      import('./doctor/doctor.module').then((m) => m.DoctorModule),
+      import('./doctor/doctor.module').then((m) => m.DoctorModule),canActivate:[AuthGuard]
   },
   {
     path: 'employee',
     loadChildren: () =>
-      import('./employee/employee.module').then((m) => m.EmployeeModule),
+      import('./employee/employee.module').then((m) => m.EmployeeModule),canActivate:[AuthGuard]
   },
   { path: '**', component: NotfoundComponent },
 ];

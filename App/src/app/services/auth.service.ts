@@ -15,7 +15,7 @@ export class AuthService {
   registerUser(patient: any, photo: File) {
     let dob = patient.dateOfBirth?.split('-');
     patient.dateOfBirth = dob[2] + '/' + dob[1] + '/' + dob[0];
-    patient.photo = photo;
+    patient.image=photo;
     console.log(patient);
     return this.http.post<Patient>(`${this.baseUrl}/register`, patient);
   }

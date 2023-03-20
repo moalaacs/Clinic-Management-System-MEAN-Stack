@@ -8,8 +8,8 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { AuthGuard } from './../Auth/guard/auth.guard';
 
 const routes: Routes = [
-{ path: '', component: EmployeeListComponent },
-{ path: 'details/:id', component: EmployeeDetailsComponent },
+{ path: '', component: EmployeeListComponent  },
+{ path: 'details/:id', component: EmployeeDetailsComponent ,canActivate:[AuthGuard]},
 { path: 'edit/:id', component: EmployeeEditComponent,canActivate:[AuthGuard] },
 { path: 'add', component: EmployeeAddComponent,canActivate:[AuthGuard] }
 ];

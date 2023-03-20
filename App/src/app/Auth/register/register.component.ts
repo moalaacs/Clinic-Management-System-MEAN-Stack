@@ -51,7 +51,7 @@ export class RegisterComponent {
       Validators.compose([Validators.required, Validators.email])
     ),
     gender: this.builder.control('', Validators.required),
-    phone: this.builder.control(
+    phoneNumber: this.builder.control(
       '',
       Validators.compose([
         Validators.required,
