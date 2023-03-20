@@ -24,7 +24,11 @@ export class MedicineAddComponent implements OnInit {
   }
   addMedicine() {
     this.medicineService.addMedicine(this._medicine).subscribe(newMedicine => {
-      this.medicine.push(newMedicine);
+      console.log(newMedicine);
+      // this.medicine.push(newMedicine);
+      this.router.navigateByUrl("/medicine");
+      this.location.back();
+
     });
   }
 

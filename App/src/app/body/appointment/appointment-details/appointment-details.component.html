@@ -1,1 +1,14 @@
-<p>appointment-details works!</p>
+<div class="alert alert-success" style="font-size: 20px;">
+    Clinic ID: {{_appointment._clinicId}}
+    <br><br>
+    Patient ID: {{_appointment.patientId}}
+    <br><br>
+    Doctor ID: {{_appointment._doctorId}}
+    <br><br>
+    Appointment Date: {{_appointment._date}}
+    <br><br>
+    Appointment Time: {{_appointment._time}}
+    <br><br>
+    Appointment Status: {{_appointment._status}}
+</div>
+<a routerLink="/appointment" class="btn btn-info">Back!</a>
