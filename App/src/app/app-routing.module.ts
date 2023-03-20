@@ -59,7 +59,7 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [NotfoundComponent],
-  imports: [RouterModule.forRoot(routes), MaterialModule],
+  imports: [RouterModule.forRoot(routes), MaterialModule,MatSnackBarModule],
   exports: [RouterModule, MaterialModule],
 })
 export class AppRoutingModule {}
