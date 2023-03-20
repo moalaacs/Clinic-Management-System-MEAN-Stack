@@ -4,8 +4,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { MaterialModule } from 'src/material.moudel';
-//import { AuthGuard } from './Auth/guard/auth.guard';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 const routes: Routes = [
   {
     path: '',
