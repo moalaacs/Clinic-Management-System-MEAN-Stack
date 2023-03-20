@@ -12,7 +12,6 @@ import { MatListModule } from '@angular/material/list';
 import { LandingPageRoutingModule } from './landing-page-routing.module';
 
 import { LandingPageComponent } from './landing-page.component';
-import { HeaderComponent } from './header/header.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { FeaturesSectionComponent } from './features-section/features-section.component';
 import { SpecialitiesSectionComponent } from './specialities-section/specialities-section.component';
@@ -29,7 +28,7 @@ import { FooterComponent } from './footer/footer.component';
     CommonModule, FlexLayoutModule,
     LandingPageRoutingModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
   ],
-  declarations: [LandingPageComponent, HeaderComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, BlogSectionComponent, BrandPartnersSectionComponent, FooterComponent],
+  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, BlogSectionComponent, BrandPartnersSectionComponent, FooterComponent],
 
   exports: [LandingPageComponent]
 })

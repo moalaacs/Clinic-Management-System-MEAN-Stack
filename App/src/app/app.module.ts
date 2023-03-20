@@ -21,10 +21,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
+import { HeaderComponent } from './landing-page/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent
+    SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent
   ],
   imports: [
     BrowserModule,

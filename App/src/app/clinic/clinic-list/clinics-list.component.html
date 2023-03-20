@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="text-end">
+            <a [routerLink]="['/patient/add']">
+                <button type="button" class="btn btn-sm btn-primaryClr me-2 col-2" id="addButton">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="my-2 table-responsive">
+        <table class="table styled-table">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Specilization</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Street</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Postal Code</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let clinic of clinics; let i = index">
+                    <td scope="row">{{ i + 1 }}</td>
+                    <td>{{clinic._contactNumber}}</td>
+                    <td>{{clinic._specilization}}</td>
+                    <td>{{clinic._address.city}}</td>
+                    <td>{{clinic._address.street}}</td>
+                    <td>{{clinic._address.country}}</td>
+                    <td>{{clinic._address.zipCode}}</td>
+                    <td>
+                        <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
+                            <a [routerLink]="['/clinic/edit/', clinic._id]">
+                                <button type="button" class="btn btn-sm btn-primary me-2">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </a>
+                            <a [routerLink]="['/clinic/details/', clinic._id]">
+                                <button class="btn btn-sm btn-dark me-2">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </a>
+                            <a>
+                                <button class="btn btn-sm btn-danger" (click)="deleteClinic(clinic._id)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

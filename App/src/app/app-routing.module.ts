@@ -28,7 +28,8 @@ const routes: Routes = [
     loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule)
   },
   { path: 'doctor', loadChildren: () => import('./doctor/doctor.module').then(m => m.DoctorModule) },
-  { path: 'employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) }
+  { path: 'employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
+  { path: '**', component: NotfoundComponent }
 ];
 @NgModule({
   declarations: [NotfoundComponent],

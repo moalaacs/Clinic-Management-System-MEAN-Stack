@@ -1,3 +1,15 @@
 a{
     text-decoration: none;
 }
+.divBackground{
+    height:40vh;
+    width:80vw;
+    background-position: center;
+    background-size: cover;
+    filter: brightness(80%);
+    transition: all 0.2s;
+}
+.divBackground:hover{
+    filter:brightness(100%)
+}
+

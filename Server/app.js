@@ -19,6 +19,7 @@ const prescriptionRouter = require("./Routes/prescriptionRouter");
 const invoiceRouter = require("./Routes/invoiceRouter");
 const paymentRouter = require("./Routes/paymentRouter");
 const showAppointmentRouter = require("./Routes/showAppointmentRouter");
+const publicInformation=require("./Routes/publicInformation")
 const {
   checkAppointmentsDaily,
 } = require("./Middlewares/dailyAppointmentCheck");
@@ -62,6 +63,7 @@ async function connectToServer() {
     console.log("Connected to database");
     app.listen(port, () => {
       console.log("I am listening...", port);
+      checkAppointmentsDaily();
     });
   }
 }
@@ -79,11 +81,12 @@ app.use(express.json());
 
 
 // c- Routes (End points)  middleware
-checkAppointmentsDaily();
 /* Show Available Schedule */
 app.use(showAppointmentRouter);
 /* Register patient */
 app.use(registerRouter);
+/* Public Information */
+app.use(publicInformation);
 /* Authenticate user */
 // app.use(authenticate);
 /* Authorization user */
