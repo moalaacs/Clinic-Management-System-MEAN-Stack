@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 import { EmployeeService } from '../../services/employee.service';
 @Component({

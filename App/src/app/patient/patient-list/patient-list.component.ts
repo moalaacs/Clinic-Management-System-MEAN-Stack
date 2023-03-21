@@ -20,7 +20,11 @@ export class PatientListComponent implements OnInit {
   constructor(
     private patientService: PatientService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) {
+
+
+
+    }
 
   ngOnInit(): void {
     this.patientService.getAllPatients().pipe(

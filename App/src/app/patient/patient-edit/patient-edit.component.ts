@@ -18,9 +18,11 @@ export class PatientEditComponent implements OnInit {
   patientForm: FormGroup;
   patientId: number = 0;
   patient: any = null ;
-  minDate = new Date(1950, 0, 1);
-  maxDate = new Date();
-  defaultDate = new Date(2000, 0, 1);
+
+
+  minDate;
+  maxDate ;
+  defaultDate ;
 
   validationMessages = {
     firstname: {
@@ -74,6 +76,12 @@ export class PatientEditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private datePipe: DatePipe
   ) {
+
+    this.minDate = new Date('1963-01-01');
+    this.maxDate = new Date('2000-12-31');
+    this.defaultDate = new Date('1999-01-10');
+
+
     this.patientForm = this.fb.group({
       firstname: ['',[Validators.minLength(3),
         Validators.pattern('^[a-zA-Z ]+$')]],

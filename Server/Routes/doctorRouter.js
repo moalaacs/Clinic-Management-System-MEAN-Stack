@@ -14,7 +14,7 @@ const upload = setMulter("doctor");
 
 router
   .route("/doctor")
-  .all(authorizationMW.access())
+  // .all(authorizationMW.access())
   .get(controller.getAllDoctors)
   .post(
     upload.single("photo"),
@@ -28,7 +28,7 @@ router
   .all(
     numberIdParamsValidation,
     validatorMiddleware,
-    authorizationMW.access("doctor")
+    // authorizationMW.access("doctor")
   )
   .get(controller.getDoctorById)
   .put(

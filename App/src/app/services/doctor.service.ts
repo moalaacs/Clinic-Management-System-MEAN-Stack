@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { Doctor } from '../models/doctor';
 
@@ -15,22 +14,11 @@ export class DoctorService {
   constructor(private http: HttpClient) { }
 
   getAllDoctors(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`).pipe(
-      tap(response => console.log('Response from getAllDoctors:', response)),
-      catchError(error => {
-        console.log('Error retrieving Doctors: ', error);
-        return throwError('Could not retrieve Doctors. Please try again later.');
-      })
-    );
+    return this.http.get(`${this.baseUrl}`)
   }
 
   getDoctorById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`).pipe(
-      catchError(error => {
-        console.log('Error retrieving Doctor: ', error);
-        return throwError('Could not retrieve Doctor. Please try again later.');
-      })
-    );
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
 

@@ -28,7 +28,7 @@ exports.getAllDoctors = async (request, response, next) => {
       {
         path: "_clinic",
         options: { strictPopulate: false },
-        select: { _specilization: 1, _address: 1, _id: 0 },
+        select: { _specilization: 1, _address: 1 },
       },
     ]);
     doctors = sortData(doctors, query);
@@ -53,7 +53,7 @@ exports.getDoctorById = async (request, response, next) => {
       .populate({
         path: "_clinic",
         options: { strictPopulate: false },
-        select: { _specilization: 1, _address: 1, _id: 0 },
+        select: { _specilization: 1, _address: 1 },
       });
     if (!doctor) {
       return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));

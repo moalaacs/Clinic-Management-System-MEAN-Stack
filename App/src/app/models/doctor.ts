@@ -1,4 +1,4 @@
-import { Person } from './person';
+import { Person,Address } from './person';
 
 
 export interface Schedule {
@@ -9,7 +9,6 @@ export interface Schedule {
 
 export interface Doctor extends Person {
   id: number;
-  specilization: "Pediatrician" | "Gynecologist" | "Cardiologist" | "Dermatologist" | "Psychiatrist" | "Neurologist" | "Radiologist" | "Dentist" | "Surgeon";
+  speciality: "Pediatrician" | "Gynecologist" | "Cardiologist" | "Dermatologist" | "Psychiatrist" | "Neurologist" | "Radiologist" | "Dentist" | "Surgeon";
   schedule: Schedule[];
-  clinic: number;
-}
+  clinicId: { _address:Address, _specilization:string, _id:number} ;}

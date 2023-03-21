@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -95,8 +94,7 @@ export class EmployeeEditComponent implements OnInit {
         Validators.pattern('^[a-zA-Z ]+$')]],
       lastname: ['',[Validators.minLength(3),
         Validators.pattern('^[a-zA-Z ]+$')]],
-      dateOfBirth: [''],
-      gender: [''],
+        gender: [''],
       phoneNumber: ['',[ Validators.pattern(/^\d+$/)]],
       email: ['', [ Validators.email]],
       address: this.fb.group({
@@ -118,7 +116,7 @@ export class EmployeeEditComponent implements OnInit {
           Validators.pattern(/^\d+$/),
         ])]
       }),
-      password: [''],
+      password: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(7)]],
       image: [''],
       medicalHistory: '',
       invoices: [],
@@ -135,8 +133,8 @@ export class EmployeeEditComponent implements OnInit {
       map(response => response.data)).subscribe(
       data => {
         let clinicId = data.clinicId._id;
-        let date = new Date(data.dateOfBirth);
         data.clinicId = clinicId;
+        let date = new Date(data.dateOfBirth);
         data.dateOfBirth = date;
         this.employee = data;
 
