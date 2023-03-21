@@ -7,6 +7,7 @@ import { MaterialModule } from 'src/material.moudel';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from './Auth/guard/auth.guard';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -50,6 +51,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./employee/employee.module').then((m) => m.EmployeeModule),canActivate:[AuthGuard]
   },
+  {
+    path: 'prescription',
+     loadChildren: () =>
+        import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
+   },
   { path: '**', component: NotfoundComponent },
 ];
 @NgModule({

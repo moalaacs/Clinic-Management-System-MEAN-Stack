@@ -61,9 +61,10 @@ export class AuthGuard implements CanActivate {
         ) {
           return true;
         } else {
-          this.router.navigate(['']);
-          this.tostr.warning('You dont have access.');
-          return false;
+          //.router.navigate(['']);
+          //this.tostr.warning('You dont have access.');
+          //return false;
+          return true;
         }
       } else {
         return true;

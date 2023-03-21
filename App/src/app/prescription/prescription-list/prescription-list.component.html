@@ -1,0 +1,32 @@
+<a class="btn btn-danger" routerLink="/prescription/add">Add Prescription</a>
+<br><br>
+<table class="table table-striped table-bordered" style="text-align: center;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>clinicRef</th>
+            <th>patientRef</th>
+            <th>doctorRef</th>
+            <th>medications</th>
+            <th>instructions</th>
+            <th>date</th>
+            <th style="text-align: center;">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prescription of prescriptions">
+            <td>{{prescription._id}}</td>
+            <td>{{prescription.clinicRef}}</td>
+            <td>{{prescription.patientRef}}</td>
+            <td>{{prescription.medications}}</td>
+            <td>{{prescription.instructions}}</td>
+            <td>{{prescription.date}}</td>
+            <td style="text-align: center;">
+                <a class="btn btn-success me-2" [routerLink]="['/prescription','details',prescription._id]" >Details</a>
+                <button type="button" class="btn btn-primary me-2" (click)="delete(prescription._id)">Delete</button>
+                <a class="btn btn-warning" [routerLink]="['/prescription','edit',prescription._id]" >Update</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<router-outlet></router-outlet>
