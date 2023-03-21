@@ -29,10 +29,6 @@ import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { PrescriptionAddComponent } from './prescription/prescription-add/prescription-add.component';
-import { PrescriptionDetailsComponent } from './prescription/prescription-details/prescription-details.component';
-import { PrescriptionEditComponent } from './prescription/prescription-edit/prescription-edit.component';
-import { PrescriptionListComponent } from './prescription/prescription-list/prescription-list.component';
 import { PrescriptionModule } from './prescription/prescription.module';
 
 @NgModule({
@@ -41,7 +37,6 @@ import { PrescriptionModule } from './prescription/prescription.module';
     SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent, RegisterComponent, LoginComponent
   ],
   imports: [
-    PrescriptionModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
