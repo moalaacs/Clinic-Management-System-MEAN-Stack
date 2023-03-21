@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,14 +15,12 @@ import { TestimonialsSectionComponent } from './testimonials-section/testimonial
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { RouterLink } from '@angular/router';
 @NgModule({
   imports: [
-    CommonModule, FlexLayoutModule,
-    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
+    BrowserModule, FlexLayoutModule, FormsModule,
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, RouterLink
   ],
   declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent],
-
-  exports: [LandingPageComponent]
 })
 export class LandingPageModule { }
