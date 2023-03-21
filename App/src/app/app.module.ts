@@ -21,6 +21,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
+import { DashboardModule } from './Dashboard/Dashboard.module';
+import { AllAppointmentsReportsComponent } from './Dashboard/Reports/AppointmentReports/AllAppointmentsReports/AllAppointmentsReports.component';
+import { ReportsModule } from './Dashboard/Reports/Reports.module';
+import { AppointmentReportsComponent } from './Dashboard/Reports/AppointmentReports/AppointmentReports.component';
+import { AppointmentReportsModule } from './Dashboard/Reports/AppointmentReports/AppointmentReports.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +40,7 @@ import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-d
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule,
+    DashboardModule, ReportsModule, AppointmentReportsModule
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]

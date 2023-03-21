@@ -24,24 +24,24 @@ router
   .post(validateAppointment, validatorMiddleware, controller.addAppointment);
 
 router
-  .route("/appointmentReports/all")
-  .get(authorizationMW.access(), controller.allAppointmentsReports);
+  .route("/appointmentReports")
+  .get(/*authorizationMW.access(),*/ controller.allAppointmentsReports);
 
 router
   .route("/appointmentReports/daily")
-  .get(authorizationMW.access(), controller.dailyAppointmentsReports);
+  .get(/*authorizationMW.access(),*/ controller.dailyAppointmentsReports);
 
 router
   .route("/appointmentReports/range/:startDate/:endDate")
-  .get(authorizationMW.access(), controller.rangeAppointmentsReports);
+  .get(/*authorizationMW.access(),*/  controller.rangeAppointmentsReports);
 
 router
   .route("/appointmentReports/patient/:id")
-  .get(authorizationMW.access(), controller.patientAppointmentsReports);
+  .get(/*authorizationMW.access(),*/  controller.patientAppointmentsReports);
 
 router
   .route("/appointmentReports/doctor/:id")
-  .get(authorizationMW.access(), controller.doctorAppointmentsReports);
+  .get(/*authorizationMW.access(),*/  controller.doctorAppointmentsReports);
 
 router
   .route("/appointment/:id")

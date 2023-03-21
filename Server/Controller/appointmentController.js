@@ -311,7 +311,7 @@ exports.getAppointmentById = async (request, response, next) => {
 exports.allAppointmentsReports = (request, response, next) => {
   appointmentSchema
     .find()
-    // .populate({ path: "_patientId", select: { _id: 0, _fname: 1, _lname: 1 } })
+    .populate({ path: "patientId", select: { _id: 0, _fname: 1, _lname: 1 } })
     .populate({ path: "_doctorId", select: { _id: 0, _fname: 1, _lname: 1 } })
     .populate({
       path: "_clinicId",
