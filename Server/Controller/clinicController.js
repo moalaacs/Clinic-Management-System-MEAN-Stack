@@ -40,7 +40,7 @@ exports.addClinic = async (request, response, next) => {
       _specilization: request.body.speciality,
       _services: fillClinicServices(request.body.speciality),
     });
-    const hash = await bcrypt.hash("admin", 10);
+    const hash = await bcrypt.hash("admin123456", 10);
     let savedClinic = await clinic.save();
     let clinicProfile = new users({
       _email: request.body.email,

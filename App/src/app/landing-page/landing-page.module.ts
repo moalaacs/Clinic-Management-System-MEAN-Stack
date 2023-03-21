@@ -5,12 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-
-
-
-
-import { LandingPageRoutingModule } from './landing-page-routing.module';
-
 import { LandingPageComponent } from './landing-page.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { FeaturesSectionComponent } from './features-section/features-section.component';
@@ -19,16 +13,14 @@ import { ServicesSectionComponent } from './services-section/services-section.co
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
-import { BlogSectionComponent } from './blog-section/blog-section.component';
-import { BrandPartnersSectionComponent } from './brand-partners-section/brand-partners-section.component';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
     CommonModule, FlexLayoutModule,
-    LandingPageRoutingModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
   ],
-  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, BlogSectionComponent, BrandPartnersSectionComponent, FooterComponent],
+  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent],
 
   exports: [LandingPageComponent]
 })
