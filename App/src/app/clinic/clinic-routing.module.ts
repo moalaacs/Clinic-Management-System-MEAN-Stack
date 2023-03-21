@@ -10,15 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 const routes: Routes = [
   {
-    path: '', component: ClinicsInfoComponent,
+    path: '', component: SpecilizationComponent,
   },
   {
     path: "add",
     component: ClinicsInfoComponent
-  },
-  {
-    path: "services",
-    component: SpecilizationComponent
   },
   {
     path: 'details/:id',

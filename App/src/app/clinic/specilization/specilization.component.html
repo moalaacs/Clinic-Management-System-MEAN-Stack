@@ -1,8 +1,6 @@
 <a *ngFor="let item of availableSpecilization" routerLink="/clinic/services/{{item}}">
-    <div class="divBackground my-2 d-flex justify-content-around text-dark fw-bold">
+    <div class="divBackground m-2 d-flex justify-content-between text-dark fw-bold">
         <img src="../../../assets/serviceHeader/{{spToImg(item)}}.jpg" width="500rem">
-        <div class="d-flex flex-column align-items-center">
-            <p>{{item}}</p>
-        </div>
+        <p>{{item}}</p>
     </div>
 </a>
