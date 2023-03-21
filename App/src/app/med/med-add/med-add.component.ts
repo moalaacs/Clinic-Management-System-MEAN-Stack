@@ -18,10 +18,10 @@ export class MedAddComponent implements OnInit {
 
   constructor(public medicineService: MedicineService, public router: Router, public location: Location, public fb: FormBuilder) {
     this.medicineForm = this.fb.group({
-      _name: ['', [Validators.required, Validators.pattern("[a-zA-Z]{3,}")]],
-      _productionDate: ['', [Validators.required, Validators.pattern("(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d")]],
-      _expiryDate: ['', [Validators.required, Validators.pattern("(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d")]],
-      _leaflet: ['', [Validators.required, Validators.pattern("[a-zA-Z]{3,}")]],
+      _name: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      _productionDate: ['', [Validators.required,]],
+      _expiryDate: ['', [Validators.required,]],
+      _leaflet: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
       _pricePerUnit: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       _quantity: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     });
@@ -34,39 +34,45 @@ export class MedAddComponent implements OnInit {
     })
   }
   get name() {
-    return this.medicineForm.get('name');
+    return this.medicineForm.get('_name');
   }
   get productionDate() {
-    return this.medicineForm.get('productionDate');
+    return this.medicineForm.get('_productionDate');
   }
   get expiryDate() {
-    return this.medicineForm.get('expiryDate');
+    return this.medicineForm.get('_expiryDate');
   }
   get leaflet() {
-    return this.medicineForm.get('leaflet');
+    return this.medicineForm.get('_leaflet');
   }
   get pricePerUnit() {
-    return this.medicineForm.get('pricePerUnit');
+    return this.medicineForm.get('_pricePerUnit');
   }
   get quantity() {
-    return this.medicineForm.get('quantity');
+    return this.medicineForm.get('_quantity');
   }
+  // addMedicine(errorH5: HTMLElement) {
+  //   errorH5.innerHTML = '';
+  //   let Router = this.router;
+  //   this.medicineService.addMedicine(this.medicineForm.value).subscribe({
+  //     next(value) {
+  //       console.log(value);
+  //       alert("Success");
+  //       Router.navigateByUrl("/medicine");
+  //     },
+  //     error(err) {
+  //       errorH5.innerHTML = err.error.message;
+  //     },
+
+  //   });
+  // }
   addMedicine(errorH5: HTMLElement) {
     errorH5.innerHTML = '';
-    let Router = this.router;
-    this.medicineService.addMedicine(this.medicineForm.value).subscribe({
-      next(value) {
-        console.log(value);
-        alert("Success");
-        Router.navigateByUrl("medicine");
-      },
-      error(err) {
-        errorH5.innerHTML = err.error.message;
-      },
-      // console.log(newMedicine);
-      // // this.medicine.push(newMedicine);
-      // this.router.navigateByUrl("/medicine");
-      // this.location.back();
+    this.medicineService.addMedicine(this._medicine).subscribe(newMedicine => {
+      console.log(newMedicine);
+      // this.medicine.push(newMedicine);
+      this.router.navigateByUrl("/medicine");
+      this.location.back();
 
     });
   }

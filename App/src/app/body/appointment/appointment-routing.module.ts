@@ -6,8 +6,8 @@ import { AppointmentListComponent } from './appointment-list/appointment-list.co
 
 const routes: Routes = [
   { path: "", component: AppointmentListComponent },
-  { path: "add", component: AppointmentAddComponent },
-  { path: "details/:id", component: AppointmentDetailsComponent },
+  { path: "addz", component: AppointmentAddComponent },
+  { path: "detailsz/:id", component: AppointmentDetailsComponent },
 
 ];
 

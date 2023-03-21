@@ -1,8 +1,7 @@
-<form [formGroup]="medicineForm" class="row" (ngSubmit)=" addMedicine(errorH5)">
-
+<form [formGroup]="medicineForm" class="row example-form" (ngSubmit)=" addMedicine(errorH5)">
     <mat-form-field>
         <mat-label>Medicine Name</mat-label>
-        <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="Ex Panadol">
+        <input type="text" matInput formControlName="_name" [errorStateMatcher]="matcher" placeholder="Ex Panadol">
         <mat-error *ngIf="name?.errors?.['pattern'] && !name?.errors?.['required']">
             Please enter a valid Medicine Name
         </mat-error>
@@ -13,7 +12,7 @@
     <!-- Production -->
     <mat-form-field>
         <mat-label>Production Date</mat-label>
-        <input type="text" matInput formControlName="productionDate" [errorStateMatcher]="matcher"
+        <input type="text" matInput formControlName="_productionDate" [errorStateMatcher]="matcher"
             placeholder="01/02/2015">
         <mat-error *ngIf="productionDate?.errors?.['pattern'] && !productionDate?.errors?.['required']">
             Please enter a valid Production Date
@@ -25,7 +24,8 @@
     <!-- Expiry -->
     <mat-form-field>
         <mat-label>Expiry Date</mat-label>
-        <input type="text" matInput formControlName="expiryDate" [errorStateMatcher]="matcher" placeholder="01/02/2025">
+        <input type="text" matInput formControlName="_expiryDate" [errorStateMatcher]="matcher"
+            placeholder="01/02/2025">
         <mat-error *ngIf="expiryDate?.errors?.['pattern'] && !expiryDate?.errors?.['required']">
             Please enter a valid Production Date
         </mat-error>
@@ -36,7 +36,7 @@
     <!-- Leaflet -->
     <mat-form-field>
         <mat-label>Leaflet</mat-label>
-        <input type="text" matInput formControlName="leaflet" [errorStateMatcher]="matcher" placeholder="Leaflet">
+        <input type="text" matInput formControlName="_leaflet" [errorStateMatcher]="matcher" placeholder="Leaflet">
         <mat-error *ngIf="leaflet?.errors?.['pattern'] && !leaflet?.errors?.['required']">
             Please enter a valid Leaflet
         </mat-error>
@@ -47,7 +47,7 @@
     <!-- Price -->
     <mat-form-field>
         <mat-label>Price</mat-label>
-        <input type="text" matInput formControlName="pricePerUnit" [errorStateMatcher]="matcher" placeholder="Leaflet">
+        <input type="text" matInput formControlName="_pricePerUnit" [errorStateMatcher]="matcher" placeholder="Price">
         <mat-error *ngIf="pricePerUnit?.errors?.['pattern'] && !pricePerUnit?.errors?.['required']">
             Please enter a valid price
         </mat-error>
@@ -58,7 +58,7 @@
     <!-- Quantity -->
     <mat-form-field>
         <mat-label>Quantity</mat-label>
-        <input type="text" matInput formControlName="quantity" [errorStateMatcher]="matcher" placeholder="100">
+        <input type="text" matInput formControlName="_quantity" [errorStateMatcher]="matcher" placeholder="100">
         <mat-error *ngIf="quantity?.errors?.['pattern'] && !quantity?.errors?.['required']">
             Please enter a valid Quantity
         </mat-error>

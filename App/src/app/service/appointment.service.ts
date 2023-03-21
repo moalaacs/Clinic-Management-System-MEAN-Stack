@@ -18,7 +18,7 @@ export class AppointmentService {
   }
   /* Get Appointment by ID */
   getAppointmentById(id: number) {
-    return this.http.get<Appointment>(this.baseurl + id);
+    return this.http.get<Appointment[]>(this.baseurl + id);
   }
   /* Add New Appointment */
   addAppointment(appointment: Appointment) {
