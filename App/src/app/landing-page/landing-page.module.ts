@@ -5,12 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-
-
-
-
-import { LandingPageRoutingModule } from './landing-page-routing.module';
-
 import { LandingPageComponent } from './landing-page.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { FeaturesSectionComponent } from './features-section/features-section.component';
@@ -24,7 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 @NgModule({
   imports: [
     CommonModule, FlexLayoutModule,
-    LandingPageRoutingModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
   ],
   declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent],
 
