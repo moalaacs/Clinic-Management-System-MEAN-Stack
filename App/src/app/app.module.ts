@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './Auth/token-interceptor/token-interceptor.service'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -28,6 +29,11 @@ import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PrescriptionAddComponent } from './prescription/prescription-add/prescription-add.component';
+import { PrescriptionDetailsComponent } from './prescription/prescription-details/prescription-details.component';
+import { PrescriptionEditComponent } from './prescription/prescription-edit/prescription-edit.component';
+import { PrescriptionListComponent } from './prescription/prescription-list/prescription-list.component';
+import { PrescriptionModule } from './prescription/prescription.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent, RegisterComponent, LoginComponent
   ],
   imports: [
+    PrescriptionModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -45,7 +52,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
     MatSnackBarModule, CommonModule
   ],
-  providers: [NgbActiveModal, ToastrService],
+  providers: [NgbActiveModal, ToastrService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
