@@ -1,26 +1,20 @@
 <section id="tabs-1" class="wide-100 tabs-section division">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div>
 
-        <div class="nav nav-tabs" id="myTab" role="tablist">
+        <mat-tab-group>
 
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li *ngFor="let clinic of clinics;" class="nav-item" role="presentation">
-              <a class="nav-link hoverBtn" data-bs-toggle="pill" type="button" role="tab"
-                (click)="changeActiveDiv(clinic._id)">
-                <img src="../../../assets/servicesIcons/{{spToImg(clinic._specilization)}}.png" width="30rem">
-                {{clinic._specilization}}
-              </a>
-            </li>
-          </ul>
+          <mat-tab *ngFor="let clinic of clinics">
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+              First
+            </ng-template>
+            Content 1
+          </mat-tab>
 
-        </div>
+        </mat-tab-group>
 
-        <div>
-          <input type="text" [(ngModel)]="shownClinic._id">
-          <img src="../../../assets/serviceHeader/{{spToImg(shownClinic._specilization)}}.jpg">
-        </div>
       </div>
     </div>
     <!-- End row -->
