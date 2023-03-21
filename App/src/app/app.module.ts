@@ -26,10 +26,16 @@ import { AllAppointmentsReportsComponent } from './Dashboard/Reports/Appointment
 import { ReportsModule } from './Dashboard/Reports/Reports.module';
 import { AppointmentReportsComponent } from './Dashboard/Reports/AppointmentReports/AppointmentReports.component';
 import { AppointmentReportsModule } from './Dashboard/Reports/AppointmentReports/AppointmentReports.module';
+import { HeaderComponent } from './landing-page/header/header.component';
+import { LoginComponent } from './Auth/login/login.component';
+import { RegisterComponent } from './Auth/register/register.component';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent
+    SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent, RegisterComponent, LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +45,11 @@ import { AppointmentReportsModule } from './Dashboard/Reports/AppointmentReports
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
-    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule,
+    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
+    MatSnackBarModule
     DashboardModule, ReportsModule, AppointmentReportsModule
   ],
-  providers: [NgbActiveModal],
+  providers: [NgbActiveModal, ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

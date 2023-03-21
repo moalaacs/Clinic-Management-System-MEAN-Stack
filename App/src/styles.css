@@ -13,8 +13,76 @@
 html, body { height: 100%; }
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+.btn-primary , .btn-primaryClr{
+  background-color: #0c4095 !important;
+  color: #fff !important;
+  border: 1px solid #0c4095 !important;
+}
+.btn-primary:hover , .btn-primaryClr:hover {
+  background-color: #082a60 !important;
+  border: 1PX solid #082a60 !important;
+}
+.btn-secondary {
+  border: 1px solid #333 ;
+  background-color: #ffffff !important;
+  color: #333 !important;
+}
+
+.btn-secondary:hover {
+  color: #0c4095 !important;
+  border: 1px solid #0c4095 !important;
+}
+
+
+.patient-card {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.patient-card-header {
+  background-color: #0c4095;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 20px;  
+}
+.patient-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.mat-subheading-1 {
+  font-size: 14px;
+  font-weight: bold;
+}
+.card-title{
+  font-size: 14px;
+  font-weight: bold;
+}
+.mat-panel-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.mat-panel-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: flex-start;
+}
+
+mat-expansion-panel-description p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+
+.mat-mdc-card-header{
+  padding: 16px !important;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

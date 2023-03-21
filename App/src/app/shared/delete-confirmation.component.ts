@@ -8,14 +8,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   <h1 mat-dialog-title class="title">Confirm Deletion</h1>
   <p mat-dialog-content class="content">Are you sure you want to delete?</p>
   <div mat-dialog-actions class="buttons-div">
-    <button mat-button (click)="cancel()" class="button cancel-button">Cancel</button>
-    <button mat-button color="warn" (click)="confirm()" class="button delete-button">Delete</button>
+    <button mat-button (click)="cancel()" class="btn btn-secondery button cancel-button">Cancel</button>
+    <button mat-button color="warn" (click)="confirm()" class="btn btn-primary button delete-button">Delete</button>
   </div>
   </div>
 
 `,
-styles: [
-  `
+  styles: [
+    `
   .wrapper {
     display: flex;
     flex-direction: column;
@@ -47,13 +47,13 @@ styles: [
     }
 
   `
-]
+  ]
 
 
 })
 
 export class DeleteConfirmationComponent {
-  constructor(private dialogRef: MatDialogRef<DeleteConfirmationComponent>) {}
+  constructor(private dialogRef: MatDialogRef<DeleteConfirmationComponent>) { }
 
   cancel(): void {
     this.dialogRef.close(false);

@@ -1,32 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClinicComponent } from './clinic.component';
-import { ServicesComponent } from './services/services.component';
-import { ClinicsInfoComponent } from './clinics-info/clinics-info.component';
-import { ClinicsInfoByIdComponent } from './clinics-info-by-id/clinics-info-by-id.component';
+import { ServicesComponent } from './clinic-services/clinic-services.component';
+import { ClinicsInfoComponent } from './clinic-list/clinics-list.component';
+import { ClinicsInfoByIdComponent } from './clinic-details/clinic-details.component';
 import { AddClinicComponent } from './add-clinic/add-clinic.component';
 import { SpecilizationComponent } from './specilization/specilization.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 const routes: Routes = [
   {
-    path: '', component: ClinicComponent,
+    path: '', component: SpecilizationComponent,
   },
   {
     path: "add",
     component: AddClinicComponent
   },
   {
-    path: "availablespecilization",
-    component: SpecilizationComponent
-  },
-  {
-    path: 'info/:id',
+    path: 'details/:id',
     component: ClinicsInfoByIdComponent
-  },
-  {
-    path: 'speciallity/:speciallity',
-    component: ClinicsInfoComponent,
   },
   {
     path: 'services/:speciallity',

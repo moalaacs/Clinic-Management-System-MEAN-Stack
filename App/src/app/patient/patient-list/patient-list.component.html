@@ -2,11 +2,7 @@
   <div class="row mt-5">
     <div class="text-end">
       <a [routerLink]="['/patient/add']">
-        <button
-          type="button"
-          class="btn btn-sm btn-primaryClr me-2 col-2"
-          id="addButton"
-        >
+        <button type="button" class="btn btn-sm btn-primaryClr me-2 col-2" id="addButton">
           <i class="fa fa-plus"></i>
         </button>
       </a>
@@ -50,10 +46,7 @@
                 </button>
               </a>
               <a>
-                <button
-                  class="btn btn-sm btn-danger"
-                  (click)="deletePatient(patient.id)"
-                >
+                <button class="btn btn-sm btn-danger" (click)="deletePatient(patient.id)">
                   <i class="fa fa-trash"></i>
                 </button>
               </a>
