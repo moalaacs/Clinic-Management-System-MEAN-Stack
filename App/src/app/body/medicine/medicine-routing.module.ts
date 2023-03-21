@@ -8,9 +8,9 @@ import { MedicineListComponent } from './medicine-list/medicine-list.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const routes: Routes = [
-  { path: "", component: MedicineListComponent },
-  { path: "add", component: MedicineAddComponent },
-  { path: "details/:id", component: MedicineDetailsComponent },
+  { path: "zz", component: MedicineListComponent },
+  { path: "addz", component: MedicineAddComponent },
+  { path: "detailsz/:id", component: MedicineDetailsComponent },
 ];
 
 @NgModule({

@@ -4,11 +4,11 @@ import { Medicine } from 'src/app/class/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
 
 @Component({
-  selector: 'app-medicine-details',
-  templateUrl: './medicine-details.component.html',
-  styleUrls: ['./medicine-details.component.css']
+  selector: 'app-med-details',
+  templateUrl: './med-details.component.html',
+  styleUrls: ['./med-details.component.css']
 })
-export class MedicineDetailsComponent implements OnInit {
+export class MedDetailsComponent implements OnInit {
   medicine: Medicine = new Medicine(10, "MedicineName", "10/10/2022", "10/6/2025", "Keep this leaflet. You may need to read it again", 50, 100);
 
   constructor(public medicineService: MedicineService, public activatedRoute: ActivatedRoute) {
@@ -24,5 +24,4 @@ export class MedicineDetailsComponent implements OnInit {
       })
     })
   }
-
 }

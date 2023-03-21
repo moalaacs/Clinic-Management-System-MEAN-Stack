@@ -24,7 +24,7 @@ exports.getAllMedicine = async (request, response, next) => {
 };
 
 exports.addMedicine = async (request, response, next) => {
-  let addedDoctor = medicineSchema({
+  let addedMedicine = medicineSchema({
     _name: request.body.name,
     _productionDate: request.body.production,
     _expiryDate: request.body.expiry,
@@ -33,7 +33,7 @@ exports.addMedicine = async (request, response, next) => {
     _quantity: request.body.quantity,
   });
   try {
-    let resultData = await addedDoctor.save();
+    await addedMedicine.save();
     response.status(200).json({ status: "Added" });
   } catch (error) {
     next(error);
@@ -65,20 +65,20 @@ exports.putMedicineById = async (request, response, next) => {
 
 exports.patchMedicineById = async (request, response, next) => {
   try {
-  let foundMedicine = await medicineSchema.findOne({ _id: request.params.id });
-  if (!foundMedicine) {
-    return response.status(200).json({ message: "Medicine not found." });
-  }
+    let foundMedicine = await medicineSchema.findOne({ _id: request.params.id });
+    if (!foundMedicine) {
+      return response.status(200).json({ message: "Medicine not found." });
+    }
 
-  let tempMedicine = {};
-  tempMedicine._name = request.body.name || foundMedicine._name;
-  tempMedicine._productionDate = request.body.production || foundMedicine._productionDate;
-  tempMedicine._expiryDate = request.body.expiry || foundMedicine._expiryDate;
-  tempMedicine._leaflet = request.body.leaflet || foundMedicine._leaflet;
-  tempMedicine._pricePerUnit = request.body.price || foundMedicine._pricePerUnit;
-  tempMedicine._quantity = request.body.quantity || foundMedicine._quantity;
+    let tempMedicine = {};
+    tempMedicine._name = request.body.name || foundMedicine._name;
+    tempMedicine._productionDate = request.body.production || foundMedicine._productionDate;
+    tempMedicine._expiryDate = request.body.expiry || foundMedicine._expiryDate;
+    tempMedicine._leaflet = request.body.leaflet || foundMedicine._leaflet;
+    tempMedicine._pricePerUnit = request.body.price || foundMedicine._pricePerUnit;
+    tempMedicine._quantity = request.body.quantity || foundMedicine._quantity;
 
-  
+
     let updatedMedicine = await medicineSchema.updateOne(
       { _id: request.params.id },
       { $set: tempMedicine }

@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'medicine',
-    loadChildren: () => import('./body/medicine/medicine.module').then(m => m.MedicineModule)
+    loadChildren: () => import('./med/med.module').then(m => m.MedModule)
   },
   {
     path: 'appointment',
