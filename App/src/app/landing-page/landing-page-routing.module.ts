@@ -9,8 +9,6 @@ import { ServicesSectionComponent } from './services-section/services-section.co
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
-import { BlogSectionComponent } from './blog-section/blog-section.component';
-import { BrandPartnersSectionComponent } from './brand-partners-section/brand-partners-section.component';
 import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
@@ -25,8 +23,6 @@ const routes: Routes = [
       { path: 'testimonials', component: TestimonialsSectionComponent },
       { path: 'doctors', component: DoctorsSectionComponent },
       { path: 'subscribe', component: SubscribeSectionComponent },
-      { path: 'blog', component: BlogSectionComponent },
-      { path: 'partners', component: BrandPartnersSectionComponent },
       { path: 'footer', component: FooterComponent }
     ]
   }
