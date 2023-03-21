@@ -36,13 +36,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'appointmentReports',
-    loadChildren: () =>
-      import(
-        './Dashboard/Reports/AppointmentReports/AppointmentReports.module'
-      ).then((m) => m.AppointmentReportsModule),
-  },
-  {
     path: 'patient',
     loadChildren: () =>
       import('./patient/patient.module').then((m) => m.PatientModule),canActivate:[AuthGuard]

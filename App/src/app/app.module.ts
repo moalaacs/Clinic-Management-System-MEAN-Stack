@@ -22,10 +22,6 @@ import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { DashboardModule } from './Dashboard/Dashboard.module';
-import { AllAppointmentsReportsComponent } from './Dashboard/Reports/AppointmentReports/AllAppointmentsReports/AllAppointmentsReports.component';
-import { ReportsModule } from './Dashboard/Reports/Reports.module';
-import { AppointmentReportsComponent } from './Dashboard/Reports/AppointmentReports/AppointmentReports.component';
-import { AppointmentReportsModule } from './Dashboard/Reports/AppointmentReports/AppointmentReports.module';
 import { HeaderComponent } from './landing-page/header/header.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
@@ -47,7 +43,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
     MatSnackBarModule
-    DashboardModule, ReportsModule, AppointmentReportsModule
   ],
   providers: [NgbActiveModal, ToastrService],
   bootstrap: [AppComponent]
