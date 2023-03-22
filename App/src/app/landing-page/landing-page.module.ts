@@ -29,7 +29,7 @@ import { GallerySectionComponent } from './gallery-se\ction/gallery-section.comp
 @NgModule({
   imports: [
     FlexLayoutModule, LandingPageRoutingModule,
-    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule, CarouselModule
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule, CarouselModule,
   ],
   declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
 
