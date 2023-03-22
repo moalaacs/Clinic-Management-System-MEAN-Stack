@@ -9,3 +9,11 @@ export class Medicine {
 
     }
 }
+
+export interface PrescriptionMedicine{
+    name: String,
+    dose: String,
+    frequency: String,
+    type:'syrup'| 'tablet'| 'capsule'
+  }
+
