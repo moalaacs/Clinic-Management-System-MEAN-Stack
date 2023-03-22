@@ -22,19 +22,18 @@ import { ServicesSectionComponent } from './services-section/services-section.co
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from '../core/footer/footer.component';
 import { RouterLink } from '@angular/router';
-// import { MatTabsModule } from '@angular/material/tabs';import { HeaderComponent } from './header/header.component';
+// import { MatTabsModule } from '@angular/material/tabs';
+// import { HeaderComponent } from './header/header.component';
 import { InfoSectionComponent } from './info-section/info-section.component';
 import { GallerySectionComponent } from './gallery-section/gallery-section.component';
-import { HeaderComponent } from './header/header.component';
-
 @NgModule({
   imports: [
     FlexLayoutModule, LandingPageRoutingModule,
     MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule, CarouselModule
   ],
-  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent, HeaderComponent],
+  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
 
   exports: [LandingPageComponent]
 })

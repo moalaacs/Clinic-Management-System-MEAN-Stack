@@ -10,4 +10,10 @@ a{
 .textFix{
   line-height: 1.6rem;
 }
-
+.shad{
+  border-radius: 5px;
+  box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.4);
+}
+.bgc{
+  height: 70vh;
+}
