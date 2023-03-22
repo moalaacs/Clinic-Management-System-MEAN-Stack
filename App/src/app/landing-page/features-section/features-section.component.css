@@ -1,0 +1,52 @@
+.clinic-features-section{
+    background-color: #f5f5f5;
+    padding: 50px 0;
+    display: grid;
+    place-content: center;
+
+}
+
+.features{
+  width: 80vw;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.088);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (max-width: 768px) {
+  .features{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+.features .feature{
+  padding: 20px;
+}
+.features .feature:not(:last-child){
+  border-right: 1px solid rgba(0, 0, 0, 0.088);
+}
+@media screen and (max-width: 768px) {
+  .features .feature:not(:last-child){
+    border-right: none;
+  }
+}
+.features .feature .feature-headline{
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.features .feature .feature-title{
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 30px;
+  margin-bottom: 14px;
+}
+
+.features .feature .feature-description{
+  font-size: 1rem;
+  font-weight: 300;
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@coreui/angular": "^4.3.16",
+    "@coreui/coreui": "^4.2.6"
+  }
+}

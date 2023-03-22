@@ -1,0 +1,46 @@
+.blog-container{
+  margin-bottom: 100px;
+}
+.info-section{
+  margin: 0 50px;
+  display: grid;
+  place-content: center;
+}
+
+.img-fluid{
+max-width: 100%;
+height: auto;
+}
+img{
+  vertical-align: middle;
+  border-style: none;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+
+span.section-id {
+  font-size: 0.825rem;
+  /* font-family: 'Lato', sans-serif; */
+  font-weight: 900;
+  text-transform: uppercase;
+  display: block;
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+  color: #125acd;
+}
+h3.h3-md{
+  margin-bottom:30px;
+  font-size:2.625rem;
+  color: #0c4095;
+  font-weight:700;
+  line-height:1.2;
+}
+
+.blog-text p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #08285c;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
