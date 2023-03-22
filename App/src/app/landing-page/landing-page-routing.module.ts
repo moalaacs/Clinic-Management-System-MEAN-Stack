@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { LandingPageComponent } from './landing-page.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
@@ -17,9 +16,10 @@ const routes: Routes = [
     path: '',
     component: LandingPageComponent,
     children: [
-      { path: '',
-      redirectTo: 'header',
-      pathMatch: 'full'
+      {
+        path: '',
+        redirectTo: 'header',
+        pathMatch: 'full'
       },
       { path: 'header', component: HeaderComponent },
       { path: 'hero', component: HeroSectionComponent },
@@ -30,12 +30,12 @@ const routes: Routes = [
       { path: 'doctors', component: DoctorsSectionComponent },
       { path: 'subscribe', component: SubscribeSectionComponent },
       { path: 'footer', component: FooterComponent }
-      ]
-      }
-      ];
+    ]
+  }
+];
 
-      @NgModule({
-      imports: [RouterModule.forChild(routes)],
-      exports: [RouterModule]
-      })
-      export class LandingPageRoutingModule { }
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class LandingPageRoutingModule { }

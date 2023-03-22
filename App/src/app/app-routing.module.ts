@@ -55,7 +55,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
   },
-  {path: 'appointmentReports', component: AllAppointmentReportsComponent},
+  { path: '', component: LandingPageComponent, pathMatch: 'full' },
+  { path: 'appointmentReports', component: AllAppointmentReportsComponent },
   { path: '**', component: NotfoundComponent },
 ];
 @NgModule({
