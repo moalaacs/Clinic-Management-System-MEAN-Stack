@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './Auth/token-interceptor/token-interceptor.service'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,7 +50,7 @@ import { AllAppointmentReportsComponent } from './appointment-reports/all-appoin
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
-    MatSnackBarModule,MatToolbarModule,MatButtonModule,MatMenuModule, DashboardModule
+    MatSnackBarModule, MatToolbarModule, MatButtonModule, MatMenuModule, DashboardModule
 
     , CommonModule
   ],

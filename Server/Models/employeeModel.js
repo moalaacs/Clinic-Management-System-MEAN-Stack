@@ -10,7 +10,7 @@ const employeeSchema = new mongoose.Schema(
     _clinic: { type: Number, ref: "clinic" },
     _monthlyRate: { type: Number },
     _workingHours: { type: Number, min: 0, max: 24 },
-    _role: { type: String, required: true, enum: ['receptionist', 'nurse'] },
+    _role: { type: String, required: true, enum: ['receptionist', 'nurse',"employee"] },
   })
 );
 

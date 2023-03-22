@@ -1,3 +1,13 @@
 .hoverBtn:hover{
   background-color: rgba(221, 221, 221, 0.493);
 }
+a{
+  text-decoration: none;
+}
+.pcolor{
+  color:#0b3880;
+}
+.textFix{
+  line-height: 1.6rem;
+}
+

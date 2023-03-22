@@ -314,7 +314,7 @@ let employeeValidation = [
   check("clinicId").isInt().withMessage("ClinicId should be number"),
   check("salary").isInt().withMessage("salary should be number"),
   check("workingHours").isInt().withMessage("workingHours should be number"),
-  check("role").isIn(["receptionist", "nurse"]).withMessage("Role should be receptionist or Nurse")
+  check("role").isIn(["receptionist", "nurse","employee"]).withMessage("Role should be receptionist or Nurse")
 ];
 let employeePatchValidation = [
   validatePatchPerson,
@@ -327,7 +327,7 @@ let employeePatchValidation = [
     .withMessage("workingHours should be number"),
   check("role")
     .optional()
-    .isIn(["receptionist", "nurse"])
+    .isIn(["receptionist", "nurse","employee"])
     .withMessage("Role should be receptionist or Nurse"),
     
 ];

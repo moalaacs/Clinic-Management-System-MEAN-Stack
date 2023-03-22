@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServicesComponent } from './clinic-services/clinic-services.component';
-import { ClinicsInfoComponent } from './clinic-list/clinics-list.component';
 import { ClinicsInfoByIdComponent } from './clinic-details/clinic-details.component';
 import { AddClinicComponent } from './add-clinic/add-clinic.component';
 import { SpecilizationComponent } from './specilization/specilization.component';
