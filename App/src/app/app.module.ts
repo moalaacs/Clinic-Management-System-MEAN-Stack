@@ -31,6 +31,11 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PrescriptionModule } from './prescription/prescription.module';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
+import { ChartModule } from 'primeng/chart';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,7 @@ import { AllAppointmentReportsComponent } from './appointment-reports/all-appoin
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
-    MatSnackBarModule, CommonModule
+    MatSnackBarModule, CommonModule, ChartModule, ButtonModule, ToastModule, RippleModule, ImageModule
   ],
   providers: [NgbActiveModal, ToastrService, {
     provide: HTTP_INTERCEPTORS,
