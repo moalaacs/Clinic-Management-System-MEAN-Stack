@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     private service: AuthService,
     private router: Router,
     private tostr: ToastrService
-  ) {}
+  ) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -34,7 +34,6 @@ export class AuthGuard implements CanActivate {
         //let menu = route.url[0].path;
         //let menu =document.location.href;
         let menu = document.location.pathname;
-        console.log(menu);
         if (
           (menu == '/doctor/add' ||
             menu == '/doctor/edit/:id' ||
@@ -52,7 +51,7 @@ export class AuthGuard implements CanActivate {
           return true;
         } else if (
           (menu == '/employee' || menu == '/employee/details/:id') &&
-          this.service.getRole() == 'employee'
+          (this.service.getRole() == 'employee' || this.service.getRole() == "nurse")
         ) {
           return true;
         } else if (
@@ -61,9 +60,8 @@ export class AuthGuard implements CanActivate {
         ) {
           return true;
         } else {
-          //.router.navigate(['']);
-          //this.tostr.warning('You dont have access.');
-          //return false;
+          // this.router.navigate(['']);
+          // this.tostr.warning('You dont have access.');
           return true;
         }
       } else {

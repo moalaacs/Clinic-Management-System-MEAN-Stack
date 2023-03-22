@@ -31,4 +31,7 @@ export class ClinicService {
   deleteClinicById(id: number) {
     return this.http.delete<void>(`${this.baseURL}${this.authorizedURL}/${id}`);
   }
+  getClinicsBySpecilization(speciality: string) {
+    return this.http.get<IClinic[]>(`${this.baseURL}/clinicsspecilization/${speciality}`);
+  }
 }

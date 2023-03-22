@@ -75,12 +75,12 @@ app.use(cors());
 // a- logger middleware
 app.use(morgan("dev"));
 
-app.use((request,response,next)=>{
-  response.header("Access-Control-Allow-Origin","*");
-  response.header("Access-Control-Allow-Methods","GET,POST,DELETE,PUT,OPTIONS");
-  response.header("Access-Control-Allow-Headers","Content-Type,Authorization")
-  next();
-})
+// app.use((request,response,next)=>{
+//   response.header("Access-Control-Allow-Origin","*");
+//   response.header("Access-Control-Allow-Methods","GET,POST,DELETE,PUT,OPTIONS");
+//   response.header("Access-Control-Allow-Headers","Content-Type,Authorization")
+//   next();
+// })
 
 // b- body parser middleware
 app.use(express.json());
@@ -95,9 +95,9 @@ app.use(registerRouter);
 /* Public Information */
 app.use(publicInformation);
 /* Authenticate user */
-// app.use(authenticate);
+app.use(authenticate);
 /* Authorization user */
-// app.use(authorizationMW);
+app.use(authorizationMW);
 
 /*Routes*/
 app.use(doctorRouter);

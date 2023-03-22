@@ -1,23 +1,19 @@
-<section id="tabs-1" class="wide-100 tabs-section division">
-  <div class="container">
-    <div class="row">
-      <div>
-
-        <mat-tab-group>
-
-          <mat-tab *ngFor="let clinic of clinics">
-            <ng-template mat-tab-label>
-              <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-              First
-            </ng-template>
-            Content 1
-          </mat-tab>
-
-        </mat-tab-group>
-
+<mat-tab-group class="px-3 bgc">
+  <mat-tab *ngFor="let clinic of clinics">
+    <div class="bg-danger">
+      <ng-template mat-tab-label>
+        <img src="../../../assets/servicesIcons/{{spToImg(clinic._specilization)}}.png" width="30rem">
+        <span class="mx-2">{{clinic._specilization}}</span>
+      </ng-template>
+    </div>
+    <div class="my-3 d-flex flex-column flex-lg-row justify-content-around align-items-center">
+      <img class="shad" src="../../../assets/serviceHeader/{{spToImg(clinic._specilization)}}.jpg" width="800rem">
+      <div class="d-flex flex-column col-5">
+        <strong class="fs-4 pcolor my-2">{{clinic._specilization}} Department</strong>
+        <span class="fw-light textFix fs-5 pcolor mb-2">{{spToDescription(clinic._specilization)}}
+        </span>
+        <button class="btn btn-primary" routerLink="clinic/services/{{clinic._specilization}}">View Services</button>
       </div>
     </div>
-    <!-- End row -->
-  </div>
-  <!-- End container -->
-</section>
+  </mat-tab>
+</mat-tab-group>

@@ -64,7 +64,13 @@ header nav ul li.active > a {
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
-
+a{
+  text-decoration: none;
+}
+.logoF{
+  font-family: "roboto";
+  color:rgb(54, 54, 54);
+}
 
 .burger-menu {
   display: none;
@@ -179,3 +185,24 @@ header nav ul li.active > a {
     display: none;
   }
 }
+
+
+
+
+.mat-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 600px) {
+  .mat-toolbar {
+    flex-direction: column;
+  }
+}
+

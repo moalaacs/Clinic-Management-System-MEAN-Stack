@@ -1,15 +1,13 @@
-a{
-    text-decoration: none;
+  .butn{
+    display: none;
+  }
+  .cas:hover .butn{
+    display: inline-block;
+  }
+.parent{
+  margin: 3rem auto;
+  width: 80vw;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
 }
-.divBackground{
-    height:40vh;
-    width:60vw;
-    background-position: center;
-    background-size: cover;
-    filter: brightness(80%);
-    transition: all 0.2s;
-}
-.divBackground:hover{
-    filter:brightness(100%)
-}
-
