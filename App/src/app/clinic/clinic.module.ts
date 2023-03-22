@@ -23,9 +23,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
 @NgModule({
-  declarations: [
+  declarations: [AvailableClinicsComponent,
     ClinicComponent, ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent, SpecilizationComponent
   ],
   imports: [

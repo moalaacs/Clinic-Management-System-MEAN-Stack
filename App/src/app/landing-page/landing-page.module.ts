@@ -24,8 +24,6 @@ import { DoctorsSectionComponent } from './doctors-section/doctors-section.compo
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
 import { FooterComponent } from '../core/footer/footer.component';
 import { RouterLink } from '@angular/router';
-// import { MatTabsModule } from '@angular/material/tabs';
-// import { HeaderComponent } from './header/header.component';
 import { InfoSectionComponent } from './info-section/info-section.component';
 import { GallerySectionComponent } from './gallery-section/gallery-section.component';
 @NgModule({
