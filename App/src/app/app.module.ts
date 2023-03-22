@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-
+import { HeaderComponent } from './landing-page/header/header.component';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { DashboardModule } from './Dashboard/Dashboard.module';
 import { LoginComponent } from './Auth/login/login.component';
@@ -38,7 +38,7 @@ import { AllAppointmentReportsComponent } from './appointment-reports/all-appoin
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent
+    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent
   ],
   imports: [
     BrowserModule,

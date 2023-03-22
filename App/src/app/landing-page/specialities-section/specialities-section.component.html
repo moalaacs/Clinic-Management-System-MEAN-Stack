@@ -1,14 +1,16 @@
-<mat-tab-group class="my-3 px-3">
+<mat-tab-group class="my-3 px-3 bgc">
   <mat-tab *ngFor="let clinic of clinics">
-    <ng-template mat-tab-label>
-      <img src="../../../assets/servicesIcons/{{spToImg(clinic._specilization)}}.png" width="30rem">
-      <span class="mx-2">{{clinic._specilization}}</span>
-    </ng-template>
-    <div class="my-5 d-flex flex-column flex-lg-row justify-content-around align-items-center">
+    <div class="bg-danger">
+      <ng-template mat-tab-label>
+        <img src="../../../assets/servicesIcons/{{spToImg(clinic._specilization)}}.png" width="30rem">
+        <span class="mx-2">{{clinic._specilization}}</span>
+      </ng-template>
+    </div>
+    <div class="my-3 d-flex flex-column flex-lg-row justify-content-around align-items-center">
       <img class="shad" src="../../../assets/serviceHeader/{{spToImg(clinic._specilization)}}.jpg" width="800rem">
       <div class="d-flex flex-column col-5">
-        <span class="fw-bold fs-2 pcolor my-3">{{clinic._specilization}} Department</span>
-        <span class="fw-light textFix fs-3 pcolor mb-3">{{spToDescription(clinic._specilization)}}
+        <strong class="fs-4 pcolor my-2">{{clinic._specilization}} Department</strong>
+        <span class="fw-light textFix fs-5 pcolor mb-2">{{spToDescription(clinic._specilization)}}
         </span>
         <button class="btn btn-primary" routerLink="clinic/services/{{clinic._specilization}}">View Services</button>
       </div>
