@@ -1,0 +1,45 @@
+.doctor-card {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.doctor-card-header {
+  background-color: #0c4095;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+  .doctor-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+.mat-subheading-1 {
+  font-size: 14px;
+  font-weight: bold;
+}
+.card-title{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mat-panel-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.mat-panel-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: flex-start;
+}
+
+mat-expansion-panel-description p {
+  margin: 0;
+  padding: 5px 0;
+}
