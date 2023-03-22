@@ -1,0 +1,162 @@
+<!-- <div class="profile">
+  <img [src]="user.image" alt="Profile image" />
+  <h2>{{ user.firstname + " " + user.lastname }}</h2>
+  <p>Date of birth: {{ user.dateOfBirth }} ({{ user.age }} years old)</p>
+  <p>Gender: {{ user.gender }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Phone: {{ user.phoneNumber }}</p>
+  <h3>Address:</h3>
+  <p>
+    {{ user.address.street }}, {{ user.address.city }},
+    {{ user.address.country }} ({{ user.address.zipCode }})
+  </p>
+  <p *ngIf="user.medicalHistory">Medical history: {{ user.medicalHistory }}</p>
+  <h3 *ngIf="user.invoices.length > 0">Invoices:</h3>
+  <ul>
+    <li *ngFor="let invoice of user.invoices">
+      {{ invoice.invoice_id }} - ${{ invoice.total }} (due: ${{
+        invoice.totalDue
+      }}) [{{ invoice.status }}]
+    </li>
+  </ul>
+</div> -->
+
+<!-- <div class="profile">
+  <div
+    class="profile-image"
+    [style.backgroundImage]="'url(' + user.image + ')'"
+  ></div>
+  <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+  <p>{{ user.age }} years old</p>
+  <p>{{ user.gender }}</p>
+  <p>{{ user.phoneNumber }}</p>
+  <p>{{ user.email }}</p>
+  <p>
+    {{ user.address.street }}, {{ user.address.city }},
+    {{ user.address.country }} {{ user.address.zipCode }}
+  </p>
+  <h3>[Medical History]</h3>
+  <p>{{ user.medicalHistory }}</p>
+  <h3>Invoices</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Invoice ID</th>
+        <th>Total</th>
+        <th>Total Due</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of user.invoices">
+        <td>{{ invoice.invoice_id }}</td>
+        <td>{{ invoice.total | currency }}</td>
+        <td>{{ invoice.totalDue | currency }}</td>
+        <td>{{ invoice.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="container">
+  <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+  <div class="row">
+    <div class="col-12">
+      <h3>Personal Information</h3>
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Date of Birth:</strong> {{ user.dateOfBirth }}</p>
+          <p><strong>Age:</strong> {{ user.age }}</p>
+          <p><strong>Gender:</strong> {{ user.gender }}</p>
+          <p><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p>
+            <strong>Address:</strong> {{ user.address.street }},
+            {{ user.address.city }}, {{ user.address.country }},
+            {{ user.address.zipCode }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="role === 'patient'">
+    <h3>Medical Information</h3>
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Medical History:</strong> {{ user.medicalHistory }}</p>
+        <h4>Invoices</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Invoice ID</th>
+                <th>Total</th>
+                <th>Total Due</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invoice of user.invoices">
+                <td>{{ invoice.invoice_id }}</td>
+                <td>{{ invoice.total }}</td>
+                <td>{{ invoice.totalDue }}</td>
+                <td>{{ invoice.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="role === 'doctor'">
+    <h3>Professional Information</h3>
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Speciality:</strong> {{ user.speciality }}</p>
+        <h4>Schedule</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let schedule of user.schedule">
+                <td>{{ schedule.day }}</td>
+                <td>{{ schedule.start }}</td>
+                <td>{{ schedule.end }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>Clinic Information</h4>
+        <p>
+          <strong>Address:</strong> {{ user.clinicId._address.street }},
+          {{ user.clinicId._address.city }},
+          {{ user.clinicId._address.country }},
+          {{ user.clinicId._address.zipCode }}
+        </p>
+        <p>
+          <strong>Specialization:</strong> {{ user.clinicId._specilization }}
+        </p>
+        <p><strong>Clinic ID:</strong> {{ user.clinicId._id }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="role === 'employee'">
+    <h3>Professional Information</h3>
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Role:</strong> {{ user.role }}</p>
+        <p><strong>Salary:</strong> {{ user.salary }}</p>
+        <p><strong>Working hours:</strong> {{ user.workingHours }}</p>
+      </div>
+    </div>
+  </div>
+</div>

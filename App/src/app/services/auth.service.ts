@@ -31,7 +31,11 @@ export class AuthService {
     this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';
     this.decodedToken = this.helper.decodeToken(this.token);
     return this.decodedToken.role;
-
+  }
+  getID(){
+    this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';
+    this.decodedToken = this.helper.decodeToken(this.token);
+    return this.decodedToken.id;
   }
   getEmail() {
     this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';
