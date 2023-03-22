@@ -38,4 +38,7 @@ export class AuthService {
     this.decodedToken = this.helper.decodeToken(this.token);
     return this.decodedToken.email;
   }
+  getToken(){
+    return this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';
+  }
 }

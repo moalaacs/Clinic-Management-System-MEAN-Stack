@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './Auth/token-interceptor/token-interceptor.service'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -28,6 +30,7 @@ import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PrescriptionModule } from './prescription/prescription.module';
 
 @NgModule({
   declarations: [
@@ -44,9 +47,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     LandingPageModule, FlexLayoutModule,
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
-    MatSnackBarModule
+    MatSnackBarModule, CommonModule
   ],
-  providers: [NgbActiveModal, ToastrService],
+  providers: [NgbActiveModal, ToastrService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-
-
-
-
-import { LandingPageRoutingModule } from './landing-page-routing.module';
-
 import { LandingPageComponent } from './landing-page.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { FeaturesSectionComponent } from './features-section/features-section.component';
@@ -19,17 +14,14 @@ import { ServicesSectionComponent } from './services-section/services-section.co
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
-import { BlogSectionComponent } from './blog-section/blog-section.component';
-import { BrandPartnersSectionComponent } from './brand-partners-section/brand-partners-section.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { RouterLink } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
-  imports: [
-    CommonModule, FlexLayoutModule,
-    LandingPageRoutingModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule
+  imports: [MatTabsModule,
+    BrowserModule, FlexLayoutModule, FormsModule,
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, RouterLink
   ],
-  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, BlogSectionComponent, BrandPartnersSectionComponent, FooterComponent],
-
-  exports: [LandingPageComponent]
+  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent],
 })
 export class LandingPageModule { }

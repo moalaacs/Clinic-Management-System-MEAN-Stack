@@ -17,7 +17,7 @@ export class AddClinicComponent implements OnInit {
   constructor(private fb: FormBuilder, private clinicService: ClinicService, private route: Router) {
     this.availableSpecilization = [];
     this.clinicAddForm = this.fb.group({
-      speciality: ['', [Validators.required]],
+      speciality: ['1212', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern("01[0125](\-)?[0-9]{8}")]],
       address: this.fb.group({
