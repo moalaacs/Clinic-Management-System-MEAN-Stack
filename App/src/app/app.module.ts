@@ -30,11 +30,12 @@ import { RegisterComponent } from './Auth/register/register.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PrescriptionModule } from './prescription/prescription.module';
+import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent, RegisterComponent, LoginComponent
+    SpecilityToImagePipe, MedicineDetailsComponent, HeaderComponent, RegisterComponent, LoginComponent, AllAppointmentReportsComponent
   ],
   imports: [
     BrowserModule,
