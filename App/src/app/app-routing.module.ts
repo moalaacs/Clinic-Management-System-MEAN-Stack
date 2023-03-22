@@ -6,6 +6,7 @@ import { RegisterComponent } from './Auth/register/register.component';
 import { MaterialModule } from 'src/material.moudel';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from './Auth/guard/auth.guard';
+import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./employee/employee.module').then((m) => m.EmployeeModule),canActivate:[AuthGuard]
   },
+  {path: 'appointmentReports', component: AllAppointmentReportsComponent},
   { path: '**', component: NotfoundComponent },
 ];
 @NgModule({
