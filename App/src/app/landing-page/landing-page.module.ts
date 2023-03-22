@@ -22,7 +22,7 @@ import { ServicesSectionComponent } from './services-section/services-section.co
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from '../core/footer/footer.component';
 import { RouterLink } from '@angular/router';
 // import { MatTabsModule } from '@angular/material/tabs';
 // import { HeaderComponent } from './header/header.component';
