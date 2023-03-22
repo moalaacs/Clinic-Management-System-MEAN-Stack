@@ -34,7 +34,6 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PrescriptionModule } from './prescription/prescription.module';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
-
 @NgModule({
   declarations: [
     AppComponent,

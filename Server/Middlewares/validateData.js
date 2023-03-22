@@ -250,8 +250,6 @@ let doctorValidation = [
   check("schedule.*.end")
     .matches(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
     .withMessage("Invalid End time format, should be in the form 00:00"),
-    check("clinicId").isInt().withMessage("clinicId should be a number"),
-
 ];
 let doctorPatchValidation = [
   validatePatchPerson,
@@ -298,7 +296,6 @@ let doctorPatchValidation = [
     .optional()
     .matches(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
     .withMessage("Invalid End time format, should be in the form 00:00"),
-    check("clinicId").optional().isInt().withMessage("clinicId should be a number"),
 ];
 let numberIdParamsValidation = [
   param("id").isInt().withMessage("ID must be number"),

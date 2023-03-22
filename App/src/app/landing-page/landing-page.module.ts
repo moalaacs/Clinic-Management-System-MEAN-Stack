@@ -25,7 +25,7 @@ import { SubscribeSectionComponent } from './subscribe-section/subscribe-section
 import { FooterComponent } from '../core/footer/footer.component';
 import { RouterLink } from '@angular/router';
 import { InfoSectionComponent } from './info-section/info-section.component';
-import { GallerySectionComponent } from './gallery-section/gallery-section.component';
+import { GallerySectionComponent } from './gallery-se\ction/gallery-section.component';
 @NgModule({
   imports: [
     FlexLayoutModule, LandingPageRoutingModule,

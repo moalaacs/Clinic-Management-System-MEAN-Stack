@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IClinic } from 'src/app/models/IClinic';
 import { ClinicService } from 'src/app/services/clinic.service';
-
 @Component({
   selector: 'app-specialities-section',
   templateUrl: './specialities-section.component.html',

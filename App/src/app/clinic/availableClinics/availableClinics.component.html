@@ -1,25 +1,27 @@
-<mat-card *ngFor="let clinic of clinics" class="col-3 m-3">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{clinic._address.street}} , {{clinic._address.city}} , {{clinic._address.country}}</mat-card-title>
-    <mat-card-subtitle>{{clinic._contactNumber}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Start</th>
-          <th>End</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let schedule of clinic._weeklySchedule">
-          <td>{{schedule.day}}</td>
-          <td>{{schedule.start}}</td>
-          <td>{{schedule.end}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </mat-card-content>
-</mat-card>
+<div class="container d-flex justify-content-center align-items-center flex-wrap gap-3 mt-3">
+  <mat-card *ngFor="let clinic of clinics" class="col-sm-12 col-md-5">
+    <mat-card-header>
+      <mat-card-subtitle>{{clinic._contactNumber}}</mat-card-subtitle>
+      <mat-card-title>{{clinic._address.street}} , {{clinic._address.city}} ,
+        {{clinic._address.country}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Start</th>
+            <th>End</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of clinic._weeklySchedule">
+            <td>{{schedule.day}}</td>
+            <td>{{schedule.start}}</td>
+            <td>{{schedule.end}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
