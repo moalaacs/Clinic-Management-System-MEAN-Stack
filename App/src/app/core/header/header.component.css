@@ -64,7 +64,13 @@ header nav ul li.active > a {
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
-
+a{
+  text-decoration: none;
+}
+.logoF{
+  font-family: "roboto";
+  color:rgb(54, 54, 54);
+}
 
 .burger-menu {
   display: none;

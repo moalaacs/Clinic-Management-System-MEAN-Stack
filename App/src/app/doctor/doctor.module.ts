@@ -18,7 +18,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { DoctorDetailsComponent } from './doctor-details/doctor-details.component';
