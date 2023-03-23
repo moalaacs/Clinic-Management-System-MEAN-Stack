@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -94,6 +95,7 @@ export class EmployeeAddComponent implements OnInit {
 
     private employeeService: EmployeeService,
     private router: Router,
+    private location: Location
   ) {
     this.minDate = new Date('1963-01-01');
     this.maxDate = new Date('2000-12-31');
@@ -178,7 +180,7 @@ export class EmployeeAddComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/employee']);
+    this.location.back();
   }
 
 }

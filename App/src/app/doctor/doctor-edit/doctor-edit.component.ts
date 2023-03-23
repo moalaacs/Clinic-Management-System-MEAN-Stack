@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -84,6 +85,7 @@ export class DoctorEditComponent  implements OnInit {
       private router: Router,
       private doctorService: DoctorService,
       private snackBar: MatSnackBar,
+      private location: Location
       ) {
         this.minDate = new Date('1963-01-01');
         this.maxDate = new Date('2000-12-31');
@@ -183,7 +185,8 @@ export class DoctorEditComponent  implements OnInit {
           this.snackBar.open('Doctor updated successfully', 'Close', {
             duration: 3000
           });
-          this.router.navigate(['/doctor']);},
+          this.location.back();
+        },
           error => {
             this.snackBar.open(error.message, 'Close', {
               duration: 3000
@@ -204,7 +207,7 @@ export class DoctorEditComponent  implements OnInit {
       }
 
       goBack() {
-        this.router.navigate(['/doctor']);
+        this.location.back();
       }
 
 

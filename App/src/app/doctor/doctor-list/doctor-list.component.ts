@@ -29,7 +29,6 @@ export class DoctorListComponent {
       ).subscribe(
         data => this.doctors = data,
         error => console.log('Error retrieving doctors: ', error)
-
       );
     }
 

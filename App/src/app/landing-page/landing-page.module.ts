@@ -9,8 +9,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { LandingPageRoutingModule } from './landing-page-routing.module';
 import { LandingPageComponent } from './landing-page.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { FeaturesSectionComponent } from './features-section/features-section.component';
@@ -22,19 +20,16 @@ import { ServicesSectionComponent } from './services-section/services-section.co
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
 import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
-import { FooterComponent } from '../core/footer/footer.component';
 import { RouterLink } from '@angular/router';
-// import { MatTabsModule } from '@angular/material/tabs';
-// import { HeaderComponent } from './header/header.component';
 import { InfoSectionComponent } from './info-section/info-section.component';
-import { GallerySectionComponent } from './gallery-section/gallery-section.component';
+import { GallerySectionComponent } from './gallery-se\ction/gallery-section.component';
 @NgModule({
   imports: [
-    FlexLayoutModule, LandingPageRoutingModule,
-    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule, CarouselModule
+    FlexLayoutModule, RouterLink,
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule,
   ],
-  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, FooterComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
+  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
 
-  exports: [LandingPageComponent]
+  exports: []
 })
 export class LandingPageModule { }

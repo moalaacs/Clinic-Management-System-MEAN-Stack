@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -78,7 +79,8 @@ export class PatientAddComponent implements OnInit {
 
     private patientService: PatientService,
     private router: Router,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -133,7 +135,7 @@ export class PatientAddComponent implements OnInit {
     this.patientForm.value.dateOfBirth = this.datePipe.transform(this.patientForm.value.dateOfBirth, 'dd/MM/yyyy');
     const patient = this.patientForm.value;
     this.patientService.addPatient(patient, this.patientForm.value.image).subscribe(
-      () => this.router.navigate(['/patient']))
+      () =>this.location.back())
   }
 
   onFileSelected(event: any) {
@@ -148,6 +150,6 @@ export class PatientAddComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/patient']);
+    this.location.back();
   }
 }

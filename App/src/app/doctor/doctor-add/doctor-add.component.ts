@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Doctor } from 'src/app/models/doctor';
+
 import { DoctorService } from 'src/app/services/doctor.service';
 @Component({
   selector: 'app-doctor-add',
@@ -94,6 +93,7 @@ export class DoctorAddComponent implements OnInit {
     private router: Router,
     private doctorService: DoctorService,
     private snackBar: MatSnackBar,
+    private location: Location
   ) {
 
     this.minDate = new Date('1963-01-01');
@@ -174,7 +174,7 @@ export class DoctorAddComponent implements OnInit {
 
     const doctor = this.doctorForm.value;
     this.doctorService.addDoctor(doctor).subscribe(
-      () => this.router.navigate(['/doctor']))
+      () => this.location.back() )
   }
 
   onFileSelected(event: any) {
@@ -189,6 +189,6 @@ export class DoctorAddComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/doctor']);
+    this.location.back();
   }
 }

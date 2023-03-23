@@ -1,13 +1,14 @@
   .butn{
-    display: none;
+    opacity: 0;
+    transition: all 0.4s;
   }
   .cas:hover .butn{
-    display: inline-block;
+    opacity: 100;
   }
 .parent{
   margin: 3rem auto;
   width: 80vw;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(2,1fr);
   gap: 1rem;
 }

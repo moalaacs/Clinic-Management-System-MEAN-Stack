@@ -8,14 +8,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from './Auth/guard/auth.guard';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-
-
+import { ProfileComponent } from './profile/profile.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ChartModule } from 'primeng/chart';
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: LandingPageComponent,
-  //   pathMatch: "full"
-  // },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -55,13 +51,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
   },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  },
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
   { path: 'appointmentReports', component: AllAppointmentReportsComponent },
+  { path: 'contact', component: ContactUsComponent },
   { path: '**', component: NotfoundComponent },
 ];
 @NgModule({
   declarations: [NotfoundComponent],
-  imports: [RouterModule.forRoot(routes), MaterialModule, MatSnackBarModule],
+  imports: [RouterModule.forRoot(routes), MaterialModule, MatSnackBarModule, ChartModule],
   exports: [RouterModule, MaterialModule],
 })
 export class AppRoutingModule { }

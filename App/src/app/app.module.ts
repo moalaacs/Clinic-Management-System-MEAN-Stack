@@ -26,6 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { DashboardModule } from './Dashboard/Dashboard.module';
 import { LoginComponent } from './Auth/login/login.component';
@@ -34,11 +35,19 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PrescriptionModule } from './prescription/prescription.module';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
-
+import { ChartModule } from 'primeng/chart';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
+import { ImageModule } from 'primeng/image';
+import { ProfileComponent } from './profile/profile.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 @NgModule({
   declarations: [
+    AllAppointmentReportsComponent,
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent
+    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +60,7 @@ import { AllAppointmentReportsComponent } from './appointment-reports/all-appoin
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatMenuModule, DashboardModule
-
-    , CommonModule
+    , CommonModule, ChartModule, ButtonModule, ToastModule, RippleModule, ImageModule
   ],
   providers: [NgbActiveModal, ToastrService, {
     provide: HTTP_INTERCEPTORS,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute,Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -15,7 +17,8 @@ export class EmployeeDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -26,6 +29,6 @@ export class EmployeeDetailsComponent implements OnInit {
     });
   }
   goBack(): void {
-    this.router.navigate(['/employee']);
+    this.location.back();
   }
 }

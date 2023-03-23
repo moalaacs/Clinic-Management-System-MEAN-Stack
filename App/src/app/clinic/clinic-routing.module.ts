@@ -6,6 +6,7 @@ import { AddClinicComponent } from './add-clinic/add-clinic.component';
 import { SpecilizationComponent } from './specilization/specilization.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
 const routes: Routes = [
   {
     path: '', component: SpecilizationComponent,
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'services/:speciallity',
     component: ServicesComponent
+  },
+  {
+    path: 'location/:speciallity',
+    component: AvailableClinicsComponent
   },
 ];
 @NgModule({

@@ -19,7 +19,6 @@ exports.login = async (request, response, next) => {
         email,
         id: foundUser._idInSchema,
         forClinic: foundUser._forClinic || undefined,
-        id: foundUser._idInSchema,
       },
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
