@@ -18,8 +18,8 @@ export class ProfileComponent implements OnInit {
   id: number = 1000;
 
   constructor(private authService: AuthService, private userService: UserService<Patient>) {
-    // this.role = this.authService.getRole();
-    // this.id = this.authService.getID();
+    this.role = this.authService.getRole();
+    this.id = this.authService.getID();
   }
 
   ngOnInit() {
