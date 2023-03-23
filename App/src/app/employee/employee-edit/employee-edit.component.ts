@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -83,6 +84,7 @@ export class EmployeeEditComponent implements OnInit {
               private router: Router,
               private employeeService: EmployeeService,
               private snackBar: MatSnackBar,
+              private location: Location
               ) {
 
     this.minDate = new Date('1963-01-01');
@@ -186,7 +188,7 @@ export class EmployeeEditComponent implements OnInit {
     }
 
     goBack() {
-      this.router.navigate(['/employee']);
+      this.location.back();
     }
 
 }

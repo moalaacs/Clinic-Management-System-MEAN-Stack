@@ -9,6 +9,8 @@ import { AuthGuard } from './Auth/guard/auth.guard';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ProfileComponent } from './profile/profile.component';
+
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -49,6 +51,10 @@ const routes: Routes = [
     path: 'prescription',
     loadChildren: () =>
       import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
   { path: 'appointmentReports', component: AllAppointmentReportsComponent },

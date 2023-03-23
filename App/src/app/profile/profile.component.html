@@ -59,6 +59,29 @@
 </div> -->
 
 <div class="container">
+  <div>
+    <div *ngIf="role === 'patient'">
+      <a [routerLink]="['/patient/edit/', user.id]">
+        <button type="button" class="btn btn-sm btn-primary me-2">
+          <i class="fa fa-edit"></i>
+        </button>
+      </a>
+    </div>
+    <div *ngIf="role === 'employee'">
+      <a [routerLink]="['/employee/edit/', user.id]">
+        <button type="button" class="btn btn-sm btn-primary me-2">
+          <i class="fa fa-edit"></i>
+        </button>
+      </a>
+    </div>
+    <div *ngIf="role === 'doctor'">
+      <a [routerLink]="['/doctor/edit/', user.id]">
+        <button type="button" class="btn btn-sm btn-primary me-2">
+          <i class="fa fa-edit"></i>
+        </button>
+      </a>
+    </div>
+  </div>
   <div class="row d-flex justify-content-around align-items-center">
     <div class="col-12 col-sm-4 col-md-2">
       <div class="card-client">
@@ -72,6 +95,7 @@
         <p class="name-client">
           {{ user.firstname }} {{ user.lastname }} <span>{{ role }} </span>
         </p>
+
         <div class="social-media">
           <a href="#">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

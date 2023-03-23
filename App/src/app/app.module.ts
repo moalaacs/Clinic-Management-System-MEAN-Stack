@@ -42,9 +42,8 @@ import { RippleModule } from 'primeng/ripple';
 import { ImageModule } from 'primeng/image';
 import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
       ContactUsComponent
