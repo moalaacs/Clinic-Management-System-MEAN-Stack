@@ -10,21 +10,20 @@
         </mat-error>
     </mat-form-field>
     <!-- Production -->
-    <mat-form-field>
-        <mat-label>Production Date</mat-label>
-        <input type="text" matInput formControlName="_productionDate" [errorStateMatcher]="matcher"
-            placeholder="01/02/2015">
-        <mat-error *ngIf="productionDate?.errors?.['pattern'] && !productionDate?.errors?.['required']">
-            Please enter a valid Production Date
+    <mat-form-field color="accent" appearance="fill">
+        <mat-label>Production date</mat-label>
+        <input matInput formControlName="_productionDate" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-error>
+            <span *ngIf="medicineForm.get('_productionDate')?.errors?.['required']">Production date is <strong> required
+                </strong> </span>
         </mat-error>
-        <mat-error *ngIf="productionDate?.errors?.['required']">
-            Production Date is <strong>required</strong>
-        </mat-error>
+        <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <!-- Expiry -->
-    <mat-form-field>
+    <!-- <mat-form-field>
         <mat-label>Expiry Date</mat-label>
-        <input type="text" matInput formControlName="_expiryDate" [errorStateMatcher]="matcher"
+        <input type="date" matInput formControlName="_expiryDate" [errorStateMatcher]="matcher"
             placeholder="01/02/2025">
         <mat-error *ngIf="expiryDate?.errors?.['pattern'] && !expiryDate?.errors?.['required']">
             Please enter a valid Production Date
@@ -32,6 +31,16 @@
         <mat-error *ngIf="expiryDate?.errors?.['required']">
             Production Date is <strong>required</strong>
         </mat-error>
+    </mat-form-field> -->
+    <mat-form-field color="accent" appearance="fill">
+        <mat-label>Expiry date</mat-label>
+        <input matInput formControlName="_expiryDate" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerr">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerr"></mat-datepicker-toggle>
+        <mat-error>
+            <span *ngIf="medicineForm.get('_expiryDate')?.errors?.['required']">Expiry date is <strong> required
+                </strong> </span>
+        </mat-error>
+        <mat-datepicker #pickerr></mat-datepicker>
     </mat-form-field>
     <!-- Leaflet -->
     <mat-form-field>

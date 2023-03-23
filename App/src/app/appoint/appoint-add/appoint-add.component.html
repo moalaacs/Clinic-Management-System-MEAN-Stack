@@ -55,15 +55,15 @@
         </mat-error>
     </mat-form-field>
     <!-- date -->
-    <mat-form-field>
+    <mat-form-field color="accent" appearance="fill">
         <mat-label>Appointment Date</mat-label>
-        <input type="text" matInput formControlName="_date" [errorStateMatcher]="matcher" placeholder="date">
-        <mat-error *ngIf="date?.errors?.['pattern'] && !date?.errors?.['required']">
-            Please enter a valid date
+        <input matInput formControlName="_date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-error>
+            <span *ngIf="appointmentForm.get('_date')?.errors?.['required']">Appointment date is <strong> required
+                </strong> </span>
         </mat-error>
-        <mat-error *ngIf="date?.errors?.['required']">
-            date is <strong>required</strong>
-        </mat-error>
+        <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <!-- time -->
     <mat-form-field>

@@ -15,10 +15,15 @@ export class MedAddComponent implements OnInit {
   medicine: Medicine[] = [];
   medicineForm: FormGroup;
   matcher: MyErrorStateMatcher;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(public medicineService: MedicineService, public router: Router, public location: Location, public fb: FormBuilder) {
+    this.minDate = new Date('2010-01-01');
+    this.maxDate = new Date('2030-12-31');
     this.medicineForm = this.fb.group({
       _name: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      // _productionDate: ['', [Validators.required, Validators.pattern("(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/([0-9]{4})")]],
       _productionDate: ['', [Validators.required,]],
       _expiryDate: ['', [Validators.required,]],
       _leaflet: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
@@ -70,10 +75,20 @@ export class MedAddComponent implements OnInit {
     errorH5.innerHTML = '';
     this.medicineService.addMedicine(this._medicine).subscribe(newMedicine => {
       console.log(newMedicine);
-      // this.medicine.push(newMedicine);
       this.router.navigateByUrl("/medicine");
       this.location.back();
-
     });
   }
+  // onSubmit() {
+  //   const date = new Date(this.medicineForm.value._productionDate);
+  //   const day = date.getDate().toString().padStart(2, '0');
+  //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  //   const year = date.getFullYear().toString();
+  //   const formattedDate = `${day}/${month}/${year}`;
+  //   this.medicineForm.value._productionDate = formattedDate;
+
+  //   const medicine = this.medicineForm.value;
+  //   this.medicineService.addMedicine(this._medicine).subscribe(
+  //     () => this.router.navigate(['/medicine']))
+  // }
 }
