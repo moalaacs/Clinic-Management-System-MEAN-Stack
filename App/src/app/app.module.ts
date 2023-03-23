@@ -13,8 +13,8 @@ import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { ClinicModule } from './clinic/clinic.module';
 import { SpecilityToImagePipe } from './pipes/specility-to-image.pipe';
-import { MedicineModule } from './medicine/medicine.module';
-import { AppointmentModule } from './appointment/appointment.module';
+import { MedModule } from './medicine/medicine.module';
+import { AppointModule } from './appointment/appointment.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -27,7 +27,6 @@ import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { DashboardModule } from './Dashboard/Dashboard.module';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
@@ -46,7 +45,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
   declarations: [
     AllAppointmentReportsComponent,
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
+    SpecilityToImagePipe, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
     ContactUsComponent
   ],
   imports: [
@@ -57,7 +56,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     HttpClientModule, NgbModule,
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
-    ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
+    ClinicModule, AppointModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatMenuModule, DashboardModule
     , CommonModule, ChartModule, ButtonModule, ToastModule, RippleModule, ImageModule

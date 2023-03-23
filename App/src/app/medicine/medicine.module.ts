@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -20,18 +21,21 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 
-
-import { MedicineRoutingModule } from './medicine-routing.module';
-import { MedicineListComponent } from './medicine-list/medicine-list.component';
+import { MedRoutingModule } from './medicine-routing.module';
+import { MedAddComponent } from './med-add/med-add.component';
+import { MedDetailsComponent } from './med-details/med-details.component';
+import { MedListComponent } from './med-list/med-list.component';
 
 
 @NgModule({
   declarations: [
-    MedicineListComponent
+    MedAddComponent,
+    MedDetailsComponent,
+    MedListComponent
   ],
   imports: [
     CommonModule,
-    MedicineRoutingModule,
+    MedRoutingModule,
     ReactiveFormsModule, FormsModule, MatSlideToggleModule, MatCardModule,
     MatFormFieldModule, MatInputModule, MatSnackBarModule, MatDatepickerModule, MatButtonModule, MatRadioModule,
     MatToolbarModule, MatProgressBarModule, MatGridListModule, MatIconModule,
@@ -39,4 +43,4 @@ import { MedicineListComponent } from './medicine-list/medicine-list.component';
     MatSelectModule, RouterModule
   ]
 })
-export class MedicineModule { }
+export class MedModule { }

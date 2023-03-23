@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { Medicine } from 'src/app/models/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
-
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
-  selector: 'app-medicine-list',
-  templateUrl: './medicine-list.component.html',
-  styleUrls: ['./medicine-list.component.css']
+  selector: 'app-med-list',
+  templateUrl: './med-list.component.html',
+  styleUrls: ['./med-list.component.css']
 })
-export class MedicineListComponent {
+export class MedListComponent {
+
   medicine: Medicine[] = [];
   constructor(public medicineService: MedicineService, public router: Router, public location: Location) {
 
@@ -19,6 +19,5 @@ export class MedicineListComponent {
       this.medicine = data;
     })
   }
-
 
 }
