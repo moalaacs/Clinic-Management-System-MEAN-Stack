@@ -11,8 +11,6 @@ import { AppComponent } from './app.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { ClinicModule } from './body/clinic/clinic.module';
 import { SpecilityToImagePipe } from './pipes/specility-to-image.pipe';
-import { MedicineModule } from './body/medicine/medicine.module';
-import { AppointmentModule } from './body/appointment/appointment.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -20,11 +18,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MedicineDetailsComponent } from './body/medicine/medicine-details/medicine-details.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent
+    SpecilityToImagePipe,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +30,7 @@ import { MedicineDetailsComponent } from './body/medicine/medicine-details/medic
     HttpClientModule, NgbModule,
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
-    ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
+    ClinicModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule,
   ],
   providers: [NgbActiveModal],
