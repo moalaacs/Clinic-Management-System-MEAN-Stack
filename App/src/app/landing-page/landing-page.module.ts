@@ -23,8 +23,9 @@ import { SubscribeSectionComponent } from './subscribe-section/subscribe-section
 import { RouterLink } from '@angular/router';
 import { InfoSectionComponent } from './info-section/info-section.component';
 import { GallerySectionComponent } from './gallery-se\ction/gallery-section.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
-  imports: [
+  imports: [NgbCarouselModule,
     FlexLayoutModule, RouterLink,
     MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule,
   ],

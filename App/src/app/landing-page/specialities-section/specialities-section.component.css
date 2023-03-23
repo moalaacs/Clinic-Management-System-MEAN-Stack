@@ -1,4 +1,4 @@
-.hoverBtn:hover{
+/* .hoverBtn:hover{
   background-color: rgba(221, 221, 221, 0.493);
 }
 a{
@@ -21,4 +21,13 @@ a{
   width: 100%;
   object-fit: cover;
   object-position: center;
+} */
+
+.carousel-item {
+  height: 500px;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
 }

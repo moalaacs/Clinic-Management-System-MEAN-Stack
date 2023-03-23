@@ -1,4 +1,4 @@
-<mat-tab-group class="px-3 bgc">
+<!-- <mat-tab-group class="px-3 bgc">
   <mat-tab *ngFor="let clinic of clinics">
     <div class="bg-danger">
       <ng-template mat-tab-label>
@@ -18,4 +18,17 @@
       </div>
     </div>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+
+
+<ngb-carousel>
+  <ng-template *ngFor="let clinic of clinics" ngbSlide>
+    <div class="picsum-img-wrapper">
+      <img src="../../../assets/serviceHeader/{{spToImg(clinic._specilization)}}.jpg" class="w-100"
+        alt="{{clinic._specilization}} Department" />
+    </div>
+    <div class="carousel-caption">
+      <h3>{{clinic._specilization}} Department</h3>
+    </div>
+  </ng-template>
+</ngb-carousel>
