@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -71,7 +72,8 @@ export class PatientEditComponent implements OnInit {
     private route: ActivatedRoute,
     private patientService: PatientService,
     private snackBar: MatSnackBar,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private location: Location
   ) {
     this.patientForm = this.fb.group({
       firstname: ['',[Validators.minLength(3),
@@ -133,7 +135,7 @@ export class PatientEditComponent implements OnInit {
         this.snackBar.open('Patient updated successfully.', 'Close', {
           duration: 3000
         });
-        this.router.navigate(['/patient']);
+        this.location.back();
       },
       error => {
         this.snackBar.open(error.message, 'Close', {
@@ -155,7 +157,7 @@ export class PatientEditComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/patient']);
+    this.location.back();
   }
 
 }

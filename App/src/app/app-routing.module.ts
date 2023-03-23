@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from './Auth/guard/auth.guard';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChartModule } from 'primeng/chart';
 const routes: Routes = [
@@ -49,6 +50,10 @@ const routes: Routes = [
     path: 'prescription',
     loadChildren: () =>
       import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
   { path: 'appointmentReports', component: AllAppointmentReportsComponent },
