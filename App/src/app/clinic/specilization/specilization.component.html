@@ -1,8 +1,26 @@
-<div class="parent">
+<!-- <div class="parent">
   <mat-card *ngFor="let item of availableSpecilization"
     class="cas d-flex justify-content-center align-items-center flex-column">
     <mat-card-title>{{item}}</mat-card-title>
     <img src="../../../assets/servicesIcons/{{spToImg(item)}}.png" width="100rem">
     <button class="butn my-2 btn btn-primary" routerLink="location/{{item}}">View Clinics</button>
   </mat-card>
+</div> -->
+
+<div class="gridView">
+  <div *ngFor="let item of availableSpecilization" class="sbox-7 fadeInUp" data-wow-delay="0.4s">
+    <a class="d-flex justify-content-center align-items-center" routerLink="location/{{item}}">
+
+      <span><img src="../../../assets/servicesIcons/{{spToImg(item)}}.png" width="50rem"></span>
+
+      <div class="sbox-7-txt">
+
+        <h5 class="fw-bold steelblue-color">{{item}}</h5>
+
+        <p class="p-sm">{{spToDescription(item)}}</p>
+
+      </div>
+
+    </a>
+  </div>
 </div>

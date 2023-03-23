@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClinicRoutingModule } from './clinic-routing.module';
-import { ClinicComponent } from './clinic.component';
 import { ServicesComponent } from './clinic-services/clinic-services.component';
 import { ClinicsInfoComponent } from './clinic-list/clinics-list.component';
 import { ClinicsInfoByIdComponent } from './clinic-details/clinic-details.component';
@@ -26,7 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
 @NgModule({
   declarations: [AvailableClinicsComponent,
-    ClinicComponent, ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent, SpecilizationComponent
+    ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent, SpecilizationComponent
   ],
   imports: [
     CommonModule,
