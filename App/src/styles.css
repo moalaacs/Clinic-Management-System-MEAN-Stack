@@ -3,7 +3,9 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+.steelblue-color, .steelblue-color h2, .steelblue-color h3, .steelblue-color h4, .steelblue-color h5, .steelblue-color h6, .steelblue-color p, .steelblue-color a, .steelblue-color li, .steelblue-color i, .white-color .steelblue-color, .steelblue-color span {
+  color: #004861;
+}
 
 * {
   box-sizing: border-box;

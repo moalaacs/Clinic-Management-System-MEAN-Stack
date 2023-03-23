@@ -1,4 +1,4 @@
-  .butn{
+  /* .butn{
     opacity: 0;
     transition: all 0.4s;
   }
@@ -11,4 +11,49 @@
   display: grid;
   grid-template-columns: repeat(2,1fr);
   gap: 1rem;
+} */
+
+
+.gridView{
+  /* margin: 0 auto; */
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+}
+
+.gridView a{
+  text-decoration: none;
+}
+
+.sbox-2:hover, .sbox-7:hover, .bg-lightgrey .sbox-7:hover {
+  background-color: #fafafa;
+  border: 1px solid #f5f5f5;
+  -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.bg-lightgrey .sbox-2, .bg-lightgrey .sbox-3, .bg-lightgrey .sbox-5, .bg-lightgrey .sbox-7 {
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sbox-7 {
+  animation-name: fadeInUp;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 30px;
+  width: fit-content;
+  margin-bottom: 30px;
+  transition: all 200ms ease-in-out;
+}
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
 }
