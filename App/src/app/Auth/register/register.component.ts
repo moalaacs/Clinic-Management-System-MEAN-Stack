@@ -20,7 +20,7 @@ export class RegisterComponent {
     private toastr: ToastrService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   registerform = this.builder.group({
     firstname: this.builder.control(
@@ -106,13 +106,15 @@ export class RegisterComponent {
           rC.router.navigate(['login']);
         },
         error(err) {
-          rC._snackBar.open(err.error, '', {
+          rC._snackBar.open(err.error.message, '', {
             duration: 3000,
           });
         },
       });
     } else {
-      this.toastr.warning('Please enter valid data.');
+      rC._snackBar.open('Please enter valid data', '', {
+        duration: 3000,
+      });
     }
   }
 }
