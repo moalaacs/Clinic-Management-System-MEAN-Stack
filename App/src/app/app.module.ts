@@ -44,10 +44,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 @NgModule({
   declarations: [
+    AllAppointmentReportsComponent,
     AppComponent,
     SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
-      ContactUsComponent
-   ],
+    ContactUsComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -59,7 +60,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     ClinicModule, MedicineModule, AppointmentModule, MatSlideToggleModule, MatInputModule,
     MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatMenuModule, DashboardModule
-
     , CommonModule, ChartModule, ButtonModule, ToastModule, RippleModule, ImageModule
   ],
   providers: [NgbActiveModal, ToastrService, {
