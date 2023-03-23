@@ -13,7 +13,6 @@ const router = express.Router();
 router
   .route("/clinic")
   // .all(authorizationMW.access())
-  .get(controller.getAllClinics)
   .post(validateClinic, validatorMiddleware, controller.addClinic);
 
 router

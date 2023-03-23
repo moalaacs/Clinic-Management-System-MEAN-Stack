@@ -9,6 +9,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>Doctor</th>
             <th>Day</th>
             <th>Start</th>
             <th>End</th>
@@ -16,6 +17,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let schedule of clinic._weeklySchedule">
+            <td>{{schedule.doctorId.firstname}} {{schedule.doctorId.lastname}}</td>
             <td>{{schedule.day}}</td>
             <td>{{schedule.start}}</td>
             <td>{{schedule.end}}</td>
