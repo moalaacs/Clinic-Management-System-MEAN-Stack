@@ -13,6 +13,7 @@ import { DoctorService } from 'src/app/services/doctor.service';
 export class DoctorAddComponent implements OnInit {
 
   doctorForm: FormGroup = new FormGroup({});
+  image = "";
 
   minDate: Date;
   maxDate: Date;
@@ -100,10 +101,15 @@ export class DoctorAddComponent implements OnInit {
     this.maxDate = new Date('2000-12-31');
     this.defaultDate = new Date('1999-01-10');
 
+
+
+  }
+
+  ngOnInit(): void {
     this.doctorForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-      dateOfBirth: ['', [Validators.required, Validators.pattern('^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}$')]],
+      dateOfBirth: ['', [Validators.required, ]],
       gender: [''],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       email: ['', [Validators.required, Validators.email]],
@@ -156,15 +162,11 @@ export class DoctorAddComponent implements OnInit {
       speciality: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]]
     });
 
-
-  }
-
-  ngOnInit(): void {
-
   }
 
 
   onSubmit() {
+    const formdata = new FormData();
     const date = new Date(this.doctorForm.value.dateOfBirth);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -172,20 +174,20 @@ export class DoctorAddComponent implements OnInit {
     const formattedDate = `${day}/${month}/${year}`;
     this.doctorForm.value.dateOfBirth = formattedDate;
 
+    this.doctorForm.value.photo = this.image;
+
+    alert(JSON.stringify(this.doctorForm.value))
+
     const doctor = this.doctorForm.value;
     this.doctorService.addDoctor(doctor).subscribe(
       () => this.location.back() )
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.doctorForm.patchValue({
-        image: reader.result as string
-      });
-    };
+    if(event.target.files.length>0){
+      const file = event.target.files[0];
+      this.image = file
+    }
   }
 
   goBack(): void {

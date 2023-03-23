@@ -53,7 +53,7 @@ exports.getDoctorById = async (request, response, next) => {
       .populate({
         path: "_clinic",
         options: { strictPopulate: false },
-        select: { _specilization: 1, _address: 1, _id: 0 },
+        select: { _specilization: 1, _address: 1 },
       });
     if (!doctor) {
       return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
@@ -291,6 +291,7 @@ exports.putDoctorById = async (request, response, next) => {
 // patch doctors
 exports.patchDoctorById = async (request, response, next) => {
   try {
+    console.log(request.body);
     let foundDoctor = await doctorSchema.findOne({ _id: request.params.id });
     if (!foundDoctor){
       return response.status(400).json(responseFormat(false, {}, `Doctor not found`, 0, 0, 0, 0));
@@ -447,11 +448,13 @@ exports.patchDoctorById = async (request, response, next) => {
         { _doctors: request.params.id },
         { $push: { _weeklySchedule: DoctorIdIntoSchedule } }
       );
+    }
+      console.log(tempDoctor);
       await doctorSchema.updateOne(
         { _id: request.params.id },
         { $set: tempDoctor }
       );
-    }
+   
 
     response
     .status(200)

@@ -68,6 +68,7 @@ async function connectToServer() {
   }
 }
 connectToServer();
+app.use("/images", express.static("images"));
 app.use(cors());
 
 /**** Middlewares ****/
