@@ -1,8 +1,9 @@
-<mat-card>
-  <mat-card-header>
+<mat-card class="py-4 mb-5">
+  <!-- <mat-card-header>
+
+  </mat-card-header> -->
+  <mat-card-content style="width: 60%;margin: 0 auto;">
     <h2>Registeration</h2>
-  </mat-card-header>
-  <mat-card-content style="width: 500px;">
     <form class="example-form" [formGroup]="registerform" (ngSubmit)="proceedregister()">
       <mat-form-field class="fullwidth">
         <mat-label>First Name</mat-label>
@@ -58,13 +59,7 @@
         <input type="text" matInput formControlName="address.street">
       </mat-form-field>
       <br>
-      <mat-form-field class="fullwidth">
-        <mat-label>Gender</mat-label>
-        <mat-select id="gender" name="gender" formControlName="gender">
-          <mat-option value="male">Male</mat-option>
-          <mat-option value="female">Female</mat-option>
-        </mat-select>
-      </mat-form-field>
+      
 
       <div style="text-align: center;">
         <input type="file" (change)="getFile($event)">

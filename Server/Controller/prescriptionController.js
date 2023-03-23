@@ -138,7 +138,7 @@ exports.getPrescriptionById = async (request, response, next) => {
     if (!prescription) {
       return next(new Error("prescription not found"));
     }
-    response.status(200).json({ prescription });
+    response.status(200).json( prescription );
   } catch (error) {
     next(error);
   }
