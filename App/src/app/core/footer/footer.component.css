@@ -1,0 +1,157 @@
+
+
+/*------------------------------------------*/
+/*   FOOTER TYPOGRAPHY
+/*------------------------------------------*/
+
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: baseline;
+}
+
+footer img{
+  z-index: -1;
+  width: 100%;
+  height: 300px;
+  opacity: 50%;
+}
+
+.footer h2.h2-xs {
+  line-height: 1;
+  letter-spacing: 0;
+  margin-bottom: 25px;
+}
+
+#footer-2 .footer-info p {
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+.footer-box p {
+  font-size: 0.975rem;
+  margin-bottom: 3px;
+  font-weight: lighter;
+}
+
+.footer-box p span {
+  color: #444;
+  font-size: 0.925rem;
+  font-weight: 500;
+}
+
+li{
+  margin-bottom: 3px !important;
+}
+
+p.foo-email{
+  margin-top: 10px;
+}
+
+p.foo-email a {
+  font-weight: normal;
+  text-decoration: none;
+}
+
+p.footer-copyright {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+p.footer-copyright span {
+  font-weight: 700;
+}
+
+.container p , .container a{
+  text-decoration: none;
+  font-weight:lighter ;
+}
+
+/*------------------------------------------*/
+/*   FOOTER LINKS
+/*------------------------------------------*/
+
+.footer-links li {
+  font-size: 0.975rem;
+  width: auto !important;
+  display: block !important;
+  clear: none !important;
+  margin: 0 0 9px 0;
+  padding: 0;
+}
+
+.footer-links li a{
+  text-decoration: none;
+}
+
+.footer-links li a:hover {
+  color: #000;
+}
+
+/*------------------------------------------*/
+/*   FOOTER SOCIAL LINKS
+/*------------------------------------------*/
+
+.foo-socials {
+  display: inline-block;
+  padding-left: 0;
+  margin: 0 auto 0;
+}
+
+.foo-socials li {
+  width: auto !important;
+  display: inline-block !important;
+  vertical-align: top;
+  clear: none !important;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.foo-socials a {
+  display: block;
+  background-color: transparent;
+  border: 2px solid #666;
+  width: 36px;
+  height: 36px;
+  color: #666;
+  font-size: 16px;
+  line-height: 34px!important;
+  margin-right: 4px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+}
+
+
+
+.foo-socials a.ico-facebook:hover { background-color: #3b5998; border-color: #3b5998; color: #fff; }
+.foo-socials a.ico-twitter:hover { background-color: #00a9ed; border-color: #00a9ed; color: #fff; }
+.foo-socials a.ico-instagram:hover { background-color: #dc3c59; border-color: #dc3c59; color: #fff; }
+.foo-socials a.ico-dribbble:hover { background-color: #d92d84; border-color: #d92d84; color: #fff; }
+.foo-socials a.ico-behance:hover { background-color: #2473f6; border-color: #2473f6; color: #fff; }
+.foo-socials a.ico-pinterest:hover { background-color: #ac281a; border-color: #ac281a; color: #fff; }
+.foo-socials a.ico-linkedin:hover { background-color: #015886; border-color: #015886; color: #fff; }
+.foo-socials a.ico-google-plus:hover { background-color: #cd1111; border-color: #cd1111; color: #fff; }
+.foo-socials a.ico-youtube:hover { background-color: #cd1b20; border-color: #cd1b20; color: #fff; }
+.foo-socials a.ico-tumblr:hover { background-color: #3a5976; border-color: #3a5976; color: #fff; }
+.foo-socials a.ico-vk:hover { background-color: #3b5998; border-color: #3b5998; color: #fff; }
+.foo-socials a.ico-yahoo:hover { background-color: #7b0099; border-color: #7b0099; color: #fff; }
+.foo-socials a.ico-yelp:hover { background-color: #d32323; border-color: #d32323; color: #fff; }
+
+/*------------------------------------------*/
+/*   FOOTER NEWSLETTER FORM
+/*------------------------------------------*/
+
+ul{
+  padding-left: 0;
+}
+
+h2{
+  margin-bottom: 2px !important;
+}
+
+
+footer{
+  padding: 20px;
+}

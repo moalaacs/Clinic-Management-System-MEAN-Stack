@@ -8,14 +8,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from './Auth/guard/auth.guard';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: LandingPageComponent,
-  //   pathMatch: "full"
-  // },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -57,6 +52,7 @@ const routes: Routes = [
   },
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
   { path: 'appointmentReports', component: AllAppointmentReportsComponent },
+  { path: 'contact', component: ContactUsComponent },
   { path: '**', component: NotfoundComponent },
 ];
 @NgModule({

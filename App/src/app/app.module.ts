@@ -26,6 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { DashboardModule } from './Dashboard/Dashboard.module';
 import { LoginComponent } from './Auth/login/login.component';
@@ -40,12 +41,14 @@ import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { ImageModule } from 'primeng/image';
 import { ProfileComponent } from './profile/profile.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent
-  ],
+    SpecilityToImagePipe, MedicineDetailsComponent, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
+      ContactUsComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

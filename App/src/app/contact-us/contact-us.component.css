@@ -1,0 +1,52 @@
+.steelblue-color, .steelblue-color h2, .steelblue-color h3, .steelblue-color h4, .steelblue-color h5, .steelblue-color h6, .steelblue-color p, .steelblue-color a, .steelblue-color li, .steelblue-color i, .white-color .steelblue-color, .steelblue-color span {
+  color: #004861;
+}
+
+ h1, h2, h3, h4, h5, h6 {
+  color: #222;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.25px;
+}
+h3{
+  text-align: center;
+}
+
+.container{
+  margin-top: 80px;
+}
+
+h5.h5-sm {
+  font-size: 1.35rem;
+}
+
+p{
+
+  font-weight: 300;
+}
+
+.section-title p {
+  font-size: 1.075rem;
+  padding: 0 5%;
+}
+
+h3.h3-md {
+  font-size: 2.125rem;
+}
+
+.section-title p {
+  color: #888;
+  padding: 0 20%;
+  margin-bottom: 0;
+}
+
+.wide-60 {
+  padding-top: 80px;
+  padding-bottom: 40px;
+}
+
+.wide-60 {
+  padding-top: 100px;
+  padding-bottom: 60px;
+}
+
