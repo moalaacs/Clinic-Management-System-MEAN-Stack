@@ -2,6 +2,8 @@
   <div class="row my-5">
     <div class="text-end">
       <button mat-button class="button back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+
         Back
       </button>
     </div>
@@ -271,6 +273,7 @@
       <div formGroupName="schedule" class="schedule-sec">
         <div class="row">
           <h4 class="col-12">Schedule</h4>
+
           <ng-container
             *ngFor="
               let day of [

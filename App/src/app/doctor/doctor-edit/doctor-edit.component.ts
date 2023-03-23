@@ -26,6 +26,16 @@ export class DoctorEditComponent  implements OnInit {
   defaultDate: Date;
   image : any;
 
+  days = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday'
+  ]
+
 
   validationMessages = {
   firstname: {
@@ -242,6 +252,7 @@ export class DoctorEditComponent  implements OnInit {
     });
   }
 
+  addDay(){}
 
   onSubmit(): void {
   const savedDoctor: Observable<any> = this.doctorService.patchDoctorById(this.doctorId, this.updatedDoctor,this.image)
