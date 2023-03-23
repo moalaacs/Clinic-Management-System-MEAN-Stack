@@ -8,7 +8,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AllAppointmentReportsComponent],
+  declarations: [
+  ],
   imports: [RouterModule.forChild(routes), CommonModule, FormsModule],
   exports: [RouterModule]
 })

@@ -10,9 +10,12 @@ import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
-
+import { AllAppointmentReportsComponent } from './all-appointment-reports/all-appointment-reports.component';
+// import { AllAppointmentReportsComponent } from './all-appointment-reports/all-appointment-reports.component';
 @NgModule({
+  declarations: [AllAppointmentReportsComponent],
   imports: [
+    ChartModule,
     CommonModule,
     AppointmentReportsRoutingModule,
     BrowserModule,
@@ -22,7 +25,6 @@ import { ChartModule } from 'primeng/chart';
     RippleModule,
     FormsModule,
     ImageModule,
-    ChartModule,
   ]
 })
 export class AppointmentReportsModule { }
