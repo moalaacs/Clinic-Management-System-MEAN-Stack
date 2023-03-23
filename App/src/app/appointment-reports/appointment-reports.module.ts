@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AppointmentReportsRoutingModule } from './appointment-reports-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -25,6 +24,9 @@ import { AllAppointmentReportsComponent } from './all-appointment-reports/all-ap
     RippleModule,
     FormsModule,
     ImageModule,
+  ],
+  exports: [
+    ChartModule
   ]
 })
 export class AppointmentReportsModule { }

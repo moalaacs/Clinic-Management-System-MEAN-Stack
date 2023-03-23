@@ -9,7 +9,7 @@ import { AuthGuard } from './Auth/guard/auth.guard';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-
+import { ChartModule } from 'primeng/chart';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
@@ -57,7 +57,7 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [NotfoundComponent],
-  imports: [RouterModule.forRoot(routes), MaterialModule, MatSnackBarModule],
+  imports: [RouterModule.forRoot(routes), MaterialModule, MatSnackBarModule, ChartModule],
   exports: [RouterModule, MaterialModule],
 })
 export class AppRoutingModule { }
