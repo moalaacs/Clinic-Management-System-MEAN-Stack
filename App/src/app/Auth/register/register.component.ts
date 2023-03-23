@@ -20,7 +20,7 @@ export class RegisterComponent {
     private toastr: ToastrService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   registerform = this.builder.group({
     firstname: this.builder.control(
@@ -75,9 +75,19 @@ export class RegisterComponent {
     ),
     'address.zipCode': this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5)])
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5),
+      ])
     ),
-    'address.street': this.builder.control('', Validators.required),
+    'address.street': this.builder.control(
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z ]+$/),
+      ])
+    ),
   });
 
   getFile(event: any) {
@@ -87,22 +97,20 @@ export class RegisterComponent {
   proceedregister() {
     let rC = this;
     if (this.registerform.valid) {
-      this.service
-        .registerUser(this.registerform.value, this.file)
-        .subscribe({
-          next() {
-            rC.toastr.success(
-              'Please contact admin for enable access.',
-              'Registered successfully'
-            );
-            rC.router.navigate(['login']);
-          },
-          error(err) {
-            rC._snackBar.open(err.error, "", {
-              duration: 3000,
-            });
-          },
-        });
+      this.service.registerUser(this.registerform.value, this.file).subscribe({
+        next() {
+          rC.toastr.success(
+            'Please contact admin for enable access.',
+            'Registered successfully'
+          );
+          rC.router.navigate(['login']);
+        },
+        error(err) {
+          rC._snackBar.open(err.error, '', {
+            duration: 3000,
+          });
+        },
+      });
     } else {
       this.toastr.warning('Please enter valid data.');
     }

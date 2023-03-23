@@ -26,6 +26,7 @@ export class AuthService {
 
   isLoggedIn() {
     return sessionStorage.getItem('token') != null;
+    
   }
   getRole() {
     this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';

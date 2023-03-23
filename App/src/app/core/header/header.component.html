@@ -11,8 +11,9 @@
       <li><a routerLink="/clinic">Clinics</a></li>
       <li><a routerLink="/about">About</a></li>
       <li><a routerLink="/contact-us">Contact Us</a></li>
-      <li><a routerLink="/login" class="btn btn-primary">Log In</a></li>
-      <li><a routerLink="/register" class="btn btn-secondary">Sign Up</a></li>
+      <li *ngIf="!isLoggedIn"><a routerLink="/login" class="btn btn-primary">Log In</a></li>
+      <li *ngIf="!isLoggedIn" ><a routerLink="/register" class="btn btn-secondary">Sign Up</a></li>
+      <li *ngIf="isLoggedIn"><a (click)="logOut()" class="btn btn-primary">Log Out</a></li>
     </ul>
   </nav>
   <button class="burger-menu">
