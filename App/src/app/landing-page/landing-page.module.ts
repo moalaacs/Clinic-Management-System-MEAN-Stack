@@ -9,7 +9,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { LandingPageComponent } from './landing-page.component';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { FeaturesSectionComponent } from './features-section/features-section.component';
@@ -27,7 +26,7 @@ import { GallerySectionComponent } from './gallery-se\ction/gallery-section.comp
 @NgModule({
   imports: [
     FlexLayoutModule, RouterLink,
-    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule, CarouselModule,
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule,
   ],
   declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
 
