@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppointmentAddComponent } from './appointment-add/appointment-add.component';
-import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import { AppointAddComponent } from './appoint-add/appoint-add.component';
+import { AppointDetailsComponent } from './appoint-details/appoint-details.component';
+import { AppointListComponent } from './appoint-list/appoint-list.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const routes: Routes = [
-  { path: "", component: AppointmentDetailsComponent },
-  { path: "add", component: AppointmentAddComponent },
-  { path: "details/:id", component: AppointmentDetailsComponent },
+  { path: "", component: AppointListComponent },
+  { path: "add", component: AppointAddComponent },
+  { path: "details/:id", component: AppointDetailsComponent },
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes), MatInputModule, MatSelectModule, MatSlideToggleModule],
+  exports: [RouterModule, MatInputModule, MatSelectModule, MatSlideToggleModule]
 })
-export class AppointmentRoutingModule { }
+export class AppointRoutingModule { }

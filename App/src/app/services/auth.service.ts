@@ -15,7 +15,9 @@ export class AuthService {
   registerUser(patient: any, photo: File) {
     let dob = patient.dateOfBirth?.split('-');
     patient.dateOfBirth = dob[2] + '/' + dob[1] + '/' + dob[0];
-    patient.image=photo;
+    patient.photo = photo;
+    console.log(patient);
+    alert("Hello")
     return this.http.post<Patient>(`${this.baseUrl}/register`, patient);
   }
 
@@ -32,7 +34,7 @@ export class AuthService {
     this.decodedToken = this.helper.decodeToken(this.token);
     return this.decodedToken.role;
   }
-  getID(){
+  getID() {
     this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';
     this.decodedToken = this.helper.decodeToken(this.token);
     return this.decodedToken.id;
@@ -42,7 +44,7 @@ export class AuthService {
     this.decodedToken = this.helper.decodeToken(this.token);
     return this.decodedToken.email;
   }
-  getToken(){
+  getToken() {
     return this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';
   }
 }

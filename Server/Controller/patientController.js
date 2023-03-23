@@ -54,6 +54,7 @@ exports.getPatientById = async (request, response, next) => {
 // Add a new patient
 exports.addPatient = async (request, response, next) => {
   try {
+    console.log(request.body)
     // check for duplicate mails and phone numbers
     let testEmailandPhone = await users.findOne({
       $or: [

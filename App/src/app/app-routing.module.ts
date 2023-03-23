@@ -22,13 +22,13 @@ const routes: Routes = [
   {
     path: 'medicine',
     loadChildren: () =>
-      import('./medicine/medicine.module').then((m) => m.MedicineModule),
+      import('./medicine/medicine.module').then((m) => m.MedModule),
   },
   {
     path: 'appointment',
     loadChildren: () =>
       import('./appointment/appointment.module').then(
-        (m) => m.AppointmentModule
+        (m) => m.AppointModule
       ),
   },
   {
