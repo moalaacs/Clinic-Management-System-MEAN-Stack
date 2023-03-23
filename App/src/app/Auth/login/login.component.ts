@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr'
+//import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { AuthService } from './../../services/auth.service';
 
@@ -20,11 +21,13 @@ export class LoginComponent {
     sessionStorage.clear();
   }
   token: any;
+  //helper = new JwtHelperService();
+  //decodedToken:any;
 
   loginform = this.builder.group({
     email: this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.email])
+      Validators.compose([Validators.required/*, Validators.email*/])
     ),
     password: this.builder.control(
       '',
@@ -39,6 +42,8 @@ export class LoginComponent {
     if (this.loginform.valid) {
       this.service.loginUser(this.loginform.value).subscribe((_token) => {
         this.token = _token;
+        //this.decodedToken = this.helper.decodeToken(this.token.token);
+        //console.log(this.decodedToken);
         if (this.token) {
           sessionStorage.setItem('token', this.token.token);
           this.router.navigate(['']);

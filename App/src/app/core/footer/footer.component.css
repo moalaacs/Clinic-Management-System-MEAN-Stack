@@ -9,6 +9,7 @@ footer{
   justify-content: center;
   align-items: center;
   align-self: baseline;
+  box-shadow: inset 0px 6px 14px -9px rgba(0,0,0,0.75);
 }
 
 footer img{

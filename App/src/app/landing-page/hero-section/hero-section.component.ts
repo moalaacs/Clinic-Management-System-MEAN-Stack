@@ -1,24 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SlidesOutputData, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-hero-section',
   templateUrl: './hero-section.component.html',
   styleUrls: ['./hero-section.component.css']
 })
-export class HeroSectionComponent  {
-
-  carouselOptions: OwlOptions = {
-    loop: true,
-    items: 1,
-    autoplay: true,
-    autoplayTimeout: 10000,
-    autoplayHoverPause: true,
-    dots: true,
-    nav: false
-  };
-
-
+export class HeroSectionComponent {
   carouselItems = [
     {
       id: 1,
@@ -41,7 +28,7 @@ export class HeroSectionComponent  {
   numberOfDoctors = 50;
   numberOfPatients = 1000;
 
-  constructor() {}
+  constructor() { }
 }
 
 

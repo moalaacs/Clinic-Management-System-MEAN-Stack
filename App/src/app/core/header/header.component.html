@@ -1,35 +1,15 @@
 <header class="sticky-top">
-  <div class="logo">
-    <a routerLink="/">
-      <!-- <img src="../../../assets/logo2.png" alt="logo" width="60rem"> -->
-      <strong class="logoF">El-Wafaa</strong>
-    </a>
-  </div>
+  <a class="ms-4" routerLink="/">
+    <img src="../../../assets/heart-beat.png" alt="logo" width="50rem">
+    <span class="ms-2 fw-bold fs-6 logoText">MedService</span>
+  </a>
   <nav>
     <ul>
-      <li><a routerLink="/clinic/services">Services</a></li>
       <li><a routerLink="/clinic">Clinics</a></li>
-      <li><a routerLink="/about">About</a></li>
       <li><a routerLink="/contact">Contact Us</a></li>
-      <li><a routerLink="/login" class="btn btn-primary">Log In</a></li>
-      <li><a routerLink="/register" class="btn btn-secondary">Sign Up</a></li>
+      <li *ngIf="!isLoggedIn"><a routerLink="/login" class="btn btn-primary">Log In</a></li>
+      <li *ngIf="!isLoggedIn" ><a routerLink="/register" class="btn btn-secondary">Sign Up</a></li>
+      <li *ngIf="isLoggedIn"><a (click)="logOut()" class="btn btn-primary">Log Out</a></li>
     </ul>
   </nav>
-  <button class="burger-menu">
-    <i class="fa fa-bars"></i>
-  </button>
 </header>
-
-<!-- <mat-toolbar color="primary" class="mat-elevation-z6">
-  <button mat-icon-button>
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="spacer"></span>
-  <button mat-button>About</button>
-  <button mat-button>Services</button>
-  <button mat-button>Appointments</button>
-  <button mat-button>Contact Us</button>
-  <button mat-button>Sign In</button>
-  <button mat-raised-button color="accent">Sign Up</button>
-</mat-toolbar> -->
