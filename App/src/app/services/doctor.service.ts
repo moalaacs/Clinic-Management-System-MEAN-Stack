@@ -38,25 +38,26 @@ export class DoctorService {
     return this.http.post<Doctor>(`${this.baseUrl}`, doctor);
   }
 
+
+
   putDoctorById(id: number, doctor: Doctor): Observable<Doctor> {
     return this.http.put<Doctor>(`${this.baseUrl}/${id}`, doctor);
   }
 
 
+
   patchDoctorById(id: number,doctor: Doctor, photo:File): Observable<Doctor> {
-    console.log(photo);
-    console.log(doctor);
+    if (photo) {
+      this.addPhoto(id, photo);
+    }
+    return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, doctor);
+  }
+
+  addPhoto (id: number,photo:File): Observable<Doctor> {
     const formData = new FormData();
     if (photo) {
       formData.append('photo', photo);
     }
-    Object.entries(doctor).forEach(([key, value]) => {
-      if (typeof value === 'object' && value !== null) {
-        formData.append(key, value);
-      } else {
-        formData.append(key, value);
-      }
-    });
 
     return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, formData);
   }
