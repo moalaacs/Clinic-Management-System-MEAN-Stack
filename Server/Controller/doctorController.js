@@ -291,7 +291,6 @@ exports.putDoctorById = async (request, response, next) => {
 // patch doctors
 exports.patchDoctorById = async (request, response, next) => {
   try {
-    console.log(request.body);
     let foundDoctor = await doctorSchema.findOne({ _id: request.params.id });
     if (!foundDoctor){
       return response.status(400).json(responseFormat(false, {}, `Doctor not found`, 0, 0, 0, 0));
@@ -322,9 +321,10 @@ exports.patchDoctorById = async (request, response, next) => {
           tempDoctor["_address.country"] = request.body.address.country;
         if (request.body.address.zipCode)
           tempDoctor["_address.zipCode"] = request.body.address.zipCode;
-      } else {
-        return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
       }
+      // } else {
+      //   return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
+      // }
     }
     if (request.body.gender) {
       tempDoctor._gender = request.body.gender;
