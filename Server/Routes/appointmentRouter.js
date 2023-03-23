@@ -12,16 +12,17 @@ const router = express.Router();
 
 router
   .route("/appointment")
-  .all(
-    authorizationMW.accessAppointment(
-      "patient",
-      "doctor",
-      "receptionist",
-      "nurse"
-    )
-  )
+  // .all(
+  //   authorizationMW.accessAppointment(
+  //     "patient",
+  //     "doctor",
+  //     "receptionist",
+  //     "nurse"
+  //   )
+  // )
   .get(controller.getAllAppointments)
-  .post(validateAppointment, validatorMiddleware, controller.addAppointment);
+  // .post(validateAppointment, validatorMiddleware, controller.addAppointment);
+  .post(controller.addAppointment);
 
 router
   .route("/appointmentReports")
@@ -33,15 +34,15 @@ router
 
 router
   .route("/appointmentReports/range/:startDate/:endDate")
-  .get(/*authorizationMW.access(),*/  controller.rangeAppointmentsReports);
+  .get(/*authorizationMW.access(),*/ controller.rangeAppointmentsReports);
 
 router
   .route("/appointmentReports/patient/:id")
-  .get(/*authorizationMW.access(),*/  controller.patientAppointmentsReports);
+  .get(/*authorizationMW.access(),*/ controller.patientAppointmentsReports);
 
 router
   .route("/appointmentReports/doctor/:id")
-  .get(/*authorizationMW.access(),*/  controller.doctorAppointmentsReports);
+  .get(/*authorizationMW.access(),*/ controller.doctorAppointmentsReports);
 
 router
   .route("/appointment/:id")
