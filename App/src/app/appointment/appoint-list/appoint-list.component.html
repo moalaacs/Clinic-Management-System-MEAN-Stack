@@ -1,0 +1,26 @@
+<br><br>
+<a routerLink="/appointment/add" class="btn btn-danger">Add New Appointment</a>
+<br><br>
+<div class="table-responsive">
+    <table class="table table-dark table-striped table-hover table-bordered">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Status</th>
+                <th scope="col">Details</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of appointment">
+                <th>{{item._date}}</th>
+                <td>{{item._time}}</td>
+                <td>{{item._status}}</td>
+                <td>
+                    <a [routerLink]="['/appointment','details',item._id]" class="btn btn-info">Details</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
