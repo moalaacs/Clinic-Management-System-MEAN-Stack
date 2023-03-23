@@ -25,7 +25,6 @@ export class DoctorListComponent {
     ngOnInit(): void {
       this.doctorService.getAllDoctors().pipe(
         map(response => response.data),
-        tap(response => console.log('Response from getAlldoctors:', response))
       ).subscribe(
         data => this.doctors = data,
         error => console.log('Error retrieving doctors: ', error)

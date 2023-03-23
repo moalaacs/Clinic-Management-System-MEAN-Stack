@@ -48,8 +48,13 @@ export class DoctorService {
     if (photo) {
       formData.append('photo', photo);
     }
-    formData.append('doctor', JSON.stringify(doctor));
-    return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, formData);
+    Object.entries(doctor).forEach(([key, value]) => {
+      formData.append(key, value);
+      console.log(formData.get(key)); // log the value of the 'doctor' field
+
+    });
+    console.log(formData)
+   return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, formData);
   }
 
   removeDoctorById(id: number): Observable<void> {
