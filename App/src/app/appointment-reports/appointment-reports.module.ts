@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppointmentReportsRoutingModule } from './appointment-reports-routing.module';
-import { AllAppointmentReportsComponent } from './all-appointment-reports/all-appointment-reports.component';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,9 +12,6 @@ import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
 
 @NgModule({
-  declarations: [
-    AllAppointmentReportsComponent
-  ],
   imports: [
     CommonModule,
     AppointmentReportsRoutingModule,

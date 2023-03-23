@@ -11,11 +11,11 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LandingPageComponent,
-    pathMatch: "full"
-  },
+  // {
+  //   path: '',
+  //   component: LandingPageComponent,
+  //   pathMatch: "full"
+  // },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -55,7 +55,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
   },
-  {path: 'appointmentReports', component: AllAppointmentReportsComponent},
+  { path: '', component: LandingPageComponent, pathMatch: 'full' },
+  { path: 'appointmentReports', component: AllAppointmentReportsComponent },
   { path: '**', component: NotfoundComponent },
 ];
 @NgModule({

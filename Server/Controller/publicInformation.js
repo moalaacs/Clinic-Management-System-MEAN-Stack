@@ -23,7 +23,7 @@ exports.getClinicsBySpecilization = async (request, response, next) => {
     try {
         let speciality=request.params.speciality;
         speciality=speciality.replace(speciality[0],speciality[0].toUpperCase());
-      const clinics= await clinicSchema.find({_specilization:speciality}, { _id: 0,_address:1,_contactNumber:1,_weeklySchedule:1 });
+      const clinics= await clinicSchema.find({_specilization:speciality}, { _id: 0,_address:1,_contactNumber:1,_weeklySchedule:1 }).populate("_weeklySchedule.doctorId");
         response.status(200).json(clinics);
     } catch (error) {
         next(error);

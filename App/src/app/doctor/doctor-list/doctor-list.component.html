@@ -1,1 +1,76 @@
-<p>doctor-list works!</p>
+<div class="container">
+  <div class="row mt-5">
+    <div class="text-end">
+      <a [routerLink]="['/doctor/add']">
+        <button
+          type="button"
+          class="btn btn-sm btn-primaryClr me-2 col-2"
+          id="addButton"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="my-2 table-responsive">
+    <table class="table styled-table">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Age</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Address</th>
+          <th scope="col">Role</th>
+          <th scope="col">Clinic Address</th>
+          <th scope="col">Clinic Specialization</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of doctors; let i = index">
+          <td scope="row">{{ i + 1 }}</td>
+          <td>{{ doctor.firstname }} {{ doctor.lastname }}</td>
+          <td>{{ doctor.email }}</td>
+          <td>{{ doctor.age }}</td>
+          <td>{{ doctor.phoneNumber }}</td>
+          <td>
+            {{ doctor.address.country }}, {{ doctor.address.city }},
+            {{ doctor.address.street }}
+          </td>
+          <td>{{ doctor.speciality }}</td>
+          <td>
+            {{ doctor.clinicId._address.street }},
+            {{ doctor.clinicId._address.city }},
+            {{ doctor.clinicId._address.country }}
+          </td>
+          <td>{{ doctor.clinicId._specilization }}</td>
+          <td>
+            <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
+              <a [routerLink]="['/doctor/edit/', doctor.id]">
+                <button type="button" class="btn btn-sm btn-primary me-2">
+                  <i class="fa fa-edit"></i>
+                </button>
+              </a>
+              <a [routerLink]="['/doctor/details/', doctor.id]">
+                <button class="btn btn-sm btn-dark me-2">
+                  <i class="fa fa-eye"></i>
+                </button>
+              </a>
+              <a>
+                <button
+                  class="btn btn-sm btn-danger"
+                  (click)="deleteDoctor(doctor.id)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

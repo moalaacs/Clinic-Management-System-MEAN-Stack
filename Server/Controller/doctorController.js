@@ -110,7 +110,7 @@ exports.addDoctor = async (request, response, next) => {
       }
     }
     request.body.schedule.forEach((element) => {
-      if (element.start < element.end){
+      if (element.start > element.end){
         return response.status(200).json(responseFormat(false, {}, `In ${element.day}'s schedule, starting time ${element.start} can't be less than ending time ${element.end}`, 0, 0, 0, 0));
       }
     });
@@ -160,7 +160,7 @@ exports.addDoctor = async (request, response, next) => {
       _idInSchema: savedDoctor._id,
       _role: "doctor",
       _email: request.body.email,
-      _contactNumber: request.body.phone,
+      _contactNumber: request.body.phoneNumber,
       _password: hash,
     });
 
