@@ -211,14 +211,25 @@
         <div *ngFor="let item of schedule.controls;let i = index" class="row">
           <ng-container [formGroupName]="i">
 
-            <mat-select id="speciality" name="speciality" formControlName="day">
-              <mat-option *ngFor="let item of weeklyDays;" [value]="item">{{item}}</mat-option>
-            </mat-select>
+            <div class="form-row d-flex flex-column flex-md-row gap-md-3 justify-content-center">
+              <mat-form-field appearance="fill">
+                <mat-label>Day</mat-label>
+                <mat-select formControlName="day">
+                  <mat-option *ngFor="let item of weeklyDays;" [value]="item">{{item}}</mat-option>
+                </mat-select>
+              </mat-form-field>
 
-            <input type="text" matInput formControlName="start" placeholder="Starting time">
+              <mat-form-field appearance="fill" class="form-field col-12 col-md-3">
+                <mat-label>Starting Date</mat-label>
+                <input matInput formControlName="start" type="text" required />
+              </mat-form-field>
 
-            <input type="text" matInput formControlName="end" placeholder="Ending time">
+              <mat-form-field appearance="fill" class="form-field col-12 col-md-3">
+                <mat-label>Ending Date Date</mat-label>
+                <input matInput formControlName="end" type="text" required />
+              </mat-form-field>
 
+            </div>
           </ng-container>
         </div>
       </div>
