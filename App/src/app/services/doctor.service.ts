@@ -16,7 +16,6 @@ export class DoctorService {
 
   getAllDoctors(): Observable<any> {
     return this.http.get(`${this.baseUrl}`).pipe(
-      tap(response => console.log('Response from getAllDoctors:', response)),
       catchError(error => {
         console.log('Error retrieving Doctors: ', error);
         return throwError('Could not retrieve Doctors. Please try again later.');
@@ -44,8 +43,13 @@ export class DoctorService {
   }
 
 
-  patchDoctorById(id: number,doctor: Partial<Doctor>): Observable<any> {
-    return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, doctor);
+  patchDoctorById(id: number,doctor: Doctor, photo:File): Observable<Doctor> {
+    const formData = new FormData();
+    if (photo) {
+      formData.append('photo', photo);
+    }
+    formData.append('doctor', JSON.stringify(doctor));
+    return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, formData);
   }
 
   removeDoctorById(id: number): Observable<void> {
