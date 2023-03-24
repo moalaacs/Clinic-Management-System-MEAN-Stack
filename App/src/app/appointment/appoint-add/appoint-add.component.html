@@ -1,8 +1,8 @@
-<form [formGroup]="appointmentForm" class="row example-form" (ngSubmit)=" addAppointment(errorH5)">
+<form [formGroup]="appointmentForm" class="row example-form" (ngSubmit)=" onSubmit()">
     <!-- Clinic -->
     <mat-form-field>
         <mat-label>Clinic Number</mat-label>
-        <input type="text" matInput formControlName="_clinicId" [errorStateMatcher]="matcher" placeholder="100">
+        <input type="text" matInput formControlName="clinicId" [errorStateMatcher]="matcher" placeholder="100">
         <mat-error *ngIf="clinic?.errors?.['pattern'] && !clinic?.errors?.['required']">
             Please enter a valid Clinic Number
         </mat-error>
@@ -46,7 +46,7 @@
     <!-- doctor  -->
     <mat-form-field>
         <mat-label>Doctor Number</mat-label>
-        <input type="text" matInput formControlName="_doctorId" [errorStateMatcher]="matcher" placeholder="100">
+        <input type="text" matInput formControlName="doctorId" [errorStateMatcher]="matcher" placeholder="100">
         <mat-error *ngIf="doctor?.errors?.['pattern'] && !doctor?.errors?.['required']">
             Please enter a valid doctor Number
         </mat-error>
@@ -57,7 +57,7 @@
     <!-- date -->
     <mat-form-field color="accent" appearance="fill">
         <mat-label>Appointment Date</mat-label>
-        <input matInput formControlName="_date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+        <input matInput formControlName="date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-error>
             <span *ngIf="appointmentForm.get('_date')?.errors?.['required']">Appointment date is <strong> required
@@ -68,7 +68,7 @@
     <!-- time -->
     <mat-form-field>
         <mat-label>Appointment Time</mat-label>
-        <input type="text" matInput formControlName="_time" [errorStateMatcher]="matcher" placeholder="time">
+        <input type="text" matInput formControlName="time" [errorStateMatcher]="matcher" placeholder="time">
         <mat-error *ngIf="time?.errors?.['pattern'] && !time?.errors?.['required']">
             Please enter a valid time
         </mat-error>
@@ -79,7 +79,7 @@
     <!-- status -->
     <mat-form-field>
         <mat-label>Appointemnt Status</mat-label>
-        <input type="text" matInput formControlName="_status" [errorStateMatcher]="matcher" placeholder="status">
+        <input type="text" matInput formControlName="status" [errorStateMatcher]="matcher" placeholder="status">
         <mat-error *ngIf="status?.errors?.['pattern'] && !status?.errors?.['required']">
             Please enter a valid status
         </mat-error>

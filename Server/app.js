@@ -19,7 +19,7 @@ const prescriptionRouter = require("./Routes/prescriptionRouter");
 const invoiceRouter = require("./Routes/invoiceRouter");
 const paymentRouter = require("./Routes/paymentRouter");
 const showAppointmentRouter = require("./Routes/showAppointmentRouter");
-const publicInformation=require("./Routes/publicInformation")
+const publicInformation = require("./Routes/publicInformation")
 const {
   checkAppointmentsDaily,
 } = require("./Middlewares/dailyAppointmentCheck");
@@ -68,8 +68,8 @@ async function connectToServer() {
   }
 }
 connectToServer();
-app.use("/images", express.static("images"));
 app.use(cors());
+app.use("/images", express.static("images"));
 
 /**** Middlewares ****/
 
