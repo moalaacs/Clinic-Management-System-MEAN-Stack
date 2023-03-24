@@ -5,11 +5,12 @@
     <table class="table table-dark table-striped table-hover table-bordered">
         <thead class="table-secondary">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Medicine ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Pr Date</th>
-                <th scope="col">Ex Date</th>
-                <th scope="col">Details</th>
+                <th scope="col">ProductionDate</th>
+                <th scope="col">Expiry Date</th>
+                <th scope="col">Medicine Details</th>
+                <th scope="col">Delete Medicine</th>
 
             </tr>
         </thead>
@@ -20,7 +21,10 @@
                 <td>{{item._productionDate}}</td>
                 <td>{{item._expiryDate}}</td>
                 <td>
-                    <a [routerLink]="['/medicine','details',item._id]" class="btn btn-info">Details</a>
+                    <a [routerLink]="['/medicine','details',item._id]" class="btn btn-info ms-3">Details</a>
+                </td>
+                <td>
+                    <button (click)="delete(item._id)" class="btn btn-danger ms-3">Delete</button>
                 </td>
             </tr>
         </tbody>
