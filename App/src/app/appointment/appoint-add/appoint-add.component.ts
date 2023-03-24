@@ -7,12 +7,6 @@ import { Appointment } from 'src/app/models/appointment';
 import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-/*interface patientType {
-  patient: string;
-  doctor: string;
-  employee: string;
-}*/
-
 @Component({
   selector: 'app-appoint-add',
   templateUrl: './appoint-add.component.html',
@@ -21,11 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AppointAddComponent {
   _appointment: Appointment = new Appointment("", 1, 100, "", 10, "", "", "");
   appointment: Appointment[] = [];
-  /*patientType: patientType[] = [
-    {value: 'patient', viewValue: 'patient'},
-    {value: 'doctor', viewValue: 'doctor'},
-    {value: 'employee', viewValue: 'employee'},
-  ];*/
   appointmentForm: FormGroup;
   matcher: MyErrorStateMatcher;
   minDate: Date;
@@ -35,7 +24,6 @@ export class AppointAddComponent {
     this.minDate = new Date('2023-03-20');
     this.maxDate = new Date('2030-12-31');
     this.appointmentForm = this.fb.group({
-      // _id: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientType: ['', [Validators.required, /*Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")*/]],
@@ -51,9 +39,6 @@ export class AppointAddComponent {
       this.appointment = data;
     })
   }
-  // get id() {
-  //   return this.appointmentForm.get('_id');
-  // }
   get clinic() {
     return this.appointmentForm.get('_clinicId');
   }
@@ -82,13 +67,11 @@ export class AppointAddComponent {
     const year = datee.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
     this.appointmentForm.value.date = formattedDate;
-    // const appointment = this;
     console.log(this.appointmentForm.value);
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
       () => {
         this.router.navigate(['/appointment'])
       }, error => {
-
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
