@@ -59,9 +59,9 @@ import { CardModule } from 'primeng/card';
     FormsModule, ReactiveFormsModule,
     LandingPageModule, FlexLayoutModule,
     ClinicModule, AppointModule, MatSlideToggleModule, MatInputModule,
-    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule, ToastrModule.forRoot(),
-    MatSnackBarModule, MatToolbarModule, MatButtonModule, MatMenuModule, DashboardModule
-    , CommonModule, ChartModule, ButtonModule, ToastModule, RippleModule, ImageModule
+    MatCardModule, MatFormFieldModule, MatNativeDateModule, DatePipe, MatIconModule,
+    ToastrModule.forRoot(), MatSnackBarModule, MatToolbarModule, MatButtonModule, MatMenuModule,
+    DashboardModule, CommonModule, ChartModule, ButtonModule, ToastModule, RippleModule, ImageModule
   ],
   providers: [NgbActiveModal, ToastrService, {
     provide: HTTP_INTERCEPTORS,
