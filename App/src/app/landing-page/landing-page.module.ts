@@ -16,10 +16,8 @@ import { BlogComponent } from './blog/blog.component';
 import { TrustedComponent } from './trusted/trusted.component';
 import { StatisticsSectionComponent } from './statistics-section/statistics-section.component';
 import { SpecialitiesSectionComponent } from './specialities-section/specialities-section.component';
-import { ServicesSectionComponent } from './services-section/services-section.component';
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { DoctorsSectionComponent } from './doctors-section/doctors-section.component';
-import { SubscribeSectionComponent } from './subscribe-section/subscribe-section.component';
 import { RouterLink } from '@angular/router';
 import { InfoSectionComponent } from './info-section/info-section.component';
 import { GallerySectionComponent } from './gallery-se\ction/gallery-section.component';
@@ -29,7 +27,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     FlexLayoutModule, RouterLink,
     MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatSliderModule, MatGridListModule, MatTabsModule, MatCardModule, BrowserAnimationsModule,
   ],
-  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, ServicesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, SubscribeSectionComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
+  declarations: [LandingPageComponent, HeroSectionComponent, FeaturesSectionComponent, SpecialitiesSectionComponent, TestimonialsSectionComponent, DoctorsSectionComponent, TrustedComponent, BlogComponent, StatisticsSectionComponent, InfoSectionComponent, GallerySectionComponent],
 
   exports: []
 })
