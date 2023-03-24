@@ -154,7 +154,7 @@ export class DoctorAddComponent implements OnInit {
     const doctor = this.doctorForm.value as unknown as Doctor;
     this.doctorService.addDoctor(doctor, this.image).subscribe(
       () => {
-        this.snackBar.open('Doctor updated successfully.', 'Close', {
+        this.snackBar.open('Doctor added successfully.', 'Close', {
           duration: 3000
         });
         this.location.back();
