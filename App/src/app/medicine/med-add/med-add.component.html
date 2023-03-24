@@ -21,17 +21,6 @@
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <!-- Expiry -->
-    <!-- <mat-form-field>
-        <mat-label>Expiry Date</mat-label>
-        <input type="date" matInput formControlName="_expiryDate" [errorStateMatcher]="matcher"
-            placeholder="01/02/2025">
-        <mat-error *ngIf="expiryDate?.errors?.['pattern'] && !expiryDate?.errors?.['required']">
-            Please enter a valid Production Date
-        </mat-error>
-        <mat-error *ngIf="expiryDate?.errors?.['required']">
-            Production Date is <strong>required</strong>
-        </mat-error>
-    </mat-form-field> -->
     <mat-form-field color="accent" appearance="fill">
         <mat-label>Expiry date</mat-label>
         <input matInput formControlName="expiry" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerr">

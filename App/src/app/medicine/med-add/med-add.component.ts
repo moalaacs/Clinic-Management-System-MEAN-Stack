@@ -23,10 +23,9 @@ export class MedAddComponent implements OnInit {
     this.maxDate = new Date('2030-12-31');
     this.medicineForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
-      // _productionDate: ['', [Validators.required, Validators.pattern("(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/([0-9]{4})")]],
       production: ['', [Validators.required,]],
       expiry: ['', [Validators.required,]],
-      leaflet: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      leaflet: ['', [Validators.required, Validators.pattern("[a-zA-Z ,.]+")]],
       price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       quantity: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     });
@@ -56,29 +55,6 @@ export class MedAddComponent implements OnInit {
   get quantity() {
     return this.medicineForm.get('_quantity');
   }
-  // addMedicine(errorH5: HTMLElement) {
-  //   errorH5.innerHTML = '';
-  //   let Router = this.router;
-  //   this.medicineService.addMedicine(this.medicineForm.value).subscribe({
-  //     next(value) {
-  //       console.log(value);
-  //       alert("Success");
-  //       Router.navigateByUrl("/medicine");
-  //     },
-  //     error(err) {
-  //       errorH5.innerHTML = err.error.message;
-  //     },
-
-  //   });
-  // }
-  // addMedicine(errorH5: HTMLElement) {
-  //   errorH5.innerHTML = '';
-  //   this.medicineService.addMedicine(this.medicineForm.value).subscribe(newMedicine => {
-  //     console.log(newMedicine);
-  //     this.router.navigateByUrl("/medicine");
-  //     this.location.back();
-  //   });
-  // }
   onSubmit() {
     const date = new Date(this.medicineForm.value.production);
     const day = date.getDate().toString().padStart(2, '0');

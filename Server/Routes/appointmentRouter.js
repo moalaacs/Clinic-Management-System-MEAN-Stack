@@ -12,14 +12,14 @@ const router = express.Router();
 
 router
   .route("/appointment")
-  .all(
-    authorizationMW.accessAppointment(
-      "patient",
-      "doctor",
-      "receptionist",
-      "nurse"
-    )
-  )
+  // .all(
+  //   authorizationMW.accessAppointment(
+  //     "patient",
+  //     "doctor",
+  //     "receptionist",
+  //     "nurse"
+  //   )
+  // )
   .get(controller.getAllAppointments)
   // .post(validateAppointment, validatorMiddleware, controller.addAppointment)
   .post(controller.addAppointment);
@@ -46,11 +46,11 @@ router
 
 router
   .route("/appointment/:id")
-  .all(
-    numberIdParamsValidation,
-    validatorMiddleware,
-    authorizationMW.accessClinicResources("receptionist")
-  )
+  // .all(
+  //   numberIdParamsValidation,
+  //   validatorMiddleware,
+  //   authorizationMW.accessClinicResources("receptionist")
+  // )
   .get(controller.getAppointmentById)
   .patch(
     validatePatchAppointment,
