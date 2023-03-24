@@ -5,6 +5,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { Location } from '@angular/common';
 import { Appointment } from 'src/app/models/appointment';
 import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /*interface patientType {
   patient: string;
@@ -30,7 +31,7 @@ export class AppointAddComponent {
   minDate: Date;
   maxDate: Date;
 
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder) {
+  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
     this.minDate = new Date('2023-03-20');
     this.maxDate = new Date('2030-12-31');
     this.appointmentForm = this.fb.group({
@@ -74,14 +75,6 @@ export class AppointAddComponent {
   get status() {
     return this.appointmentForm.get('_status');
   }
-  // addAppointment(errorH5: HTMLElement) {
-  //   errorH5.innerHTML = '';
-  //   this.appointmentService.addAppointment(this._appointment).subscribe(newAppointment => {
-  //     console.log(newAppointment);
-  //     this.router.navigateByUrl("/appointment");
-  //     this.location.back();
-  //   });
-  // }
   onSubmit() {
     const datee = new Date(this.appointmentForm.value.date);
     const day = datee.getDate().toString().padStart(2, '0');
@@ -92,9 +85,11 @@ export class AppointAddComponent {
     // const appointment = this;
     console.log(this.appointmentForm.value);
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
-      (data) => {
-        console.log(data);
+      () => {
         this.router.navigate(['/appointment'])
+      }, error => {
+
+        this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
 }
