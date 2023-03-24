@@ -231,7 +231,7 @@ let doctorValidation = [
       "Surgeon",
     ])
     .withMessage("Doctor's speciality isn't provided"),
-  check("schedule").isArray().withMessage("Enter Schedule"),
+  check("schedule").optional().isArray().withMessage("Enter Schedule"),
   check("schedule.*").isObject().withMessage("Fill in the schedule"),
   check("schedule.*.day")
     .isIn([

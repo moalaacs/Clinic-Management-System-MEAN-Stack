@@ -41,11 +41,16 @@ export class DoctorService {
       formData.append('photo', photo);
     }
     Object.entries(doctor).forEach(([key, value]) => {
-      if (typeof value === 'object') {
+      if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          Object.entries(item).forEach(([subKey, subValue]) => {
+            formData.append(`${key}[${index}].${subKey}`, subValue as string);
+          });
+        });
+      } else if (typeof value === 'object') {
         Object.entries(value).forEach(([subKey, subValue]) => {
           formData.append(`${key}.${subKey}`, subValue as string);
         });
-
       } else {
         formData.append(key, value);
       }
@@ -56,7 +61,7 @@ export class DoctorService {
     });
 
     return this.http.post<Doctor>(`${this.baseUrl}`, formData);
-  }
+}
 
 
 
