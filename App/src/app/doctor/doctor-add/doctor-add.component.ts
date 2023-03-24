@@ -143,10 +143,7 @@ export class DoctorAddComponent implements OnInit {
     this.doctorForm.controls["schedule"].push(this.scheduleForm());
   }
   ngOnInit(): void {
-
   }
-
-
   onSubmit() {
     let formDate = this.doctorForm.get("dateOfBirth")?.value as string
     const date = new Date(formDate);
@@ -154,11 +151,18 @@ export class DoctorAddComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
-
+    let bindedThis = this;
     this.doctorForm.get("dateOfBirth")?.setValue(formattedDate);
     const doctor = this.doctorForm.value as unknown as Doctor;
-    this.doctorService.addDoctor(doctor, this.image).subscribe(
-      () => this.location.back())
+    this.doctorService.addDoctor(doctor, this.image).subscribe({
+      next() {
+        bindedThis.location.back();
+      },
+      error(err) {
+        console.log(err);
+        bindedThis.snackBar.open(err.error.message)
+      },
+    })
   }
 
   onFileSelected(event: any) {

@@ -1,4 +1,4 @@
-export interface IClinic {
+export interface clinic {
   _id: number,
   _specilization: string,
   _contactNumber: string,
@@ -13,4 +13,5 @@ export interface IClinic {
     }
   }[],
   _doctors: number[];
+  _email?: string
 }

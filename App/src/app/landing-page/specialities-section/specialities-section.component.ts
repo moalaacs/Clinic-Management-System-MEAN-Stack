@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IClinic } from 'src/app/models/IClinic';
+import { clinic } from 'src/app/models/clinic';
 import { ClinicService } from 'src/app/services/clinic.service';
 @Component({
   selector: 'app-specialities-section',
@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/services/clinic.service';
   styleUrls: ['./specialities-section.component.css']
 })
 export class SpecialitiesSectionComponent implements OnInit {
-  clinics: IClinic[];
+  clinics: clinic[];
   shownClinic: any;
   constructor(private clinicService: ClinicService) {
     this.shownClinic = null;

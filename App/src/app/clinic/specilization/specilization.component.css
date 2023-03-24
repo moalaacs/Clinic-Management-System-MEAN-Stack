@@ -13,13 +13,14 @@
   gap: 1rem;
 } */
 
+/* ------------------------------ */
 
+/*
 .gridView{
-  /* margin: 0 auto; */
   display: grid;
   grid-template-columns: repeat(1,1fr);
-}
-
+} */
+/*
 .gridView a{
   text-decoration: none;
 }
@@ -56,4 +57,20 @@
 
 *, ::after, ::before {
   box-sizing: border-box;
+} */
+
+.cardContainer{
+  margin: 10px;
+  height: 30rem;
+  transition: all 0.3s ease-in-out;
+}
+.cardContainer:hover{
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+.imgmg{
+  margin-bottom: 1rem;
+}
+p{
+  margin:0 !important
 }

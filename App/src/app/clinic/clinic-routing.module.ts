@@ -16,6 +16,10 @@ const routes: Routes = [
     component: AddClinicComponent
   },
   {
+    path: "edit/:id",
+    component: AddClinicComponent
+  },
+  {
     path: 'details/:id',
     component: ClinicsInfoByIdComponent
   },

@@ -37,7 +37,6 @@ export class DoctorService {
   addDoctor(doctor: Doctor, photo: File): Observable<Doctor> {
     const formData = new FormData();
     if (photo) {
-      console.log('photo', photo);
       formData.append('photo', photo);
     }
     Object.entries(doctor).forEach(([key, value]) => {
@@ -45,7 +44,6 @@ export class DoctorService {
         for (var i = 0; i < value.length; i++) {
           for (let key2 in value[i]) {
             formData.append(`${key}[${i}][${key2}]`, value[i][key2]);
-            console.log(`${key}[${i}][${key2}]`, value[i][key2]);
           }
         }
       } else if (typeof value === 'object') {
