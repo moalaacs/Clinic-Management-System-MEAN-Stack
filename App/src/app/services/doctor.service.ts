@@ -34,36 +34,30 @@ export class DoctorService {
 
 
 
-  addDoctor(doctor: Doctor, photo:File): Observable<Doctor> {
+  addDoctor(doctor: Doctor, photo: File): Observable<Doctor> {
     const formData = new FormData();
     if (photo) {
       console.log('photo', photo);
       formData.append('photo', photo);
     }
     Object.entries(doctor).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((item, index) => {
-          Object.entries(item).forEach(([subKey, subValue]) => {
-            formData.append(`${key}[${index}].${subKey}`, subValue as string);
-          });
-        });
+      if (key == "schedule") {
+        for (let i = 0; i < value.length; i++) {
+          formData.append(`schedule[${i}][day]`, value[i].day);
+          formData.append(`schedule[${i}][start]`, value[i].start);
+          formData.append(`schedule[${i}][end]`, value[i].end);
+        }
       } else if (typeof value === 'object') {
-        Object.entries(value).forEach(([subKey, subValue]) => {
-          formData.append(`${key}.${subKey}`, subValue as string);
-        });
+        for (let key2 in value) {
+          formData.append(`${key}[${key2}]`, value[key2]);
+          console.log(`${key}[${key2}]`, value[key2])
+        }
       } else {
         formData.append(key, value);
       }
     });
-
-    formData.forEach((value, key) => {
-      console.log(key + ' ' + value);
-    });
-
     return this.http.post<Doctor>(`${this.baseUrl}`, formData);
-}
-
-
+  }
 
   putDoctorById(id: number, doctor: Doctor): Observable<Doctor> {
     return this.http.put<Doctor>(`${this.baseUrl}/${id}`, doctor);
@@ -71,7 +65,7 @@ export class DoctorService {
 
 
 
-  patchDoctorById(id: number,doctor: Doctor, photo:File): Observable<Doctor> {
+  patchDoctorById(id: number, doctor: Doctor, photo: File): Observable<Doctor> {
     const formData = new FormData();
     if (photo) {
       formData.append('photo', photo);

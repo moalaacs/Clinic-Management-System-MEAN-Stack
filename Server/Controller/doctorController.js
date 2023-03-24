@@ -69,6 +69,7 @@ exports.getDoctorById = async (request, response, next) => {
 // add a doctor
 exports.addDoctor = async (request, response, next) => {
   try {
+    console.log(request.body);
     let doctorSpecilatyToClinicSpecilization = mapSpecilityToSpecilization(
       request.body.speciality
     );

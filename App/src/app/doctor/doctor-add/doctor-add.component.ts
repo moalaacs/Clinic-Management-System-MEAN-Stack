@@ -16,7 +16,7 @@ export class DoctorAddComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
-  image :any;
+  image: any;
 
   weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
@@ -120,7 +120,6 @@ export class DoctorAddComponent implements OnInit {
       zipCode: ['', [Validators.pattern('[0-9]*'), Validators.minLength(5)]]
     }),
     password: ['', [
-
       Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
       Validators.minLength(8)
     ]],
@@ -128,7 +127,6 @@ export class DoctorAddComponent implements OnInit {
     medicalHistory: '',
     invoices: [[]],
     schedule: this.fb.array([this.scheduleForm()]),
-    clinicId: ['', [Validators.pattern('[0-9]*')]],
     speciality: ['']
   });
   scheduleForm() {
@@ -150,7 +148,7 @@ export class DoctorAddComponent implements OnInit {
 
 
   onSubmit() {
-    let formDate = this.doctorForm.get("dateOfBirth")?.value  as string
+    let formDate = this.doctorForm.get("dateOfBirth")?.value as string
     const date = new Date(formDate);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -159,12 +157,12 @@ export class DoctorAddComponent implements OnInit {
 
     this.doctorForm.get("dateOfBirth")?.setValue(formattedDate);
     const doctor = this.doctorForm.value as unknown as Doctor;
-    this.doctorService.addDoctor(doctor, this.image ).subscribe(
-      () => this.location.back() )
+    this.doctorService.addDoctor(doctor, this.image).subscribe(
+      () => this.location.back())
   }
 
   onFileSelected(event: any) {
-    if(event.target.files.length>0){
+    if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.image = file
     }
