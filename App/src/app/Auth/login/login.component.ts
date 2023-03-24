@@ -12,6 +12,8 @@ import { AuthService } from './../../services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+
+  hide  = true;
   constructor(
     private builder: FormBuilder,
     private toastr: ToastrService,
