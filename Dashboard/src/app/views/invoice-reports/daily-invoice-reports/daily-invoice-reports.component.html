@@ -1,1 +1,33 @@
-<p>daily-invoice-reports works!</p>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Clinic</th>
+          <th>Patient ID</th>
+          <th>Date</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Paid</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of invoices">
+          <td>{{ item._id }}</td>
+          <td>
+            {{ item.clinic_Id._contactNumber }} -
+            {{ item.clinic_Id._specilization }}
+          </td>
+          <td>{{ item.patient_Id }}</td>
+          <td>{{ item.date }}</td>
+          <td>{{ item.total }}</td>
+          <td>{{ item.paymentMethod }}</td>
+          <td>{{ item.paid }}</td>
+          <td>{{ item.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
