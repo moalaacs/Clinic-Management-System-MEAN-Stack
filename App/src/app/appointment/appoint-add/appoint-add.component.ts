@@ -35,13 +35,13 @@ export class AppointAddComponent {
     this.maxDate = new Date('2030-12-31');
     this.appointmentForm = this.fb.group({
       // _id: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
-      _clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientType: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
-      _doctorId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      _date: ['', [Validators.required, Validators.pattern("(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/([0-9]{4})")]],
-      _time: ['', [Validators.required, Validators.pattern("([0-5][0-9]):([0-5][0-9])")]],
-      _status: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      doctorId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      date: ['', [Validators.required,]],
+      time: ['', [Validators.required, Validators.pattern("([0-5][0-9]):([0-5][0-9])")]],
+      status: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
     });
     this.matcher = new MyErrorStateMatcher();
   }
@@ -74,12 +74,24 @@ export class AppointAddComponent {
   get status() {
     return this.appointmentForm.get('_status');
   }
-  addAppointment(errorH5: HTMLElement) {
-    errorH5.innerHTML = '';
-    this.appointmentService.addAppointment(this._appointment).subscribe(newAppointment => {
-      console.log(newAppointment);
-      this.router.navigateByUrl("/appointment");
-      this.location.back();
-    });
+  // addAppointment(errorH5: HTMLElement) {
+  //   errorH5.innerHTML = '';
+  //   this.appointmentService.addAppointment(this._appointment).subscribe(newAppointment => {
+  //     console.log(newAppointment);
+  //     this.router.navigateByUrl("/appointment");
+  //     this.location.back();
+  //   });
+  // }
+  onSubmit() {
+    const datee = new Date(this.appointmentForm.value.date);
+    const day = datee.getDate().toString().padStart(2, '0');
+    const month = (datee.getMonth() + 1).toString().padStart(2, '0');
+    const year = datee.getFullYear().toString();
+    const formattedDate = `${day}/${month}/${year}`;
+    this.appointmentForm.value.date = formattedDate;
+
+    const appointment = this.appointmentForm.value;
+    this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
+      () => this.router.navigate(['/appointment']))
   }
 }
