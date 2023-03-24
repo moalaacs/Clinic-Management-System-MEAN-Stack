@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { EmployeeService } from 'src/app/services/employee.service';
+import { Employee } from 'src/app/models/employee';
 
 @Component({
   selector: 'app-employee-add',
@@ -17,6 +18,7 @@ export class EmployeeAddComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
+  image: any;
 
 
   validationMessages = {
@@ -92,9 +94,9 @@ export class EmployeeAddComponent implements OnInit {
 
 
   constructor(
-
+    private fb: FormBuilder,
     private employeeService: EmployeeService,
-    private router: Router,
+    private snackBar: MatSnackBar,
     private location: Location
   ) {
     this.minDate = new Date('1963-01-01');
@@ -105,54 +107,32 @@ export class EmployeeAddComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.employeeForm = new FormGroup({
-      firstname: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z ]+$')
-      ]),
-      lastname: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z ]+$')
-      ]),
-      dateOfBirth: new FormControl('', [
-        Validators.required,
-      ]),
-      age: new FormControl(''),
-      gender: new FormControl('', [Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      address: new FormGroup({
-        street: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\d]+$'),
-        ]),
-        city: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\d]+$'),
-        ]),
-        country: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\d]+$'),
-        ]),
-        zipCode: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(5),
-          Validators.pattern(/^\d+$/),
-        ]))
+    this.employeeForm = this.fb.group({
+            firstname: ['', [Validators.required,
+        Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+      lastname: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+      dateOfBirth: ['',Validators.required],
+      gender: ['',Validators.required],
+      phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*')]],
+      email: ['', [Validators.required,Validators.email]],
+      address: this.fb.group({
+        street: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+        city: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+        country: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+        zipCode: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.minLength(5)]]
       }),
-      password: new FormControl('', Validators.required),
-      medicalHistory: new FormControl(''),
-      image: new FormControl(''),
-      clinicId: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
-      salary: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
-      workingHours: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
-      role: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+      password: ['', [
+        Validators.required,
+        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
+        Validators.minLength(8)
+      ]],
+      image: [''],
+      medicalHistory: '',
+      invoices: [[]],
+      clinicId: ['', [Validators.required,Validators.pattern('[0-9]*')]],
+      salary: ['', [Validators.required,Validators.pattern('[0-9]*')]],
+      workingHours: ['', [Validators.required,Validators.pattern('[0-9]*')]],
+      role: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*')]],
     });
   }
   onSubmit() {
@@ -163,20 +143,27 @@ export class EmployeeAddComponent implements OnInit {
     const formattedDate = `${day}/${month}/${year}`;
     this.employeeForm.value.dateOfBirth = formattedDate;
 
-    const employee = this.employeeForm.value;
-    this.employeeService.addEmployee(employee).subscribe(
-      () => this.router.navigate(['/employee']))
+    const employee = this.employeeForm.value as Employee;
+    this.employeeService.addEmployee(employee, this.image).subscribe(
+      () => {
+        this.snackBar.open('Patient updated successfully.', 'Close', {
+          duration: 3000
+        });
+        this.location.back();
+      },
+      error => {
+        this.snackBar.open(error.message, 'Close', {
+          duration: 3000
+        });
+      }
+)
   }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.employeeForm.patchValue({
-        image: reader.result as string
-      });
-    };
+    if (file){
+      this.image = file;
+    }
   }
 
   goBack(): void {

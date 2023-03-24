@@ -13,60 +13,52 @@
     </mat-card-header>
     <mat-card-content>
       <div *ngIf="patient">
-        <h2 class="patient-name">
-          {{ patient.firstname }} {{ patient.lastname }}
-        </h2>
-        <p><strong>Date of Birth:</strong> {{ patient.dateOfBirth }}</p>
-        <p><strong>Age:</strong> {{ patient.age }}</p>
-        <p><strong>Gender:</strong> {{ patient.gender }}</p>
-        <p><strong>Phone Number:</strong> {{ patient.phoneNumber }}</p>
-        <p><strong>Email:</strong> {{ patient.email }}</p>
-        <p>
-          <strong>Address:</strong> {{ patient.address.street }},
-          {{ patient.address.city }}, {{ patient.address.country }},
-          {{ patient.address.zipCode }}
-        </p>
-        <div *ngIf="patient.medicalHistory">
-          <p><strong>Medical History:</strong> {{ patient.medicalHistory }}</p>
+        <div class="patient-profile">
+          <img
+            class="patient-profile-image"
+            [src]="profilePic"
+            alt="Patient profile image"
+          />
         </div>
-        <div class="invoices" *ngIf="patient.invoices?.length > 0">
-          <h3 class="mat-subheading-1">Invoices</h3>
-          <!-- <div
-            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3"
-          >
-            <div class="col mb-4" *ngFor="let invoice of patient.invoices">
-              <div class="card invoice-card">
-                <div class="card-body">
-                  <h5 class="card-title">Invoice {{ invoice.invoice_id }}</h5>
-                  <p class="card-text">
-                    <strong>Total:</strong> {{ invoice.total }}
-                  </p>
-                  <p class="card-text">
-                    <strong>Total Due:</strong> {{ invoice.totalDue }}
-                  </p>
-                  <p class="card-text">
-                    <strong>Status:</strong> {{ invoice.status }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <mat-accordion *ngIf="patient.invoices?.length > 0">
-            <mat-expansion-panel *ngFor="let invoice of patient.invoices">
-              <mat-expansion-panel-header>
-                <mat-panel-title class="mat-panel-title"
-                  >Invoice {{ invoice.invoice_id }}</mat-panel-title
-                >
-              </mat-expansion-panel-header>
-              <mat-panel-description class="mat-panel-description">
-                <p><strong>Total:</strong> {{ invoice.total }}</p>
+        <div class="patient-content">
+          <h2 class="patient-name">
+            {{ patient.firstname }} {{ patient.lastname }}
+          </h2>
+          <p><strong>Date of Birth:</strong> {{ patient.dateOfBirth }}</p>
+          <p><strong>Age:</strong> {{ patient.age }}</p>
+          <p><strong>Gender:</strong> {{ patient.gender }}</p>
+          <p><strong>Phone Number:</strong> {{ patient.phoneNumber }}</p>
+          <p><strong>Email:</strong> {{ patient.email }}</p>
+          <p>
+            <strong>Address:</strong> {{ patient.address.street }},
+            {{ patient.address.city }}, {{ patient.address.country }},
+            {{ patient.address.zipCode }}
+          </p>
+          <div *ngIf="patient.medicalHistory">
+            <p>
+              <strong>Medical History:</strong> {{ patient.medicalHistory }}
+            </p>
+          </div>
+          <div class="invoices" *ngIf="patient.invoices?.length > 0">
+            <h3 class="mat-subheading-1">Invoices</h3>
 
-                <p><strong>Total Due:</strong> {{ invoice.totalDue }}</p>
+            <mat-accordion *ngIf="patient.invoices?.length > 0">
+              <mat-expansion-panel *ngFor="let invoice of patient.invoices">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="mat-panel-title"
+                    >Invoice {{ invoice.invoice_id }}</mat-panel-title
+                  >
+                </mat-expansion-panel-header>
+                <mat-panel-description class="mat-panel-description">
+                  <p><strong>Total:</strong> {{ invoice.total }}</p>
 
-                <p><strong>Status:</strong> {{ invoice.status }}</p>
-              </mat-panel-description>
-            </mat-expansion-panel>
-          </mat-accordion>
+                  <p><strong>Total Due:</strong> {{ invoice.totalDue }}</p>
+
+                  <p><strong>Status:</strong> {{ invoice.status }}</p>
+                </mat-panel-description>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
         </div>
       </div>
     </mat-card-content>

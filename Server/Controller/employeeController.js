@@ -237,9 +237,17 @@ exports.patchEmployee = async (request, response, next) => {
       if (testEmail && testEmail._idInSchema != request.params.id) {
         return response.status(400).json(responseFormat(false, {}, `Email Already in use`, 0, 0, 0, 0));
       }
+      let password  = testEmail._password;
+      if (request.body.password) {
+        const hash = await bcrypt.hash(request.body.password, 10);
+        tempEmployee._password = hash;
+        password = hash;
+      }
+      
+  
       await users.updateOne(
         { _idInSchema: request.params.id },
-        { $set: { _email: request.body.email } }
+        { $set: { _email: request.body.email, _password:password } }
       );
       tempEmployee._email = request.body.email;
     }

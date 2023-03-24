@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,13 +15,15 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EmployeeEditComponent implements OnInit {
 
-  employeeForm: FormGroup;
   employeeId: number = 0;
   employee: any = null ;
+  updatedEmployee: any = {};
+  employeeForm: FormGroup;
 
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
+  image: any;
 
 
   validationMessages = {
@@ -81,14 +83,13 @@ export class EmployeeEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router,
               private employeeService: EmployeeService,
               private snackBar: MatSnackBar,
               private location: Location
               ) {
 
     this.minDate = new Date('1963-01-01');
-    this.maxDate = new Date('2000-12-31');
+    this.maxDate = new Date('1999-12-31');
     this.defaultDate = new Date('1999-01-10');
 
     this.employeeForm = this.fb.group({
@@ -135,39 +136,114 @@ export class EmployeeEditComponent implements OnInit {
     this.employeeService.getEmployeeById(this.employeeId).pipe(
       map(response => response.data)).subscribe(
       data => {
-        let clinicId = data.clinicId._id;
+        data.clinicId = data.clinicId._id;
         let date = new Date(data.dateOfBirth);
-        data.clinicId = clinicId;
         data.dateOfBirth = date;
         this.employee = data;
+        this.employeeForm.patchValue(this.employee);
+      });
 
-        this.employeeForm.patchValue(data);
+      this.employeeForm.controls['firstname'].valueChanges.subscribe((value)=> {
+        if (value !== this.employee.firstname) {
+          this.updatedEmployee.firstname = value;
+        }
+      });
 
+      this.employeeForm.controls['lastname'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.lastname) {
+          this.updatedEmployee.lastname = value;
+        }
+      });
+      this.employeeForm.controls['dateOfBirth'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.dateOfBirth && value != null) {
+          const date = new Date(value);
+          const day = date.getDate().toString().padStart(2, '0');
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const year = date.getFullYear().toString();
+          const formattedDate = `${day}/${month}/${year}`;
+          this.updatedEmployee.dateOfBirth = formattedDate;
+        }
+      });
+      this.employeeForm.controls['gender'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.gender) {
+          this.updatedEmployee.gender = value;
+        }
+      });
+      this.employeeForm.controls['phoneNumber'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.phoneNumber) {
+          this.updatedEmployee.phoneNumber = value;
+        }
+      });
+      this.employeeForm.controls['email'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.email) {
+          this.updatedEmployee.email = value;
+        }
+      });
+      this.employeeForm.controls['address'].valueChanges.subscribe((value) => {
+        if (JSON.stringify(value) !== JSON.stringify(this.employee.address)) {
+          this.updatedEmployee.address = value;
+        }
+      });
+      this.employeeForm.controls['password'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.password) {
+          this.updatedEmployee.password = value;
+        }
+      });
+      this.employeeForm.controls['image'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.image) {
+          this.updatedEmployee.image = value;
+        }
+      });
+      this.employeeForm.controls['medicalHistory'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.medicalHistory) {
+          this.updatedEmployee.medicalHistory = value;
+        }
+      });
+      this.employeeForm.controls['invoices'].valueChanges.subscribe((value) => {
+        if (value.length !== this.employee.invoices.length) {
+          this.updatedEmployee.invoices = value;
+        }
+        else {
+          for (let i = 0; i < value.length; i++) {
+            if (value[i] !== this.employee.invoices[i]) {
+              this.updatedEmployee.invoices = value;
+            }
+          }
+        }
+        });
+
+      this.employeeForm.controls['clinicId'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.clinicId) {
+          this.updatedEmployee.clinicId = value;
+        }
+      });
+      this.employeeForm.controls['salary'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.salary) {
+          this.updatedEmployee.salary = value;
+        }
+      });
+      this.employeeForm.controls['workingHours'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.workingHours) {
+          this.updatedEmployee.workingHours = value;
+        }
+      });
+      this.employeeForm.controls['role'].valueChanges.subscribe((value) => {
+        if (value !== this.employee.role) {
+          this.updatedEmployee.role = value;
+        }
       });
   }
 
+
   onSubmit(): void {
-    const date = new Date(this.employeeForm.value.dateOfBirth);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    const formattedDate = `${day}/${month}/${year}`;
-    this.employeeForm.value.dateOfBirth = formattedDate;
-
-    const formData = new FormData();
-    if (this.employeeForm.value.image) {
-      formData.append('photo', this.employeeForm.value.image);
-    }
-    formData.append('data', this.employeeForm.value);
-
-    const employee = this.employeeForm.value;
-    const savedEmployee: Observable<any> = this.employeeService.patchEmployeeById(this.employeeId, employee)
+    const savedEmployee: Observable<any> = this.employeeService.patchEmployeeById(this.employeeId, this.updatedEmployee, this.image)
     savedEmployee.subscribe(
       data => {
         this.snackBar.open('Employee updated successfully', 'Close', {
           duration: 3000
         });
-        this.router.navigate(['/employee']);},
+        this.location.back();
+      },
         error => {
           this.snackBar.open(error.message, 'Close', {
             duration: 3000
@@ -178,17 +254,12 @@ export class EmployeeEditComponent implements OnInit {
     onFileSelected(event: any) {
       const file: File = event.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const photoDataUrl: string = reader.result as string;
-          this.employeeForm.get('photo')?.setValue(photoDataUrl);
-        };
+        this.image = file;
       }
-    }
+}
 
-    goBack() {
-      this.location.back();
-    }
+  goBack() {
+    this.location.back();
+  }
 
 }
