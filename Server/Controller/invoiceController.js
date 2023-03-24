@@ -26,7 +26,11 @@ exports.getInvoices = async (request, response, next) => {
     let query = reqNamesToSchemaNames(request.query);
     let invoice = await filterData(invoiceSchema, query, [
       // { path: "patient_Id", options: { strictPopulate: false }, select: { _email: 1, _fname: 1, _lname: 1 } },
-      { path: "clinic_Id", options: { strictPopulate: false }, select: { _specilization: 1 } },
+      {
+        path: "clinic_Id",
+        options: { strictPopulate: false },
+        select: { _specilization: 1 },
+      },
     ]);
     invoice = sortData(invoice, query);
     invoice = paginateData(invoice, request.query);
@@ -57,58 +61,76 @@ exports.addInvoice = async (request, response, next) => {
       return response.status(400).json({ error: "Clinic not found" });
 
     let patientType = request.body.patientType;
-    if (patientType === "patient"){
-    let patient = await patientSchema.findOne({
-      _id: request.body.patientId,
-    });
-    if (!patient)
-      return response.status(400).json({ error: "Patient not found" });
-  }
-  else if (patientType === "doctor"){
-    let patient = await doctorSchema.findOne({
-      _id: request.body.patientId,
-    });
-    if (!patient)
-      return response.status(400).json({ error: "Doctor not found" });
-  }
-  else if (patientType === "employee"){
-    let patient = await employeeSchema.findOne({
-      _id: request.body.patientId,
-    });
-    if (!patient)
-      return response.status(400).json({ error: "Employee not found" });
-  }
-  else{
-    return response.status(400).json({ error: "Patient type not found" });
-  }
+    if (patientType === "patient") {
+      let patient = await patientSchema.findOne({
+        _id: request.body.patientId,
+      });
+      if (!patient)
+        return response.status(400).json({ error: "Patient not found" });
+    } else if (patientType === "doctor") {
+      let patient = await doctorSchema.findOne({
+        _id: request.body.patientId,
+      });
+      if (!patient)
+        return response.status(400).json({ error: "Doctor not found" });
+    } else if (patientType === "employee") {
+      let patient = await employeeSchema.findOne({
+        _id: request.body.patientId,
+      });
+      if (!patient)
+        return response.status(400).json({ error: "Employee not found" });
+    } else {
+      return response.status(400).json({ error: "Patient type not found" });
+    }
     let services = request.body.services;
     let totalCost = 0;
     let invoiceServices = [];
 
     for (let i = 0; i < services.length; i++) {
-      let clinicService = clinic._services.find((service) => service.name === services[i].name);
-      if (!clinicService) return response.status(400).json({ error: `Service ${services[i].name} not found in clinic ${request.body.clinicId}` });
+      let clinicService = clinic._services.find(
+        (service) => service.name === services[i].name
+      );
+      if (!clinicService)
+        return response.status(400).json({
+          error: `Service ${services[i].name} not found in clinic ${request.body.clinicId}`,
+        });
 
       /*  insurance added  */
-      switch (patientType){
+      switch (patientType) {
         case "doctor":
           // discount 70%
-          let doctorDiscount = (100-70)/100;
-          totalCost += ((clinicService.cost + services[i].additionalCosts)*doctorDiscount);
-          let invoiceServicesObject1 = { "name": clinicService.name, "cost": ((clinicService.cost + services[i].additionalCosts)*doctorDiscount) };
+          let doctorDiscount = (100 - 70) / 100;
+          totalCost +=
+            (clinicService.cost + services[i].additionalCosts) * doctorDiscount;
+          let invoiceServicesObject1 = {
+            name: clinicService.name,
+            cost:
+              (clinicService.cost + services[i].additionalCosts) *
+              doctorDiscount,
+          };
           invoiceServices.push(invoiceServicesObject1);
           break;
         case "employee":
           // discount 40%
-          let employeeDiscount = (100-40)/100;
-          totalCost += ((clinicService.cost + services[i].additionalCosts)*employeeDiscount);
-          let invoiceServicesObject2 = { "name": clinicService.name, "cost": ((clinicService.cost + services[i].additionalCosts)*employeeDiscount) };
+          let employeeDiscount = (100 - 40) / 100;
+          totalCost +=
+            (clinicService.cost + services[i].additionalCosts) *
+            employeeDiscount;
+          let invoiceServicesObject2 = {
+            name: clinicService.name,
+            cost:
+              (clinicService.cost + services[i].additionalCosts) *
+              employeeDiscount,
+          };
           invoiceServices.push(invoiceServicesObject2);
           break;
         default:
           // no discount
           totalCost += clinicService.cost + services[i].additionalCosts;
-          let invoiceServicesObject3 = { "name": clinicService.name, "cost": clinicService.cost + services[i].additionalCosts };
+          let invoiceServicesObject3 = {
+            name: clinicService.name,
+            cost: clinicService.cost + services[i].additionalCosts,
+          };
           invoiceServices.push(invoiceServicesObject3);
           break;
       }
@@ -158,7 +180,6 @@ exports.addInvoice = async (request, response, next) => {
     });
     await addedInvoice.save();
 
-
     patient.invoices.push({
       invoice_id: addedInvoice._id,
       total: addedInvoice.total,
@@ -166,9 +187,6 @@ exports.addInvoice = async (request, response, next) => {
       status: addedInvoice.status,
     });
     await patient.save();
-  
-  
-
 
     const date = new Date();
     const dueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
@@ -278,62 +296,79 @@ exports.editInvoice = async (request, response, next) => {
 
     if (!patientType) {
       patientType = existingInvoice.patientType;
-      }
-    if (!patientId){
-          patientId = existingInvoice.patientId;
-      }
-      if (patientType === "patient"){
-        let patient = await patientSchema.findOne({
-          _id: patientId,
-        });
-        if (!patient)
-          return response.status(400).json({ error: "Patient not found" });
-      }
-      else if (patientType === "doctor"){
-        let patient = await doctorSchema.findOne({
-          _id: patientId,
-        });
-        if (!patient)
-          return response.status(400).json({ error: "Patient not found" });
-      }
-      else if (patientType === "employee"){
-        let patient = await employeeSchema.findOne({
-          _id: patientId,
-        });
-        if (!patient)
-          return response.status(400).json({ error: "Patient not found" });
-      }
-      else{
-        return response.status(400).json({ error: "Patient type not found" });
-      }
-    
+    }
+    if (!patientId) {
+      patientId = existingInvoice.patientId;
+    }
+    if (patientType === "patient") {
+      let patient = await patientSchema.findOne({
+        _id: patientId,
+      });
+      if (!patient)
+        return response.status(400).json({ error: "Patient not found" });
+    } else if (patientType === "doctor") {
+      let patient = await doctorSchema.findOne({
+        _id: patientId,
+      });
+      if (!patient)
+        return response.status(400).json({ error: "Patient not found" });
+    } else if (patientType === "employee") {
+      let patient = await employeeSchema.findOne({
+        _id: patientId,
+      });
+      if (!patient)
+        return response.status(400).json({ error: "Patient not found" });
+    } else {
+      return response.status(400).json({ error: "Patient type not found" });
+    }
 
     let invoiceServices = [];
     if (!services) {
       services = existingInvoice.services;
     }
     for (let i = 0; i < services.length; i++) {
-      let clinicService = clinic._services.find((service) => service.name === services[i].name);
-      if (!clinicService) return response.status(400).json({ error: `Service ${services[i].name} not found in clinic ${request.body.clinicId}` });
-      switch (patientType){
+      let clinicService = clinic._services.find(
+        (service) => service.name === services[i].name
+      );
+      if (!clinicService)
+        return response.status(400).json({
+          error: `Service ${services[i].name} not found in clinic ${request.body.clinicId}`,
+        });
+      switch (patientType) {
         case "doctor":
           // discount 70%
-          let doctorDiscount = (100-70)/100;
-          totalCost += ((clinicService.cost + services[i].additionalCosts)*doctorDiscount);
-          let invoiceServicesObject1 = { "name": clinicService.name, "cost": ((clinicService.cost + services[i].additionalCosts)*doctorDiscount) };
+          let doctorDiscount = (100 - 70) / 100;
+          totalCost +=
+            (clinicService.cost + services[i].additionalCosts) * doctorDiscount;
+          let invoiceServicesObject1 = {
+            name: clinicService.name,
+            cost:
+              (clinicService.cost + services[i].additionalCosts) *
+              doctorDiscount,
+          };
           invoiceServices.push(invoiceServicesObject1);
           break;
         case "employee":
           // discount 40%
-          let employeeDiscount = (100-40)/100;
-          totalCost += ((clinicService.cost + services[i].additionalCosts)*employeeDiscount);
-          let invoiceServicesObject2 = { "name": clinicService.name, "cost": ((clinicService.cost + services[i].additionalCosts)*employeeDiscount) };
+          let employeeDiscount = (100 - 40) / 100;
+          totalCost +=
+            (clinicService.cost + services[i].additionalCosts) *
+            employeeDiscount;
+          let invoiceServicesObject2 = {
+            name: clinicService.name,
+            cost:
+              (clinicService.cost + services[i].additionalCosts) *
+              employeeDiscount,
+          };
           invoiceServices.push(invoiceServicesObject2);
           break;
         default:
           // no discount
           totalCost += clinicService.cost + services[i].additionalCosts;
-          let invoiceServicesObject3 = { "name": clinicService.name, "cost": clinicService.cost + services[i].additionalCosts };
+          let invoiceServicesObject3 = {
+            name: clinicService.name,
+            cost: clinicService.cost + services[i].additionalCosts,
+          };
           invoiceServices.push(invoiceServicesObject3);
           break;
       }
@@ -466,23 +501,23 @@ exports.removeInvoice = async (request, response, next) => {
       return next(new Error("invoice not found"));
     }
     fs.unlinkSync(`invoices/${invoice._id}.pdf`);
-    if(invoice.patientType === "patient"){
-    const patient = await patientSchema.findOne({ _id: invoice.patientId });
-    patient.invoices = patient.invoices.filter(
-      (i) => i.invoice_id !== invoice._id
-    );
-    await patient.save();
-    }
-    else if (invoice.patientType === "doctor") {
+    if (invoice.patientType === "patient") {
+      const patient = await patientSchema.findOne({ _id: invoice.patientId });
+      patient.invoices = patient.invoices.filter(
+        (i) => i.invoice_id !== invoice._id
+      );
+      await patient.save();
+    } else if (invoice.patientType === "doctor") {
       const doctor = await doctorSchema.findOne({ _id: invoice.patientId });
       doctor.invoices = doctor.invoices.filter(
-        (i) => i.invoice_id !== invoice._id);
+        (i) => i.invoice_id !== invoice._id
+      );
       await doctor.save();
-    }
-    else if (invoice.patientType === "employee") {
-      const employee = await employeeSchema.findOne({_id: invoice.patientId});
+    } else if (invoice.patientType === "employee") {
+      const employee = await employeeSchema.findOne({ _id: invoice.patientId });
       employee.invoices = employee.invoices.filter(
-        (i) => i.invoice_id !== invoice._id);
+        (i) => i.invoice_id !== invoice._id
+      );
       await employee.save();
     }
 
@@ -510,9 +545,12 @@ exports.getInvoiceById = async (request, response, next) => {
 // All Invoice Reports
 exports.allInvoicesReports = (request, response, next) => {
   invoiceSchema
-    .find()
-    .populate({ path: "clinic_Id", select: { _id: 0 } })
-    // .populate({ path: "patient_Id", select: { _id: 0 } })
+    .find({},{services:0})
+    .populate({
+      path: "clinic_Id",
+      select: { _id: 0, _contactNumber: 1, _specilization: 1 }
+    })
+    .populate({ path: "patientId", select: { _id: 0, _fname: 1 } })
     .then((data) => {
       response.status(200).json(data);
     })

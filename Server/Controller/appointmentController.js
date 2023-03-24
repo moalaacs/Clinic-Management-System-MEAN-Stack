@@ -334,7 +334,7 @@ exports.dailyAppointmentsReports = (request, response, next) => {
     date.getFullYear();
   appointmentSchema
     .find({ _date: today })
-    .populate({ path: "userId", select: { _id: 0, _fname: 1, _lname: 1 } })
+    .populate({ path: "patientId", select: { _id: 0, _fname: 1, _lname: 1 } })
     .populate({ path: "_doctorId", select: { _id: 0, _fname: 1, _lname: 1 } })
     .populate({
       path: "_clinicId",
@@ -353,6 +353,12 @@ exports.rangeAppointmentsReports = (request, response, next) => {
   appointmentSchema
     .find({
       _id: { $gte: startDate.getTime(), $lte: endDate.getTime() },
+    })
+    .populate({ path: "patientId", select: { _id: 0, _fname: 1, _lname: 1 } })
+    .populate({ path: "_doctorId", select: { _id: 0, _fname: 1, _lname: 1 } })
+    .populate({
+      path: "_clinicId",
+      select: { _id: 0, _specilization: 1, _contactNumber: 1 },
     })
     .then((data) => {
       response.status(200).json(data);
