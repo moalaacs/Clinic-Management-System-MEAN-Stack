@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
@@ -90,8 +90,10 @@ export class RegisterComponent {
     ),
   });
 
-  getFile(event: any) {
+  getFile(event: any, element: HTMLSpanElement) {
+    console.log(this.file);
     this.file = event.target.files[0];
+    element.innerHTML = this.file.name;
   }
 
   proceedregister() {
