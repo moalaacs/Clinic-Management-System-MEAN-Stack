@@ -89,9 +89,12 @@ export class AppointAddComponent {
     const year = datee.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
     this.appointmentForm.value.date = formattedDate;
-
-    const appointment = this.appointmentForm.value;
+    // const appointment = this;
+    console.log(this.appointmentForm.value);
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
-      () => this.router.navigate(['/appointment']))
+      (data) => {
+        console.log(data);
+        this.router.navigate(['/appointment'])
+      })
   }
 }
