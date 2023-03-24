@@ -1,6 +1,10 @@
-<mat-card class="container">
+<mat-card class="container p-3">
   <mat-card-content>
     <h2>Registeration</h2>
+    <button mat-raised-button routerLink="" class="back-to-home-btn">
+      <mat-icon>arrow_back</mat-icon>
+      Back To Home
+    </button>
     <form [formGroup]="registerform" (ngSubmit)="proceedregister()" class="row">
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
         <mat-form-field class="col-12 col-md-6">
@@ -55,17 +59,14 @@
         <input type="text" matInput formControlName="address.street">
       </mat-form-field>
 
-
-      <!-- <div style="text-align: center;"> -->
-      <!-- <input type="file" (change)="getFile($event)"> -->
-      <!-- <input type="file" class="custom-file-input" (change)="getFile($event)" /> -->
-      <!-- </div> -->
-
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 px-3 gap-0">
-        <span class="fw-bold">Select Gender</span>
-        <mat-radio-group class="col-3" aria-label="Select an option" formControlName="gender">
-          <mat-radio-button value="male">Male</mat-radio-button>
-          <mat-radio-button value="female">Female</mat-radio-button>
+        <mat-radio-group aria-label="Select an option" formControlName="gender">
+          <div class="radio-container">
+            <input type="radio" name="gender" value="male" id="male" />
+            <label for="male">Male</label>
+            <input checked type="radio" name="gender" value="female" id="female" />
+            <label for="female">Female</label>
+          </div>
         </mat-radio-group>
         <label for="images" [class.uploaded]="file" class="drop-container my-2">
           <span #dropImage class="drop-title">Upload profile image</span>
@@ -73,9 +74,8 @@
         </label>
       </div>
 
-      <div style="display: flex;justify-content: space-between;">
+      <div class="d-flex justify-content-end align-items-center">
         <button mat-raised-button color="primary">Submit</button>
-        <a routerLink="/login" mat-raised-button color="accent">Back to Login</a>
       </div>
     </form>
   </mat-card-content>

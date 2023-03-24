@@ -163,6 +163,7 @@ export class DoctorAddComponent implements OnInit {
         this.snackBar.open(error.message, 'Close', {
           duration: 3000
         });
+        console.log(error);
       }
     )
   }

@@ -41,14 +41,16 @@ import { RippleModule } from 'primeng/ripple';
 import { ImageModule } from 'primeng/image';
 import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { SpecilizationComponent } from './clinic/specilization/specilization.component';
+import { CardModule } from 'primeng/card';
 @NgModule({
   declarations: [
     AllAppointmentReportsComponent,
-    AppComponent,
+    AppComponent, SpecilizationComponent,
     SpecilityToImagePipe, RegisterComponent, LoginComponent, HeaderComponent, ProfileComponent, FooterComponent,
     ContactUsComponent
   ],
-  imports: [
+  imports: [CardModule,
     BrowserModule,
     AppRoutingModule,
     CommonModule,

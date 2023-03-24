@@ -11,10 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   isMenuOpen = false;
   isLoggedIn = false;
+  role: string;
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav | undefined;
 
-  constructor(public authService: AuthService,public router:Router) {}
-  logOut(){
+  constructor(public authService: AuthService, public router: Router) {
+    this.role = "";
+  }
+  logOut() {
     sessionStorage.clear();
     //this.router.navigate(['']);
     location.reload();
@@ -22,6 +25,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       this.isLoggedIn = true;
+      this.role = this.authService.getRole();
     }
   }
 }
