@@ -10,7 +10,7 @@ import { Appointment } from 'src/app/models/appointment';
   styleUrls: ['./appoint-details.component.css']
 })
 export class AppointDetailsComponent implements OnInit {
-  _appointment: Appointment = new Appointment("", 1, 10000, "patient", 100, "", "", "");
+  _appointment: Appointment = new Appointment("", 1, 10000, "patient", 100, "06/05/2023", "10:00", "Pending");
   appointment: Appointment[] = [];
   constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public activatedRoute: ActivatedRoute) {
   }
