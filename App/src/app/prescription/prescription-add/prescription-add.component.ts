@@ -4,7 +4,6 @@ import { prescriptionService } from 'src/app/services/prescription.service';
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +19,7 @@ export class PrescriptionAddComponent {
     private builder: FormBuilder,
     private toastr: ToastrService,
     private router: Router
-  ) {}
+  ) { }
 
   prescriptionform = this.builder.group({
     clinic: this.builder.control(
@@ -78,9 +77,6 @@ export class PrescriptionAddComponent {
 
   save() {
     if (this.prescriptionform.valid) {
-      //console.log(this.medications);
-      //console.log(this.prescriptionform.get("medications")?.value);
-      console.log(this.prescriptionform.value);
       this.prescriptionService
         .addPrescriptions(this.prescriptionform.value)
         .subscribe(() => {
