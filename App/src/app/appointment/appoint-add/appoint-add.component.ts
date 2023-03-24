@@ -37,11 +37,11 @@ export class AppointAddComponent {
       // _id: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      patientType: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      patientType: ['', [Validators.required, /*Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")*/]],
       doctorId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       date: ['', [Validators.required,]],
       time: ['', [Validators.required, Validators.pattern("([0-5][0-9]):([0-5][0-9])")]],
-      status: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      status: ['', [Validators.required, /*Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")*/]],
     });
     this.matcher = new MyErrorStateMatcher();
   }
