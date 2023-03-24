@@ -1,78 +1,81 @@
-<mat-card class="py-4 mb-5">
-  <!-- <mat-card-header>
-
-  </mat-card-header> -->
-  <mat-card-content style="width: 60%;margin: 0 auto;">
+<mat-card class="container">
+  <mat-card-content>
     <h2>Registeration</h2>
-    <form class="example-form" [formGroup]="registerform" (ngSubmit)="proceedregister()">
-      <mat-form-field class="fullwidth">
-        <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstname">
-      </mat-form-field>
-      <mat-form-field class="fullwidth">
-        <mat-label>Last Name</mat-label>
-        <input matInput formControlName="lastname">
-      </mat-form-field>
-      <mat-form-field class="fullwidth">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password">
-      </mat-form-field>
-      <mat-form-field class="fullwidth">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-      </mat-form-field>
-      <mat-form-field class="fullwidth">
-        <mat-label>Phone</mat-label>
-        <input matInput formControlName="phoneNumber">
-      </mat-form-field>
-      <br>
-
-      <mat-form-field class="fullwidth">
-        <mat-label>Date Of Birth</mat-label>
-        <input type="date" matInput formControlName="dateOfBirth">
-      </mat-form-field>
-      <br>
-      <div style="display: flex;justify-content: space-between;">
-        <mat-form-field class="halfwidth">
+    <form [formGroup]="registerform" (ngSubmit)="proceedregister()" class="row">
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstname">
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastname">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phoneNumber">
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Date Of Birth</mat-label>
+          <input type="date" matInput formControlName="dateOfBirth">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 px-3 gap-0">
+        <mat-form-field class="col-12 col-md-4">
           <mat-label>Country</mat-label>
           <mat-select id="country" name="country" formControlName="address.country">
             <mat-option value="Egypt">Egypt</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <mat-form-field class="halfwidth">
+        <mat-form-field class="col-12 col-md-4">
           <mat-label>City</mat-label>
           <mat-select id="city" name="city" formControlName="address.city">
             <mat-option *ngFor="let address of addresses" value={{address.city}}>{{address.city}}</mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="col-12 col-md-4">
+          <mat-label>Zip code</mat-label>
+          <input matInput formControlName="address.zipCode" placeholder="xample=> 112345">
+        </mat-form-field>
       </div>
-      <mat-form-field class="fullwidth">
-        <mat-label>Zip code</mat-label>
-        <input matInput formControlName="address.zipCode" placeholder="xample=> 112345">
-      </mat-form-field>
-
-
-      <br>
-      <mat-form-field class="fullwidth">
+      <mat-form-field class="col-12 p-0">
         <mat-label>Street</mat-label>
         <input type="text" matInput formControlName="address.street">
       </mat-form-field>
-      <br>
-      <br>
-      <mat-radio-group formControlName="gender" class="form-field">
-        <mat-radio-button value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Female</mat-radio-button>
-      </mat-radio-group>
-      <br>
-      <div style="text-align: center;">
-        <input type="file" (change)="getFile($event)">
+
+
+      <!-- <div style="text-align: center;"> -->
+      <!-- <input type="file" (change)="getFile($event)"> -->
+      <!-- <input type="file" class="custom-file-input" (change)="getFile($event)" /> -->
+      <!-- </div> -->
+
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 px-3 gap-0">
+        <span class="fw-bold">Select Gender</span>
+        <mat-radio-group class="col-3" aria-label="Select an option" formControlName="gender">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+        <label for="images" [class.uploaded]="file" class="drop-container my-2">
+          <span #dropImage class="drop-title">Upload profile image</span>
+          <div class="ms-5 d-none"><input type="file" id="images" (change)="getFile($event,dropImage)"></div>
+        </label>
       </div>
-      <br>
 
       <div style="display: flex;justify-content: space-between;">
-        <button mat-raised-button color="primary" class="halfwidth">Submit</button>
-        <a routerLink="/login" mat-raised-button color="accent" class="halfwidth">Back to Login</a>
+        <button mat-raised-button color="primary">Submit</button>
+        <a routerLink="/login" mat-raised-button color="accent">Back to Login</a>
       </div>
     </form>
   </mat-card-content>

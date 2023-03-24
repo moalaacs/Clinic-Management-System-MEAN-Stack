@@ -1,24 +1,41 @@
-<mat-card style="width: 31%;margin: 0 auto;" class="mt-5">
+<mat-card style="margin: 0 auto" class="col-10 col-sm-8 col-md-6 col-xl-4 p-3">
+  <button mat-raised-button routerLink="" class="back-to-home-btn">
+    <mat-icon>arrow_back</mat-icon>
+    Back To Home
+  </button>
   <mat-card-header>
     <h2>Login</h2>
   </mat-card-header>
   <mat-card-content>
-    <form class="example-form" [formGroup]="loginform" (ngSubmit)="proceedlogin()">
-      <mat-form-field class="halfwidth">
+    <form
+      class="login-form"
+      [formGroup]="loginform"
+      (ngSubmit)="proceedlogin()"
+    >
+      <mat-form-field class="col-12">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" class="halfwidth">
+        <input matInput formControlName="email" class="col-12" />
       </mat-form-field>
-      <br>
-      <mat-form-field class="halfwidth">
+      <mat-form-field class="col-12">
         <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password">
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <mat-icon
+          matSuffix
+          (click)="hide = !hide"
+          class="mat-form-field-suffix"
+          >{{ hide ? "visibility_off" : "visibility" }}</mat-icon
+        >
       </mat-form-field>
-
-      <div>
-        <button mat-raised-button color="primary" style="margin-right: 10px;width: 8rem;">Submit</button>
-        <a routerLink="/register" mat-raised-button color="accent" style="margin-right: 10px;width: 8rem;">New User?</a>
-        <button mat-raised-button routerLink="" color="primary" style="margin-right: 10px;width: 10rem;">Back To Home</button>
+      <div class="col-12">
+        <button mat-raised-button color="primary" class="col-12 login-btn">
+          Login
+        </button>
       </div>
+      <div>New user? <a routerLink="/register" color="accent">Sign-up</a></div>
     </form>
   </mat-card-content>
 </mat-card>
