@@ -36,22 +36,10 @@ export class PatientService {
 
 
   addPatient(patient: Patient, photo: File): Observable<Patient> {
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(patient, null, 4));
-    // const formData = new FormData();
-    // formData.append('photo', photo);
-    // formData.append('data', JSON.stringify(patient));
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(formData, null, 4));
     return this.http.post<Patient>(`${this.baseUrl}`, patient);
   }
 
   putPatientById(id: number, patient: Patient, photo: File): Observable<Patient> {
-    // const formData = new FormData();
-    // formData.append('photo', photo);
-    // formData.append('data', patient as unknown as string);
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(patient, null, 4));
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(id, null, 4));
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(photo, null, 4));
-    alert('SUCCESS!! :-)\n\n' + `${this.baseUrl}/${id}`);
     return this.http.put<Patient>(`${this.baseUrl}/${id}`, patient);
   }
 

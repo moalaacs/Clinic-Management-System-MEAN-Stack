@@ -182,7 +182,7 @@ export class DoctorEditComponent implements OnInit {
       }
     });
     this.doctorForm.controls['address'].valueChanges.subscribe((value) => {
-      if (value !== this.doctor.address) {
+      if (JSON.stringify(value) !== JSON.stringify(this.doctor.address)) {
         this.updatedDoctor.address = value;
       }
     });
@@ -207,7 +207,7 @@ export class DoctorEditComponent implements OnInit {
       }
     });
     this.doctorForm.controls['schedule'].valueChanges.subscribe((value) => {
-      if (value !== this.doctor.schedule) {
+      if (JSON.stringify(value) !== JSON.stringify(this.doctor.schedule)) {
         this.updatedDoctor.schedule = value;
       }
     });
@@ -223,18 +223,20 @@ export class DoctorEditComponent implements OnInit {
     });
   }
 
-  addDay() { }
 
   onSubmit(): void {
     const savedDoctor: Observable<any> = this.doctorService.patchDoctorById(this.doctorId, this.updatedDoctor, this.image)
     savedDoctor.subscribe(
       data => {
+        console.log(data);
         this.snackBar.open('Doctor updated successfully', 'Close', {
           duration: 3000
         });
         this.location.back();
       },
       error => {
+        console.log(error);
+
         this.snackBar.open(error.message, 'Close', {
           duration: 3000
         });

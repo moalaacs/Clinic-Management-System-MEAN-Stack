@@ -309,37 +309,32 @@
           </mat-form-field>
         </div>
       </div>
-      <div formGroupName="schedule" class="schedule-sec">
-        <div class="row">
-          <h4 class="col-12">Schedule</h4>
-          <ng-container
-            *ngFor="
-              let day of [
-                'monday',
-                'tuesday',
-                'wednesday',
-                'thursday',
-                'friday',
-                'saturday',
-                'sunday'
-              ]
-            "
-          >
-            <div class="col-12 col-md-6 mb-3">
-              <div class="d-flex flex-column gap-3">
-                <h4 class="mb-0 me-3">{{ day | titlecase }}</h4>
-                <div formGroupName="{{ day }}" class="d-flex">
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-label>Start</mat-label>
-                    <input matInput formControlName="start" type="time" />
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>End</mat-label>
-                    <input matInput formControlName="end" type="time" />
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
+      <div formArrayName="schedule" class="schedule-sec">
+        <h4 class="m-0 col-12">Schedule</h4>
+        <button class="btn btn-primary" (click)="addScheudle()">
+          Add Schedule
+        </button>
+        <div *ngFor="let item of schedule.controls; let i = index" class="row">
+          <ng-container [formGroupName]="i">
+            <mat-select id="speciality" name="speciality" formControlName="day">
+              <mat-option *ngFor="let item of weeklyDays" [value]="item">{{
+                item
+              }}</mat-option>
+            </mat-select>
+
+            <input
+              type="text"
+              matInput
+              formControlName="start"
+              placeholder="Starting time"
+            />
+
+            <input
+              type="text"
+              matInput
+              formControlName="end"
+              placeholder="Ending time"
+            />
           </ng-container>
         </div>
       </div>

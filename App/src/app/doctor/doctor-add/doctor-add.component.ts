@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DoctorService } from 'src/app/services/doctor.service';
+import { Doctor } from 'src/app/models/doctor';
 @Component({
   selector: 'app-doctor-add',
   templateUrl: './doctor-add.component.html',
@@ -12,12 +13,14 @@ import { DoctorService } from 'src/app/services/doctor.service';
 })
 export class DoctorAddComponent implements OnInit {
 
-  doctorForm: FormGroup = new FormGroup({});
-  image = "";
-
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
+  image :any;
+
+  weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+
 
   validationMessages = {
     firstname: {
@@ -89,7 +92,8 @@ export class DoctorAddComponent implements OnInit {
 
   };
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private doctorService: DoctorService,
@@ -100,86 +104,62 @@ export class DoctorAddComponent implements OnInit {
     this.minDate = new Date('1963-01-01');
     this.maxDate = new Date('2000-12-31');
     this.defaultDate = new Date('1999-01-10');
-
-
-
   }
 
-  ngOnInit(): void {
-    this.doctorForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-      lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-      dateOfBirth: ['', [Validators.required, ]],
-      gender: [''],
-      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      email: ['', [Validators.required, Validators.email]],
-      address: this.fb.group({
-        street: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
-        city: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-        country: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
-        zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5)]]
-      }),
-      password: ['', [
-        Validators.required,
-        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
-        Validators.minLength(8)
-      ]],
-      image: [''],
-      medicalHistory: '',
-      invoices: [],
+  doctorForm = this.fb.group({
+    firstname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    lastname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    dateOfBirth: [''],
+    gender: [''],
+    phoneNumber: ['', [Validators.pattern('[0-9]*')]],
+    email: ['', [Validators.email]],
+    address: this.fb.group({
+      street: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+      city: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+      country: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+      zipCode: ['', [Validators.pattern('[0-9]*'), Validators.minLength(5)]]
+    }),
+    password: ['', [
 
-      schedule: this.fb.group({
-        monday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        tuesday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        wednesday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        thursday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        friday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        saturday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        sunday: this.fb.group({
-          start: [null],
-          end: [null]
-        })
-      }),
-      clinicId: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      speciality: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]]
-    });
+      Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
+      Validators.minLength(8)
+    ]],
+    image: [''],
+    medicalHistory: '',
+    invoices: [[]],
+    schedule: this.fb.array([this.scheduleForm()]),
+    clinicId: ['', [Validators.pattern('[0-9]*')]],
+    speciality: ['']
+  });
+  scheduleForm() {
+    return this.fb.group({
+      day: ["", Validators.required],
+      start: [""],
+      end: [""]
+    })
+  }
+  get schedule() {
+    return this.doctorForm.controls["schedule"] as FormArray
+  }
+  addScheudle() {
+    this.doctorForm.controls["schedule"].push(this.scheduleForm());
+  }
+  ngOnInit(): void {
 
   }
 
 
   onSubmit() {
-    const formdata = new FormData();
-    const date = new Date(this.doctorForm.value.dateOfBirth);
+    let formDate = this.doctorForm.get("dateOfBirth")?.value  as string
+    const date = new Date(formDate);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
-    this.doctorForm.value.dateOfBirth = formattedDate;
 
-    this.doctorForm.value.photo = this.image;
-
-    alert(JSON.stringify(this.doctorForm.value))
-
-    const doctor = this.doctorForm.value;
-    this.doctorService.addDoctor(doctor).subscribe(
+    this.doctorForm.get("dateOfBirth")?.setValue(formattedDate);
+    const doctor = this.doctorForm.value as unknown as Doctor;
+    this.doctorService.addDoctor(doctor, this.image ).subscribe(
       () => this.location.back() )
   }
 

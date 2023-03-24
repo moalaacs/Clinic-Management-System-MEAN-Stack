@@ -34,8 +34,28 @@ export class DoctorService {
 
 
 
-  addDoctor(doctor: Doctor): Observable<Doctor> {
-    return this.http.post<Doctor>(`${this.baseUrl}`, doctor);
+  addDoctor(doctor: Doctor, photo:File): Observable<Doctor> {
+    const formData = new FormData();
+    if (photo) {
+      console.log('photo', photo);
+      formData.append('photo', photo);
+    }
+    Object.entries(doctor).forEach(([key, value]) => {
+      if (typeof value === 'object') {
+        Object.entries(value).forEach(([subKey, subValue]) => {
+          formData.append(`${key}.${subKey}`, subValue as string);
+        });
+
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+    formData.forEach((value, key) => {
+      console.log(key + ' ' + value);
+    });
+
+    return this.http.post<Doctor>(`${this.baseUrl}`, formData);
   }
 
 
@@ -47,17 +67,19 @@ export class DoctorService {
 
 
   patchDoctorById(id: number,doctor: Doctor, photo:File): Observable<Doctor> {
-    if (photo) {
-      this.addPhoto(id, photo);
-    }
-    return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, doctor);
-  }
-
-  addPhoto (id: number,photo:File): Observable<Doctor> {
     const formData = new FormData();
     if (photo) {
       formData.append('photo', photo);
     }
+    Object.entries(doctor).forEach(([key, value]) => {
+      if (typeof value === 'object') {
+        Object.entries(value).forEach(([subKey, subValue]) => {
+          formData.append(`${key}.${subKey}`, subValue as string);
+        });
+      } else {
+        formData.append(key, value);
+      }
+    });
 
     return this.http.patch<Doctor>(`${this.baseUrl}/${id}`, formData);
   }
