@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./appoint-add.component.css']
 })
 export class AppointAddComponent {
-  _appointment: Appointment = new Appointment("", 1, 100, "", 10, "", "", "");
+  _appointment: Appointment = new Appointment("1", 1, 100, "patient", 10, "100", "09:00", "Pending");
   appointment: Appointment[] = [];
   appointmentForm: FormGroup;
   matcher: MyErrorStateMatcher;

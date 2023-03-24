@@ -32,7 +32,6 @@ export class MedAddComponent implements OnInit {
     });
     this.matcher = new MyErrorStateMatcher();
   }
-
   ngOnInit() {
     this.medicineService.getAllMedicine().subscribe(data => {
       this.medicine = data;

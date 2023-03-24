@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class AppointListComponent {
   appointment: Appointment[] = [];
   constructor(public appointmentService: AppointmentService, public router: Router, public location: Location) {
-
   }
   ngOnInit() {
     this.appointmentService.getAllAppointment().subscribe(data => {
