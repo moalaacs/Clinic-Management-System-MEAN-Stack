@@ -16,7 +16,8 @@ export class AppointListComponent {
   }
   ngOnInit() {
     this.appointmentService.getAllAppointment().subscribe(data => {
-      this.appointment = data;
+      this.appointment = data.appointments;
+      console.log(this.appointment);
     })
   }
 }

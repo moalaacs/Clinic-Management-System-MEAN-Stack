@@ -96,9 +96,9 @@ app.use(registerRouter);
 /* Public Information */
 app.use(publicInformation);
 /* Authenticate user */
-app.use(authenticate);
+// app.use(authenticate);
 /* Authorization user */
-app.use(authorizationMW);
+// app.use(authorizationMW);
 
 /*Routes*/
 app.use(doctorRouter);

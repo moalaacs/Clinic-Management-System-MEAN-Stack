@@ -22,6 +22,16 @@
         </mat-error>
     </mat-form-field>
     <!--  -->
+    <!-- type -->
+    <mat-form-field class="fullwidth">
+        <mat-label>Patient Type</mat-label>
+        <mat-select id="patientType" name="patientType" formControlName="patientType">
+            <mat-option value="patient">patient</mat-option>
+            <mat-option value="doctor">doctor</mat-option>
+            <mat-option value="employee">employee</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!--  -->
     <!-- <mat-form-field appearance="fill">
         <mat-label>Patient Type</mat-label>
         <mat-select id="type" name="type" formControlName="patientType">
@@ -32,8 +42,8 @@
             type is <strong>required</strong>
         </mat-error>
     </mat-form-field> -->
-    <!-- type -->
-    <mat-form-field>
+
+    <!-- <mat-form-field>
         <mat-label>Patient Type</mat-label>
         <input type="text" matInput formControlName="patientType" [errorStateMatcher]="matcher" placeholder="type">
         <mat-error *ngIf="type?.errors?.['pattern'] && !type?.errors?.['required']">
@@ -42,7 +52,7 @@
         <mat-error *ngIf="type?.errors?.['required']">
             type is <strong>required</strong>
         </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
     <!-- doctor  -->
     <mat-form-field>
         <mat-label>Doctor Number</mat-label>
@@ -57,7 +67,7 @@
     <!-- date -->
     <mat-form-field color="accent" appearance="fill">
         <mat-label>Appointment Date</mat-label>
-        <input matInput formControlName="date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+        <input matInput formControlName="date" [min]="minDate" [max]="maxDate" name="date" [matDatepicker]="picker">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-error>
             <span *ngIf="appointmentForm.get('_date')?.errors?.['required']">Appointment date is <strong> required
@@ -68,7 +78,7 @@
     <!-- time -->
     <mat-form-field>
         <mat-label>Appointment Time</mat-label>
-        <input type="text" matInput formControlName="time" [errorStateMatcher]="matcher" placeholder="time">
+        <input type="text" matInput formControlName="time" name="time" [errorStateMatcher]="matcher" placeholder="time">
         <mat-error *ngIf="time?.errors?.['pattern'] && !time?.errors?.['required']">
             Please enter a valid time
         </mat-error>
@@ -77,7 +87,17 @@
         </mat-error>
     </mat-form-field>
     <!-- status -->
-    <mat-form-field>
+    <mat-form-field class="fullwidth">
+        <mat-label>Appointemnt Status</mat-label>
+        <mat-select id="status" name="status" formControlName="status">
+            <mat-option value="Pending">Pending</mat-option>
+            <mat-option value="Accepted">Accepted</mat-option>
+            <mat-option value="Declined">Declined</mat-option>
+            <mat-option value="Completed">Completed</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!--  -->
+    <!-- <mat-form-field>
         <mat-label>Appointemnt Status</mat-label>
         <input type="text" matInput formControlName="status" [errorStateMatcher]="matcher" placeholder="status">
         <mat-error *ngIf="status?.errors?.['pattern'] && !status?.errors?.['required']">
@@ -86,7 +106,7 @@
         <mat-error *ngIf="status?.errors?.['required']">
             status is <strong>required</strong>
         </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
     <!-- Buttons -->
     <button class="mt-3 btn btn-dark" type="submit" [disabled]="appointmentForm.invalid">Submit</button>
     <h5 #errorH5 class="text-danger text-wrap"></h5>

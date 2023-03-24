@@ -37,11 +37,11 @@ export class AppointAddComponent {
       // _id: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      patientType: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      patientType: ['', [Validators.required, /*Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")*/]],
       doctorId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       date: ['', [Validators.required,]],
       time: ['', [Validators.required, Validators.pattern("([0-5][0-9]):([0-5][0-9])")]],
-      status: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
+      status: ['', [Validators.required, /*Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")*/]],
     });
     this.matcher = new MyErrorStateMatcher();
   }
@@ -89,9 +89,12 @@ export class AppointAddComponent {
     const year = datee.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
     this.appointmentForm.value.date = formattedDate;
-
-    const appointment = this.appointmentForm.value;
+    // const appointment = this;
+    console.log(this.appointmentForm.value);
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
-      () => this.router.navigate(['/appointment']))
+      (data) => {
+        console.log(data);
+        this.router.navigate(['/appointment'])
+      })
   }
 }
