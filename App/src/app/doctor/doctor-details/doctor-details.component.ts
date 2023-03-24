@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
-import { Doctor, Schedule } from '../../models/doctor';
+import {  Schedule } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor.service';
 
 @Component({
@@ -15,11 +15,11 @@ export class DoctorDetailsComponent implements OnInit  {
 
   doctor: any;
   schedule: Schedule[] = [];
+  profilePic: string = "";
 
   constructor(
     private doctorService: DoctorService,
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location
   ) { }
 
@@ -28,6 +28,7 @@ export class DoctorDetailsComponent implements OnInit  {
     this.doctorService.getDoctorById(id).pipe(
       map(response => response.data)).subscribe(data => {
       this.doctor = data;
+      this.profilePic = "http://localhost:8080/" + this.doctor.image;
       this.schedule = data.schedule;
     });
   }

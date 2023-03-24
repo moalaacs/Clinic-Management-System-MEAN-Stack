@@ -87,13 +87,12 @@ export class DoctorEditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private doctorService: DoctorService,
     private snackBar: MatSnackBar,
     private location: Location
   ) {
     this.minDate = new Date('1963-01-01');
-    this.maxDate = new Date('2000-12-31');
+    this.maxDate = new Date('1999-12-31');
     this.defaultDate = new Date('1999-01-10');
   }
   doctorForm = this.fb.group({
@@ -228,15 +227,12 @@ export class DoctorEditComponent implements OnInit {
     const savedDoctor: Observable<any> = this.doctorService.patchDoctorById(this.doctorId, this.updatedDoctor, this.image)
     savedDoctor.subscribe(
       data => {
-        console.log(data);
         this.snackBar.open('Doctor updated successfully', 'Close', {
           duration: 3000
         });
         this.location.back();
       },
       error => {
-        console.log(error);
-
         this.snackBar.open(error.message, 'Close', {
           duration: 3000
         });
@@ -248,7 +244,7 @@ export class DoctorEditComponent implements OnInit {
     if (file) {
       this.image = file;
     }
-  }
+}
 
   goBack() {
     this.location.back();

@@ -43,3 +43,21 @@ mat-expansion-panel-description p {
   margin: 0;
   padding: 5px 0;
 }
+
+
+
+.employee-profile {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f2f2f2;
+}
+
+.employee-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+

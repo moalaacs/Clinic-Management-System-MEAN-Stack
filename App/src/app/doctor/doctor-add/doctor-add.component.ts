@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DoctorService } from 'src/app/services/doctor.service';
@@ -94,8 +94,6 @@ export class DoctorAddComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private doctorService: DoctorService,
     private snackBar: MatSnackBar,
     private location: Location
@@ -107,27 +105,27 @@ export class DoctorAddComponent implements OnInit {
   }
 
   doctorForm = this.fb.group({
-    firstname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-    lastname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-    dateOfBirth: [''],
-    gender: [''],
-    phoneNumber: ['', [Validators.pattern('[0-9]*')]],
-    email: ['', [Validators.email]],
+    firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    dateOfBirth: ['', Validators.required,],
+    gender: ['', Validators.required,],
+    phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    email: ['', [Validators.required, Validators.email]],
     address: this.fb.group({
-      street: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
-      city: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-      country: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
-      zipCode: ['', [Validators.pattern('[0-9]*'), Validators.minLength(5)]]
+      street: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+      city: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+      country: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+      zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5)]]
     }),
-    password: ['', [
-      Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
-      Validators.minLength(8)
+    password: ['', [Validators.required,
+    Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
+    Validators.minLength(8)
     ]],
     image: [''],
     medicalHistory: '',
     invoices: [[]],
     schedule: this.fb.array([this.scheduleForm()]),
-    speciality: ['']
+    speciality: ['', Validators.required,]
   });
   scheduleForm() {
     return this.fb.group({
@@ -154,15 +152,19 @@ export class DoctorAddComponent implements OnInit {
     let bindedThis = this;
     this.doctorForm.get("dateOfBirth")?.setValue(formattedDate);
     const doctor = this.doctorForm.value as unknown as Doctor;
-    this.doctorService.addDoctor(doctor, this.image).subscribe({
-      next() {
-        bindedThis.location.back();
+    this.doctorService.addDoctor(doctor, this.image).subscribe(
+      () => {
+        this.snackBar.open('Doctor updated successfully.', 'Close', {
+          duration: 3000
+        });
+        this.location.back();
       },
-      error(err) {
-        console.log(err);
-        bindedThis.snackBar.open(err.error.message)
-      },
-    })
+      error => {
+        this.snackBar.open(error.message, 'Close', {
+          duration: 3000
+        });
+      }
+    )
   }
 
   onFileSelected(event: any) {

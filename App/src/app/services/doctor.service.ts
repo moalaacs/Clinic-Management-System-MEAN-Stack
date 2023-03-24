@@ -41,7 +41,7 @@ export class DoctorService {
     }
     Object.entries(doctor).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        for (var i = 0; i < value.length; i++) {
+        for (let i = 0; i < value.length; i++) {
           for (let key2 in value[i]) {
             formData.append(`${key}[${i}][${key2}]`, value[i][key2]);
           }
@@ -69,10 +69,16 @@ export class DoctorService {
       formData.append('photo', photo);
     }
     Object.entries(doctor).forEach(([key, value]) => {
-      if (typeof value === 'object') {
-        Object.entries(value).forEach(([subKey, subValue]) => {
-          formData.append(`${key}.${subKey}`, subValue as string);
-        });
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          for (let key2 in value[i]) {
+            formData.append(`${key}[${i}][${key2}]`, value[i][key2]);
+          }
+        }
+      } else if (typeof value === 'object') {
+        for (let key2 in value) {
+          formData.append(`${key}[${key2}]`, value[key2]);
+        }
       } else {
         formData.append(key, value);
       }
