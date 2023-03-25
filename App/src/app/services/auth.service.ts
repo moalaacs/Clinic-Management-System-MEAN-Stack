@@ -13,8 +13,13 @@ export class AuthService {
   baseUrl = 'http://localhost:8080';
 
   registerUser(patient: any, photo: File) {
-    let dob = patient.dateOfBirth?.split('-');
-    patient.dateOfBirth = dob[2] + '/' + dob[1] + '/' + dob[0];
+    let dob = patient.dateOfBirth;
+    const date = new Date(dob);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    const formattedDate = `${day}/${month}/${year}`;
+    patient.dateOfBirth= formattedDate;
     patient.photo = photo;
     console.log(patient);
     alert("Hello")
