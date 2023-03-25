@@ -1,61 +1,71 @@
-<div class="row my-5">
-    <div class="text-end">
-      <button mat-button class="button back-button" (click)="goBack()">
-        <!-- <mat-icon>arrow_back</mat-icon> -->
-        Back
-      </button>
+<div class="container">
+    <div class="row my-5">
+      <div class="text-end">
+        <button mat-button class="button back-button" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Back
+        </button>
+      </div>
     </div>
-  </div>
-<mat-card>
+<mat-card class="container p-3">
     <mat-card-header>
         <h2>Add Prescription</h2>
     </mat-card-header>
     <mat-card-content>
-        <form class="example-form" [formGroup]="prescriptionform">
-            <mat-form-field class="fullwidth">
-                <mat-label>Clinic ID</mat-label>
-                <input matInput formControlName="clinic">
-            </mat-form-field>
-            <mat-form-field class="fullwidth">
-                <mat-label>Patient ID</mat-label>
-                <input matInput formControlName="patient">
-            </mat-form-field>
-            <mat-form-field class="fullwidth">
-                <mat-label>Doctor ID</mat-label>
-                <input matInput formControlName="doctor">
-            </mat-form-field>
-            <button class="btn btn-danger mt-2 mb-2" (click)="addMedications()">Add Medicine</button>
+        <form class="example-form" [formGroup]="prescriptionform" class="row">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+                <mat-form-field class="col-12 col-md-4">
+                    <mat-label>Clinic ID</mat-label>
+                    <input matInput formControlName="clinic">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-4">
+                    <mat-label>Patient ID</mat-label>
+                    <input matInput formControlName="patient">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-4">
+                    <mat-label>Doctor ID</mat-label>
+                    <input matInput formControlName="doctor">
+                </mat-form-field>
+            </div>
+            <button class="btn btn-primary mt-2 mb-2" (click)="addMedications()">Add New Medicine</button>
             <div formArrayName="medicine" *ngFor="let item of medicine.controls;let i=index;">
                 <div [formGroupName]="i">
-                    Add Medicine :{{i+1}}
-                    <mat-form-field class="fullwidth">
-                        <mat-label>Medicine Type</mat-label>
-                        <mat-select id="medicine.type" name="medicinetype" formControlName="type">
-                            <mat-option value="syrup">syrup</mat-option>
-                            <mat-option value="tablet">tablet</mat-option>
-                            <mat-option value="capsule">capsule</mat-option>
-                            <mat-option value="injection">injection</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="fullwidth">
-                        <mat-label>Medicine Name</mat-label>
-                        <input matInput formControlName="name">
-                    </mat-form-field>
-                    <mat-form-field class="fullwidth">
-                        <mat-label>Medicine Dose</mat-label>
-                        <input matInput formControlName="dose">
-                    </mat-form-field>
-                    <mat-form-field class="fullwidth">
-                        <mat-label>Medicine Frequency</mat-label>
-                        <input matInput formControlName="frequency">
-                    </mat-form-field>
+                    <b class="me-2">Add Medicine :{{i+1}}</b>
+                    <button class="btn btn-danger mt-2 mb-2" (click)="removeMedications(i)">&times;</button>
+                    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-di">
+                        <mat-form-field class="col-12 col-md-6">
+                            <mat-label>Medicine Type</mat-label>
+                            <mat-select id="medicine.type" name="medicinetype" formControlName="type">
+                                <mat-option value="syrup">Syrup</mat-option>
+                                <mat-option value="tablet">Tablet</mat-option>
+                                <mat-option value="capsule">Capsule</mat-option>
+                                <mat-option value="injection">Injection</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-md-6">
+                            <mat-label>Medicine Name</mat-label>
+                            <input matInput formControlName="name">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-di">
+                        <mat-form-field class="col-12 col-md-6">
+                            <mat-label>Medicine Dose</mat-label>
+                            <input matInput formControlName="dose">
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-md-6">
+                            <mat-label>Medicine Frequency</mat-label>
+                            <input matInput formControlName="frequency">
+                        </mat-form-field>
+                    </div>
                 </div>
+                
             </div>
             <mat-form-field class="fullwidth">
                 <mat-label>Instructions</mat-label>
                 <input matInput formControlName="instructions">
             </mat-form-field>
-            <button class="btn btn-primary mt-2" (click)="save()">Add</button>
+            <button class="btn btn-primary mt-2" (click)="save()">Save</button>
+
         </form>
     </mat-card-content>
 </mat-card>
