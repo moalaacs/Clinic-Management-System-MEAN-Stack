@@ -6,7 +6,7 @@ import { AppointRoutingModule } from './appointment-routing.module';
 import { AppointListComponent } from './appoint-list/appoint-list.component';
 import { AppointDetailsComponent } from './appoint-details/appoint-details.component';
 import { AppointAddComponent } from './appoint-add/appoint-add.component';
-import { MaterialModule } from 'src/app/shared/material.moudel';
+import { MaterialModule } from 'src/app/shared/material.moduel';
 @NgModule({
   declarations: [
     AppointListComponent,

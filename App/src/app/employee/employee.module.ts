@@ -7,7 +7,7 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeAddComponent } from './employee-add/employee-add.component';
-import { MaterialModule } from '../shared/material.moudel';
+import { MaterialModule } from '../shared/material.moduel';
 
 
 @NgModule({

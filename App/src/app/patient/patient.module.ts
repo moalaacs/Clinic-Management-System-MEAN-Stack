@@ -7,7 +7,7 @@ import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { PatientAddComponent } from './patient-add/patient-add.component';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
-import { MaterialModule } from '../shared/material.moudel';
+import { MaterialModule } from '../shared/material.moduel';
 @NgModule({
   declarations: [
     PatientListComponent,

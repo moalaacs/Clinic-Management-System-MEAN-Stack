@@ -19,7 +19,7 @@ import { DashboardModule } from './Dashboard/Dashboard.module';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 // Imported Modules
 import { AngularModules } from './shared/angular-modules';
-import { MaterialModule } from './shared/material.moudel';
+import { MaterialModule } from './shared/material.moduel';
 import { PrimeNgModule } from './shared/prime-ng-modules';
 import { ComponentsModule } from './shared/components-modules';
 @NgModule({
