@@ -105,12 +105,12 @@ export class AllAppointmentReportsComponent {
           'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [
           {
-            label: '2022',
+            label: 'Appointments',
             data: [this.janCounter, this.febCounter, this.marCounter, this.aprCounter, this.mayCounter, this.junCounter, this.julCounter, this.augCounter, this.sepCounter, this.octCounter, this.novCounter, this.decCounter],
             fill: false,
             tension: 0.4,
-            backgroundColor: '#f87979',
-            borderColor: 'rgba(151, 187, 205, 1)',
+            backgroundColor: '#e55353',
+            borderColor: '#e55353',
             pointBackgroundColor: 'rgba(151, 187, 205, 1)',
             pointBorderColor: '#fff',
           },

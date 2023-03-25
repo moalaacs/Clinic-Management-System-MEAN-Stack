@@ -1,0 +1,103 @@
+<c-card class="mb-4">
+  <c-card-header>
+    Add clinic
+  </c-card-header>
+  <c-card-body>
+    <div class="container my-3">
+      <form [formGroup]="clinicAddForm" class="row">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+          <!-- Specilizarion -->
+          <mat-form-field *ngIf="!editFlag" class="col-12 col-md-3">
+            <mat-label>Speciality</mat-label>
+            <mat-select id="speciality" name="speciality" formControlName="speciality">
+              <mat-option *ngFor="let item of availableSpecilization" [value]="item">{{item}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="speciality?.errors?.['required']">
+              Speciality is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- Email -->
+          <mat-form-field class="col-12 col-md-3">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+              placeholder="Ex. pat@example.com">
+            <mat-error *ngIf="email?.errors?.['email'] && !email?.errors?.['required']">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="email?.errors?.['required']">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- Phone -->
+          <mat-form-field class="col-12 col-md-3">
+            <mat-label>Contact Number</mat-label>
+            <input type="text" matInput formControlName="phone" [errorStateMatcher]="matcher"
+              placeholder="Ex. 01012345678">
+            <mat-error *ngIf="phone?.errors?.['pattern'] && !phone?.errors?.['required']">
+              Please enter a valid phone number
+            </mat-error>
+            <mat-error *ngIf="phone?.errors?.['required']">
+              Phone is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- Address -->
+        <div formGroupName="address"
+          class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 flex-grow-1 gap-0 flex-wrap">
+          <!-- Address-City -->
+          <mat-form-field class="col-12 col-md-5">
+            <mat-label>City</mat-label>
+            <input type="text" matInput formControlName="city" [errorStateMatcher]="matcher" placeholder="Ex. Cairo">
+            <mat-error *ngIf="addressCity?.errors?.['pattern'] && !addressCity?.errors?.['required']">
+              Minimum length of 3 letters , <strong>English alphabeticals only</strong>
+            </mat-error>
+            <mat-error *ngIf="addressCity?.errors?.['required']">
+              City is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- Address-Street -->
+          <mat-form-field class="col-12 col-md-5">
+            <mat-label>Street</mat-label>
+            <input type="text" matInput formControlName="street" [errorStateMatcher]="matcher"
+              placeholder="Ex. ElGomla">
+            <mat-error *ngIf="addressStreet?.errors?.['pattern'] && !addressStreet?.errors?.['required']">
+              Minimum length of 3 letters , <strong>English alphabeticals only</strong>
+            </mat-error>
+            <mat-error *ngIf="addressStreet?.errors?.['required']">
+              Street is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- Address-Country -->
+          <mat-form-field class="col-12 col-md-5">
+            <mat-label>Country</mat-label>
+            <input type="text" matInput formControlName="country" [errorStateMatcher]="matcher" placeholder="Ex. Egypt">
+            <mat-error *ngIf="addressCountry?.errors?.['pattern'] && !addressCountry?.errors?.['required']">
+              Minimum length of 3 letters , <strong>English alphabeticals only</strong>
+            </mat-error>
+            <mat-error *ngIf="addressCountry?.errors?.['required']">
+              Country is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- Address-ZipCode -->
+          <mat-form-field class="col-12 col-md-5">
+            <mat-label>Postal Code</mat-label>
+            <input type="text" matInput formControlName="zipCode" [errorStateMatcher]="matcher" placeholder="Ex. 12345">
+            <mat-error *ngIf="addressZipCode?.errors?.['pattern'] && !addressZipCode?.errors?.['required']">
+              Enter a valid postal code
+            </mat-error>
+            <mat-error *ngIf="addressZipCode?.errors?.['required']">
+              Postal Code is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex gap-3 justify-content-center align-items-center col-12">
+          <button *ngIf="!editFlag" class="mt-3 btn btn-primary" (click)="addClinic()" type="button"
+            [disabled]="clinicAddForm.invalid">Submit</button>
+          <button *ngIf="editFlag" class="mt-3 btn btn-primary" (click)="patchClinic()" type="button"
+            [disabled]="clinicAddForm.invalid">Update</button>
+          <button class="mt-3 btn btn-dark" routerLink="/clinic">Back</button>
+        </div>
+      </form>
+    </div>
+  </c-card-body>
+</c-card>
