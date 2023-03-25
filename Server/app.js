@@ -19,7 +19,6 @@ const invoiceRouter = require("./Routes/invoiceRouter");
 const paymentRouter = require("./Routes/paymentRouter");
 const showAppointmentRouter = require("./Routes/showAppointmentRouter");
 const publicInformation = require("./Routes/publicInformation");
-const publicInformation = require("./Routes/publicInformation");
 const {
   checkAppointmentsDaily,
 } = require("./Middlewares/dailyAppointmentCheck");
