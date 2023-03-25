@@ -106,19 +106,15 @@ export class DailyAppointmentReportsComponent {
           '11', '12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
         datasets: [
           {
-            label: '2022',
+            label: '2023',
             data: [this._8Counter, this._9Counter, this._10Counter, this._11Counter, this._12Counter, this._1Counter, this._2Counter, this._3Counter, this._4Counter, this._5Counter, this._6Counter, this._7Counter, this._8PMCounter, this._9PMCounter, this._10PMCounter],
             fill: false,
-            borderColor: '#177300',
             tension: 0.4,
+            backgroundColor: '#f87979',
+            borderColor: 'rgba(151, 187, 205, 1)',
+            pointBackgroundColor: 'rgba(151, 187, 205, 1)',
+            pointBorderColor: '#fff',
           },
-          // {
-          //   label: '2023',
-          //   data: [1, 2, 4, 6, 2, 6, 1],
-          //   fill: true,
-          //   borderColor: '#AA2324',
-          //   tension: 0.4,
-          // },
         ],
       };
       this.basicOptions = {

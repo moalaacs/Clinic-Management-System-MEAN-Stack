@@ -28,8 +28,7 @@ export class AllInvoiceReportsComponent {
   ngOnInit() {
     this.InvoiceReportsService.getAllInvoiceReports().subscribe(data => {
       this.invoices = data;
-      console.log(data);
-      
+
       this.invoices.forEach(element => {
         let month = parseInt(element.date.split("/")[1]);
         switch (month) {
@@ -88,11 +87,14 @@ export class AllInvoiceReportsComponent {
           'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [
           {
-            label: '2022',
+            label: '2023',
             data: [this.janCounter, this.febCounter, this.marCounter, this.aprCounter, this.mayCounter, this.junCounter, this.julCounter, this.augCounter, this.sepCounter, this.octCounter, this.novCounter, this.decCounter],
             fill: false,
-            borderColor: '#177300',
             tension: 0.4,
+            backgroundColor: '#f87979',
+            borderColor: 'rgba(151, 187, 205, 1)',
+            pointBackgroundColor: 'rgba(151, 187, 205, 1)',
+            pointBorderColor: '#fff',
           },
         ],
       };

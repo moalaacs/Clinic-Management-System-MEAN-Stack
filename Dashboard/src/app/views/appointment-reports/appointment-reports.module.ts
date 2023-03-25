@@ -14,6 +14,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { WidgetsModule } from '../widgets/widgets.module';
+import { IconModule } from '@coreui/icons-angular';
+import {
+  ButtonModule,
+  DropdownModule,
+  ProgressModule,
+  SharedModule,
+  WidgetModule
+} from '@coreui/angular';
 
 @NgModule({
   declarations: [AllAppointmentReportsComponent, DailyAppointmentReportsComponent, RangeAppointmentReportsComponent],
@@ -31,7 +40,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    WidgetsModule,
+    ButtonModule,
+    DropdownModule,
+    ProgressModule,
+    SharedModule,
+    WidgetModule,
+    IconModule,
   ]
 })
 export class AppointmentReportsModule { }

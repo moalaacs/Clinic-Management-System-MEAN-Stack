@@ -3,15 +3,21 @@ import { Router } from '@angular/router';
 import { Appointment } from '../../../models/appointment-report';
 import { AppointmentsReportsService } from '../../../services/appointments-reports.service';
 
+import { Invoice } from 'src/app/models/invoice-reports';
+import { InvoiceReportsService } from 'src/app/services/invoice-reports.service';
+import { elementAt } from 'rxjs';
+
 @Component({
   selector: 'app-all-appointment-reports',
   templateUrl: './all-appointment-reports.component.html',
   styleUrls: ['./all-appointment-reports.component.css'],
 })
 export class AllAppointmentReportsComponent {
+  appointments: Appointment[] = [];
+  invoices: Invoice[] = [];
+  income = 0;
   basicData: any;
   basicOptions: any;
-  appointments: Appointment[] = [];
   janCounter = 0;
   febCounter = 0;
   marCounter = 0;
@@ -25,12 +31,21 @@ export class AllAppointmentReportsComponent {
   novCounter = 0;
   decCounter = 0;
 
-  constructor(public AppointmentsReportsService: AppointmentsReportsService, public router: Router) {
+  constructor(public AppointmentsReportsService: AppointmentsReportsService, public InvoiceReportsService: InvoiceReportsService) {
   }
 
   ngOnInit() {
     this.AppointmentsReportsService.getAllAppointmentsReports().subscribe(data => {
       this.appointments = data;
+
+      this.InvoiceReportsService.getAllInvoiceReports().subscribe(data => {
+        this.invoices = data;
+        console.log(data);
+        this.invoices.forEach(element => {
+          this.income += element.paid;
+        })
+      })
+
 
       this.appointments.forEach(element => {
         let month = parseInt(element._date.split("/")[1]);
@@ -93,8 +108,11 @@ export class AllAppointmentReportsComponent {
             label: '2022',
             data: [this.janCounter, this.febCounter, this.marCounter, this.aprCounter, this.mayCounter, this.junCounter, this.julCounter, this.augCounter, this.sepCounter, this.octCounter, this.novCounter, this.decCounter],
             fill: false,
-            borderColor: '#177300',
             tension: 0.4,
+            backgroundColor: '#f87979',
+            borderColor: 'rgba(151, 187, 205, 1)',
+            pointBackgroundColor: 'rgba(151, 187, 205, 1)',
+            pointBorderColor: '#fff',
           },
           // {
           //   label: '2023',
