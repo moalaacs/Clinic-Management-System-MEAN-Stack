@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClinicRoutingModule } from './clinic-routing.module';
-import { ClinicComponent } from './clinic.component';
 import { ServicesComponent } from './clinic-services/clinic-services.component';
 import { ClinicsInfoComponent } from './clinic-list/clinics-list.component';
 import { ClinicsInfoByIdComponent } from './clinic-details/clinic-details.component';
 import { AddClinicComponent } from './add-clinic/add-clinic.component';
-import { SpecilizationComponent } from './specilization/specilization.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,9 +22,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
+
 @NgModule({
   declarations: [AvailableClinicsComponent,
-    ClinicComponent, ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent, SpecilizationComponent
+    ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent
   ],
   imports: [
     CommonModule,

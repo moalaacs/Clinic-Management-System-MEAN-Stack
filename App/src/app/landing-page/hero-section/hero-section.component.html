@@ -1,26 +1,8 @@
-<!-- <div class="carousel-section">
-  <owl-carousel-o [options]="carouselOptions">
-    <ng-container *ngFor="let item of carouselItems">
-      <ng-template carouselSlide id="{{ item.id }}">
-        <div class="carousel-item">
-          <img [src]="item.image" alt="Clinic" />
-          <div class="carousel-item-description">{{ item.description }}</div>
-        </div>
-      </ng-template>
-    </ng-container>
-  </owl-carousel-o>
-</div> -->
-
 <div class="hero-section d-flex flex-column flex-md-row">
   <div class="hero-image col-12 col-md-4">
-    <img
-      src="../../../assets/images//alexandr-podvalny-tE7_jvK-_YU-unsplash.jpg"
-      alt="Hero Image"
-    />
+    <img src="../../../assets/images//alexandr-podvalny-tE7_jvK-_YU-unsplash.jpg" alt="Hero Image" />
   </div>
-  <div
-    class="hero-description col-12 col-md-8 d-flex flex-column align-items-start justify-content-center"
-  >
+  <div class="hero-description col-12 col-md-8 d-flex flex-column align-items-start justify-content-center">
     <div class="headline">
       <h1>We take care <br />because we care</h1>
       <p>Excellent health services for all patients who come to our clinic</p>
@@ -92,10 +74,8 @@
       </div>
     </div>
 
-    <div
-      class="hero-buttons col-12 mt-5 d-flex flex-column align-content-center flex-sm-row gap-2"
-    >
-      <button class="btn btn-primary">Book an appointment</button>
+    <div class="hero-buttons col-12 mt-5 d-flex flex-column align-content-center flex-sm-row gap-2">
+      <a [routerLink]="['/appointment','add']" class="btn btn-primary">Book an appointment</a>
       <button class="btn btn-secondary">Learn more</button>
     </div>
   </div>

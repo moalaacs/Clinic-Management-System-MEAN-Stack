@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
@@ -75,36 +75,48 @@ export class RegisterComponent {
     ),
     'address.zipCode': this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5)])
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5),
+      ])
     ),
-    'address.street': this.builder.control('', Validators.required),
+    'address.street': this.builder.control(
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z ]+$/),
+      ])
+    ),
   });
 
-  getFile(event: any) {
+  getFile(event: any, element: HTMLSpanElement) {
+    console.log(this.file);
     this.file = event.target.files[0];
+    element.innerHTML = this.file.name;
   }
 
   proceedregister() {
     let rC = this;
     if (this.registerform.valid) {
-      this.service
-        .registerUser(this.registerform.value, this.file)
-        .subscribe({
-          next() {
-            rC.toastr.success(
-              'Please contact admin for enable access.',
-              'Registered successfully'
-            );
-            rC.router.navigate(['login']);
-          },
-          error(err) {
-            rC._snackBar.open(err.error, "", {
-              duration: 3000,
-            });
-          },
-        });
+      this.service.registerUser(this.registerform.value, this.file).subscribe({
+        next() {
+          rC.toastr.success(
+            'Please contact admin for enable access.',
+            'Registered successfully'
+          );
+          rC.router.navigate(['login']);
+        },
+        error(err) {
+          rC._snackBar.open(err.error.message, '', {
+            duration: 3000,
+          });
+        },
+      });
     } else {
-      this.toastr.warning('Please enter valid data.');
+      rC._snackBar.open('Please enter valid data', '', {
+        duration: 3000,
+      });
     }
   }
 }

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IClinic } from 'src/app/models/IClinic';
+import { clinic } from 'src/app/models/clinic';
 @Component({
   selector: 'app-clinic-details',
   templateUrl: './clinic-details.component.html',
   styleUrls: ['./clinic-details.component.css']
 })
 export class ClinicsInfoByIdComponent implements OnInit {
-  clinic: IClinic;
+  clinic: clinic;
   constructor(private clinicService: ClinicService, private rotue: ActivatedRoute, private router: Router) {
     this.clinic = { _id: 0, _contactNumber: "", _address: { street: "", city: "", country: "", zipCode: 0 }, _weeklySchedule: [], _doctors: [], _specilization: "" };
   }

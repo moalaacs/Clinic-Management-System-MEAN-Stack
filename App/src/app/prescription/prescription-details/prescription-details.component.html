@@ -1,1 +1,40 @@
-<p>prescription-details works!</p>
+<div class="row me-3 my-3">
+    <div class="text-end">
+      <button mat-button class="btn btn-primary" (click)="back()">
+        Back
+      </button>
+    </div>
+  </div>
+<div class="mt-3">
+    <table class="table table-bordered table-striped" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Clinic ID</th>
+                <th>Patient ID</th>
+                <th>Doctor ID</th>
+                <th>Medications</th>
+                <th>Instructions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{newPrecscreption._id}}</td>
+                <td>{{newPrecscreption.date}}</td>
+                <td>{{newPrecscreption.clinicRef}}</td>
+                <td>{{newPrecscreption.patientRef}}</td>
+                <td>{{newPrecscreption.doctorRef}}</td>
+                <td>
+                    <span
+                        *ngFor="let medications of newPrecscreption.medications; ">
+                        <b>Name: </b>{{medications.name}} , <b>Type: </b>{{medications.type}} , <b>Dose: </b>{{medications.dose}} , <b>Frequency: </b>{{medications.frequency}}
+                        <br>
+                    </span>
+                </td>
+                <td>{{newPrecscreption.instructions}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

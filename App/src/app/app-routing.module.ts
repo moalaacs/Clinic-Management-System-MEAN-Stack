@@ -11,6 +11,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChartModule } from 'primeng/chart';
+import { SpecilizationComponent } from './clinic/specilization/specilization.component';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
@@ -22,13 +23,13 @@ const routes: Routes = [
   {
     path: 'medicine',
     loadChildren: () =>
-      import('./medicine/medicine.module').then((m) => m.MedicineModule),
+      import('./medicine/medicine.module').then((m) => m.MedModule),
   },
   {
     path: 'appointment',
     loadChildren: () =>
       import('./appointment/appointment.module').then(
-        (m) => m.AppointmentModule
+        (m) => m.AppointModule
       ),
   },
   {
@@ -57,6 +58,7 @@ const routes: Routes = [
   },
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
   { path: 'appointmentReports', component: AllAppointmentReportsComponent },
+  { path: 'departments', component: SpecilizationComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: '**', component: NotfoundComponent },
 ];

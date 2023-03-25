@@ -1,1 +1,43 @@
-.halfwidth{ width: 100%; }
+
+.back-to-home-btn{
+  position: absolute;
+  top: 27px;
+  right: 27px;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.mat-form-field-suffix {
+  color: #ccc;
+  cursor: pointer;
+}
+
+
+
+
+div:last-of-type {
+  margin-top: 20px;
+  text-align: center;
+}
+
+a {
+  color: #0c4095;
+  cursor: pointer;
+}
+
+.login-btn{
+  padding: 20px 0;
+}

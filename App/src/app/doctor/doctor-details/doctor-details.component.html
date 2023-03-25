@@ -13,76 +13,91 @@
     </mat-card-header>
     <mat-card-content>
       <div *ngIf="doctor">
-        <h2 class="doctor-name">
-          {{ doctor.firstname }} {{ doctor.lastname }}
-        </h2>
-        <p><strong>Date of Birth:</strong> {{ doctor.dateOfBirth }}</p>
-        <p><strong>Age:</strong> {{ doctor.age }}</p>
-        <p><strong>Gender:</strong> {{ doctor.gender }}</p>
-        <p><strong>Phone Number:</strong> {{ doctor.phoneNumber }}</p>
-        <p><strong>Email:</strong> {{ doctor.email }}</p>
-        <p>
-          <strong>Address:</strong> {{ doctor.address.street }},
-          {{ doctor.address.city }}, {{ doctor.address.country }},
-          {{ doctor.address.zipCode }}
-        </p>
-        <p>
-          <strong>Clinic:</strong> {{ doctor.clinicId._specilization }}
-          <br />
-          <strong>Clinic Address:</strong>
-          {{ doctor.clinicId._address.street }},
-          {{ doctor.clinicId._address.city }},
-          {{ doctor.clinicId._address.country }},
-          {{ doctor.clinicId._address.zipCode }}
-        </p>
-        <p><strong>Specialization:</strong> {{ doctor.speciality }}</p>
-
-        <div *ngIf="doctor.medicalHistory">
-          <p><strong>Medical History:</strong> {{ doctor.medicalHistory }}</p>
+        <div class="doctor-profile">
+          <img
+            class="doctor-profile-image"
+            [src]="profilePic"
+            alt="doctor profile image"
+          />
         </div>
-        <div class="invoices" *ngIf="doctor.invoices?.length > 0">
-          <h3 class="mat-subheading-1">Invoices</h3>
-          <mat-accordion *ngIf="doctor.invoices?.length > 0">
-            <mat-expansion-panel *ngFor="let invoice of doctor.invoices">
-              <mat-expansion-panel-header>
-                <mat-panel-title class="mat-panel-title"
-                  >Invoice {{ invoice.invoice_id }}</mat-panel-title
-                >
-              </mat-expansion-panel-header>
-              <mat-panel-description class="mat-panel-description">
-                <p><strong>Total:</strong> {{ invoice.total }}</p>
 
-                <p><strong>Total Due:</strong> {{ invoice.totalDue }}</p>
+        <div class="doctor-content">
+          <h2 class="doctor-name mt-4 text-center">
+            {{ doctor.firstname }} {{ doctor.lastname }}
+          </h2>
+          <p><strong>Date of Birth:</strong> {{ doctor.dateOfBirth }}</p>
+          <p><strong>Age:</strong> {{ doctor.age }}</p>
+          <p><strong>Gender:</strong> {{ doctor.gender }}</p>
+          <p><strong>Phone Number:</strong> {{ doctor.phoneNumber }}</p>
+          <p><strong>Email:</strong> {{ doctor.email }}</p>
+          <p>
+            <strong>Address:</strong> {{ doctor.address.street }},
+            {{ doctor.address.city }}, {{ doctor.address.country }},
+            {{ doctor.address.zipCode }}
+          </p>
+          <p>
+            <strong>Clinic:</strong> {{ doctor.clinicId._specilization }}
+            <br />
+            <strong>Clinic Address:</strong>
+            {{ doctor.clinicId._address.street }},
+            {{ doctor.clinicId._address.city }},
+            {{ doctor.clinicId._address.country }},
+            {{ doctor.clinicId._address.zipCode }}
+          </p>
+          <p><strong>Specialization:</strong> {{ doctor.speciality }}</p>
 
-                <p><strong>Status:</strong> {{ invoice.status }}</p>
-              </mat-panel-description>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
-        <div *ngIf="doctor?.schedule?.length > 0">
-          <p><strong>Schedule</strong></p>
-          <table mat-table class="mat-elevation-z8">
-            <ng-container matColumnDef="day">
-              <th mat-header-cell *matHeaderCellDef>Day</th>
-              <td mat-cell *matCellDef="let schedule">{{ schedule.day }}</td>
-            </ng-container>
+          <div *ngIf="doctor.medicalHistory">
+            <p><strong>Medical History:</strong> {{ doctor.medicalHistory }}</p>
+          </div>
+          <div class="invoices" *ngIf="doctor.invoices?.length > 0">
+            <h3 class="mat-subheading-1">Invoices</h3>
+            <mat-accordion *ngIf="doctor.invoices?.length > 0">
+              <mat-expansion-panel *ngFor="let invoice of doctor.invoices">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="mat-panel-title"
+                    >Invoice {{ invoice.invoice_id }}</mat-panel-title
+                  >
+                </mat-expansion-panel-header>
+                <mat-panel-description class="mat-panel-description">
+                  <p><strong>Total:</strong> {{ invoice.total }}</p>
 
-            <ng-container matColumnDef="start">
-              <th mat-header-cell *matHeaderCellDef>Start Time</th>
-              <td mat-cell *matCellDef="let schedule">{{ schedule.start }}</td>
-            </ng-container>
+                  <p><strong>Total Due:</strong> {{ invoice.totalDue }}</p>
 
-            <ng-container matColumnDef="end">
-              <th mat-header-cell *matHeaderCellDef>End Time</th>
-              <td mat-cell *matCellDef="let schedule">{{ schedule.end }}</td>
-            </ng-container>
+                  <p><strong>Status:</strong> {{ invoice.status }}</p>
+                </mat-panel-description>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          <div *ngIf="doctor?.schedule?.length > 0">
+            <p><strong>Schedule</strong></p>
+            <table mat-table class="mat-elevation-z8">
+              <ng-container matColumnDef="day">
+                <th mat-header-cell *matHeaderCellDef>Day</th>
+                <td mat-cell *matCellDef="let schedule">{{ schedule.day }}</td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="['day', 'start', 'end']"></tr>
-            <tr
-              mat-row
-              *matRowDef="let schedule; columns: ['day', 'start', 'end']"
-            ></tr>
-          </table>
+              <ng-container matColumnDef="start">
+                <th mat-header-cell *matHeaderCellDef>Start Time</th>
+                <td mat-cell *matCellDef="let schedule">
+                  {{ schedule.start }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="end">
+                <th mat-header-cell *matHeaderCellDef>End Time</th>
+                <td mat-cell *matCellDef="let schedule">{{ schedule.end }}</td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="['day', 'start', 'end']"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let schedule; columns: ['day', 'start', 'end']"
+              ></tr>
+            </table>
+          </div>
         </div>
       </div>
     </mat-card-content>

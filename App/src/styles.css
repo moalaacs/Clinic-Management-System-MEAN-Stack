@@ -4,14 +4,16 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.steelblue-color, .steelblue-color h2, .steelblue-color h3, .steelblue-color h4, .steelblue-color h5, .steelblue-color h6, .steelblue-color p, .steelblue-color a, .steelblue-color li, .steelblue-color i, .white-color .steelblue-color, .steelblue-color span {
+  color: #004861;
+}
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-html, body { height: 100%; }
-/* body { font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
 
 
 body {
@@ -20,6 +22,17 @@ body {
   font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
+}
+
+
+
+app-login,app-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
 }
 
 ::-webkit-scrollbar {
@@ -199,4 +212,20 @@ textarea {
 
 .back-button{
   color:#0c4095 !important ;
+}
+
+
+
+
+
+.p-card .p-card-content {
+  padding: 0.25rem 0 !important;
+}
+
+.p-card{
+  transition: all 0.2s;
+}
+
+.p-card:hover{
+  background-color: rgba(242, 241, 241, 0.6) !important;
 }

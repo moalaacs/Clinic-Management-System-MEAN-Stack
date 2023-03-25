@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MedicineAddComponent } from './medicine-add/medicine-add.component';
-import { MedicineDetailsComponent } from './medicine-details/medicine-details.component';
+import { MedAddComponent } from './med-add/med-add.component';
+import { MedDetailsComponent } from './med-details/med-details.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MedicineListComponent } from './medicine-list/medicine-list.component';
+import { MedListComponent } from './med-list/med-list.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+
 const routes: Routes = [
-  { path: "", component: MedicineListComponent },
-  { path: "add", component: MedicineAddComponent },
-  { path: "details/:id", component: MedicineDetailsComponent },
+  { path: "", component: MedListComponent },
+  { path: "add", component: MedAddComponent },
+  { path: "details/:id", component: MedDetailsComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), MatInputModule, MatSelectModule, MatSlideToggleModule],
-  exports: [RouterModule, MatInputModule, MatSelectModule, MatSlideToggleModule]
+  imports: [RouterModule.forChild(routes),
+    MatInputModule, MatSelectModule, MatSlideToggleModule],
+  exports: [RouterModule, MatInputModule, MatSelectModule, MatSlideToggleModule],
 })
-export class MedicineRoutingModule { }
+export class MedRoutingModule { }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PatientService } from 'src/app/services/patient.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Patient } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-patient-add',
@@ -14,9 +14,11 @@ export class PatientAddComponent implements OnInit {
 
   patientForm: FormGroup = new FormGroup({});
 
-  startDate = new Date(1999, 0, 1);
-  minDate = new Date(1940, 0, 1);
-  maxDate = new Date(2023,0,1);
+  minDate: Date;
+  maxDate: Date;
+  defaultDate: Date;
+  image: any;
+
 
   validationMessages = {
     firstname: {
@@ -76,66 +78,62 @@ export class PatientAddComponent implements OnInit {
 
 
   constructor(
-
+    private fb: FormBuilder,
     private patientService: PatientService,
-    private router: Router,
-    public datePipe: DatePipe,
+    private snackBar: MatSnackBar,
     private location: Location
-  ) { }
+  ) {
+    this.minDate = new Date('1963-01-01');
+    this.maxDate = new Date('2000-12-31');
+    this.defaultDate = new Date('1999-01-10');
+
+  }
 
   ngOnInit(): void {
 
-    this.patientForm = new FormGroup({
-      firstname: new FormControl('',[
-        Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z ]+$')
-      ]),
-      lastname: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z ]+$')
-      ]),
-      dateOfBirth: new FormControl('', [
-        Validators.required,
-      ]),
-      age: new FormControl(''),
-      gender: new FormControl('',[Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      address: new FormGroup({
-        street: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\d]+$'),
-        ]),
-        city: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\d]+$'),
-        ]),
-        country: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\d]+$'),
-        ]),
-        zipCode: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(5),
-          Validators.pattern(/^\d+$/),
-        ]))
-      }),
-      password: new FormControl('', Validators.required),
-      medicalHistory: new FormControl(''),
-      image: new FormControl(''),
-    });
+    this.patientForm =  this.fb.group({
+        firstname: ['', [Validators.required,
+    Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+  lastname: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+  dateOfBirth: ['',Validators.required],
+  gender: ['',Validators.required],
+  phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*')]],
+  email: ['', [Validators.required,Validators.email]],
+  address: this.fb.group({
+    street: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+    city: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    country: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+    zipCode: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.minLength(5)]]
+  }),
+  password: ['', [
+    Validators.required,
+    Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
+    Validators.minLength(8)
+  ]],
+  image: [''],
+  medicalHistory: ''});
   }
   onSubmit() {
-    this.patientForm.value.dateOfBirth = this.datePipe.transform(this.patientForm.value.dateOfBirth, 'dd/MM/yyyy');
-    const patient = this.patientForm.value;
+    const date = new Date(this.patientForm.value.dateOfBirth);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    const formattedDate = `${day}/${month}/${year}`;
+    this.patientForm.value.dateOfBirth = formattedDate;
+    const patient = this.patientForm.value as Patient;
     this.patientService.addPatient(patient, this.patientForm.value.image).subscribe(
-      () =>this.location.back())
+      () => {
+        this.snackBar.open('Patient updated successfully.', 'Close', {
+          duration: 3000
+        });
+        this.location.back();
+      },
+      error => {
+        this.snackBar.open(error.message, 'Close', {
+          duration: 3000
+        });
+      }
+)
   }
 
   onFileSelected(event: any) {

@@ -102,6 +102,7 @@ const clinicSchema = new mongoose.Schema({
   _doctors: [{ type: Number, unique: true }],
 });
 
+
 /* auto increment for _id field */
 clinicSchema.plugin(AutoIncrement, {
   id: "clinic_seq",
@@ -111,3 +112,5 @@ clinicSchema.plugin(AutoIncrement, {
 
 /* mapping schema bind collection */
 module.exports = mongoose.model("clinic", clinicSchema);
+
+

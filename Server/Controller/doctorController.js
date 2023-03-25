@@ -53,7 +53,7 @@ exports.getDoctorById = async (request, response, next) => {
       .populate({
         path: "_clinic",
         options: { strictPopulate: false },
-        select: { _specilization: 1, _address: 1, _id: 0 },
+        select: { _specilization: 1, _address: 1 },
       });
     if (!doctor) {
       return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
@@ -321,10 +321,12 @@ exports.patchDoctorById = async (request, response, next) => {
           tempDoctor["_address.country"] = request.body.address.country;
         if (request.body.address.zipCode)
           tempDoctor["_address.zipCode"] = request.body.address.zipCode;
-      } else {
-        return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
       }
-    }
+      else {
+          return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
+        }
+      } 
+    
     if (request.body.gender) {
       tempDoctor._gender = request.body.gender;
     }
@@ -447,11 +449,12 @@ exports.patchDoctorById = async (request, response, next) => {
         { _doctors: request.params.id },
         { $push: { _weeklySchedule: DoctorIdIntoSchedule } }
       );
+    }
       await doctorSchema.updateOne(
         { _id: request.params.id },
         { $set: tempDoctor }
       );
-    }
+   
 
     response
     .status(200)

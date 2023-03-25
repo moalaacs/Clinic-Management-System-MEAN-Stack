@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IClinic } from 'src/app/models/IClinic';
+import { clinic } from 'src/app/models/clinic';
 import { ClinicService } from 'src/app/services/clinic.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ClinicService } from 'src/app/services/clinic.service';
   styleUrls: ['./availableClinics.component.css']
 })
 export class AvailableClinicsComponent implements OnInit {
-  clinics: IClinic[];
+  clinics: clinic[];
   constructor(private clinicService: ClinicService, private activeRoute: ActivatedRoute) {
     this.clinics = [];
   }

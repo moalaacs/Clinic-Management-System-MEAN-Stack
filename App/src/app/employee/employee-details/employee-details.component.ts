@@ -13,11 +13,11 @@ import { EmployeeService } from 'src/app/services/employee.service';
 export class EmployeeDetailsComponent implements OnInit {
 
   employee: any = null;
+  profilePic: string = "";
 
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
-    private router: Router,
     private location: Location
   ) { }
 
@@ -26,6 +26,8 @@ export class EmployeeDetailsComponent implements OnInit {
     this.employeeService.getEmployeeById(id).pipe(
       map(response => response.data)).subscribe(data => {
       this.employee = data
+      console.log(this.employee)
+      this.profilePic = "http://localhost:8080/" + this.employee.image
     });
   }
   goBack(): void {

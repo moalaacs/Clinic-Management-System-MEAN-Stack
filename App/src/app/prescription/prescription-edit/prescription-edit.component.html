@@ -1,1 +1,60 @@
-<p>prescription-edit works!</p>
+<div class="row my-5 me-3">
+    <div class="text-end">
+      <button mat-button class="btn btn-primary" (click)="goBack()">
+        Back
+      </button>
+    </div>
+  </div>
+<mat-card>
+    <mat-card-header>
+        <h2>Edit Prescription</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="example-form" [formGroup]="prescriptionform">
+            <mat-form-field class="fullwidth">
+                <mat-label>Clinic ID</mat-label>
+                <input matInput formControlName="clinic">
+            </mat-form-field>
+            <mat-form-field class="fullwidth">
+                <mat-label>Patient ID</mat-label>
+                <input matInput formControlName="patient">
+            </mat-form-field>
+            <mat-form-field class="fullwidth">
+                <mat-label>Doctor ID</mat-label>
+                <input matInput formControlName="doctor">
+            </mat-form-field>
+            <button class="btn btn-danger mt-2 mb-2" (click)="addMedications()">Edit Other Medicine</button>
+            <div formArrayName="medicine" *ngFor="let item of medicine.controls;let i=index;">
+                <div [formGroupName]="i">
+                    Edit Medicine :{{i+1}}
+                    <mat-form-field class="fullwidth">
+                        <mat-label>Medicine Type</mat-label>
+                        <mat-select id="medicine.type" name="medicinetype" formControlName="type">
+                            <mat-option value="syrup">syrup</mat-option>
+                            <mat-option value="tablet">tablet</mat-option>
+                            <mat-option value="capsule">capsule</mat-option>
+                            <mat-option value="injection">injection</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="fullwidth">
+                        <mat-label>Medicine Name</mat-label>
+                        <input matInput formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field class="fullwidth">
+                        <mat-label>Medicine Dose</mat-label>
+                        <input matInput formControlName="dose">
+                    </mat-form-field>
+                    <mat-form-field class="fullwidth">
+                        <mat-label>Medicine Frequency</mat-label>
+                        <input matInput formControlName="frequency">
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-form-field class="fullwidth">
+                <mat-label>Instructions</mat-label>
+                <input matInput formControlName="instructions">
+            </mat-form-field>
+            <button class="btn btn-primary mt-2" (click)="save()">Edit</button>
+        </form>
+    </mat-card-content>
+</mat-card>

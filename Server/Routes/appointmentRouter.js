@@ -21,7 +21,7 @@ router
   //   )
   // )
   .get(controller.getAllAppointments)
-  // .post(validateAppointment, validatorMiddleware, controller.addAppointment);
+  // .post(validateAppointment, validatorMiddleware, controller.addAppointment)
   .post(controller.addAppointment);
 
 router
@@ -46,11 +46,11 @@ router
 
 router
   .route("/appointment/:id")
-  .all(
-    numberIdParamsValidation,
-    validatorMiddleware,
-    authorizationMW.accessClinicResources("receptionist")
-  )
+  // .all(
+  //   numberIdParamsValidation,
+  //   validatorMiddleware,
+  //   authorizationMW.accessClinicResources("receptionist")
+  // )
   .get(controller.getAppointmentById)
   .patch(
     validatePatchAppointment,

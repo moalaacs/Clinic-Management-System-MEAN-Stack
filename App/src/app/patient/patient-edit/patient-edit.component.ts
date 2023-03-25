@@ -15,12 +15,17 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class PatientEditComponent implements OnInit {
 
-  patientForm: FormGroup;
   patientId: number = 0;
   patient: any = null ;
-  minDate = new Date(1950, 0, 1);
-  maxDate = new Date();
-  defaultDate = new Date(2000, 0, 1);
+  updatedPatient: any = {};
+  patientForm: FormGroup;
+
+
+  minDate: Date;
+  maxDate: Date;
+  defaultDate: Date;
+  image: any;
+
 
   validationMessages = {
     firstname: {
@@ -68,13 +73,16 @@ export class PatientEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
     private patientService: PatientService,
     private snackBar: MatSnackBar,
-    private datePipe: DatePipe,
     private location: Location
   ) {
+
+    this.minDate = new Date('1963-01-01');
+    this.maxDate = new Date('1999-12-31');
+    this.defaultDate = new Date('1999-01-10');
+
     this.patientForm = this.fb.group({
       firstname: ['',[Validators.minLength(3),
         Validators.pattern('^[a-zA-Z ]+$')]],
@@ -115,21 +123,89 @@ export class PatientEditComponent implements OnInit {
     this.patientId = Number(this.route.snapshot.paramMap.get('id'));
     this.patientService.getPatientById(this.patientId).pipe(
           map(response => response.data)).subscribe(data => {
+          let date = new Date(data.dateOfBirth);
+          data.dateOfBirth = date;
+
           this.patient = data;
           this.patientForm.patchValue(data);
     });
+
+    this.patientForm.controls['firstname'].valueChanges.subscribe((value)=> {
+      if (value !== this.patient.firstname) {
+        this.updatedPatient.firstname = value;
+      }
+    });
+
+    this.patientForm.controls['lastname'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.lastname) {
+        this.updatedPatient.lastname = value;
+      }
+    });
+    this.patientForm.controls['dateOfBirth'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.dateOfBirth && value != null) {
+        const date = new Date(value);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear().toString();
+        const formattedDate = `${day}/${month}/${year}`;
+        this.updatedPatient.dateOfBirth = formattedDate;
+      }
+    });
+    this.patientForm.controls['gender'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.gender) {
+        this.updatedPatient.gender = value;
+      }
+    });
+    this.patientForm.controls['phoneNumber'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.phoneNumber) {
+        this.updatedPatient.phoneNumber = value;
+      }
+    });
+    this.patientForm.controls['email'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.email) {
+        this.updatedPatient.email = value;
+      }
+    });
+    this.patientForm.controls['address'].valueChanges.subscribe((value) => {
+      if (JSON.stringify(value) !== JSON.stringify(this.patient.address)) {
+        this.updatedPatient.address = value;
+      }
+    });
+    this.patientForm.controls['password'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.password) {
+        this.updatedPatient.password = value;
+      }
+    });
+    this.patientForm.controls['image'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.image) {
+        this.updatedPatient.image = value;
+      }
+    });
+    this.patientForm.controls['medicalHistory'].valueChanges.subscribe((value) => {
+      if (value !== this.patient.medicalHistory) {
+        this.updatedPatient.medicalHistory = value;
+      }
+    });
+    this.patientForm.controls['invoices'].valueChanges.subscribe((value) => {
+      if (value.length !== this.patient.invoices.length) {
+        this.updatedPatient.invoices = value;
+      }
+      else {
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] !== this.patient.invoices[i]) {
+            this.updatedPatient.invoices = value;
+          }
+        }
+      }
+    });
+
+
+
+
   }
 
   onSubmit(): void {
-    this.patientForm.value.dateOfBirth = this.datePipe.transform(this.patientForm.value.dateOfBirth, 'dd/MM/yyyy');
-    const formData = new FormData();
-    if (this.patientForm.value.image) {
-      formData.append('photo', this.patientForm.value.image);
-    }
-
-    formData.append('data', this.patientForm.value);
-    const patient = this.patientForm.value;
-    const savePatient: Observable<any> = this.patientService.patchPatientById(this.patientId,patient, this.patientForm.value.image)
+    const savePatient: Observable<any> = this.patientService.patchPatientById(this.patientId,this.updatedPatient, this.image)
     savePatient.subscribe(
       (data) => {
         this.snackBar.open('Patient updated successfully.', 'Close', {
@@ -147,12 +223,7 @@ export class PatientEditComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const photoDataUrl: string = reader.result as string;
-        this.patientForm.get('photo')?.setValue(photoDataUrl);
-      };
+      this.image = file;
     }
   }
 

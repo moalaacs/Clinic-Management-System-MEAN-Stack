@@ -18,6 +18,7 @@ const {
 // Add a new Appointment
 exports.addAppointment = async (request, response, next) => {
   try {
+    console.log(request.body);
     const { doctorId, patientId, patientType, date, time, clinicId } =
       request.body;
     const clinic = await clinicModel.findById(clinicId);

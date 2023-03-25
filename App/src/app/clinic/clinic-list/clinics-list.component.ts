@@ -4,14 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteConfirmationComponent } from '../../shared/delete-confirmation.component';
-import { IClinic } from 'src/app/models/IClinic';
+import { clinic } from 'src/app/models/clinic';
 @Component({
   selector: 'app-clinics-list',
   templateUrl: './clinics-list.component.html',
   styleUrls: ['./clinics-list.component.css']
 })
 export class ClinicsInfoComponent implements OnInit {
-  clinics: IClinic[];
+  clinics: clinic[];
   constructor(private clinicService: ClinicService, private rotue: ActivatedRoute, private dialog: MatDialog,
     private snackBar: MatSnackBar) {
     this.clinics = [];

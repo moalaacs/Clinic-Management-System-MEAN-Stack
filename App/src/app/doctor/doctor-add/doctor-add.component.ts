@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DoctorService } from 'src/app/services/doctor.service';
+import { Doctor } from 'src/app/models/doctor';
 @Component({
   selector: 'app-doctor-add',
   templateUrl: './doctor-add.component.html',
@@ -12,11 +13,14 @@ import { DoctorService } from 'src/app/services/doctor.service';
 })
 export class DoctorAddComponent implements OnInit {
 
-  doctorForm: FormGroup = new FormGroup({});
-
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
+  image: any;
+
+  weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+
 
   validationMessages = {
     firstname: {
@@ -88,9 +92,8 @@ export class DoctorAddComponent implements OnInit {
 
   };
 
-  constructor(private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
+  constructor(
+    private fb: FormBuilder,
     private doctorService: DoctorService,
     private snackBar: MatSnackBar,
     private location: Location
@@ -99,93 +102,77 @@ export class DoctorAddComponent implements OnInit {
     this.minDate = new Date('1963-01-01');
     this.maxDate = new Date('2000-12-31');
     this.defaultDate = new Date('1999-01-10');
-
-    this.doctorForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-      lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-      dateOfBirth: ['', [Validators.required, Validators.pattern('^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}$')]],
-      gender: [''],
-      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      email: ['', [Validators.required, Validators.email]],
-      address: this.fb.group({
-        street: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
-        city: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-        country: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
-        zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5)]]
-      }),
-      password: ['', [
-        Validators.required,
-        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
-        Validators.minLength(8)
-      ]],
-      image: [''],
-      medicalHistory: '',
-      invoices: [],
-
-      schedule: this.fb.group({
-        monday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        tuesday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        wednesday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        thursday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        friday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        saturday: this.fb.group({
-          start: [null],
-          end: [null]
-        }),
-        sunday: this.fb.group({
-          start: [null],
-          end: [null]
-        })
-      }),
-      clinicId: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      speciality: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]]
-    });
-
-
   }
 
+  doctorForm = this.fb.group({
+    firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+    dateOfBirth: ['', Validators.required,],
+    gender: ['', Validators.required,],
+    phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    email: ['', [Validators.required, Validators.email]],
+    address: this.fb.group({
+      street: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+      city: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
+      country: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+      zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5)]]
+    }),
+    password: ['', [Validators.required,
+    Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
+    Validators.minLength(8)
+    ]],
+    image: [''],
+    medicalHistory: '',
+    invoices: [[]],
+    schedule: this.fb.array([this.scheduleForm()]),
+    speciality: ['', Validators.required,]
+  });
+  scheduleForm() {
+    return this.fb.group({
+      day: ["", Validators.required],
+      start: [""],
+      end: [""]
+    })
+  }
+  get schedule() {
+    return this.doctorForm.controls["schedule"] as FormArray
+  }
+  addScheudle() {
+    this.doctorForm.controls["schedule"].push(this.scheduleForm());
+  }
   ngOnInit(): void {
-
   }
-
-
   onSubmit() {
-    const date = new Date(this.doctorForm.value.dateOfBirth);
+    let formDate = this.doctorForm.get("dateOfBirth")?.value as string
+    const date = new Date(formDate);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
-    this.doctorForm.value.dateOfBirth = formattedDate;
-
-    const doctor = this.doctorForm.value;
-    this.doctorService.addDoctor(doctor).subscribe(
-      () => this.location.back() )
+    let bindedThis = this;
+    this.doctorForm.get("dateOfBirth")?.setValue(formattedDate);
+    const doctor = this.doctorForm.value as unknown as Doctor;
+    this.doctorService.addDoctor(doctor, this.image).subscribe(
+      () => {
+        this.snackBar.open('Doctor added successfully.', 'Close', {
+          duration: 3000
+        });
+        this.location.back();
+      },
+      error => {
+        this.snackBar.open(error.message, 'Close', {
+          duration: 3000
+        });
+        console.log(error);
+      }
+    )
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.doctorForm.patchValue({
-        image: reader.result as string
-      });
-    };
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.image = file
+    }
   }
 
   goBack(): void {

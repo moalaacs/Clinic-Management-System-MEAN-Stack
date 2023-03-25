@@ -7,7 +7,7 @@ import { Prescription } from '../models/prescription';
 })
 export class prescriptionService {
   /* Base URL */
-  baseurl = "http://localhost:8080/prescription";
+  baseurl = "http://localhost:8080/prescription/";
 
   constructor(public http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class prescriptionService {
     return this.http.get<Prescription>(this.baseurl + id);
   }
   /* Add New Prescription */
-  addPrescriptions(prescription: Prescription) {
+  addPrescriptions(prescription: any) {
     return this.http.post<Prescription>(this.baseurl, prescription);
   }
   /* Delete Prescription by ID */
@@ -28,7 +28,8 @@ export class prescriptionService {
     return this.http.delete<Prescription>(this.baseurl + id);
   }
   /* Update Prescription by ID */
-  updatePrescriptions(prescription: Prescription) {
-    return this.http.put<Prescription>(this.baseurl + prescription._id, prescription);
+  updatePrescriptions(id:number,prescription: any) {
+    //return this.http.put<Prescription>(this.baseurl + prescription._id, prescription);
+    return this.http.patch<Prescription>(`${this.baseurl}${id}`, prescription);
   }
 }

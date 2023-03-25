@@ -17,7 +17,7 @@ export class MedicineService {
   }
   /* Get Medicine by ID */
   getMedicineById(id: number) {
-    return this.http.get<Medicine>(this.baseurl + id);
+    return this.http.get<Medicine[]>(this.baseurl + id);
   }
   /* Add New Medicine */
   addMedicine(medicine: Medicine) {
