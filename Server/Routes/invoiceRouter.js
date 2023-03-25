@@ -16,16 +16,16 @@ router
   .post(validateInvoice, errorValidation, controller.addInvoice);
 
   router
-  .route("/invoiceReports/all")
-  .get(authorizationMW.access(), controller.allInvoicesReports);
+  .route("/invoiceReports")
+  .get(/*authorizationMW.access(),*/ controller.allInvoicesReports);
 
   router
   .route("/invoiceReports/daily")
-  .get(authorizationMW.access(), controller.dailyInvoicesReports);
+  .get(/*authorizationMW.access(),*/ controller.dailyInvoicesReports);
 
   router
   .route("/invoiceReports/patient/:id")
-  .get(authorizationMW.access(), controller.patientInvoicesReports);
+  .get(/*authorizationMW.access(),*/ controller.patientInvoicesReports);
 
 router
   .route("/invoice/:id")

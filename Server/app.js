@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-
 /**** Import Routes *****/
 const registerRouter = require("./Routes/registerRouter");
 const authenticate = require("./Routes/authRouter");
@@ -19,7 +18,7 @@ const prescriptionRouter = require("./Routes/prescriptionRouter");
 const invoiceRouter = require("./Routes/invoiceRouter");
 const paymentRouter = require("./Routes/paymentRouter");
 const showAppointmentRouter = require("./Routes/showAppointmentRouter");
-const publicInformation = require("./Routes/publicInformation")
+const publicInformation = require("./Routes/publicInformation");
 const {
   checkAppointmentsDaily,
 } = require("./Middlewares/dailyAppointmentCheck");
@@ -86,8 +85,6 @@ app.use(morgan("dev"));
 // b- body parser middleware
 app.use(express.json());
 
-
-
 // c- Routes (End points)  middleware
 /* Show Available Schedule */
 app.use(showAppointmentRouter);
@@ -96,7 +93,7 @@ app.use(registerRouter);
 /* Public Information */
 app.use(publicInformation);
 /* Authenticate user */
-app.use(authenticate);
+ app.use(authenticate);
 /* Authorization user */
 app.use(authorizationMW);
 

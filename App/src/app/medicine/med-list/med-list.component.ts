@@ -9,10 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./med-list.component.css']
 })
 export class MedListComponent {
-
   medicine: Medicine[] = [];
   constructor(public medicineService: MedicineService, public router: Router, public location: Location) {
-
   }
   delete(id: number) {
     if (confirm('Are you sure you want to delete this medicine?!')) {
@@ -30,5 +28,4 @@ export class MedListComponent {
       this.medicine = data;
     })
   }
-
 }

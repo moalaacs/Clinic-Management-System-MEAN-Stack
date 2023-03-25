@@ -1,0 +1,60 @@
+<c-row>
+  <c-col xs="12">
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        Bar Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="bar" [data]="basicData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        Line Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="basicData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<c-card class="mb-4">
+  <c-card-header>
+    All Appointments
+  </c-card-header>
+  <c-card-body>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Clinic</th>
+            <th>Patient ID</th>
+            <th>Doctor Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of appointments">
+            <td>{{ item._id }}</td>
+            <td>
+              {{ item._clinicId._contactNumber }} -
+              {{ item._clinicId._specilization }}
+            </td>
+            <td>{{ item._patientId }}</td>
+            <td>{{ item._doctorId.firstname }} {{ item._doctorId.lastname }}</td>
+            <td>{{ item._date }}</td>
+            <td>{{ item._time }}</td>
+            <td>{{ item._status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </c-card-body>
+</c-card>

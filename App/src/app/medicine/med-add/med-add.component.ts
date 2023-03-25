@@ -5,6 +5,7 @@ import { MedicineService } from 'src/app/services/medicine.service';
 import { Location } from '@angular/common';
 import { Medicine } from 'src/app/models/medicine';
 import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-med-add',
   templateUrl: './med-add.component.html',
@@ -18,7 +19,7 @@ export class MedAddComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
 
-  constructor(public medicineService: MedicineService, public router: Router, public location: Location, public fb: FormBuilder) {
+  constructor(public medicineService: MedicineService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
     this.minDate = new Date('2010-01-01');
     this.maxDate = new Date('2030-12-31');
     this.medicineForm = this.fb.group({
@@ -31,7 +32,6 @@ export class MedAddComponent implements OnInit {
     });
     this.matcher = new MyErrorStateMatcher();
   }
-
   ngOnInit() {
     this.medicineService.getAllMedicine().subscribe(data => {
       this.medicine = data;
@@ -69,8 +69,11 @@ export class MedAddComponent implements OnInit {
     const formattedDatee = `${dayy}/${monthh}/${yearr}`;
     this.medicineForm.value.expiry = formattedDatee;
 
-    const medicine = this.medicineForm.value;
     this.medicineService.addMedicine(this.medicineForm.value).subscribe(
-      () => this.router.navigate(['/medicine']))
+      () => {
+        this.router.navigate(['/medicine'])
+      }, error => {
+        this.mat.open(error.error.message, "", { duration: 3000 });
+      })
   }
 }

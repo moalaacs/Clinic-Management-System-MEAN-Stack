@@ -44,8 +44,6 @@ export class LoginComponent {
     if (this.loginform.valid) {
       this.service.loginUser(this.loginform.value).subscribe((_token) => {
         this.token = _token;
-        this.decodedToken = this.helper.decodeToken(this.token.token);
-        console.log(this.decodedToken);
         if (this.token) {
           sessionStorage.setItem('token', this.token.token);
           this.router.navigate(['']);

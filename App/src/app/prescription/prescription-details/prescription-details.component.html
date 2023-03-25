@@ -1,40 +1,31 @@
-<div class="row me-3 my-3">
-    <div class="text-end">
-      <button mat-button class="btn btn-primary" (click)="back()">
-        Back
-      </button>
+<div class="container">
+    <div class="row my-5">
+        <div class="text-end">
+            <button mat-button class="button back-button" (click)="back()">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+            </button>
+        </div>
     </div>
-  </div>
-<div class="mt-3">
-    <table class="table table-bordered table-striped" style="text-align: center;">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Clinic ID</th>
-                <th>Patient ID</th>
-                <th>Doctor ID</th>
-                <th>Medications</th>
-                <th>Instructions</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{newPrecscreption._id}}</td>
-                <td>{{newPrecscreption.date}}</td>
-                <td>{{newPrecscreption.clinicRef}}</td>
-                <td>{{newPrecscreption.patientRef}}</td>
-                <td>{{newPrecscreption.doctorRef}}</td>
-                <td>
-                    <span
-                        *ngFor="let medications of newPrecscreption.medications; ">
-                        <b>Name: </b>{{medications.name}} , <b>Type: </b>{{medications.type}} , <b>Dose: </b>{{medications.dose}} , <b>Frequency: </b>{{medications.frequency}}
-                        <br>
-                    </span>
-                </td>
-                <td>{{newPrecscreption.instructions}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <mat-card class="my-5 patient-card">
+        <mat-card-header class="patient-card-header">
+            <mat-card-title>Precscreption Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p><strong>Precscreption ID : </strong> {{newPrecscreption._id}}</p>
+            <p><strong>Precscreption Date :</strong> {{newPrecscreption.date}}</p>
+            <p><strong>Clinic Number : </strong> {{newPrecscreption.clinicRef}}</p>
+            <p><strong>Patient Number : </strong> {{newPrecscreption.patientRef}}</p>
+            <p><strong>Doctor Number : </strong> {{newPrecscreption.doctorRef}}</p>
+            <strong>Medications : </strong>
+            <p>
+                <span *ngFor="let medications of newPrecscreption.medications; " style="margin-left: 100px;">
+                    <b>Name : </b>{{medications.name}} , <b>Type : </b>{{medications.type}} , <b>Dose :
+                    </b>{{medications.dose}} , <b>Frequency : </b>{{medications.frequency}}
+                    <br>
+                </span>
+            </p>
+            <p><strong>Instructions : </strong> {{newPrecscreption.instructions}}</p>
+        </mat-card-content>
+    </mat-card>
 </div>

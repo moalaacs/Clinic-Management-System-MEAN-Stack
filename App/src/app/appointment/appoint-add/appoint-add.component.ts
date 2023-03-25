@@ -5,12 +5,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { Location } from '@angular/common';
 import { Appointment } from 'src/app/models/appointment';
 import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
-
-/*interface patientType {
-  patient: string;
-  doctor: string;
-  employee: string;
-}*/
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-appoint-add',
@@ -18,23 +13,17 @@ import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
   styleUrls: ['./appoint-add.component.css']
 })
 export class AppointAddComponent {
-  _appointment: Appointment = new Appointment("", 1, 100, "", 10, "", "", "");
+  _appointment: Appointment = new Appointment("1", 1, 100, "patient", 10, "100", "09:00", "Pending");
   appointment: Appointment[] = [];
-  /*patientType: patientType[] = [
-    {value: 'patient', viewValue: 'patient'},
-    {value: 'doctor', viewValue: 'doctor'},
-    {value: 'employee', viewValue: 'employee'},
-  ];*/
   appointmentForm: FormGroup;
   matcher: MyErrorStateMatcher;
   minDate: Date;
   maxDate: Date;
 
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder) {
+  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
     this.minDate = new Date('2023-03-20');
     this.maxDate = new Date('2030-12-31');
     this.appointmentForm = this.fb.group({
-      // _id: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientType: ['', [Validators.required, /*Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")*/]],
@@ -50,9 +39,6 @@ export class AppointAddComponent {
       this.appointment = data;
     })
   }
-  // get id() {
-  //   return this.appointmentForm.get('_id');
-  // }
   get clinic() {
     return this.appointmentForm.get('_clinicId');
   }
@@ -74,14 +60,6 @@ export class AppointAddComponent {
   get status() {
     return this.appointmentForm.get('_status');
   }
-  // addAppointment(errorH5: HTMLElement) {
-  //   errorH5.innerHTML = '';
-  //   this.appointmentService.addAppointment(this._appointment).subscribe(newAppointment => {
-  //     console.log(newAppointment);
-  //     this.router.navigateByUrl("/appointment");
-  //     this.location.back();
-  //   });
-  // }
   onSubmit() {
     const datee = new Date(this.appointmentForm.value.date);
     const day = datee.getDate().toString().padStart(2, '0');
@@ -89,12 +67,12 @@ export class AppointAddComponent {
     const year = datee.getFullYear().toString();
     const formattedDate = `${day}/${month}/${year}`;
     this.appointmentForm.value.date = formattedDate;
-    // const appointment = this;
     console.log(this.appointmentForm.value);
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
-      (data) => {
-        console.log(data);
+      () => {
         this.router.navigate(['/appointment'])
+      }, error => {
+        this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
 }

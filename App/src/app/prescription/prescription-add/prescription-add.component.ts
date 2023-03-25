@@ -71,6 +71,9 @@ export class PrescriptionAddComponent {
   addMedications() {
     this.prescriptionform.controls['medicine'].push(this.medicationsForm());
   }
+  removeMedications(i:Required<number>){
+     this.prescriptionform.controls['medicine'].removeAt(i);
+  }
   get medicine() {
     return this.prescriptionform.controls['medicine'] as FormArray;
   }

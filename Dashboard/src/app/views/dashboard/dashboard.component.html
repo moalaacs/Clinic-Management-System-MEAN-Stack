@@ -1,0 +1,81 @@
+<!-- <c-row>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Page views</div>
+      <div class="fs-5 fw-semibold">78,623</div>
+    </div>
+  </c-col>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Organic</div>
+      <div class="fs-5 fw-semibold">49,123</div>
+    </div>
+  </c-col>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Organic</div>
+      <div class="fs-5 fw-semibold">49,123</div>
+    </div>
+  </c-col>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Organic</div>
+      <div class="fs-5 fw-semibold">49,123</div>
+    </div>
+  </c-col>
+</c-row> -->
+<c-row>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a class="mb-4" color="primary" title="Appointments">
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        {{appointments.length}}
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a class="mb-4" color="info" title="Invoices">
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        {{invoices.length}}
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a class="mb-4" color="warning" title=" Income">
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        {{income}} $
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a class="mb-4" color="danger" title="Patient">
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        150
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+</c-row>
+
+<c-row>
+  <c-col xs="12">
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        Bar Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="bar" [data]="basicData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        Line Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="basicData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
