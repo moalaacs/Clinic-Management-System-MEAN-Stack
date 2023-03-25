@@ -17,7 +17,7 @@ export const navItems: INavData[] = [
   {
     name: 'Appointments',
     url: '/appointments',
-    iconComponent: { name: 'cil-puzzle' },
+    iconComponent: { name: 'cil-chart-pie' },
     children: [
       {
         name: 'All Appointments',
@@ -36,7 +36,7 @@ export const navItems: INavData[] = [
   {
     name: 'Invoices',
     url: '/invoices',
-    iconComponent: { name: 'cil-puzzle' },
+    iconComponent: { name: 'cil-chart-pie' },
     children: [
       {
         name: 'All Invoices',
@@ -110,11 +110,11 @@ export const navItems: INavData[] = [
   //     }
   //   ]
   // },
-  {
-    name: 'Charts',
-    url: '/charts',
-    iconComponent: { name: 'cil-chart-pie' }
-  },
+  // {
+  //   name: 'Charts',
+  //   url: '/charts',
+  //   iconComponent: { name: 'cil-chart-pie' }
+  // },
   // {
   //   name: 'Icons',
   //   iconComponent: { name: 'cil-star' },
@@ -175,26 +175,18 @@ export const navItems: INavData[] = [
     name: 'Extras'
   },
   {
-    name: 'Pages',
+    name: 'Clinic',
     url: '/login',
     iconComponent: { name: 'cil-star' },
     children: [
       {
-        name: 'Login',
+        name: 'Clinic List',
         url: '/login'
       },
       {
-        name: 'Register',
+        name: 'Add List',
         url: '/register'
       },
-      {
-        name: 'Error 404',
-        url: '/404'
-      },
-      {
-        name: 'Error 500',
-        url: '/500'
-      }
     ]
   },
 ];
