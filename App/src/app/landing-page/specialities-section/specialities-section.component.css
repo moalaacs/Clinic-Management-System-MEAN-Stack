@@ -1,33 +1,4 @@
-/* .hoverBtn:hover{
-  background-color: rgba(221, 221, 221, 0.493);
-}
-a{
-  text-decoration: none;
-}
-.pcolor{
-  color:#0b3880;
-}
-.textFix{
-  line-height: 1.6rem;
-}
-.shad{
-  border-radius: 5px;
-  box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.4);
-}
-.imgDv{
-  max-width: 50rem;
-}
-.imgDv img{
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
+/* .picsum-img-wrapper {
+  height: 30rem;
+  object-position: 300px;
 } */
-
-.carousel-item {
-  height: 500px;
-}
-
-.carousel-item img {
-  height: 100%;
-  object-fit: cover;
-}

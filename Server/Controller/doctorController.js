@@ -69,26 +69,6 @@ exports.getDoctorById = async (request, response, next) => {
 // add a doctor
 exports.addDoctor = async (request, response, next) => {
   try {
-    let doctorSpecilatyToClinicSpecilization = mapSpecilityToSpecilization(
-      request.body.speciality
-    );
-    const existingClinics = await clinicSchema.find(
-      { _specilization: doctorSpecilatyToClinicSpecilization },
-      { _id: 1, _specilization: 1, _weeklySchedule: 1, _doctors: 1 }
-    );
-    if (existingClinics.length == 0){
-      return response.status(400).json(responseFormat(false, {}, `Sorry, We don't have a department for ${request.body.speciality} yet`, 0, 0, 0, 0));
-    }
-    let acceptedClinic;
-    for (let i = 0; i < existingClinics.length; i++) {
-      if (existingClinics[i]._doctors.length < 10) {
-        acceptedClinic = existingClinics[i];
-        break;
-      }
-    }
-    if (!acceptedClinic) {
-      return response.status(400).json(responseFormat(false, {}, `Sorry, No available clinic for this doctor to be added`, 0, 0, 0, 0));
-    }
     let testNameOfDoctor = await doctorSchema.find({
       _fname: request.body.firstname,
       _lname: request.body.lastname,
@@ -110,7 +90,7 @@ exports.addDoctor = async (request, response, next) => {
       }
     }
     request.body.schedule.forEach((element) => {
-      if (element.start > element.end){
+      if (element.start > element.end) {
         return response.status(200).json(responseFormat(false, {}, `In ${element.day}'s schedule, starting time ${element.start} can't be less than ending time ${element.end}`, 0, 0, 0, 0));
       }
     });
@@ -131,7 +111,7 @@ exports.addDoctor = async (request, response, next) => {
       _address: request.body.address,
       _password: hash,
       _specilization: request.body.speciality,
-      _clinic: acceptedClinic._id,
+      _clinic: request.body.clinicId,
       _schedule: request.body.schedule,
       _medicalHistory: request.body.medicalHistory,
 
@@ -145,9 +125,8 @@ exports.addDoctor = async (request, response, next) => {
     let DoctorIdIntoSchedule = request.body.schedule.map((element) => {
       return { doctorId: savedDoctor._id, ...element };
     });
-
     await clinicSchema.updateOne(
-      { _id: acceptedClinic._id },
+      { _id: request.body.clinicId },
       {
         $push: {
           _weeklySchedule: DoctorIdIntoSchedule,
@@ -155,7 +134,6 @@ exports.addDoctor = async (request, response, next) => {
         },
       }
     );
-
     const newUser = new users({
       _idInSchema: savedDoctor._id,
       _role: "doctor",
@@ -166,8 +144,8 @@ exports.addDoctor = async (request, response, next) => {
 
     await newUser.save();
     response
-    .status(201)
-    .json(responseFormat(true, doctor, "Doctor added successfully", 0, 0, 0, 0));
+      .status(201)
+      .json(responseFormat(true, doctor, "Doctor added successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
@@ -177,7 +155,7 @@ exports.addDoctor = async (request, response, next) => {
 exports.putDoctorById = async (request, response, next) => {
   try {
     let foundDoctor = await doctorSchema.findOne({ _id: request.params.id });
-    if (!foundDoctor){
+    if (!foundDoctor) {
       return response.status(400).json(responseFormat(false, {}, `Doctor not found`, 0, 0, 0, 0));
     }
 
@@ -209,7 +187,7 @@ exports.putDoctorById = async (request, response, next) => {
       { _specilization: doctorSpecilatyToClinicSpecilization },
       { _id: 1, _specilization: 1, _weeklySchedule: 1, _doctors: 1 }
     );
-    if (existingClinics.length == 0){
+    if (existingClinics.length == 0) {
       return response.status(400).json(responseFormat(false, {}, `Sorry, We don't have a department for ${request.body.speciality} yet`, 0, 0, 0, 0));
     }
     let acceptedClinic;
@@ -282,8 +260,8 @@ exports.putDoctorById = async (request, response, next) => {
     );
 
     response
-    .status(200)
-    .json(responseFormat(true, sentObject, "Doctor updated successfully", 0, 0, 0, 0));
+      .status(200)
+      .json(responseFormat(true, sentObject, "Doctor updated successfully", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
@@ -292,7 +270,7 @@ exports.putDoctorById = async (request, response, next) => {
 exports.patchDoctorById = async (request, response, next) => {
   try {
     let foundDoctor = await doctorSchema.findOne({ _id: request.params.id });
-    if (!foundDoctor){
+    if (!foundDoctor) {
       return response.status(400).json(responseFormat(false, {}, `Doctor not found`, 0, 0, 0, 0));
     }
     let tempDoctor = {};
@@ -323,10 +301,10 @@ exports.patchDoctorById = async (request, response, next) => {
           tempDoctor["_address.zipCode"] = request.body.address.zipCode;
       }
       else {
-          return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
-        }
-      } 
-    
+        return response.status(400).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
+      }
+    }
+
     if (request.body.gender) {
       tempDoctor._gender = request.body.gender;
     }
@@ -360,7 +338,7 @@ exports.patchDoctorById = async (request, response, next) => {
         _fname: request.body.firstname,
         _lname: request.body.lastname,
       });
-      if (tryFirstandLastName && tryFirstandLastName._id != request.params.id){
+      if (tryFirstandLastName && tryFirstandLastName._id != request.params.id) {
         return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
       }
 
@@ -368,14 +346,14 @@ exports.patchDoctorById = async (request, response, next) => {
       let tryFirstName = await doctorSchema.find({
         _fname: request.body.firstname,
       });
-      if (tryFirstName.length > 0){
+      if (tryFirstName.length > 0) {
         return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
       }
     } else if (request.body.lastname) {
       let tryLastName = await doctorSchema.find({
         _lname: request.body.lastname,
       });
-      if (tryLastName.length > 0){
+      if (tryLastName.length > 0) {
         return response.status(400).json(responseFormat(false, {}, `There already a doctor with such name`, 0, 0, 0, 0));
       }
     }
@@ -450,15 +428,15 @@ exports.patchDoctorById = async (request, response, next) => {
         { $push: { _weeklySchedule: DoctorIdIntoSchedule } }
       );
     }
-      await doctorSchema.updateOne(
-        { _id: request.params.id },
-        { $set: tempDoctor }
-      );
-   
+    await doctorSchema.updateOne(
+      { _id: request.params.id },
+      { $set: tempDoctor }
+    );
+
 
     response
-    .status(200)
-    .json(responseFormat(true, tempDoctor, "Doctor updated successfully", 0, 0, 0, 0));
+      .status(200)
+      .json(responseFormat(true, tempDoctor, "Doctor updated successfully", 0, 0, 0, 0));
 
   } catch (error) {
     next(error);
@@ -498,10 +476,10 @@ exports.addExcuse = async (request, response, next) => {
     if (!doctor) {
       return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
     }
-    if (!checkDateInFuture(daySent)){
+    if (!checkDateInFuture(daySent)) {
       return response.status(400).json(responseFormat(false, {}, "Can't add excuse for old days", 0, 0, 0, 0));
     }
-    if (doctor._excuses.find((element) => element == daySent)){
+    if (doctor._excuses.find((element) => element == daySent)) {
       return response.status(400).json(responseFormat(false, {}, "This Day already added to excuses", 0, 0, 0, 0));
     }
     let deletedAppointments = await appointmentSchema
@@ -544,10 +522,10 @@ exports.deleteExcuse = async (request, response, next) => {
       return response.status(400).json(responseFormat(false, {}, "Doctor not found", 0, 0, 0, 0));
     }
     let daySent = request.params.day.replaceAll("-", "/");
-    if (!checkDateInFuture(daySent)){
+    if (!checkDateInFuture(daySent)) {
       return response.status(200).json(responseFormat(false, {}, "Can't remove excuse for old days", 0, 0, 0, 0));
     }
-    if (!doctor._excuses.find((element) => element == daySent)){
+    if (!doctor._excuses.find((element) => element == daySent)) {
       return response.status(200).json(responseFormat(false, {}, "This Day doesn't exist in excuses", 0, 0, 0, 0));
     }
     else
@@ -555,7 +533,7 @@ exports.deleteExcuse = async (request, response, next) => {
         { _id: request.params.id },
         { $pull: { _excuses: daySent } }
       );
-      return response.status(200).json(responseFormat(false, {}, "Excuse Removed Successfully. Welcome back!", 0, 0, 0, 0));
+    return response.status(200).json(responseFormat(false, {}, "Excuse Removed Successfully. Welcome back!", 0, 0, 0, 0));
   } catch (error) {
     next(error);
   }
