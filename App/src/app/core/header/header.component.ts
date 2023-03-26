@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+
 
 @Component({
   selector: 'app-header',
@@ -14,13 +17,15 @@ export class HeaderComponent implements OnInit {
   role: string;
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav | undefined;
 
-  constructor(public authService: AuthService, public router: Router) {
+
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
     this.role = "";
   }
+
   logOut() {
+
     sessionStorage.clear();
-    //this.router.navigate(['']);
-    location.reload();
+    this.router.navigate(['']);
   }
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
