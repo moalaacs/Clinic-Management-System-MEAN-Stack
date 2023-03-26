@@ -3,6 +3,9 @@ import { Appointment } from 'src/app/models/appointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { DeleteConfirmationComponent } from 'src/app/shared/delete-confirmation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-appoint-list',
@@ -11,18 +14,23 @@ import { Router } from '@angular/router';
 })
 export class AppointListComponent {
   appointment: Appointment[] = [];
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location) {
+  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
   delete(id: string) {
-    if (confirm('Are you sure you want to delete this appointment?!')) {
-      this.appointmentService.deleteAppointmentById(id).subscribe(a => {
-        // console.log(a);
-        this.appointmentService.getAllAppointment().subscribe(() => {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.appointmentService.deleteAppointmentById(id).subscribe(() => {
+          const index = this.appointment.findIndex(p => p._id === id);
+          if (index >= 0) {
+            this.appointment.splice(index, 1);
+            this.snackBar.open('Appointment deleted successfully!', 'Close', {
+              duration: 2000
+            });
+          }
         })
-        // this.location.back();
-      })
-    }
-    this.router.navigateByUrl("/appointment");
+      }
+    });
   }
   ngOnInit() {
     this.appointmentService.getAllAppointment().subscribe(data => {
