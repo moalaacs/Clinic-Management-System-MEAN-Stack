@@ -102,16 +102,16 @@ export class DailyAppointmentReportsComponent {
         console.log(element._time.split(":")[1]);
       });
       this.basicData = {
-        labels: ['8', '9', '10',
-          '11', '12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        labels: ['8 AM', '9 AM', '10 AM',
+          '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM'],
         datasets: [
           {
-            label: '2023',
+            label: 'Appointments',
             data: [this._8Counter, this._9Counter, this._10Counter, this._11Counter, this._12Counter, this._1Counter, this._2Counter, this._3Counter, this._4Counter, this._5Counter, this._6Counter, this._7Counter, this._8PMCounter, this._9PMCounter, this._10PMCounter],
             fill: false,
             tension: 0.4,
-            backgroundColor: '#f87979',
-            borderColor: 'rgba(151, 187, 205, 1)',
+            backgroundColor: '#e55353',
+            borderColor: '#e55353',
             pointBackgroundColor: 'rgba(151, 187, 205, 1)',
             pointBorderColor: '#fff',
           },

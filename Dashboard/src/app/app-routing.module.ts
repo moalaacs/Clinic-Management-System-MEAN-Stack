@@ -70,6 +70,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/widgets/widgets.module').then((m) => m.WidgetsModule)
       },
+      {
+        path: 'clinic',
+        loadChildren: () =>
+          import('./views/clinic/clinic.module').then((m) => m.ClinicModule),
+      },
     ]
   },
   { path: '**', redirectTo: 'dashboard' }

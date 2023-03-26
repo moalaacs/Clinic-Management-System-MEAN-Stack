@@ -1,17 +1,26 @@
-<div class="alert alert-success" style="font-size: 20px;">
-    Clinic ID: {{_appointment._clinicId}}
-    <br><br>
-    Patient ID: {{_appointment.patientId}}
-    <br><br>
-    Patient Type: {{_appointment.patientType}}
-    <br><br>
-    Doctor ID: {{_appointment._doctorId}}
-    <br><br>
-    Appointment Date: {{_appointment._date}}
-    <br><br>
-    Appointment Time: {{_appointment._time}}
-    <br><br>
-    Appointment Status: {{_appointment._status}}
-    <br><br>
+<!--  -->
+<div class="container">
+    <div class="row my-5">
+        <div class="text-end">
+            <button mat-button class="button back-button" (click)="back()">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+            </button>
+        </div>
+    </div>
+    <mat-card class="my-5 patient-card">
+        <mat-card-header class="patient-card-header">
+            <mat-card-title>Appointment Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p><strong>Clinic ID : </strong> {{_appointment._clinicId}}</p>
+            <p><strong>Patient ID :</strong>{{_appointment.patientId}}</p>
+            <p><strong>Patient Type :</strong>{{_appointment.patientType}}</p>
+            <p><strong>Doctor ID :</strong>{{_appointment._doctorId}}</p>
+            <p><strong>Appointment Date : </strong>{{_appointment._date}}</p>
+            <p><strong>Appointment Time : </strong>{{_appointment._time}}</p>
+            <p><strong>Appointment Status : </strong>{{_appointment._status}}</p>
+        </mat-card-content>
+    </mat-card>
 </div>
-<a routerLink="/appointment" class="btn btn-info">Back!</a>
+<!--  -->

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
-import { MaterialModule } from 'src/material.moudel';
+import { MaterialModule } from 'src/app/shared/material.moduel';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from './Auth/guard/auth.guard';
 import { AllAppointmentReportsComponent } from './appointment-reports/all-appointment-reports/all-appointment-reports.component';
@@ -12,9 +12,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChartModule } from 'primeng/chart';
 import { SpecilizationComponent } from './clinic/specilization/specilization.component';
+import { PaymentAddComponent } from './payment/payment-add/payment-add.component';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'pay/:id', component: PaymentAddComponent },
   {
     path: 'clinic',
     loadChildren: () =>

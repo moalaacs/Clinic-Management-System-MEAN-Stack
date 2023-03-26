@@ -4,7 +4,18 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.steelblue-color, .steelblue-color h2, .steelblue-color h3, .steelblue-color h4, .steelblue-color h5, .steelblue-color h6, .steelblue-color p, .steelblue-color a, .steelblue-color li, .steelblue-color i, .white-color .steelblue-color, .steelblue-color span {
+.steelblue-color,
+.steelblue-color h2,
+.steelblue-color h3,
+.steelblue-color h4,
+.steelblue-color h5,
+.steelblue-color h6,
+.steelblue-color p,
+.steelblue-color a,
+.steelblue-color li,
+.steelblue-color i,
+.white-color .steelblue-color,
+.steelblue-color span {
   color: #004861;
 }
 
@@ -14,19 +25,16 @@
   padding: 0;
 }
 
-
-
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
 }
 
-
-
-app-login,app-register {
+app-login,
+app-register {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,17 +58,19 @@ app-login,app-register {
   background-color: #a8adbf;
 }
 
-.btn-primary , .btn-primaryClr{
+.btn-primary,
+.btn-primaryClr {
   background-color: #0c4095 !important;
   color: #fff !important;
   border: 1px solid #0c4095 !important;
 }
-.btn-primary:hover , .btn-primaryClr:hover {
+.btn-primary:hover,
+.btn-primaryClr:hover {
   background-color: #082a60 !important;
-  border: 1PX solid #082a60 !important;
+  border: 1px solid #082a60 !important;
 }
 .btn-secondary {
-  border: 1px solid #333 ;
+  border: 1px solid #333;
   background-color: #ffffff !important;
   color: #333 !important;
 }
@@ -69,7 +79,6 @@ app-login,app-register {
   color: #0c4095 !important;
   border: 1px solid #0c4095 !important;
 }
-
 
 .patient-card {
   background-color: #f2f2f2;
@@ -94,7 +103,7 @@ app-login,app-register {
   font-size: 14px;
   font-weight: bold;
 }
-.card-title{
+.card-title {
   font-size: 14px;
   font-weight: bold;
 }
@@ -115,11 +124,9 @@ mat-expansion-panel-description p {
   padding: 5px 0;
 }
 
-
-.mat-mdc-card-header{
+.mat-mdc-card-header {
   padding: 16px !important;
 }
-
 
 textarea {
   resize: none;
@@ -128,9 +135,8 @@ textarea {
 .btn-disabled {
   background-color: #1255c1 !important;
   color: #fffdfd !important;
-  border: 1PX solid #1255c1 !important;
+  border: 1px solid #1255c1 !important;
   cursor: not-allowed !important;
-
 }
 
 .btn-primaryClr {
@@ -149,15 +155,12 @@ textarea {
   box-shadow: none !important;
 }
 
-
-
 .styled-table, mat-table.styled-table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 16px;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-
 }
 
 .styled-table thead tr {
@@ -173,10 +176,12 @@ textarea {
   padding: 12px 10px;
   vertical-align: middle;
 }
-.styled-table td:first-child, .styled-table th:first-child {
+.styled-table td:first-child,
+.styled-table th:first-child {
   padding-left: 30px;
 }
-.styled-table td:last-child, .styled-table th:last-child {
+.styled-table td:last-child,
+.styled-table th:last-child {
   padding: 12px 30px;
 }
 
@@ -206,29 +211,25 @@ textarea {
   padding: 6px 12px;
 }
 
-.button{
+.button {
   border-radius: 5px;
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
 }
 
-.back-button{
-  color:#0c4095 !important ;
+.back-button {
+  color: #0c4095 !important ;
 }
-
-
-
-
 
 .p-card .p-card-content {
   padding: 0.25rem 0 !important;
 }
 
-.p-card{
+.p-card {
   transition: all 0.2s;
 }
 
-.p-card:hover{
+.p-card:hover {
   background-color: rgba(242, 241, 241, 0.6) !important;
 }
 

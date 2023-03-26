@@ -8,7 +8,7 @@ import { PrescriptionDetailsComponent } from './prescription-details/prescriptio
 import { PrescriptionEditComponent } from './prescription-edit/prescription-edit.component';
 import { PrescriptionListComponent } from './prescription-list/prescription-list.component';
 import { PrescriptionRoutingModule } from './prescription-routing.module';
-import { MaterialModule } from './../../material.moudel';
+import { MaterialModule } from '../shared/material.moduel';
 
 
 @NgModule({
@@ -18,6 +18,6 @@ import { MaterialModule } from './../../material.moudel';
     PrescriptionEditComponent,
     PrescriptionListComponent,
   ],
-  imports: [PrescriptionRoutingModule,MaterialModule,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [PrescriptionRoutingModule, MaterialModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
-export class PrescriptionModule {}
+export class PrescriptionModule { }
