@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { logoutConfirmation } from 'src/app/shared/logout-confirmation.component';
 
 
 
@@ -21,7 +22,13 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
     this.role = "";
   }
-
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(logoutConfirmation, {
+      width: '400px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    }).afterClosed().subscribe(data => { if (data) this.logOut() });
+  }
   logOut() {
 
     sessionStorage.clear();
