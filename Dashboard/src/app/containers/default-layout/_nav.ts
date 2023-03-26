@@ -172,20 +172,20 @@ export const navItems: INavData[] = [
   // },
   {
     title: true,
-    name: 'Extras'
+    name: 'Admin'
   },
   {
     name: 'Clinic',
-    url: '/login',
+    url: '/clinic',
     iconComponent: { name: 'cil-star' },
     children: [
       {
-        name: 'Clinic List',
-        url: '/login'
+        name: 'Clinics List',
+        url: '/clinic'
       },
       {
-        name: 'Add List',
-        url: '/register'
+        name: 'Add Clinic',
+        url: '/clinic/add'
       },
     ]
   },

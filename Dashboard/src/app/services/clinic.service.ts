@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IClinic } from '../models/IClinic';
+import { clinic } from '../models/clinic';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,10 @@ export class ClinicService {
     return this.http.get<{ name: string, cost: number }[]>(this.baseURL + `/clinicservice/${speciality}`);
   } //Done
   getPublicClinicInfoById(id: number) {
-    return this.http.get<IClinic>(this.baseURL + `/clinicsinfo/${id}`);
+    return this.http.get<clinic>(this.baseURL + `/clinicsinfo/${id}`);
   } //Done
   getClinics() {
-    return this.http.get<IClinic[]>(this.baseURL + this.authorizedURL);
+    return this.http.get<clinic[]>(this.baseURL + this.authorizedURL);
   } //Done
   getPublicAvailableSpecilization() {
     return this.http.get<string[]>(this.baseURL + "/availablespecilizations");
@@ -32,6 +32,12 @@ export class ClinicService {
     return this.http.delete<void>(`${this.baseURL}${this.authorizedURL}/${id}`);
   }
   getClinicsBySpecilization(speciality: string) {
-    return this.http.get<IClinic[]>(`${this.baseURL}/clinicsspecilization/${speciality}`);
+    return this.http.get<clinic[]>(`${this.baseURL}/clinicsspecilization/${speciality}`);
+  }
+  patchClinicById(id: number, body: Partial<clinic>) {
+    return this.http.patch<clinic>(this.baseURL + this.authorizedURL + `/${id}`, body);
+  }
+  getClinicById(id: number) {
+    return this.http.get<{ clinic: clinic }>(this.baseURL + this.authorizedURL + `/${id}`);
   }
 }
