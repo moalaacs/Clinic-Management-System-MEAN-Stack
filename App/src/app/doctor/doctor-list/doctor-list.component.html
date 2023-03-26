@@ -60,7 +60,7 @@
             {{ doctor.firstname }} {{ doctor.lastname }}
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="email">
+        <!-- <ng-container matColumnDef="email">
           <mat-header-cell
             *matHeaderCellDef
             sortActionDescription="Sort by email"
@@ -74,7 +74,7 @@
           <mat-cell *matCellDef="let doctor" style="min-width: 250px">{{
             doctor.email
           }}</mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="age">
           <mat-header-cell
@@ -141,7 +141,7 @@
           }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="clinicAddress">
+        <!-- <ng-container matColumnDef="clinicAddress">
           <mat-header-cell
             mat-sort-header
             sortActionDescription="Sort by clinic address"
@@ -171,7 +171,7 @@
           <mat-cell *matCellDef="let doctor" style="min-width: 180px">
             {{ doctor.clinicId._specilization }}
           </mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="actions">
           <mat-header-cell mat-header-cell *matHeaderCellDef scope="col">
