@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { prescriptionService } from 'src/app/services/prescription.service';
-import {
-  FormArray,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { clinic } from 'src/app/models/clinic';
+import { Doctor } from 'src/app/models/doctor';
+import { ClinicService } from 'src/app/services/clinic.service';
+import { DoctorService } from 'src/app/services/doctor.service';
 
 @Component({
   selector: 'app-prescription-add',
@@ -14,12 +14,21 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./prescription-add.component.css'],
 })
 export class PrescriptionAddComponent {
+  clinics: clinic[] = [];
+  clinicID:number=0;
+  doctorsInClinic:number[]=[];
   constructor(
     public prescriptionService: prescriptionService,
     private builder: FormBuilder,
     private toastr: ToastrService,
-    private router: Router
-  ) { }
+    private router: Router,
+    public clinicservice: ClinicService,
+    public doctorservice: DoctorService
+  ) {
+    this.clinicservice.getClinics().subscribe((clincsArray) => {
+      this.clinics = clincsArray;
+    });
+  }
 
   prescriptionform = this.builder.group({
     clinic: this.builder.control(
@@ -71,14 +80,15 @@ export class PrescriptionAddComponent {
   addMedications() {
     this.prescriptionform.controls['medicine'].push(this.medicationsForm());
   }
-  removeMedications(i:Required<number>){
-     this.prescriptionform.controls['medicine'].removeAt(i);
+  removeMedications(i: Required<number>) {
+    this.prescriptionform.controls['medicine'].removeAt(i);
   }
   get medicine() {
     return this.prescriptionform.controls['medicine'] as FormArray;
   }
 
   save() {
+    console.log(this.prescriptionform.value);
     if (this.prescriptionform.valid) {
       this.prescriptionService
         .addPrescriptions(this.prescriptionform.value)
@@ -92,5 +102,11 @@ export class PrescriptionAddComponent {
   }
   goBack(): void {
     this.router.navigate(['/prescription']);
+  }
+  getClinic(id:string){
+    this.clinicID=parseInt(id);
+    this.clinicservice.getClinicById(this.clinicID).subscribe(currentClinic=>{
+     this.doctorsInClinic= currentClinic.clinic._doctors;
+    })
   }
 }
