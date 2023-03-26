@@ -76,7 +76,7 @@ export class RegisterComponent {
     private toastr: ToastrService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) { 
+  ) {
     this.minDate = new Date('1963-01-01');
     this.maxDate = new Date('2000-12-31');
     this.defaultDate = new Date('1999-01-10');
