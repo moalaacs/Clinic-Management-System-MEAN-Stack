@@ -207,6 +207,8 @@ const reqNamesToSchemaNames = (query) => {
     phone: "_contactNumber",
     email: "_email",
     address: "_address",
+    speciality: "_specilization",
+    
   };
 
   const replacedQuery = {};

@@ -18,6 +18,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
@@ -30,7 +33,7 @@ import { DoctorAddComponent } from './doctor-add/doctor-add.component';
     DoctorListComponent,
     DoctorDetailsComponent,
     DoctorEditComponent,
-    DoctorAddComponent
+    DoctorAddComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +55,9 @@ import { DoctorAddComponent } from './doctor-add/doctor-add.component';
     MatNativeDateModule,
     MatDialogModule,
     MatSelectModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
     DoctorRoutingModule
   ]
 })

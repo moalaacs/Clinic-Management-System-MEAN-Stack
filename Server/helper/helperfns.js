@@ -36,15 +36,27 @@ const paginateData = (data, query) => {
 };
 
 const sortData = (data, query) => {
-  let sortBy = query.sortBy || "_id";
-  let order = query.order || "asc";
-  let orderValue = order === "asc" ? 1 : -1;
+  const sortBy = query.sortBy || "_id";
+  const order = query.order || "asc";
+  const orderValue = order === "asc" ? 1 : -1;
 
   return data.sort((a, b) => {
-    if (a[sortBy] < b[sortBy]) return -1 * orderValue;
-    if (a[sortBy] > b[sortBy]) return 1 * orderValue;
+    const aValue = getNestedValue(a, sortBy);
+    const bValue = getNestedValue(b, sortBy);
+
+    if (aValue < bValue) return -1 * orderValue;
+    if (aValue > bValue) return 1 * orderValue;
     return 0;
   });
+};
+
+const getNestedValue = (obj, key) => {
+  const keys = key.split('.');
+  let value = obj;
+  for (const k of keys) {
+    value = value[k];
+  }
+  return value;
 };
 
 const sliceData = (data, query) => {

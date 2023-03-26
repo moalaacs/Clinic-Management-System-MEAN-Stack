@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Doctor } from '../models/doctor';
+import { clinic } from '../models/clinic';
 import { isArray } from 'chart.js/dist/helpers/helpers.core';
 
 @Injectable({
@@ -14,6 +15,22 @@ export class DoctorService {
   private baseUrl = 'http://localhost:8080/doctor';
 
   constructor(private http: HttpClient) { }
+
+  getAllDoctors2(role: string, query?: string, page?:number , limit?: number, sortBy?: string, order?:"asc" | "desc"): Observable<any> {
+    let url = `${this.baseUrl}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`;
+    if (query) {
+      url += `&${query}`;
+    }
+
+    return this.http.get<any>(url).pipe(
+      // tap(response => console.log(`Response from getAll${role}s:`, response)),
+      catchError(error => {
+        // console.log(`Error retrieving ${role}s: `, error);
+        return throwError(`Could not retrieve ${role}s. Please try again later.`);
+      })
+    );
+  }
+
 
   getAllDoctors(): Observable<any> {
     return this.http.get(`${this.baseUrl}`).pipe(
@@ -89,5 +106,9 @@ export class DoctorService {
 
   removeDoctorById(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getClinicsBySpeciality(speciality: string) {
+    return this.http.get<clinic[]>(`http://localhost:8080/clinic?speciality=${speciality}`);
   }
 }
