@@ -15,16 +15,20 @@
         <form class="example-form" [formGroup]="prescriptionform" class="row">
             <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
                 <mat-form-field class="col-12 col-md-4">
-                    <mat-label>Clinic ID</mat-label>
-                    <input matInput formControlName="clinic">
+                    <mat-label>Clinic</mat-label>
+                    <mat-select id="clinic" name="clinic" formControlName="clinic">
+                        <mat-option #currentClinic *ngFor="let clinic of clinics;" value={{clinic._id}} (click)="getClinic(currentClinic.value)" >{{clinic._id}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-4">
+                    <mat-label>Doctor</mat-label>
+                    <mat-select id="doctor" name="doctor" formControlName="doctor">
+                        <mat-option *ngFor="let doctor of doctorsInClinic;" value={{doctor}}>{{doctor}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-4">
                     <mat-label>Patient ID</mat-label>
                     <input matInput formControlName="patient">
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-4">
-                    <mat-label>Doctor ID</mat-label>
-                    <input matInput formControlName="doctor">
                 </mat-form-field>
             </div>
             <button class="btn btn-primary mt-2 mb-2" (click)="addMedications()">Add New Medicine</button>
