@@ -12,9 +12,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChartModule } from 'primeng/chart';
 import { SpecilizationComponent } from './clinic/specilization/specilization.component';
+import { PaymentAddComponent } from './payment/payment-add/payment-add.component';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'pay/:id', component: PaymentAddComponent },
   {
     path: 'clinic',
     loadChildren: () =>

@@ -10,6 +10,7 @@
       <li><a routerLink="/contact">Contact Us</a></li>
       <li *ngIf="!isLoggedIn"><a routerLink="/login" class="btn btn-primary">Log In</a></li>
       <li *ngIf="!isLoggedIn"><a routerLink="/register" class="btn btn-secondary">Sign Up</a></li>
+      <li *ngIf="isLoggedIn && role=='admin'"><a routerLink="/pay/:id">Add-Payment</a></li>
       <li *ngIf="isLoggedIn && role=='admin'"><a routerLink="/doctor">Doctor</a></li>
       <li *ngIf="isLoggedIn && role=='admin'"><a routerLink="/clinic">Clinics</a></li>
       <li *ngIf="isLoggedIn && role=='admin'"><a routerLink="/prescription">Prescriptions</a></li>
