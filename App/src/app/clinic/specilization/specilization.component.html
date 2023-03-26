@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center align-items-center container">
-  <p-card routerLink="location/{{item}}" *ngFor="let item of availableSpecilization" header="{{item}}"
+  <p-card routerLink="/clinic/location/{{item}}" *ngFor="let item of availableSpecilization" header="{{item}}"
     class="cardContainer">
     <img src="../../../assets/serviceHeader/{{spToImg(item)}}.jpg" class="w-100 imgmg rounded-3">
     <p class="fw-normal">{{spToDescription(item)}}</p>
