@@ -1,16 +1,26 @@
-<div class="alert alert-success" style="font-size: 20px;">
-    Medicine ID: {{medicine._id}}
-    <br><br>
-    Medicine Name: {{medicine._name}}
-    <br><br>
-    Medicine Production Date: {{medicine._productionDate}}
-    <br><br>
-    Medicine Expiry Date: {{medicine._expiryDate}}
-    <br><br>
-    Medicine Leaflet: {{medicine._leaflet}}
-    <br><br>
-    Medicine Price: {{medicine._pricePerUnit}}
-    <br><br>
-    Medicine Quantity: {{medicine._quantity}}
+<!--  -->
+<div class="container">
+    <div class="row my-5">
+        <div class="text-end">
+            <button mat-button class="button back-button" (click)="back()">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+            </button>
+        </div>
+    </div>
+    <mat-card class="my-5 patient-card">
+        <mat-card-header class="patient-card-header">
+            <mat-card-title>Medicine Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p><strong>Medicine ID : </strong> {{medicine._id}}</p>
+            <p><strong>Medicine Name :</strong> {{medicine._name}}</p>
+            <p><strong>Medicine Production Date :</strong> {{medicine._productionDate}}</p>
+            <p><strong>Medicine Expiry Date :</strong> {{medicine._expiryDate}}</p>
+            <p><strong>Medicine Leaflet : </strong> {{medicine._leaflet}}</p>
+            <p><strong>Medicine Price : </strong> {{medicine._pricePerUnit}}</p>
+            <p><strong>Medicine Quantity : </strong> {{medicine._quantity}}</p>
+        </mat-card-content>
+    </mat-card>
 </div>
-<a routerLink="/medicine" class="btn btn-info">Back!</a>
+<!--  -->
