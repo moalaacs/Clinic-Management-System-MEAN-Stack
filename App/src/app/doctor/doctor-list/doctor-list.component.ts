@@ -28,13 +28,10 @@ export class DoctorListComponent implements OnInit {
   displayedColumns: string[] = [
     'no',
     'name',
-    'email',
     'age',
     'phoneNumber',
     'address',
     'role',
-    'clinicAddress',
-    'clinicSpecialization',
     'actions',
   ];
 
@@ -67,6 +64,7 @@ export class DoctorListComponent implements OnInit {
             this.doctors = response.data;
             this.total = response.total;
             this.dataSource.data = response.data;
+            console.log(this.dataSource)
           },
           (error) => console.log(error)
         );
@@ -103,51 +101,6 @@ export class DoctorListComponent implements OnInit {
     applyFilter(filterValue: string) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-
-
-    // sortData() {
-    //   let sortFunction =
-    //   (items: Doctor[], sort: MatSort): Doctor[] =>  {
-    //     if (!sort.active || sort.direction === '') {
-    //       return items;
-    //     }
-    //   return items.sort((a: Doctor, b: Doctor) => {
-    //     let comparatorResult = 0;
-    //     switch (sort.active) {
-    //       case 'name':
-    //         comparatorResult = a.firstname.localeCompare(b.firstname);
-    //         break;
-    //       case 'email':
-    //         comparatorResult = a.email.localeCompare(b.email);
-    //         break;
-    //       case 'age':
-    //         comparatorResult = a.age - b.age;
-    //         break;
-    //       case 'phoneNumber':
-    //         comparatorResult = a.phoneNumber.localeCompare(b.phoneNumber);
-    //         break;
-    //       case 'address':
-    //         comparatorResult = a.address.city.localeCompare(b.address.city);
-    //         break;
-    //       case 'role':
-    //         comparatorResult = a.speciality.localeCompare(b.speciality);
-    //         break;
-    //       case 'clinicAddress':
-    //         comparatorResult = a.clinicId._address.city.localeCompare(b.clinicId._address.city);
-    //         break;
-    //       case 'clinicSpecialization':
-    //         comparatorResult = a.clinicId._specilization.localeCompare(b.clinicId._specilization);
-    //         break;
-    //       default:
-    //         return 0;
-    //     }
-    //      return comparatorResult * (sort.direction == 'asc' ? 1 : -1);
-    //     });
-    //   };
-    //   return sortFunction;
-    // }
-
-
 
 
     pageChanged(event: PageEvent) {

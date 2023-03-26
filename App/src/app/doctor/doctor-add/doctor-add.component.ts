@@ -194,7 +194,7 @@ export class DoctorAddComponent implements OnInit {
   (<FormArray> this.doctorForm.controls["schedule"]).push(newSchedule);
   this.endTimeList.push([]);
 
-  const selectedDay = newSchedule.get('day')?.value;
+  const selectedDay = this.doctorForm.controls["schedule"].value[0].day;
   const index = this.availableDays.indexOf(selectedDay as string);
   if (index !== -1) {
     this.availableDays.splice(index, 1);
