@@ -25,5 +25,8 @@ export class AppointDetailsComponent implements OnInit {
       })
     })
   }
+  back() {
+    this.router.navigateByUrl('/appointment');
+  }
 }
 

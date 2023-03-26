@@ -1,0 +1,232 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.steelblue-color,
+.steelblue-color h2,
+.steelblue-color h3,
+.steelblue-color h4,
+.steelblue-color h5,
+.steelblue-color h6,
+.steelblue-color p,
+.steelblue-color a,
+.steelblue-color li,
+.steelblue-color i,
+.white-color .steelblue-color,
+.steelblue-color span {
+  color: #004861;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+app-login,
+app-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #273cb442;
+  border-radius: 10px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8adbf;
+}
+
+.btn-primary,
+.btn-primaryClr {
+  background-color: #0c4095 !important;
+  color: #fff !important;
+  border: 1px solid #0c4095 !important;
+}
+.btn-primary:hover,
+.btn-primaryClr:hover {
+  background-color: #082a60 !important;
+  border: 1px solid #082a60 !important;
+}
+.btn-secondary {
+  border: 1px solid #333;
+  background-color: #ffffff !important;
+  color: #333 !important;
+}
+
+.btn-secondary:hover {
+  color: #0c4095 !important;
+  border: 1px solid #0c4095 !important;
+}
+
+.patient-card {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.patient-card-header {
+  background-color: #0c4095;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.patient-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.mat-subheading-1 {
+  font-size: 14px;
+  font-weight: bold;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.mat-panel-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.mat-panel-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: flex-start;
+}
+
+mat-expansion-panel-description p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.mat-mdc-card-header {
+  padding: 16px !important;
+}
+
+textarea {
+  resize: none;
+}
+
+.btn-disabled {
+  background-color: #1255c1 !important;
+  color: #fffdfd !important;
+  border: 1px solid #1255c1 !important;
+  cursor: not-allowed !important;
+}
+
+.btn-primaryClr {
+  background-color: #0c4095;
+  color: #ffffff;
+  border: 1px solid #0c4095;
+}
+
+.btn-primaryClr:hover:not(:disabled) {
+  background-color: #082a60;
+  color: #ffffff;
+  border: 1px solid #082a60;
+}
+
+.btn-primaryClr:focus {
+  box-shadow: none !important;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 16px;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #0c4095;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+.styled-table td:first-child,
+.styled-table th:first-child {
+  padding-left: 30px;
+}
+.styled-table td:last-child,
+.styled-table th:last-child {
+  padding: 12px 30px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  /* background-color: #f3f3f3; */
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #0c4095;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #0c4095;
+}
+
+#addButton {
+  width: fit-content;
+  padding: 6px 12px;
+}
+
+.button {
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+}
+
+.back-button {
+  color: #0c4095 !important ;
+}
+
+.p-card .p-card-content {
+  padding: 0.25rem 0 !important;
+}
+
+.p-card {
+  transition: all 0.2s;
+}
+
+.p-card:hover {
+  background-color: rgba(242, 241, 241, 0.6) !important;
+}

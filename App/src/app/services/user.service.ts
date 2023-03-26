@@ -24,17 +24,12 @@ export class UserService<T extends Person> {
   //   );
   // }
 
-  getAllUsers(role: string, filter?: object, pagination?: object, sorting?: object): Observable<T[]> {
-    let url = `${this.baseUrl}/${role}`;
-    if (filter) {
-      url += `?filter=${JSON.stringify(filter)}`;
+  getAllUsers(role: string, query?: string, page?:number , limit?: number, sortBy?: string, order?:"asc" | "desc"): Observable<T[]> {
+    let url = `${this.baseUrl}/${role}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`;
+    if (query) {
+      url += `&${query}`;
     }
-    if (pagination) {
-      url += `&pagination=${JSON.stringify(pagination)}`;
-    }
-    if (sorting) {
-      url += `&sorting=${JSON.stringify(sorting)}`;
-    }
+
     return this.http.get<T[]>(url).pipe(
       tap(response => console.log(`Response from getAll${role}s:`, response)),
       catchError(error => {

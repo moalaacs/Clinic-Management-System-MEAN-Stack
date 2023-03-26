@@ -1,0 +1,65 @@
+<c-card class="mb-4">
+  <c-card-header>
+    Clinic Details
+  </c-card-header>
+  <c-card-body>
+    <div class="container">
+      <div class="row">
+        <div class="text-end">
+          <button mat-button class="button back-button" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Back
+          </button>
+        </div>
+      </div>
+      <mat-card class="patient-card my-2">
+        <!-- <mat-card-header class="patient-card-header">
+          <mat-card-title>Clinic details</mat-card-title>
+        </mat-card-header> -->
+        <mat-card-content>
+          <p><strong>Specilization:</strong> {{clinic._specilization}}</p>
+          <p>
+            <strong>Address:</strong> {{clinic._address.city}} , {{clinic._address.street}} ,
+            {{clinic._address.country}}
+          </p>
+          <p><strong>Postal Code</strong> {{clinic._address.zipCode}}</p>
+          <p><strong>Phone Number:</strong> {{ clinic._contactNumber }}</p>
+          <div *ngIf="clinic._weeklySchedule.length>0">
+            <strong>Weekly Schedule:</strong>
+            <table>
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let schedule of clinic._weeklySchedule">
+                  <td>{{schedule.day}}</td>
+                  <td>{{schedule.start}}</td>
+                  <td>{{schedule.end}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="clinic._doctors.length>0">
+            <strong>Doctors:</strong>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let doctor of clinic._doctors">
+                  <td>{{doctor}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </c-card-body>
+</c-card>

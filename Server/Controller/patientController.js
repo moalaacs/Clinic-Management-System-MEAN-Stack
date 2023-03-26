@@ -28,7 +28,7 @@ exports.getAllPatients = async (request, response, next) => {
 
     const count = await patientSchema.countDocuments(query);
 
-    response.status(200).json(responseFormat(true, patients, "Patients retrieved successfully", parseInt(request.query.page), parseInt(request.query.limit), count, Math.ceil(count / parseInt(request.query.limit))));
+    response.status(200).json(responseFormat(true, patients, "Patients retrieved successfully", parseInt(request.query.page) || 1, parseInt(request.query.limit) || 10, count, Math.ceil(count / parseInt(request.query.limit)) || Math.ceil(count / 10)));
   } catch (error) {
     next(error);
   }
@@ -345,6 +345,15 @@ const reqNamesToSchemaNames = (query) => {
     for (const replaceKey in fieldsToReplace) {
       if (key.includes(replaceKey)) {
         newKey = key.replace(replaceKey, fieldsToReplace[replaceKey]);
+        break;
+      }
+      else if (key === "sortBy" && query[key] === replaceKey) {
+        query[key] = fieldsToReplace[replaceKey];
+        break;
+      }
+      else if (key === "sortBy" && query[key].startsWith(`${replaceKey}.`)) {
+        const subKey = query[key].substring(replaceKey.length + 1);
+        query[key] = `${fieldsToReplace[replaceKey]}.${subKey}`;
         break;
       }
     }

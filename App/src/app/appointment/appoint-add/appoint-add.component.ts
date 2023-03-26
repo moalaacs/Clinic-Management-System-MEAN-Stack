@@ -18,11 +18,9 @@ export class AppointAddComponent {
   appointmentForm: FormGroup;
   matcher: MyErrorStateMatcher;
   minDate: Date;
-  maxDate: Date;
 
   constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
-    this.minDate = new Date('2023-03-20');
-    this.maxDate = new Date('2030-12-31');
+    this.minDate = new Date();
     this.appointmentForm = this.fb.group({
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       patientId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],

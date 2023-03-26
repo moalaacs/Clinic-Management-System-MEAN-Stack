@@ -75,7 +75,7 @@ export class RegisterComponent {
     private service: AuthService,
     private toastr: ToastrService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.minDate = new Date('1963-01-01');
     this.maxDate = new Date('2000-12-31');
@@ -151,7 +151,6 @@ export class RegisterComponent {
   });
 
   getFile(event: any, element: HTMLSpanElement) {
-    console.log(this.file);
     this.file = event.target.files[0];
     element.innerHTML = this.file.name;
   }
@@ -168,13 +167,13 @@ export class RegisterComponent {
           rC.router.navigate(['login']);
         },
         error(err) {
-          rC._snackBar.open(err.error.message, '', {
+          rC.snackBar.open(err.error.message, '', {
             duration: 3000,
           });
         },
       });
     } else {
-      rC._snackBar.open('Please enter valid data', '', {
+      rC.snackBar.open('Please enter valid data', '', {
         duration: 3000,
       });
     }

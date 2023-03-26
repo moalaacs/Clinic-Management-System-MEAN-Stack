@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row my-5">
+        <div class="text-end">
+            <button mat-button class="button back-button" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+            </button>
+        </div>
+    </div>
+    <mat-card class="container p-3">
+        <mat-card-header>
+            <h2>Add Payment</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <form class="example-form" [formGroup]="paymentForm" class="row">
+                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+                    <mat-form-field class="col-12 col-md-12">
+                        <mat-label>Amount</mat-label>
+                        <input matInput formControlName="amount">
+                    </mat-form-field>
+                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Card Number</mat-label>
+                        <input matInput formControlName="card_number">
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Exp Month</mat-label>
+                        <input matInput formControlName="exp_month">
+                    </mat-form-field>
+                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Exp Year</mat-label>
+                        <input matInput formControlName="exp_year">
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>CVC</mat-label>
+                        <input matInput formControlName="cvc">
+                    </mat-form-field>
+                </div>
+                <button class="btn btn-primary mt-2" (click)="add()">Save</button>
+            </form>
+        </mat-card-content>
+    </mat-card>

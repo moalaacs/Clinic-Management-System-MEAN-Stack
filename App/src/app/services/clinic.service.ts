@@ -34,6 +34,7 @@ export class ClinicService {
   getClinicsBySpecilization(speciality: string) {
     return this.http.get<clinic[]>(`${this.baseURL}/clinicsspecilization/${speciality}`);
   }
+
   patchClinicById(id: number, body: Partial<clinic>) {
     return this.http.patch<clinic>(this.baseURL + this.authorizedURL + `/${id}`, body);
   }
