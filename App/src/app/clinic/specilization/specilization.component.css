@@ -1,6 +1,5 @@
 .cardContainer {
   margin: 10px;
-  height: 30rem;
   transition: all 0.3s ease-in-out;
 }
 
@@ -20,4 +19,11 @@ p {
 .cardss {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (max-width: 900px) {
+  .cardss {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
