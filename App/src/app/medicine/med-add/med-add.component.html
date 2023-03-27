@@ -1,5 +1,11 @@
 <form [formGroup]="medicineForm" class="row example-form ms-5" (ngSubmit)=" onSubmit()">
-    <h2 class="text-bg-success text-center">Add New Medicine</h2>
+    <div class="text-end">
+        <button mat-button class="button back-button" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Back
+        </button>
+    </div>
+    <h2 class="text-bg-primary text-center">Add New Medicine</h2>
     <!-- Medicine Name -->
     <mat-form-field>
         <mat-label>Medicine Name</mat-label>
@@ -69,5 +75,5 @@
     <!-- Buttons -->
     <button class="mt-3 btn btn-dark" type="submit" [disabled]="medicineForm.invalid">Submit</button>
     <h5 #errorH5 class="text-danger text-wrap"></h5>
-    <button class="mt-3 btn btn-info" routerLink="/medicine">Back</button>
+    <!-- <button class="mt-3 btn btn-info" routerLink="/medicine">Back</button> -->
 </form>

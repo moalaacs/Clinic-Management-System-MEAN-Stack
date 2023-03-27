@@ -19,7 +19,12 @@ export class MedAddComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
 
-  constructor(public medicineService: MedicineService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
+  constructor(
+    public medicineService: MedicineService,
+    public router: Router,
+    public location: Location,
+    public fb: FormBuilder,
+    public mat: MatSnackBar) {
     this.minDate = new Date('2010-01-01');
     this.maxDate = new Date('2030-12-31');
     this.medicineForm = this.fb.group({
@@ -75,5 +80,8 @@ export class MedAddComponent implements OnInit {
       }, error => {
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
+  }
+  goBack(): void {
+    this.router.navigate(['/medicine']);
   }
 }
