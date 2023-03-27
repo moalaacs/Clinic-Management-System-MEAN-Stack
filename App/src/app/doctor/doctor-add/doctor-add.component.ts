@@ -21,9 +21,11 @@ export class DoctorAddComponent implements OnInit {
   doctorForm: FormGroup = new FormGroup({});
   clinics: clinic[] = [];
   endTimeList: string[][] = [];
+  currentScheduleIndex = 0;
+  scheduleLength =0;
 
   weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-  availableDays: string[] = this.weeklyDays.slice();
+  availableDays: string[][] = this.weeklyDays.map(() => [...this.weeklyDays]);
 
   specialities = [
     "Pediatrician","Gynecologist","Cardiologist","Dermatologist","Psychiatrist","Neurologist","Radiologist", "Dentist", "Surgeon"];
@@ -190,16 +192,23 @@ export class DoctorAddComponent implements OnInit {
     return this.doctorForm.controls["schedule"] as FormArray
   }
   addScheudle() {
+  this.scheduleLength++;
   const newSchedule = this.scheduleForm();
   (<FormArray> this.doctorForm.controls["schedule"]).push(newSchedule);
   this.endTimeList.push([]);
 
-  const selectedDay = this.doctorForm.controls["schedule"].value[0].day;
-  const index = this.availableDays.indexOf(selectedDay as string);
-  if (index !== -1) {
-    this.availableDays.splice(index, 1);
+  this.currentScheduleIndex = (<FormArray> this.doctorForm.controls["schedule"]).length - 1;
+
+  const selectedDay = this.doctorForm.controls["schedule"].value[this.scheduleLength-1].day;
+  const dayIndex = this.availableDays[this.scheduleLength-1].indexOf(selectedDay);
+  if (dayIndex !== -1) {
+    for(let i = this.scheduleLength; i < this.availableDays.length; i++) {
+      this.availableDays[i].splice(dayIndex, 1);
+    }
   }
   }
+
+
 
 
   updateEndTimeList(index: number) {

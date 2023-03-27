@@ -50,6 +50,9 @@ export class DoctorListComponent implements OnInit {
     }
 
     getDoctors() {
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      if (endIndex > this.doctors.length ) {
       this.doctorService
         .getAllDoctors2(
           'doctor',
@@ -64,11 +67,11 @@ export class DoctorListComponent implements OnInit {
             this.doctors = response.data;
             this.total = response.total;
             this.dataSource.data = response.data;
-            console.log(this.dataSource)
           },
           (error) => console.log(error)
         );
-    }
+  }
+ }
 
     ngAfterViewInit() {
       this.dataSource.sort = this.sort;
@@ -106,7 +109,9 @@ export class DoctorListComponent implements OnInit {
     pageChanged(event: PageEvent) {
       this.currentPage = event.pageIndex + 1;
       this.perPage = event.pageSize;
+      if(this.doctors.length < this.total){
       this.getDoctors();
+    }
     }
 
 

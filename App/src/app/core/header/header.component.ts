@@ -19,8 +19,7 @@ export class HeaderComponent implements OnInit {
   }
   logOut() {
     sessionStorage.clear();
-    //this.router.navigate(['']);
-    location.reload();
+    this.router.navigate(['']);
   }
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {

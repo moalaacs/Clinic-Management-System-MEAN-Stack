@@ -31,7 +31,7 @@ const filterData = (model, query, fieldsToPopulate = []) => {
 
 const paginateData = (data, query) => {
   let page = query.page || 1;
-  let limit = query.limit || 10;
+  let limit = query.limit || 100;
   return data.slice((page - 1) * limit, page * limit);
 };
 
