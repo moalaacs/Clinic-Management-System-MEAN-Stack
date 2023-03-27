@@ -58,7 +58,7 @@ export class PrescriptionAddComponent {
     public doctorservice: DoctorService
   ) {
     this.clinicservice.getClinics().subscribe((clincsArray) => {
-      this.clinics = clincsArray;
+      this.clinics = clincsArray.data;
     });
   }
 
@@ -139,7 +139,7 @@ export class PrescriptionAddComponent {
     this.clinicservice
       .getClinicById(this.clinicID)
       .subscribe((currentClinic) => {
-        this.doctorsInClinic = currentClinic.clinic._doctors;
+        this.doctorsInClinic = currentClinic.data._doctors;
       });
   }
 }

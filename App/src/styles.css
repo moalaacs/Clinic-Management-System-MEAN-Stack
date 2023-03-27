@@ -169,8 +169,6 @@ textarea {
   text-align: left;
 }
 
-
-
 .styled-table th,
 .styled-table td {
   padding: 12px 10px;
@@ -191,10 +189,6 @@ textarea {
 
 .styled-table tbody tr:hover {
   background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-  /* background-color: #f3f3f3; */
 }
 
 .styled-table tbody tr:last-of-type {
@@ -233,16 +227,13 @@ textarea {
   background-color: rgba(242, 241, 241, 0.6) !important;
 }
 
-
-
-
-
 .mat-sort-header-arrow, [dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{
   color: #ffffff !important;
   }
 
-
-
+.table>:not(caption)>*>*{
+  padding: 0.5rem 0 !important;
+}
 
 /*  Gender radio box style */
 
@@ -331,4 +322,5 @@ div.radio-container label {
   text-align: center;
   transition: color .2s ease-in-out;
 }
+
 
