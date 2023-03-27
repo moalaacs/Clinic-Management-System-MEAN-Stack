@@ -1,4 +1,4 @@
-/* .picsum-img-wrapper {
-  height: 30rem;
-  object-position: 300px;
-} */
+h3 {
+  margin: 0 !important;
+  text-shadow: -2px 1px 4px rgba(0, 0, 0, 0.6);
+}

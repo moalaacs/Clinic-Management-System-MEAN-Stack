@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   logOut() {
 
     sessionStorage.clear();
+    this.isLoggedIn = false;
     this.router.navigate(['']);
   }
   ngOnInit(): void {

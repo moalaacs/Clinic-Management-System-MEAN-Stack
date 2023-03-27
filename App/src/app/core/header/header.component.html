@@ -1,47 +1,27 @@
-<header class="sticky-top">
-  <a class="ms-4" routerLink="/">
-    <img src="../../../assets/heart-beat.png" alt="logo" width="50rem" />
-    <span class="ms-2 fw-bold fs-6 logoText">MedService</span>
-  </a>
-  <nav>
-    <ul>
-      <li *ngIf="!isLoggedIn || (isLoggedIn && role != 'admin')">
-        <a routerLink="/departments">Departments</a>
-      </li>
-      <li *ngIf="!isLoggedIn || (isLoggedIn && role != 'admin')">
-        <a routerLink="/contact">Contact Us</a>
-      </li>
-      <li *ngIf="!isLoggedIn">
-        <a routerLink="/login" class="btn btn-primary">Log In</a>
-      </li>
-      <li *ngIf="!isLoggedIn">
-        <a routerLink="/register" class="btn btn-secondary">Sign Up</a>
-      </li>
-      <li *ngIf="isLoggedIn && role == 'admin'">
-        <a routerLink="/clinic">Clinics</a>
-      </li>
-      <li *ngIf="isLoggedIn && role == 'admin'">
-        <a routerLink="/doctor">Doctor</a>
-      </li>
-
-      <li *ngIf="isLoggedIn && role == 'admin'">
-        <a routerLink="/employee">Employee</a>
-      </li>
-      <li *ngIf="isLoggedIn && role == 'admin'">
-        <a routerLink="/patient">Patient</a>
-      </li>
-      <li *ngIf="isLoggedIn && role == 'admin'">
-        <a routerLink="/pay/:id">Add-Payment</a>
-      </li>
-      <li *ngIf="isLoggedIn && role == 'admin'">
-        <a routerLink="/prescription">Prescriptions</a>
-      </li>
-      <li *ngIf="isLoggedIn && role != 'admin'">
-        <a routerLink="/profile">Profile</a>
-      </li>
-      <li *ngIf="isLoggedIn">
-        <a class="btn btn-primary"  mat-raised-button (click)="openDialog('0ms', '0ms')">Log Out</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="ms-2" routerLink="/">
+      <img src="../../../assets/heart-beat.png" alt="logo" width="50rem" />
+      <span class="ms-2 fw-bold fs-6 logo d-none d-md-inline-block">MedService</span>
+    </a>
+    <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-center" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a  class="nav-link" *ngIf="!isLoggedIn || (isLoggedIn && role != 'admin')" routerLink="/departments">Departments</a>
+        <a  class="nav-link" *ngIf="!isLoggedIn || (isLoggedIn && role != 'admin')" routerLink="/contact">Contact Us</a>
+        <a  *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-primary mx-0 mx-lg-2">Log In</a>
+        <a  *ngIf="!isLoggedIn" routerLink="/register" class="btn btn-secondary my-2 my-lg-0">Sign Up</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/clinic">Clinics</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/doctor">Doctor</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/employee">Employee</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/patient">Patient</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/pay/:id">Add-Payment</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/prescription">Prescriptions</a>
+        <a  class="nav-link" *ngIf="isLoggedIn && role != 'admin'" routerLink="/profile">Profile</a>
+        <a  class="btn btn-primary"*ngIf="isLoggedIn"  mat-raised-button (click)="openDialog('0ms', '0ms')">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>    

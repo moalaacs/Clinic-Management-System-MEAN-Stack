@@ -8,9 +8,9 @@
     </div>
   </div>
   <mat-card class="py-4 mb-5">
-    <form [formGroup]="doctorForm" class="form p-3">
+    <form [formGroup]="doctorForm" class="form p-4">
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>First Name</mat-label>
@@ -61,7 +61,7 @@
         </mat-form-field>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Phone Number</mat-label>
@@ -109,7 +109,7 @@
         </mat-form-field>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Date of Birth</mat-label>
@@ -166,7 +166,7 @@
       </div>
 
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>clinic</mat-label>
@@ -208,7 +208,7 @@
 
       <div formGroupName="address">
         <div
-          class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+          class="form-row d-flex flex-column flex-md-row justify-content-md-around"
         >
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Street</mat-label>
@@ -265,7 +265,7 @@
           </mat-form-field>
         </div>
         <div
-          class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+          class="form-row d-flex flex-column flex-md-row justify-content-md-around"
         >
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Country</mat-label>
@@ -324,21 +324,33 @@
         </div>
       </div>
       <div formArrayName="schedule" class="schedule-sec">
-        <h4 class="m-0 col-12">Schedule</h4>
-        <button class="btn btn-primary" (click)="addScheudle()">
-          Add Schedule
+        <h4 class="m-0 col-12 mb-1">Schedule</h4>
+        <button
+          class="btn btn-primary"
+          [disabled]="
+            availableDays[6].length <= 1 ||
+            doctorForm.controls['schedule'].value[scheduleLength].day == ''
+          "
+          (click)="addScheudle()"
+        >
+          Add Day
         </button>
-        <div *ngFor="let item of schedule.controls; let i = index" class="row">
+        <div
+          *ngFor="let item of schedule.controls; let i = index"
+          class="row mt-3"
+        >
           <ng-container [formGroupName]="i">
             <div
-              class="form-row d-flex flex-column flex-md-row gap-md-3 justify-content-center"
+              class="form-row d-flex flex-column flex-md-row justify-content-md-around"
             >
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill" class="col-12 col-md-5">
                 <mat-label>Day</mat-label>
                 <mat-select formControlName="day">
-                  <mat-option *ngFor="let day of availableDays" [value]="day">{{
-                    day
-                  }}</mat-option>
+                  <mat-option
+                    *ngFor="let day of availableDays[i]"
+                    [value]="day"
+                    >{{ day }}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
 
@@ -380,10 +392,10 @@
       </div>
 
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-around"
       >
         <div
-          class="d-flex flex-column justify-content-center gap-2 col-12 col-md-5"
+          class="d-flex justify-content-center align-items-center gap-3 col-12 col-md-5"
         >
           <mat-radio-group
             aria-label="Select an option"

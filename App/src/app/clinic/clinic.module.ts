@@ -9,8 +9,8 @@ import { AddClinicComponent } from './add-clinic/add-clinic.component';
 import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
 import { MaterialModule } from 'src/app/shared/material.moduel';
 @NgModule({
-  declarations: [AvailableClinicsComponent,
-    ServicesComponent, ClinicsInfoComponent, ClinicsInfoByIdComponent, AddClinicComponent
+  declarations: [AvailableClinicsComponent, ClinicsInfoComponent, AddClinicComponent,
+    ServicesComponent, ClinicsInfoByIdComponent
   ],
   imports: [
     MaterialModule,
