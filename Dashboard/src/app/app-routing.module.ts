@@ -25,11 +25,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/theme/theme.module').then((m) => m.ThemeModule)
       },
-      // {
-      //   path: 'base',
-      //   loadChildren: () =>
-      //     import('./views/base/base.module').then((m) => m.BaseModule)
-      // },
       {
         path: 'appointments',
         loadChildren: () =>
@@ -74,6 +69,11 @@ const routes: Routes = [
         path: 'clinic',
         loadChildren: () =>
           import('./views/clinic/clinic.module').then((m) => m.ClinicModule),
+      },
+      {
+        path: 'doctor',
+        loadChildren: () =>
+          import('./views/doctor/doctor.module').then((m) => m.DoctorModule),
       },
     ]
   },

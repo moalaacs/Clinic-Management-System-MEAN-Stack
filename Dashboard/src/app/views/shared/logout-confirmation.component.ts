@@ -2,31 +2,30 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-delete-confirmation',
+  selector: 'app-logout-confirmation',
   template: `
   <div class="wrapper">
-  <h1 mat-dialog-title class="title">Confirm Deletion</h1>
-  <p mat-dialog-content class="content">Are you sure you want to delete?</p>
+  <h1 mat-dialog-title class="title">Confirm Logout</h1>
+  <p mat-dialog-content class="content">Are you sure you want to logout?</p>
   <div mat-dialog-actions class="buttons-div">
+    <button mat-button color="warn" (click)="confirm()" class="btn btn-primary button delete-button">Logout</button>
     <button mat-button (click)="cancel()" class="btn btn-secondery button cancel-button">Cancel</button>
-    <button mat-button color="warn" (click)="confirm()" class="btn btn-primary button delete-button">Delete</button>
   </div>
   </div>
-
 `,
   styles: [
     `
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 24px;
-  }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px;
+    }
 
-  .title {
-  font-size: 16px;
-  font-weight: bold;
-  }
+    .title {
+    font-size: 16px;
+    font-weight: bold;
+    }
 
 
     .content {
@@ -45,19 +44,12 @@ import { MatDialogRef } from '@angular/material/dialog';
       padding: 8px 16px;
     }
 
-    .delete-button{
-      background-color: #dc3545 !important;
-      border: 1px solid transparent !important;
-    }
-
   `
   ]
-
-
 })
 
-export class DeleteConfirmationComponent {
-  constructor(private dialogRef: MatDialogRef<DeleteConfirmationComponent>) { }
+export class logoutConfirmation {
+  constructor(private dialogRef: MatDialogRef<logoutConfirmation>) { }
 
   cancel(): void {
     this.dialogRef.close(false);
