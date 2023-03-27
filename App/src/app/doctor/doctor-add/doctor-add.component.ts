@@ -181,7 +181,6 @@ export class DoctorAddComponent implements OnInit {
   }
 
   removeDayFromSubsequentSchedules(day: string, dayIndex:number) {
-
     for (let i = 0; i < this.availableDays.length; i++) {
       if(i < dayIndex){
         const prevDayIndex = this.availableDays[i].indexOf(day);

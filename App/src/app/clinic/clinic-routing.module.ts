@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ServicesComponent } from './clinic-services/clinic-services.component';
 import { ClinicsInfoByIdComponent } from './clinic-details/clinic-details.component';
 import { AddClinicComponent } from './add-clinic/add-clinic.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
+import { AvailableClinicsComponent } from './department-details/availableClinics.component';
 import { ClinicsInfoComponent } from './clinic-list/clinics-list.component';
 const routes: Routes = [
   {
@@ -22,10 +21,6 @@ const routes: Routes = [
   {
     path: 'details/:id',
     component: ClinicsInfoByIdComponent
-  },
-  {
-    path: 'services/:speciallity',
-    component: ServicesComponent
   },
   {
     path: 'location/:speciallity',

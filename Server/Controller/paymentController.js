@@ -5,23 +5,26 @@ const paymentSchema = require("./../Models/paymentModel");
 
 // Add a new payment
 exports.addPayment = async (request, response, next) => {
-  const invoice_id = request.body.id;
+  const invoice_id = request.params.id || request.body.id;
 
   let invoice = await invoiceSchema.findOne({ _id: invoice_id });
   if (!invoice) {
     return response.status(404).send({ error: "Invoice not found" });
   }
-  let amount = request.body.amount;
+  let amount = Number(request.body.amount);
   if (amount > invoice.totalDue) {
     return response.status(400).send("Amount paid exceeds total due");
   }
 
-  let patientData = await patientSchema.findOne({ _id: invoice.patient_Id });
+
+
+
+  let patientData = await patientSchema.findOne({ _id: invoice.patientId });
+
   const card_number = request.body.card_number;
   const exp_month = request.body.exp_month;
   const exp_year = request.body.exp_year;
   const cvc = request.body.cvc;
-
   const param = {};
   param.card = {
     number: card_number,
@@ -41,7 +44,7 @@ exports.addPayment = async (request, response, next) => {
       },
       email: patientData._email,
       source: token.id,
-      name: `${patientData._firstName} ${patientData._lastName}`,
+      name: `${patientData._fname} ${patientData._lname}`,
       address: {
         line1: patientData._address.street,
         postal_code: patientData._address.zipCode,
@@ -60,7 +63,11 @@ exports.addPayment = async (request, response, next) => {
     invoice.totalDue = invoice.total - invoice.paid;
     invoice.status = invoice.paid === invoice.total ? "paid" : "partial";
     invoice.paymentMethod = "credit";
+    if(!invoice.patientType){
+    invoice.patientType = "patient"
+  }
     await invoice.save();
+
 
     const invoiceIndex = patientData.invoices.findIndex(
       (i) => i.invoice_id === invoice_id
@@ -78,7 +85,6 @@ exports.addPayment = async (request, response, next) => {
       cvc: cvc,
       email: patientData._email,
     });
-
     await newPayment.save();
     response.send({ message: "Payment added successfully" });
   } catch (error) {

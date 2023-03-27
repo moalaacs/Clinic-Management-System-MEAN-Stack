@@ -1,15 +1,5 @@
-.cardContainer {
-  margin: 10px;
-  transition: all 0.3s ease-in-out;
-}
-
-.cardContainer:hover {
-  transform: translateY(-10px);
-  cursor: pointer;
-}
-
-.imgmg {
-  margin-bottom: 1rem;
+.mat-mdc-card-header{
+  padding:16px 0 8px 0 !important;
 }
 
 p {
@@ -19,6 +9,15 @@ p {
 .card-style {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-gap: 50px;
+}
+
+.card-height{
+  height: fit-content;
+}
+
+.serviceCard{
+  background-color: aliceblue;
 }
 
 @media screen and (max-width: 900px) {

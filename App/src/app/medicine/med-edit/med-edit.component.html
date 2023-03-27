@@ -1,81 +1,87 @@
 <form [formGroup]="medicineForm" class="row example-form ms-5" (ngSubmit)=" onSubmit()">
-    <!-- Back -->
-    <div class="text-end">
-        <button mat-button class="button back-button" (click)="goBack()">
-            <mat-icon>arrow_back</mat-icon>
-            Back
-        </button>
+    <div class="halfwidth">
+        <!-- Back -->
+        <div class="text-end">
+            <button mat-button class="button back-button" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+            </button>
+        </div>
+        <!-- Header -->
+        <h2 class="text-bg-danger text-center">Update Existing Medicine</h2>
+        <!-- Medicine Name -->
+        <mat-form-field class="fullwidth">
+            <mat-label>Medicine Name</mat-label>
+            <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="Ex Panadol">
+            <mat-error *ngIf="name?.errors?.['pattern'] && !name?.errors?.['required']">
+                Please enter a valid Medicine Name
+            </mat-error>
+            <mat-error *ngIf="name?.errors?.['required']">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <!-- Production Date -->
+        <mat-form-field class="fullwidth" color="accent" appearance="fill">
+            <mat-label>Production date</mat-label>
+            <input matInput formControlName="production" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-error>
+                <span *ngIf="medicineForm.get('_productionDate')?.errors?.['required']">Production date is <strong>
+                        required
+                    </strong> </span>
+            </mat-error>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!-- Expiry Date -->
+        <mat-form-field class="fullwidth" color="accent" appearance="fill">
+            <mat-label>Expiry date</mat-label>
+            <input matInput formControlName="expiry" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerr">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerr"></mat-datepicker-toggle>
+            <mat-error>
+                <span *ngIf="medicineForm.get('_expiryDate')?.errors?.['required']">Expiry date is <strong> required
+                    </strong> </span>
+            </mat-error>
+            <mat-datepicker #pickerr></mat-datepicker>
+        </mat-form-field>
+        <!-- Medicine Leaflet -->
+        <mat-form-field class="fullwidth">
+            <mat-label>Leaflet</mat-label>
+            <input type="text" matInput formControlName="leaflet" [errorStateMatcher]="matcher" placeholder="Leaflet">
+            <mat-error *ngIf="leaflet?.errors?.['pattern'] && !leaflet?.errors?.['required']">
+                Please enter a valid Leaflet
+            </mat-error>
+            <mat-error *ngIf="leaflet?.errors?.['required']">
+                Leaflet is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <!-- Medicine Price -->
+        <mat-form-field class="fullwidth">
+            <mat-label>Price</mat-label>
+            <input type="text" matInput formControlName="price" [errorStateMatcher]="matcher" placeholder="Price">
+            <mat-error *ngIf="pricePerUnit?.errors?.['pattern'] && !pricePerUnit?.errors?.['required']">
+                Please enter a valid price
+            </mat-error>
+            <mat-error *ngIf="pricePerUnit?.errors?.['required']">
+                Price is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <!-- Medicine Quantity -->
+        <mat-form-field class="fullwidth">
+            <mat-label>Quantity</mat-label>
+            <input type="text" matInput formControlName="quantity" [errorStateMatcher]="matcher" placeholder="100">
+            <mat-error *ngIf="quantity?.errors?.['pattern'] && !quantity?.errors?.['required']">
+                Please enter a valid Quantity
+            </mat-error>
+            <mat-error *ngIf="quantity?.errors?.['required']">
+                Quantity is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <!-- Buttons -->
+        <div style="display: flex;justify-content: center;">
+            <button class="mt-3 btn btn-success" style="width: 25%;" type="submit"
+                [disabled]="medicineForm.invalid">Save
+                Changes</button>
+        </div>
+        <h5 #errorH5 class="text-danger text-wrap"></h5>
     </div>
-    <!-- Header -->
-    <h2 class="text-bg-danger text-center">Update Existing Medicine</h2>
-    <!-- Medicine Name -->
-    <mat-form-field>
-        <mat-label>Medicine Name</mat-label>
-        <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="Ex Panadol">
-        <mat-error *ngIf="name?.errors?.['pattern'] && !name?.errors?.['required']">
-            Please enter a valid Medicine Name
-        </mat-error>
-        <mat-error *ngIf="name?.errors?.['required']">
-            Name is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-    <!-- Production Date -->
-    <mat-form-field color="accent" appearance="fill">
-        <mat-label>Production date</mat-label>
-        <input matInput formControlName="production" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-error>
-            <span *ngIf="medicineForm.get('_productionDate')?.errors?.['required']">Production date is <strong> required
-                </strong> </span>
-        </mat-error>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <!-- Expiry Date -->
-    <mat-form-field color="accent" appearance="fill">
-        <mat-label>Expiry date</mat-label>
-        <input matInput formControlName="expiry" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerr">
-        <mat-datepicker-toggle matIconSuffix [for]="pickerr"></mat-datepicker-toggle>
-        <mat-error>
-            <span *ngIf="medicineForm.get('_expiryDate')?.errors?.['required']">Expiry date is <strong> required
-                </strong> </span>
-        </mat-error>
-        <mat-datepicker #pickerr></mat-datepicker>
-    </mat-form-field>
-    <!-- Medicine Leaflet -->
-    <mat-form-field>
-        <mat-label>Leaflet</mat-label>
-        <input type="text" matInput formControlName="leaflet" [errorStateMatcher]="matcher" placeholder="Leaflet">
-        <mat-error *ngIf="leaflet?.errors?.['pattern'] && !leaflet?.errors?.['required']">
-            Please enter a valid Leaflet
-        </mat-error>
-        <mat-error *ngIf="leaflet?.errors?.['required']">
-            Leaflet is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-    <!-- Medicine Price -->
-    <mat-form-field>
-        <mat-label>Price</mat-label>
-        <input type="text" matInput formControlName="price" [errorStateMatcher]="matcher" placeholder="Price">
-        <mat-error *ngIf="pricePerUnit?.errors?.['pattern'] && !pricePerUnit?.errors?.['required']">
-            Please enter a valid price
-        </mat-error>
-        <mat-error *ngIf="pricePerUnit?.errors?.['required']">
-            Price is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-    <!-- Medicine Quantity -->
-    <mat-form-field>
-        <mat-label>Quantity</mat-label>
-        <input type="text" matInput formControlName="quantity" [errorStateMatcher]="matcher" placeholder="100">
-        <mat-error *ngIf="quantity?.errors?.['pattern'] && !quantity?.errors?.['required']">
-            Please enter a valid Quantity
-        </mat-error>
-        <mat-error *ngIf="quantity?.errors?.['required']">
-            Quantity is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-    <!-- Buttons -->
-    <button class="mt-3 btn btn-dark" type="submit" [disabled]="medicineForm.invalid">Submit</button>
-    <h5 #errorH5 class="text-danger text-wrap"></h5>
-    <!-- <button class="mt-3 btn btn-info" routerLink="/medicine">Back</button> -->
 </form>

@@ -1,4 +1,5 @@
 <div class="container">
+
   <div class="row mt-5">
     <div class="text-end">
       <a [routerLink]="['/clinic/add']">
@@ -9,30 +10,63 @@
     </div>
   </div>
 
-  <div class="my-2 table-responsive">
-    <table class="table styled-table">
-      <thead>
-        <tr>
-          <th scope="col">No.</th>
-          <th scope="col">Phone Number</th>
-          <th scope="col">Specilization</th>
-          <th scope="col">City</th>
-          <th scope="col">Street</th>
-          <th scope="col">Country</th>
-          <th scope="col">Postal Code</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let clinic of clinics; let i = index">
-          <td scope="row">{{ i + 1 }}</td>
-          <td>{{clinic._contactNumber}}</td>
-          <td>{{clinic._specilization}}</td>
-          <td>{{clinic._address.city}}</td>
-          <td>{{clinic._address.street}}</td>
-          <td>{{clinic._address.country}}</td>
-          <td>{{clinic._address.zipCode}}</td>
-          <td>
+  <div class="search-sec mt-3">
+    <mat-form-field class="col-3">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" />
+    </mat-form-field>
+  </div>
+
+  <div class="table-pagination-sec">
+    <div class="table-responsive">
+      <mat-table class="table mat-table-style" [dataSource]="dataSource" matSort [matSortActive]="sortBy"
+        [matSortDirection]="order">
+        <ng-container matColumnDef="no">
+          <mat-header-cell *matHeaderCellDef sortActionDescription="Sort by ID" mat-sort-header class="sortable"
+            scope="col" style="max-width: 100px">ID</mat-header-cell>
+          <mat-cell *matCellDef="let clinic" style="max-width: 100px">{{clinic._id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef sortActionDescription="Sort by Email" mat-sort-header class="sortable"
+            scope="col" style="min-width: 150px">Email</mat-header-cell>
+          <mat-cell *matCellDef="let clinic" style="min-width: 150px">{{clinic._email}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+          <mat-header-cell *matHeaderCellDef sortActionDescription="Sort by phone number" mat-sort-header
+            class="sortable" scope="col" style="min-width: 150px">
+            Phone Number
+          </mat-header-cell>
+          <mat-cell *matCellDef="let clinic" style="min-width: 150px">{{
+            clinic._contactNumber
+            }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="specilization">
+          <mat-header-cell *matHeaderCellDef sortActionDescription="Sort by Speciality" mat-sort-header class="sortable"
+            scope="col" style="min-width: 150px">
+            Specilization
+          </mat-header-cell>
+          <mat-cell *matCellDef="let clinic" style="min-width: 150px">{{
+            clinic._specilization
+            }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef sortActionDescription="Sort by address" mat-sort-header class="sortable"
+            scope="col" style="min-width: 250px">
+            Address
+          </mat-header-cell>
+          <mat-cell *matCellDef="let clinic" style="min-width: 250px">
+            {{ clinic._address.country }} , {{ clinic._address.city }} , {{ clinic._address.street }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell mat-header-cell *matHeaderCellDef scope="col">
+            Actions
+          </mat-header-cell>
+          <mat-cell *matCellDef="let clinic">
             <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
               <a [routerLink]="['/clinic/edit/', clinic._id]">
                 <button type="button" class="btn btn-sm btn-primary me-2">
@@ -45,14 +79,21 @@
                 </button>
               </a>
               <a>
-                <button class="btn btn-sm btn-danger" (click)="deleteClinic(clinic._id)">
+                <button type="button" class="btn btn-sm btn-danger" (click)="deleteClinic(clinic.id)">
                   <i class="fa fa-trash"></i>
                 </button>
               </a>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns" class="table-header"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" class="clinic-row"></mat-row>
+
+      </mat-table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="perPage" [length]="total"
+      (page)="pageChanged($event)">
+    </mat-paginator>
   </div>
 </div>

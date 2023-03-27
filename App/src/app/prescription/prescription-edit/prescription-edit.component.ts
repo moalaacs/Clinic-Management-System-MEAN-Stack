@@ -60,12 +60,12 @@ export class PrescriptionEditComponent {
     private builder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private activatedRoute:ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     public clinicservice: ClinicService,
     public doctorservice: DoctorService
   ) {
     this.clinicservice.getClinics().subscribe((clincsArray) => {
-      this.clinics = clincsArray;
+      this.clinics = clincsArray.data;
     });
   }
 
@@ -119,20 +119,20 @@ export class PrescriptionEditComponent {
   addMedications() {
     this.prescriptionform.controls['medicine'].push(this.medicationsForm());
   }
-  removeMedications(i:Required<number>){
+  removeMedications(i: Required<number>) {
     this.prescriptionform.controls['medicine'].removeAt(i);
- }
+  }
   get medicine() {
     return this.prescriptionform.controls['medicine'] as FormArray;
   }
 
-  
+
   goBack(): void {
     this.router.navigate(['/prescription']);
   }
-  save(){
-    this.activatedRoute.params.subscribe(parameters=>{
-      this.prescriptionService.updatePrescriptions(parameters['id'],this.prescriptionform.value).subscribe(()=>{
+  save() {
+    this.activatedRoute.params.subscribe(parameters => {
+      this.prescriptionService.updatePrescriptions(parameters['id'], this.prescriptionform.value).subscribe(() => {
         this.router.navigateByUrl("/prescription");
       });
     })
@@ -142,7 +142,7 @@ export class PrescriptionEditComponent {
     this.clinicservice
       .getClinicById(this.clinicID)
       .subscribe((currentClinic) => {
-        this.doctorsInClinic = currentClinic.clinic._doctors;
+        this.doctorsInClinic = currentClinic.data._doctors;
       });
   }
 }

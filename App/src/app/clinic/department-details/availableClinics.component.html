@@ -1,0 +1,48 @@
+<div class="my-3 card-style container">
+  <mat-card *ngFor="let clinic of clinics" class="p-4 card-height">
+    <mat-card-header>
+      <mat-card-subtitle>{{clinic._contactNumber}}</mat-card-subtitle>
+      <mat-card-title>{{clinic._address.street}} , {{clinic._address.city}} ,
+        {{clinic._address.country}}</mat-card-title>
+    </mat-card-header>
+    <div *ngIf="clinic._weeklySchedule.length>0">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Doctor</th>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of clinic._weeklySchedule">
+            <td>{{schedule.doctorId.firstname}} {{schedule.doctorId.lastname}}</td>
+            <td>{{schedule.day}}</td>
+            <td>{{schedule.start}}</td>
+            <td>{{schedule.end}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="clinic._weeklySchedule.length==0">
+      <strong>No available schedules right now!</strong>
+    </div>
+  </mat-card>
+  <mat-card class="p-4 serviceCard">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of services">
+          <td>{{item.name}}</td>
+          <td>{{item.cost}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card>
+</div>
