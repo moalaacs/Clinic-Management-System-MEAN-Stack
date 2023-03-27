@@ -10,6 +10,8 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { DoctorDetailsComponent } from './doctor-details/doctor-details.component';
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 import { DoctorAddComponent } from './doctor-add/doctor-add.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     DoctorListComponent,
@@ -22,7 +24,8 @@ import { DoctorAddComponent } from './doctor-add/doctor-add.component';
     FormsModule,
     ReactiveFormsModule,
     DoctorRoutingModule,
-    MaterialModule
+    MaterialModule,
+    MatSnackBarModule
   ]
 })
 export class DoctorModule { }

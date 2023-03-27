@@ -6,59 +6,29 @@ import { DoctorDetailsComponent } from './doctor-details/doctor-details.componen
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 import { DoctorAddComponent } from './doctor-add/doctor-add.component';
 
-
-// const routes: Routes = [
-// { path: '', component: DoctorListComponent },
-// { path: 'details/:id', component: DoctorDetailsComponent },
-// { path: 'edit/:id', component: DoctorEditComponent },
-// { path: 'add', component: DoctorAddComponent }
-// ];
-
-
 const routes: Routes = [
   {
-    path: '',
+    path: '', component: DoctorListComponent,
     data: {
-      title: 'Doctors',
+      title: 'Doctor',
     },
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '',
-      },
-      {
-        path: 'doctor',
-        component: DoctorListComponent,
-        data: {
-          title: 'All',
-        },
-      },
-      {
-        path: 'details/:id',
-        component: DoctorDetailsComponent,
-        data: {
-          title: 'Daily',
-        }
-      },
-      {
-        path: 'edit/:id',
-        component: DoctorEditComponent,
-        data: {
-          title: 'Range',
-        }
-      },
-      {
-        path: 'add',
-        component: DoctorAddComponent,
-        data: {
-          title: 'Range',
-        }
-      }
-    ],
+  },
+  {
+    path: "details/:id",
+    component: DoctorDetailsComponent,
+    data: {
+      title: 'Details',
+    },
+  },
+  {
+    path: "edit/:id",
+    component: DoctorEditComponent
+  },
+  {
+    path: 'add',
+    component: DoctorAddComponent
   },
 ];
-
 
 
 @NgModule({
