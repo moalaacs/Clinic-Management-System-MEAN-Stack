@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr'
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from './../../services/auth.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class LoginComponent {
     private builder: FormBuilder,
     private toastr: ToastrService,
     private service: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     sessionStorage.clear();
   }
@@ -42,13 +43,18 @@ export class LoginComponent {
 
   proceedlogin() {
     if (this.loginform.valid) {
-      this.service.loginUser(this.loginform.value).subscribe((_token) => {
-        this.token = _token;
-        if (this.token) {
+      this.service.loginUser(this.loginform.value).subscribe((data) => {
+        if (data.hasOwnProperty("token")) {
+          this.token = data;
           sessionStorage.setItem('token', this.token.token);
+          this.snackBar.open('Login to System successfully.', 'Close', {
+            duration: 3000
+          });
           this.router.navigate(['']);
         } else {
-          this.toastr.error('Invalid credentials');
+          this.snackBar.open('Invalid credentials', 'Close', {
+            duration: 3000
+          });
         }
       });
     } else {
