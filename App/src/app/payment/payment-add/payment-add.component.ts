@@ -9,6 +9,31 @@ import { PaymentService } from 'src/app/services/payment.service';
   styleUrls: ['./payment-add.component.css'],
 })
 export class PaymentAddComponent {
+  validationMessages = {
+    id:{
+      required: 'Invoice Id is required',
+      pattern: 'Invoice Id must be a string.',
+    },
+    amount: {
+      required: 'Amount is required.',
+      pattern: 'Amount must be a number. ',
+    },
+    card_number: {
+      required: 'Card number is required.',
+    },
+    exp_month: {
+      required: 'Expiration month is required.',
+      pattern: 'Expiration month must be a number.',
+    },
+    exp_year: {
+      required: 'Expiration year is required.',
+      pattern: 'Expiration year must be a number.',
+    },
+    cvc: {
+      required: 'CVC is required.',
+      pattern: 'medicine name should be a string.CVC must be a number. ',
+    },
+  };
   constructor(
     public paymentService: PaymentService,
     private builder: FormBuilder,
@@ -18,6 +43,10 @@ export class PaymentAddComponent {
   ) {}
 
   paymentForm = this.builder.group({
+    id: this.builder.control(
+      '',
+      Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)])
+    ),
     amount: this.builder.control(
       '',
       Validators.compose([Validators.required, Validators.pattern('^[0-9]*$')])
@@ -42,9 +71,9 @@ export class PaymentAddComponent {
 
   add() {
     if (this.paymentForm.valid) {
-      this.activatedRoute.params.subscribe(parameters=>{
+      this.activatedRoute.params.subscribe(()=>{
         this.paymentService
-        .Pay(this.paymentForm.value,parameters['id'])
+        .Pay(this.paymentForm.value,this.paymentForm.value.id!)
         .subscribe(() => {
           this.router.navigate(['']);
           this.toastr.success('Payment added successfully.');

@@ -5,7 +5,7 @@ const paymentSchema = require("./../Models/paymentModel");
 
 // Add a new payment
 exports.addPayment = async (request, response, next) => {
-  const invoice_id = request.params.id;
+  const invoice_id = request.body.id;
 
   let invoice = await invoiceSchema.findOne({ _id: invoice_id });
   if (!invoice) {

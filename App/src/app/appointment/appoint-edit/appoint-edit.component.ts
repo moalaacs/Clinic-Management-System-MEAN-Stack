@@ -6,13 +6,12 @@ import { Location } from '@angular/common';
 import { Appointment } from 'src/app/models/appointment';
 import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 @Component({
-  selector: 'app-appoint-add',
-  templateUrl: './appoint-add.component.html',
-  styleUrls: ['./appoint-add.component.css']
+  selector: 'app-appoint-edit',
+  templateUrl: './appoint-edit.component.html',
+  styleUrls: ['./appoint-edit.component.css']
 })
-export class AppointAddComponent {
+export class AppointEditComponent {
   _appointment: Appointment = new Appointment("1", 1, 100, "patient", 10, "100", "09:00", "Pending");
   appointment: Appointment[] = [];
   appointmentForm: FormGroup;
@@ -66,7 +65,7 @@ export class AppointAddComponent {
     const formattedDate = `${day}/${month}/${year}`;
     this.appointmentForm.value.date = formattedDate;
     console.log(this.appointmentForm.value);
-    this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
+    this.appointmentService.updateAppointment(this.appointmentForm.value).subscribe(
       () => {
         this.router.navigate(['/appointment'])
       }, error => {

@@ -30,7 +30,7 @@ export class AppointmentService {
   }
   /* Update Appointment by ID */
   updateAppointment(appointment: Appointment) {
-    return this.http.put<Appointment>(this.baseurl + appointment._id, appointment);
+    return this.http.patch<Appointment>(this.baseurl + appointment._id, appointment);
   }
 
 }

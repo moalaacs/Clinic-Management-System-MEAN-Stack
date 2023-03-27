@@ -7,11 +7,13 @@ import { AppointListComponent } from './appoint-list/appoint-list.component';
 import { AppointDetailsComponent } from './appoint-details/appoint-details.component';
 import { AppointAddComponent } from './appoint-add/appoint-add.component';
 import { MaterialModule } from 'src/app/shared/material.moduel';
+import { AppointEditComponent } from './appoint-edit/appoint-edit.component';
 @NgModule({
   declarations: [
     AppointListComponent,
     AppointDetailsComponent,
-    AppointAddComponent
+    AppointAddComponent,
+    AppointEditComponent
   ],
   imports: [
     CommonModule, MaterialModule,

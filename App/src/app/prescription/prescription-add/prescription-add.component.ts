@@ -15,8 +15,40 @@ import { DoctorService } from 'src/app/services/doctor.service';
 })
 export class PrescriptionAddComponent {
   clinics: clinic[] = [];
-  clinicID:number=0;
-  doctorsInClinic:number[]=[];
+  clinicID: number = 0;
+  doctorsInClinic: number[] = [];
+  validationMessages = {
+    clinic: {
+      required: 'Clinic is required.',
+    },
+    doctor: {
+      required: 'Doctor is required.',
+    },
+    patient: {
+      required: 'Patient Id is required.',
+      pattern: 'Patient Id should be a number',
+    },
+    instructions: {
+      minlength: 'Instructions should have a minimum length of 5 characters',
+    },
+    name: {
+      required: 'medicine name is required.',
+      pattern: 'medicine name should be a string. ',
+    },
+    type: {
+      required: 'medicine type is required.',
+      pattern:
+        'Medication type must be either syrup, tablet, capsule, or injection',
+    },
+    dose: {
+      required: 'medicine dose is required.',
+      pattern: 'medicine dose should be a string',
+    },
+    frequency: {
+      required: 'medicine frequency is required.',
+      pattern: 'medicine frequency should be a string',
+    },
+  };
   constructor(
     public prescriptionService: prescriptionService,
     private builder: FormBuilder,
@@ -46,7 +78,7 @@ export class PrescriptionAddComponent {
     medicine: this.builder.array([this.medicationsForm()]),
     instructions: this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.minLength(5)])
+      Validators.compose([Validators.minLength(5)])
     ),
   });
 
@@ -88,7 +120,6 @@ export class PrescriptionAddComponent {
   }
 
   save() {
-    console.log(this.prescriptionform.value);
     if (this.prescriptionform.valid) {
       this.prescriptionService
         .addPrescriptions(this.prescriptionform.value)
@@ -103,10 +134,12 @@ export class PrescriptionAddComponent {
   goBack(): void {
     this.router.navigate(['/prescription']);
   }
-  getClinic(id:string){
-    this.clinicID=parseInt(id);
-    this.clinicservice.getClinicById(this.clinicID).subscribe(currentClinic=>{
-     this.doctorsInClinic= currentClinic.clinic._doctors;
-    })
+  getClinic(id: string) {
+    this.clinicID = parseInt(id);
+    this.clinicservice
+      .getClinicById(this.clinicID)
+      .subscribe((currentClinic) => {
+        this.doctorsInClinic = currentClinic.clinic._doctors;
+      });
   }
 }

@@ -1,4 +1,12 @@
 <form [formGroup]="appointmentForm" class="row example-form ms-5" (ngSubmit)=" onSubmit()">
+  <!-- Back -->
+  <div class="text-end">
+    <button mat-button class="button back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+  </div>
+  <!-- Header -->
   <h2 class="text-bg-primary text-center">Book an Appointemnt</h2>
   <!-- Clinic Number -->
   <mat-form-field>
@@ -77,5 +85,4 @@
   <!-- Buttons -->
   <button class="mt-3 btn btn-dark" type="submit" [disabled]="appointmentForm.invalid">Submit</button>
   <h5 #errorH5 class="text-danger text-wrap"></h5>
-  <button class="mt-3 btn btn-info" routerLink="/appointment">Back</button>
 </form>

@@ -7,13 +7,15 @@ import { MedAddComponent } from './med-add/med-add.component';
 import { MedDetailsComponent } from './med-details/med-details.component';
 import { MedListComponent } from './med-list/med-list.component';
 import { MaterialModule } from 'src/app/shared/material.moduel';
+import { MedEditComponent } from './med-edit/med-edit.component';
 
 
 @NgModule({
   declarations: [
     MedAddComponent,
     MedDetailsComponent,
-    MedListComponent
+    MedListComponent,
+    MedEditComponent
   ],
   imports: [
     MaterialModule,
