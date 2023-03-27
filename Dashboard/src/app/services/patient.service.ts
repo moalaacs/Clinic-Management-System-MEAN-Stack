@@ -16,13 +16,37 @@ export class PatientService {
 
   getAllPatients(): Observable<any> {
     return this.http.get(`${this.baseUrl}`).pipe(
-      tap(response => console.log('Response from getAllPatients:', response)),
       catchError(error => {
         console.log('Error retrieving patients: ', error);
         return throwError('Could not retrieve patients. Please try again later.');
       })
     );
   }
+
+  getAllPatients2(role: string, query?: string, page?:number , limit?: number, sortBy?: string, order?:"asc" | "desc"): Observable<any>{
+    let url = `${this.baseUrl}?page=${page}`;
+    if (query) {
+      url += `&${query}`;
+    }
+    if (limit){
+      url += `&limit=${limit}`;
+    }
+    if (sortBy){
+      url += `&sortBy=${sortBy}`;
+    }
+    if (order){
+      url += `&order=${order}`;
+    }
+
+    return this.http.get<any>(url).pipe(
+      catchError(error => {
+        return throwError(`Could not retrieve ${role}s. Please try again later.`);
+      })
+    );
+  }
+
+
+
 
   getPatientById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`).pipe(
@@ -36,28 +60,60 @@ export class PatientService {
 
 
   addPatient(patient: Patient, photo: File): Observable<Patient> {
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(patient, null, 4));
-    // const formData = new FormData();
-    // formData.append('photo', photo);
-    // formData.append('data', JSON.stringify(patient));
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(formData, null, 4));
-    return this.http.post<Patient>(`${this.baseUrl}`, patient);
+    const formData = new FormData();
+    if (photo) {
+      formData.append('photo', photo);
+    }
+
+    Object.entries(patient).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          for (let key2 in value[i]) {
+            formData.append(`${key}[${i}][${key2}]`, value[i][key2]);
+          }
+        }
+      } else if (typeof value === 'object') {
+        for (let key2 in value) {
+          formData.append(`${key}[${key2}]`, value[key2]);
+        }
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+    return this.http.post<Patient>(`${this.baseUrl}`, formData);
   }
 
   putPatientById(id: number, patient: Patient, photo: File): Observable<Patient> {
-    // const formData = new FormData();
-    // formData.append('photo', photo);
-    // formData.append('data', patient as unknown as string);
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(patient, null, 4));
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(id, null, 4));
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(photo, null, 4));
-    alert('SUCCESS!! :-)\n\n' + `${this.baseUrl}/${id}`);
     return this.http.put<Patient>(`${this.baseUrl}/${id}`, patient);
   }
 
 
-  patchPatientById(id: number,patient: Partial<Patient>, photo: File): Observable<any> {
-    return this.http.patch<Patient>(`${this.baseUrl}/${id}`, patient);
+  patchPatientById(id: number,patient: Patient, photo: File): Observable<Patient> {
+
+    const formData = new FormData();
+    if (photo) {
+      formData.append('photo', photo);
+    }
+
+    Object.entries(patient).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          for (let key2 in value[i]) {
+            formData.append(`${key}[${i}][${key2}]`, value[i][key2]);
+          }
+        }
+      } else if (typeof value === 'object') {
+        for (let key2 in value) {
+          formData.append(`${key}[${key2}]`, value[key2]);
+        }
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+
+    return this.http.patch<Patient>(`${this.baseUrl}/${id}`, formData);
   }
 
   removePatientById(id: number): Observable<void> {

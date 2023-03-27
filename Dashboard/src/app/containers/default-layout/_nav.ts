@@ -78,4 +78,19 @@ export const navItems: INavData[] = [
       },
     ]
   },
+  {
+    name: 'Patient',
+    url: '/patient',
+    iconComponent: { name: 'cil-star' },
+    children: [
+      {
+        name: 'patients List',
+        url: '/patient'
+      },
+      {
+        name: 'Add Patient',
+        url: '/patient/add'
+      },
+    ]
+  },
 ];

@@ -36,16 +36,6 @@ const routes: Routes = [
           import('./views/invoice-reports/invoice-reports.module').then((m) => m.InvoiceReportsModule)
       },
       {
-        path: 'icons',
-        loadChildren: () =>
-          import('./views/icons/icons.module').then((m) => m.IconsModule)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () =>
-          import('./views/widgets/widgets.module').then((m) => m.WidgetsModule)
-      },
-      {
         path: 'clinic',
         loadChildren: () =>
           import('./views/clinic/clinic.module').then((m) => m.ClinicModule),
@@ -54,6 +44,11 @@ const routes: Routes = [
         path: 'doctor',
         loadChildren: () =>
           import('./views/doctor/doctor.module').then((m) => m.DoctorModule),
+      },
+      {
+        path: 'patient',
+        loadChildren: () =>
+          import('./views/patient/patient.module').then((m) => m.PatientModule),
       },
     ]
   },
