@@ -5,3 +5,8 @@
     width: calc(100% - 8.333%);
     margin: 20px auto;
 }
+
+
+.delete-schedule-button{
+  height: calc(100% - 22.4px);
+}
