@@ -29,6 +29,6 @@ export class MedicineService {
   }
   /* Update Medicine by ID */
   updateMedicine(medicine: Medicine) {
-    return this.http.put<Medicine>(this.baseurl + medicine._id, medicine);
+    return this.http.patch<Medicine>(this.baseurl + medicine._id, medicine);
   }
 }
