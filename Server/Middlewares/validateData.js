@@ -573,6 +573,12 @@ let validateLogin = [
 ];
 
 let validatePayment = [
+  check("id")
+    .not()
+    .isEmpty()
+    .withMessage("Invoice id is required")
+    .isNumeric()
+    .withMessage("Invoice id must be a number"),
   check("amount")
     .not()
     .isEmpty()

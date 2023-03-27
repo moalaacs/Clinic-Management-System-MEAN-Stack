@@ -16,7 +16,7 @@ import { PaymentAddComponent } from './payment/payment-add/payment-add.component
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'pay/:id', component: PaymentAddComponent },
+  { path: 'pay', component: PaymentAddComponent },
   {
     path: 'clinic',
     loadChildren: () =>
