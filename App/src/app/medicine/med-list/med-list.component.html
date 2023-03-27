@@ -1,35 +1,3 @@
-<!-- <br><br>
-<a routerLink="/medicine/add" class="btn btn-success ms-5">Add New medicine</a>
-<br><br>
-<div class="table-responsive">
-    <table class="table table-dark table-striped table-hover table-bordered">
-        <thead class="table-secondary">
-            <tr style="text-align: center;">
-                <th scope="col">Medicine ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">ProductionDate</th>
-                <th scope="col">Expiry Date</th>
-                <th scope="col">Medicine Details</th>
-                <th scope="col">Delete Medicine</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of medicine" style="text-align: center;">
-                <th>{{item._id}}</th>
-                <td>{{item._name}}</td>
-                <td>{{item._productionDate}}</td>
-                <td>{{item._expiryDate}}</td>
-                <td>
-                    <a [routerLink]="['/medicine','details',item._id]" class="btn btn-info">Details</a>
-                </td>
-                <td>
-                    <button (click)="delete(item._id)" class="btn btn-danger">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div> -->
-<!--  -->
 <!--  -->
 <div class="container">
     <div class="row mt-5">
@@ -46,9 +14,10 @@
         <thead>
             <tr style="text-align: center;">
                 <th>Medicine ID</th>
-                <th>Name</th>
+                <th>Medicine Name</th>
                 <th>Production Date</th>
                 <th>Expiry Date</th>
+                <th>Medicine Price</th>
                 <th>Operations</th>
             </tr>
         </thead>
@@ -58,6 +27,7 @@
                 <td>{{item._name}}</td>
                 <td>{{item._productionDate}}</td>
                 <td>{{item._expiryDate}}</td>
+                <td>{{item._pricePerUnit}}</td>
                 <td style="display: flex;justify-content: space-around;">
                     <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
                         <a [routerLink]="['/medicine/edit/', item._id]">

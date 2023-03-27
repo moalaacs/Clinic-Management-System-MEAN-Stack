@@ -1,88 +1,93 @@
 <form [formGroup]="appointmentForm" class="row example-form ms-5" (ngSubmit)=" onSubmit()">
-  <!-- Back -->
-  <div class="text-end">
-    <button mat-button class="button back-button" (click)="goBack()">
-      <mat-icon>arrow_back</mat-icon>
-      Back
-    </button>
+  <div class="fullwidth">
+    <!-- Back -->
+    <div class="text-end">
+      <button mat-button class="button back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+    </div>
+    <!-- Header -->
+    <h2 class="text-bg-primary text-center">Book an Appointemnt</h2>
+    <!-- Clinic Number -->
+    <mat-form-field class="fullwidth">
+      <mat-label>Clinic Number</mat-label>
+      <input type="text" matInput formControlName="clinicId" [errorStateMatcher]="matcher" placeholder="100">
+      <mat-error *ngIf="clinic?.errors?.['pattern'] && !clinic?.errors?.['required']">
+        Please enter a valid Clinic Number
+      </mat-error>
+      <mat-error *ngIf="clinic?.errors?.['required']">
+        Clinic Number is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <!-- Patient Number  -->
+    <mat-form-field class="cuswidth me-3">
+      <mat-label>Patient Number</mat-label>
+      <input type="text" matInput formControlName="patientId" [errorStateMatcher]="matcher" placeholder="100">
+      <mat-error *ngIf="patient?.errors?.['pattern'] && !patient?.errors?.['required']">
+        Please enter a valid Patient Number
+      </mat-error>
+      <mat-error *ngIf="patient?.errors?.['required']">
+        Patient Number is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <!-- Patient Type -->
+    <mat-form-field class="halfwidth">
+      <mat-label>Patient Type</mat-label>
+      <mat-select id="patientType" name="patientType" formControlName="patientType">
+        <mat-option value="patient">patient</mat-option>
+        <mat-option value="doctor">doctor</mat-option>
+        <mat-option value="employee">employee</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Doctor Number  -->
+    <mat-form-field class="fullwidth">
+      <mat-label>Doctor Number</mat-label>
+      <input type="text" matInput formControlName="doctorId" [errorStateMatcher]="matcher" placeholder="100">
+      <mat-error *ngIf="doctor?.errors?.['pattern'] && !doctor?.errors?.['required']">
+        Please enter a valid doctor Number
+      </mat-error>
+      <mat-error *ngIf="doctor?.errors?.['required']">
+        doctor Number is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <!-- Appointment Date -->
+    <mat-form-field class="fullwidth" color="accent" appearance="fill">
+      <mat-label>Appointment Date</mat-label>
+      <input matInput formControlName="date" [min]="minDate" name="date" [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-error>
+        <span *ngIf="appointmentForm.get('_date')?.errors?.['required']">Appointment date is <strong> required
+          </strong> </span>
+      </mat-error>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!-- Appointment Time -->
+    <mat-form-field class="fullwidth">
+      <mat-label>Appointment Time</mat-label>
+      <input type="text" matInput formControlName="time" name="time" [errorStateMatcher]="matcher" placeholder="time">
+      <mat-error *ngIf="time?.errors?.['pattern'] && !time?.errors?.['required']">
+        Please enter a valid time
+      </mat-error>
+      <mat-error *ngIf="time?.errors?.['required']">
+        time is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <!-- Appointment Status -->
+    <mat-form-field class="fullwidth">
+      <mat-label>Appointemnt Status</mat-label>
+      <mat-select id="status" name="status" formControlName="status">
+        <mat-option value="Pending">Pending</mat-option>
+        <mat-option value="Accepted">Accepted</mat-option>
+        <mat-option value="Declined">Declined</mat-option>
+        <mat-option value="Completed">Completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Buttons -->
+    <div style="display: flex;justify-content: center;">
+      <button class="mt-3 btn btn-dark" style="width: 25%;" type="submit"
+        [disabled]="appointmentForm.invalid">Submit</button>
+    </div>
+    <h5 #errorH5 class="text-danger text-wrap"></h5>
   </div>
-  <!-- Header -->
-  <h2 class="text-bg-primary text-center">Book an Appointemnt</h2>
-  <!-- Clinic Number -->
-  <mat-form-field>
-    <mat-label>Clinic Number</mat-label>
-    <input type="text" matInput formControlName="clinicId" [errorStateMatcher]="matcher" placeholder="100">
-    <mat-error *ngIf="clinic?.errors?.['pattern'] && !clinic?.errors?.['required']">
-      Please enter a valid Clinic Number
-    </mat-error>
-    <mat-error *ngIf="clinic?.errors?.['required']">
-      Clinic Number is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <!-- Patient Number  -->
-  <mat-form-field>
-    <mat-label>Patient Number</mat-label>
-    <input type="text" matInput formControlName="patientId" [errorStateMatcher]="matcher" placeholder="100">
-    <mat-error *ngIf="patient?.errors?.['pattern'] && !patient?.errors?.['required']">
-      Please enter a valid Patient Number
-    </mat-error>
-    <mat-error *ngIf="patient?.errors?.['required']">
-      Patient Number is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <!-- Patient Type -->
-  <mat-form-field class="fullwidth">
-    <mat-label>Patient Type</mat-label>
-    <mat-select id="patientType" name="patientType" formControlName="patientType">
-      <mat-option value="patient">patient</mat-option>
-      <mat-option value="doctor">doctor</mat-option>
-      <mat-option value="employee">employee</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <!-- Doctor Number  -->
-  <mat-form-field>
-    <mat-label>Doctor Number</mat-label>
-    <input type="text" matInput formControlName="doctorId" [errorStateMatcher]="matcher" placeholder="100">
-    <mat-error *ngIf="doctor?.errors?.['pattern'] && !doctor?.errors?.['required']">
-      Please enter a valid doctor Number
-    </mat-error>
-    <mat-error *ngIf="doctor?.errors?.['required']">
-      doctor Number is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <!-- Appointment Date -->
-  <mat-form-field color="accent" appearance="fill">
-    <mat-label>Appointment Date</mat-label>
-    <input matInput formControlName="date" [min]="minDate" name="date" [matDatepicker]="picker">
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-error>
-      <span *ngIf="appointmentForm.get('_date')?.errors?.['required']">Appointment date is <strong> required
-        </strong> </span>
-    </mat-error>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <!-- Appointment Time -->
-  <mat-form-field>
-    <mat-label>Appointment Time</mat-label>
-    <input type="text" matInput formControlName="time" name="time" [errorStateMatcher]="matcher" placeholder="time">
-    <mat-error *ngIf="time?.errors?.['pattern'] && !time?.errors?.['required']">
-      Please enter a valid time
-    </mat-error>
-    <mat-error *ngIf="time?.errors?.['required']">
-      time is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <!-- Appointment Status -->
-  <mat-form-field class="fullwidth">
-    <mat-label>Appointemnt Status</mat-label>
-    <mat-select id="status" name="status" formControlName="status">
-      <mat-option value="Pending">Pending</mat-option>
-      <mat-option value="Accepted">Accepted</mat-option>
-      <mat-option value="Declined">Declined</mat-option>
-      <mat-option value="Completed">Completed</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <!-- Buttons -->
-  <button class="mt-3 btn btn-dark" type="submit" [disabled]="appointmentForm.invalid">Submit</button>
-  <h5 #errorH5 class="text-danger text-wrap"></h5>
 </form>
