@@ -45,7 +45,7 @@ export class PaymentAddComponent {
   paymentForm = this.builder.group({
     id: this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)])
+      Validators.compose([Validators.required, Validators.pattern(/^[0-9 -]+$/)])
     ),
     amount: this.builder.control(
       '',
