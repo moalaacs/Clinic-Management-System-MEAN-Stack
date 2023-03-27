@@ -14,10 +14,8 @@
     <mat-card-content>
       <div *ngIf="doctor">
         <div class="profile-content">
-          <div class="profile-card d-flex flex-column justify-content-around">
-            <div
-              class="profile-pic-name d-flex flex-column justify-content-center align-items-center"
-            >
+          <div class="profile-card">
+            <div class="profile-pic-wrapper">
               <div class="profile-pic">
                 <img
                   class="doctor-profile-image"
@@ -25,28 +23,30 @@
                   alt="doctor profile image"
                 />
               </div>
+            </div>
+            <div class="profile-name-data-sec">
               <div class="profile-name">
                 <h2>{{ doctor.firstname }} {{ doctor.lastname }}</h2>
               </div>
-            </div>
-            <div class="profile-important-data-sec">
-              <div class="profile-important-data">
-                <h6>Gender</h6>
-                <span>
-                  {{ doctor.gender }}
-                </span>
-              </div>
-              <div class="profile-important-data">
-                <h6>Age</h6>
-                <span>
-                  {{ doctor.age }}
-                </span>
-              </div>
-              <div class="profile-important-data">
-                <h6>Date of birth</h6>
-                <span>
-                  {{ doctor.dateOfBirth }}
-                </span>
+              <div class="profile-important-data-sec">
+                <div class="profile-important-data">
+                  <h6>Gender</h6>
+                  <span>
+                    {{ doctor.gender }}
+                  </span>
+                </div>
+                <div class="profile-important-data">
+                  <h6>Age</h6>
+                  <span>
+                    {{ doctor.age }}
+                  </span>
+                </div>
+                <div class="profile-important-data">
+                  <h6>Date of birth</h6>
+                  <span>
+                    {{ doctor.dateOfBirth }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
