@@ -31,7 +31,7 @@ exports.getClinicsBySpecilization = async (request, response, next) => {
 };
 exports.getClinicInformationById = async (request, response, next) => {
     try {
-      const clinic= await clinicSchema.findOne({_id:request.params.id}, { _id: 0,_services:0,_email:0 });
+      const clinic= await clinicSchema.findOne({_id:request.params.id}, { _id: 0,_services:0,_email:0 }).populate({path:"_weeklySchedule.doctorId",select:{"_fname":1,"_lname":1,"_id":0}});;
         response.status(200).json(clinic);
     } catch (error) {
         next(error);

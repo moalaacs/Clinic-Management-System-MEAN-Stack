@@ -13,7 +13,9 @@ export class ClinicsInfoByIdComponent implements OnInit {
     this.clinic = { _id: 0, _contactNumber: "", _address: { street: "", city: "", country: "", zipCode: 0 }, _weeklySchedule: [], _doctors: [], _specilization: "" };
   }
   ngOnInit() {
-    this.clinicService.getPublicClinicInfoById(this.rotue.snapshot.params["id"]).subscribe(data => this.clinic = data.data);
+    this.clinicService.getPublicClinicInfoById(this.rotue.snapshot.params["id"]).subscribe(data => {
+      this.clinic = data;
+    });
   }
   goBack(): void {
     this.router.navigate(['/clinic']);

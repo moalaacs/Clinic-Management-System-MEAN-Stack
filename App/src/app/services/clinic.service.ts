@@ -28,7 +28,7 @@ export class ClinicService {
     return this.http.get<{ name: string, cost: number }[]>(this.baseURL + `/clinicservice/${speciality}`);
   } //Done
   getPublicClinicInfoById(id: number) {
-    return this.http.get<{ data: clinic }>(this.baseURL + `/clinicsinfo/${id}`);
+    return this.http.get<clinic>(this.baseURL + `/clinicsinfo/${id}`);
   } //Done
   getClinics() {
     return this.http.get<{ data: clinic[] }>(this.baseURL + this.authorizedURL);

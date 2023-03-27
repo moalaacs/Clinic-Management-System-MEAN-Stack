@@ -10,15 +10,22 @@ import { ClinicService } from 'src/app/services/clinic.service';
 })
 export class AvailableClinicsComponent implements OnInit {
   clinics: clinic[];
+  services: {
+    name: string;
+    cost: number;
+  }[];
+  specility: string;
   constructor(private clinicService: ClinicService, private activeRoute: ActivatedRoute) {
     this.clinics = [];
+    this.services = [];
+    this.specility = "";
   }
   ngOnInit() {
-    this.clinicService.getClinicsBySpecilization(this.activeRoute.snapshot.params["speciallity"]).subscribe(data => {
-      console.log(data);
+    this.specility = this.activeRoute.snapshot.params["speciallity"];
+    this.clinicService.getClinicsBySpecilization(this.specility).subscribe(data => {
       this.clinics = data;
-    }
-    );
+    });
+    this.clinicService.getPublicServicesBySpeciality(this.specility).subscribe(data => this.services = data);
   }
 
 }
