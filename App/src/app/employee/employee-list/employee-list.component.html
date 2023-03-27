@@ -127,10 +127,15 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <mat-header-cell mat-header-cell *matHeaderCellDef scope="col">
+          <mat-header-cell
+            mat-header-cell
+            *matHeaderCellDef
+            scope="col"
+            style="max-width: 200px"
+          >
             Actions
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">
+          <mat-cell *matCellDef="let employee" style="max-width: 200px">
             <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
               <a [routerLink]="['/employee/edit/', employee.id]">
                 <button type="button" class="btn btn-sm btn-primary me-2">

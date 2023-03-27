@@ -201,24 +201,23 @@
           </div>
         </div>
         <div class="rest-profile-content mt-5">
-          <div class="clinic-sec">
+          <div class="clinic-sec rest-profile-content-sec">
             <h2>
               <i class="fa fa-clinic-medical"> </i>
-              Clinic: <span>{{ employee.clinicId._specilization }}</span>
+              Clinic
             </h2>
-            <div class="clinic-info">
-              <h3>
-                <i class="fa fa-building me-2"> </i> Clinic Address:
-                <span>
-                  {{ employee.clinicId._address.street }},
-                  {{ employee.clinicId._address.city }},
-                  {{ employee.clinicId._address.country }},
-                  {{ employee.clinicId._address.zipCode }}</span
-                >
-              </h3>
+            <p>{{ employee.clinicId._specilization }}</p>
+            <div class="rest-profile-content-sec">
+              <h2><i class="fa fa-building me-2"> </i> Clinic Address</h2>
+              <p>
+                {{ employee.clinicId._address.street }},
+                {{ employee.clinicId._address.city }},
+                {{ employee.clinicId._address.country }},
+                {{ employee.clinicId._address.zipCode }}
+              </p>
             </div>
           </div>
-          <div *ngIf="employee.medicalHistory" class="medical-history-sec">
+          <div *ngIf="employee.medicalHistory" class="rest-profile-content-sec">
             <h2>
               <i class="fa fa-book-medical"></i>
               Medical History
@@ -226,8 +225,14 @@
 
             <p>{{ employee.medicalHistory }}</p>
           </div>
-          <div class="invoices" *ngIf="employee.invoices?.length > 0">
-            <h3 class="mat-subheading-1">Invoices</h3>
+          <div
+            class="invoices mt-3 rest-profile-content-sec"
+            *ngIf="employee.invoices?.length > 0"
+          >
+            <h2 class="mat-subheading-1">
+              <i class="fa fa-file-invoice-dollar"> </i>
+              Invoices
+            </h2>
             <mat-accordion *ngIf="employee.invoices?.length > 0">
               <mat-expansion-panel *ngFor="let invoice of employee.invoices">
                 <mat-expansion-panel-header>

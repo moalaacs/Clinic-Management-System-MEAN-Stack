@@ -129,12 +129,21 @@
           </div>
         </div>
         <div class="rest-profile-content">
-          <div *ngIf="patient.medicalHistory">
-            <p>
-              <strong>Medical History:</strong> {{ patient.medicalHistory }}
-            </p>
+          <div
+            *ngIf="patient.medicalHistory"
+            class="rest-profile-content-sec medical-history-sec mt-3"
+          >
+            <h2>
+              <i class="fa fa-book-medical"></i>
+              Medical History
+            </h2>
+
+            <p>{{ patient.medicalHistory }}</p>
           </div>
-          <div class="invoices mt-3" *ngIf="patient.invoices?.length > 0">
+          <div
+            class="invoices mt-3 rest-profile-content-sec"
+            *ngIf="patient.invoices?.length > 0"
+          >
             <h2>
               <i class="fa fa-file-invoice-dollar"> </i>
               Invoices
