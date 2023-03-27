@@ -21,7 +21,7 @@ export class DoctorListComponent implements OnInit {
   total = 0;
   currentPage = 1;
   query: string | undefined;
-  sortBy!: string  ;
+  sortBy: string = "id";
   order: "asc" | "desc" = "asc" ;
 
   dataSource!: MatTableDataSource<Doctor>;
@@ -71,7 +71,7 @@ export class DoctorListComponent implements OnInit {
           (error) => console.log(error)
         );
   }
- }
+}
 
     ngAfterViewInit() {
       this.dataSource.sort = this.sort;
@@ -81,8 +81,6 @@ export class DoctorListComponent implements OnInit {
             return item.id;
           case 'name':
             return item.firstname;
-          case 'email':
-            return item.email;
           case 'age':
             return item.age;
           case 'phoneNumber':

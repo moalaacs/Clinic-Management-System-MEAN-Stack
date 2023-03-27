@@ -10,3 +10,9 @@
 .delete-schedule-button{
   height: calc(100% - 22.4px);
 }
+@media screen and (max-width: 767px) {
+  .delete-schedule-button{
+    height: fit-content;
+  }
+}
+

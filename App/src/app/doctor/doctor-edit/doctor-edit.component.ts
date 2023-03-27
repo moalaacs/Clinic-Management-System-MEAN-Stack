@@ -69,7 +69,8 @@ export class DoctorEditComponent implements OnInit {
 
     phoneNumber: {
       pattern: 'Phone number should be a number',
-      minlength: 'Length of phone number should be 11 characters'
+      minlength: 'Length of phone number should be 11 characters',
+      maxlength: 'Length of phone number should be 11 characters'
     },
     email: {
       email: 'Email should be in the form example@example.com'
@@ -80,16 +81,17 @@ export class DoctorEditComponent implements OnInit {
     password: {
       pattern: 'Password must contains different characters (aA1@)',
       minlength: 'Length of password should be greater than 7 characters'
+
     },
 
     address: {
       street: {
-        pattern: 'Street should be a string',
+        pattern: 'Invalid format',
         minlength: 'Length of street should be greater than 2 characters'
       },
       city: {
-        pattern: 'City should be a string',
-        minlength: 'Length of street should be greater than 3 characters'
+        pattern: 'Country should contain charaters only',
+        minlength: 'Length of street should be greater than 2 characters'
       },
       country: {
         pattern: 'Country should be a string',
@@ -121,7 +123,7 @@ export class DoctorEditComponent implements OnInit {
       firstname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       lastname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       email: ['', [Validators.email]],
-      phoneNumber: ['', [Validators.pattern(/^01[0125](\-)?[0-9]{8}$/),Validators.minLength(11)]],
+      phoneNumber: ['', [Validators.pattern(/^01[0125](\-)?[0-9]{8}$/),Validators.minLength(11),Validators.maxLength(11)]],
       password: ['', [
 
         Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
@@ -131,14 +133,13 @@ export class DoctorEditComponent implements OnInit {
       gender: [''],
       address: this.fb.group({
         street: ['', [ Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
-        city: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
-        country: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+        city: ['', [Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-]*$/), Validators.minLength(3)]],
+        country: ['', [Validators.pattern(/^[\u0621-\u064Aa-zA-Z]*$/), Validators.minLength(2)]],
         zipCode: ['', [Validators.pattern('[0-9]*'), Validators.minLength(5),Validators.maxLength(5)]]
       }),
 
       image: [''],
-      medicalHistory: '',
-      invoices: [],
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],      invoices: [],
       schedule: this.fb.array([this.scheduleForm()]),
       clinicId: ['', [Validators.pattern('[0-9]*')]],
       speciality: ['']

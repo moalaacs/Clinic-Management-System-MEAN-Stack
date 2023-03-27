@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -26,7 +26,6 @@ export class EmployeeDetailsComponent implements OnInit {
     this.employeeService.getEmployeeById(id).pipe(
       map(response => response.data)).subscribe(data => {
       this.employee = data
-      console.log(this.employee)
       this.profilePic = "http://localhost:8080/" + this.employee.image
     });
   }

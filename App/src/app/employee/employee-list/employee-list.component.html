@@ -2,48 +2,135 @@
   <div class="row mt-5">
     <div class="text-end">
       <a [routerLink]="['/employee/add']">
-        <button type="button" class="btn btn-sm btn-primaryClr me-2 col-1" id="addButton">
+        <button
+          type="button"
+          class="btn btn-sm btn-primaryClr me-2 col-1"
+          id="addButton"
+        >
           <i class="fa fa-plus"></i>
         </button>
       </a>
     </div>
   </div>
 
-  <div class="my-2 table-responsive">
-    <table class="table styled-table">
-      <thead>
-        <tr>
-          <th scope="col">No.</th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Age</th>
-          <th scope="col">Phone Number</th>
-          <th scope="col">Address</th>
-          <th scope="col">Role</th>
-          <th scope="col">Clinic Address</th>
-          <th scope="col">Clinic Specialization</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employee of employees; let i = index">
-          <td scope="row">{{ i + 1 }}</td>
-          <td>{{ employee.firstname }} {{ employee.lastname }}</td>
-          <td>{{ employee.email }}</td>
-          <td>{{ employee.age }}</td>
-          <td>{{ employee.phoneNumber }}</td>
-          <td>
+  <div class="search-sec mt-3">
+    <mat-form-field class="col-12">
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Search"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="table-pagination-sec">
+    <div class="table-responsive">
+      <mat-table
+        class="table mat-table-style"
+        [dataSource]="dataSource"
+        matSort
+        [matSortActive]="sortBy"
+        [matSortDirection]="order"
+      >
+        <ng-container matColumnDef="no">
+          <mat-header-cell
+            mat-sort-header
+            sortActionDescription="Sort by id"
+            *matHeaderCellDef
+            scope="col"
+            style="max-width: 100px"
+            >ID</mat-header-cell
+          >
+          <mat-cell *matCellDef="let employee" style="max-width: 100px">{{
+            employee.id
+          }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by name"
+            class="sortable"
+            scope="col"
+            style="min-width: 180px"
+          >
+            Name
+          </mat-header-cell>
+          <mat-cell *matCellDef="let employee" style="min-width: 180px">
+            {{ employee.firstname }} {{ employee.lastname }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="age">
+          <mat-header-cell
+            *matHeaderCellDef
+            sortActionDescription="Sort by age"
+            mat-sort-header
+            class="sortable"
+            scope="col"
+            style="max-width: 100px"
+          >
+            Age
+          </mat-header-cell>
+          <mat-cell *matCellDef="let employee" style="max-width: 100px">{{
+            employee.age
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+          <mat-header-cell
+            *matHeaderCellDef
+            sortActionDescription="Sort by phone number"
+            mat-sort-header
+            class="sortable"
+            scope="col"
+            style="min-width: 150px"
+          >
+            Phone Number
+          </mat-header-cell>
+          <mat-cell *matCellDef="let employee" style="min-width: 150px">{{
+            employee.phoneNumber
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <mat-header-cell
+            *matHeaderCellDef
+            sortActionDescription="Sort by address"
+            mat-sort-header
+            class="sortable"
+            scope="col"
+            style="min-width: 250px"
+          >
+            Address
+          </mat-header-cell>
+          <mat-cell *matCellDef="let employee" style="min-width: 250px">
             {{ employee.address.country }}, {{ employee.address.city }},
             {{ employee.address.street }}
-          </td>
-          <td>{{ employee.role }}</td>
-          <td>
-            {{ employee.clinicId._address.street }},
-            {{ employee.clinicId._address.city }},
-            {{ employee.clinicId._address.country }}
-          </td>
-          <td>{{ employee.clinicId._specilization }}</td>
-          <td>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <mat-header-cell
+            *matHeaderCellDef
+            sortActionDescription="Sort by role"
+            mat-sort-header
+            class="sortable"
+            scope="col"
+            style="min-width: 130px"
+          >
+            Role
+          </mat-header-cell>
+          <mat-cell *matCellDef="let employee" style="min-width: 130px">{{
+            employee.role
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell mat-header-cell *matHeaderCellDef scope="col">
+            Actions
+          </mat-header-cell>
+          <mat-cell *matCellDef="let employee">
             <div class="buttons d-flex flex-column d-md-flex flex-md-row gap-2">
               <a [routerLink]="['/employee/edit/', employee.id]">
                 <button type="button" class="btn btn-sm btn-primary me-2">
@@ -56,14 +143,35 @@
                 </button>
               </a>
               <a>
-                <button class="btn btn-sm btn-danger" (click)="deleteEmployee(employee.id)">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                  (click)="deleteEmployee(employee.id)"
+                >
                   <i class="fa fa-trash"></i>
                 </button>
               </a>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns"
+          class="table-header"
+        ></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="employee-row"
+        >
+        </mat-row>
+      </mat-table>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      [pageSize]="perPage"
+      [length]="total"
+      (page)="pageChanged($event)"
+    >
+    </mat-paginator>
   </div>
 </div>

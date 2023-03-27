@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
@@ -24,6 +24,8 @@ export class PatientEditComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
+
+  file: any;
   image: any;
 
 
@@ -41,32 +43,38 @@ export class PatientEditComponent implements OnInit {
     },
 
     phoneNumber: {
-      pattern: 'Contact number should be a number'
+      pattern: 'Contact number should be a number',
+      minlength: 'Length of phone number should be 11 characters',
+      maxlength: 'Length of phone number should be 11 characters'
     },
     email: {
       email: 'Email should be in the form example@example.com'
     },
     address: {
       street: {
-        pattern: 'Street should be a string',
+        pattern: 'Invalid format',
         minlength: 'Length of street should be greater than 2 characters'
       },
       city: {
-        pattern: 'City should be a string',
+        pattern: 'Invalid format only allowed charaters are ( - . )',
         minlength: 'Length of street should be greater than 3 characters'
       },
       country: {
-        pattern: 'Country should be a string',
+        pattern: 'Country should contain charaters only',
         minlength: 'Length of street should be greater than 2 characters'
       },
       zipCode: {
         pattern: 'Zip code should be a number',
-        minlength: 'Length of Zip code should be 5 characters'
+        minlength: 'Length of Zip code should be 5 characters',
+        maxlength: 'Length of Zip code should be 5 characters'
       }
     },
     password: {
       pattern: 'Password should be a string',
       minlength: 'Length of password should be greater than 7 characters'
+    },
+    medicalHistory: {
+      pattern: 'Medical history should be a string'
     },
 
   };
@@ -80,8 +88,8 @@ export class PatientEditComponent implements OnInit {
   ) {
 
     this.minDate = new Date('1963-01-01');
-    this.maxDate = new Date('1999-12-31');
-    this.defaultDate = new Date('1999-01-10');
+    this.maxDate = new Date('1996-12-31');
+    this.defaultDate = new Date('1996-01-10');
 
     this.patientForm = this.fb.group({
       firstname: ['',[Validators.minLength(3),
@@ -90,20 +98,20 @@ export class PatientEditComponent implements OnInit {
         Validators.pattern('^[a-zA-Z ]+$')]],
       dateOfBirth: [''],
       gender: [''],
-      phoneNumber: ['',[ Validators.pattern(/^\d+$/)]],
+      phoneNumber: ['',[ Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11), Validators.maxLength(11)]],
       email: ['', [ Validators.email]],
       address: this.fb.group({
         street: ['', [
           Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z0-9\\s]+$')
+          Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/)
         ]],
         city: ['', [
           Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\\s]+$')
+          Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-]*$/)
         ]],
         country: ['', [
           Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z0-9\\s]+$')
+          Validators.pattern(/^[\u0621-\u064Aa-zA-Z]*$/)
         ]],
         zipCode:['', Validators.compose([
           Validators.minLength(5),
@@ -113,8 +121,7 @@ export class PatientEditComponent implements OnInit {
       }),
       password: [''],
       image: [''],
-      medicalHistory: '',
-      invoices: []
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],      invoices: []
     });
 
   }
@@ -214,16 +221,17 @@ export class PatientEditComponent implements OnInit {
         this.location.back();
       },
       error => {
-        this.snackBar.open(error.message, 'Close', {
+        this.snackBar.open("error updating patient, please try again later", 'Close', {
           duration: 3000
         });
       }
     );
   }
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.image = file;
+  onFileSelected(event: any, element: HTMLSpanElement) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      this.image = this.file
+      element.innerHTML = this.file.name;
     }
   }
 

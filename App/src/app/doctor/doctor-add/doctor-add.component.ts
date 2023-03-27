@@ -59,7 +59,8 @@ export class DoctorAddComponent implements OnInit {
     phoneNumber: {
       required: 'Phone number is required.',
       pattern: 'Phone number should contains only numbers',
-      minlength: 'Phone number should consist of 11 digits'
+      minlength: 'Phone number should consist of 11 digits',
+      maxlength: 'Phone number should consist of 11 digits'
     },
     email: {
       required: 'Email is required.',
@@ -131,7 +132,7 @@ export class DoctorAddComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11), Validators.maxLength(11)]],
       password: ['', [Validators.required,
       Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
       Validators.minLength(8)
@@ -146,8 +147,7 @@ export class DoctorAddComponent implements OnInit {
       }),
       clinicId: ['', Validators.required],
       image: [''],
-      medicalHistory: '',
-      invoices: [[]],
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],      invoices: [[]],
       schedule: this.fb.array([this.scheduleForm()]),
       speciality: ['', Validators.required]
     });
@@ -155,6 +155,7 @@ export class DoctorAddComponent implements OnInit {
 
 
   ngOnInit(): void {
+
   }
 
 
@@ -283,10 +284,9 @@ export class DoctorAddComponent implements OnInit {
         this.location.back();
       },
       error => {
-        this.snackBar.open(error.message, 'Close', {
+        this.snackBar.open("error adding doctor please try again later", 'Close', {
           duration: 3000
         });
-        console.log(error);
       }
     )
   }
