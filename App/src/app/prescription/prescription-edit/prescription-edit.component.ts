@@ -9,6 +9,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { clinic } from 'src/app/models/clinic';
+import { ClinicService } from 'src/app/services/clinic.service';
+import { DoctorService } from 'src/app/services/doctor.service';
 
 
 @Component({
@@ -17,13 +20,54 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./prescription-edit.component.css']
 })
 export class PrescriptionEditComponent {
+  clinics: clinic[] = [];
+  clinicID: number = 0;
+  doctorsInClinic: number[] = [];
+  validationMessages = {
+    clinic: {
+      required: 'Clinic is required.',
+    },
+    doctor: {
+      required: 'Doctor is required.',
+    },
+    patient: {
+      required: 'Patient Id is required.',
+      pattern: 'Patient Id should be a number',
+    },
+    instructions: {
+      minlength: 'Instructions should have a minimum length of 5 characters',
+    },
+    name: {
+      required: 'medicine name is required.',
+      pattern: 'medicine name should be a string. ',
+    },
+    type: {
+      required: 'medicine type is required.',
+      pattern:
+        'Medication type must be either syrup, tablet, capsule, or injection',
+    },
+    dose: {
+      required: 'medicine dose is required.',
+      pattern: 'medicine dose should be a string',
+    },
+    frequency: {
+      required: 'medicine frequency is required.',
+      pattern: 'medicine frequency should be a string',
+    },
+  };
   constructor(
     public prescriptionService: prescriptionService,
     private builder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private activatedRoute:ActivatedRoute
-  ) {}
+    private activatedRoute:ActivatedRoute,
+    public clinicservice: ClinicService,
+    public doctorservice: DoctorService
+  ) {
+    this.clinicservice.getClinics().subscribe((clincsArray) => {
+      this.clinics = clincsArray;
+    });
+  }
 
   prescriptionform = this.builder.group({
     clinic: this.builder.control(
@@ -41,7 +85,7 @@ export class PrescriptionEditComponent {
     medicine: this.builder.array([this.medicationsForm()]),
     instructions: this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.minLength(5)])
+      Validators.compose([Validators.minLength(5)])
     ),
   });
 
@@ -92,7 +136,13 @@ export class PrescriptionEditComponent {
         this.router.navigateByUrl("/prescription");
       });
     })
-    
-    
+  }
+  getClinic(id: string) {
+    this.clinicID = parseInt(id);
+    this.clinicservice
+      .getClinicById(this.clinicID)
+      .subscribe((currentClinic) => {
+        this.doctorsInClinic = currentClinic.clinic._doctors;
+      });
   }
 }
