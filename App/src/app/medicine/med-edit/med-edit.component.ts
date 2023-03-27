@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MedicineService } from 'src/app/services/medicine.service';
 import { Location } from '@angular/common';
@@ -24,6 +24,7 @@ export class MedEditComponent implements OnInit {
     public router: Router,
     public location: Location,
     public fb: FormBuilder,
+    public activatedRoute: ActivatedRoute,
     public mat: MatSnackBar) {
     this.minDate = new Date('2010-01-01');
     this.maxDate = new Date('2030-12-31');
@@ -38,9 +39,14 @@ export class MedEditComponent implements OnInit {
     this.matcher = new MyErrorStateMatcher();
   }
   ngOnInit() {
-    this.medicineService.getAllMedicine().subscribe(data => {
+    this.activatedRoute.params.subscribe((a) => {
+      this.medicineService.getMedicineById(a['id']).subscribe((data) => {
+        this.medicine = data;
+      });
+    });
+    /*this.medicineService.getAllMedicine().subscribe(data => {
       this.medicine = data;
-    })
+    })*/
   }
   get name() {
     return this.medicineForm.get('_name');
@@ -74,14 +80,18 @@ export class MedEditComponent implements OnInit {
     const formattedDatee = `${dayy}/${monthh}/${yearr}`;
     this.medicineForm.value.expiry = formattedDatee;
 
-    this.medicineService.updateMedicine(this.medicineForm.value).subscribe(
-      () => {
-        this.router.navigate(['/medicine'])
-      }, error => {
-        this.mat.open(error.error.message, "", { duration: 3000 });
-      })
+    this.activatedRoute.params.subscribe(parameters => {
+      this.medicineService.updateMedicine(parameters['id'], this.medicineForm.value).subscribe(() => {
+        this.router.navigateByUrl("/medicine");
+      });
+    });
+    /*this.medicineService.updateMedicine(this.medicineForm.value).subscribe(
+    () => {
+      this.router.navigate(['/medicine'])
+    }, error => {
+      this.mat.open(error.error.message, "", { duration: 3000 });
+    })*/
   }
-
   goBack(): void {
     this.router.navigate(['/medicine']);
   }
