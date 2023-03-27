@@ -23,13 +23,14 @@ import { MaterialModule } from './shared/material.moduel';
 import { PrimeNgModule } from './shared/prime-ng-modules';
 import { ComponentsModule } from './shared/components-modules';
 import { PaymentAddComponent } from './payment/payment-add/payment-add.component';
+
 @NgModule({
-  declarations: [	
+  declarations: [
     AllAppointmentReportsComponent,
     AppComponent, SpecilizationComponent,
     RegisterComponent, LoginComponent, HeaderComponent,
-    ProfileComponent, FooterComponent, ContactUsComponent,PaymentAddComponent 
-   ],
+    ProfileComponent, FooterComponent, ContactUsComponent, PaymentAddComponent
+  ],
   imports: [
     AngularModules,
     MaterialModule,
