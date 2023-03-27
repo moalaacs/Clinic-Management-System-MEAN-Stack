@@ -1,16 +1,16 @@
 <div class="container">
-  <div class="row my-5">
+  <div class="row mt-5 mb-3">
     <div class="text-end">
-      <button mat-button class="button back-button" (click)="goBack()">
+      <button mat-raised-button (click)="goBack()" class="back-btn">
         <mat-icon>arrow_back</mat-icon>
         Back
       </button>
     </div>
   </div>
   <mat-card class="py-4 mb-5">
-    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form p-3">
+    <form [formGroup]="employeeForm" class="form p-4">
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>First Name</mat-label>
@@ -28,7 +28,9 @@
             <span *ngIf="employeeForm.get('firstname')?.errors?.['pattern']">
               {{ validationMessages.firstname.pattern }}
             </span>
-            <span *ngIf="employeeForm.get('firstname')?.errors?.['minlength']">
+            <span
+              *ngIf="employeeForm.get('firstname')?.errors?.['minlength'] && !employeeForm.get('firstname')?.errors?.['pattern']"
+            >
               {{ validationMessages.firstname.minlength }}
             </span>
           </mat-error>
@@ -50,14 +52,16 @@
             <span *ngIf="employeeForm.get('lastname')?.errors?.['pattern']">
               {{ validationMessages.lastname.pattern }}
             </span>
-            <span *ngIf="employeeForm.get('lastname')?.errors?.['minlength']">
+            <span
+              *ngIf="employeeForm.get('lastname')?.errors?.['minlength'] && !employeeForm.get('lastname')?.errors?.['pattern']"
+            >
               {{ validationMessages.lastname.minlength }}
             </span>
           </mat-error>
         </mat-form-field>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Phone Number</mat-label>
@@ -75,6 +79,16 @@
             </span>
             <span *ngIf="employeeForm.get('phoneNumber')?.errors?.['pattern']">
               {{ validationMessages.phoneNumber.pattern }}
+            </span>
+            <span
+              *ngIf="employeeForm.get('phoneNumber')?.errors?.['minlength'] && !employeeForm.get('phoneNumber')?.errors?.['pattern']"
+            >
+              {{ validationMessages.phoneNumber.minlength }}
+            </span>
+            <span
+              *ngIf="employeeForm.get('phoneNumber')?.errors?.['maxlength'] && !employeeForm.get('phoneNumber')?.errors?.['pattern'] && !employeeForm.get('phoneNumber')?.errors?.['minlength']"
+            >
+              {{ validationMessages.phoneNumber.maxlength }}
             </span>
           </mat-error>
         </mat-form-field>
@@ -100,7 +114,7 @@
         </mat-form-field>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Date of Birth</mat-label>
@@ -110,6 +124,7 @@
             formControlName="dateOfBirth"
             [min]="minDate"
             [max]="maxDate"
+            required
           />
           <mat-datepicker-toggle
             matSuffix
@@ -127,10 +142,6 @@
               *ngIf="employeeForm.get('dateOfBirth')?.errors?.['required']"
               >{{ validationMessages.dateOfBirth.required }}</span
             >
-            <span
-              *ngIf="employeeForm.get('dateOfBirth')?.errors?.['pattern']"
-              >{{ validationMessages.dateOfBirth.pattern }}</span
-            >
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
@@ -146,7 +157,9 @@
             <span *ngIf="employeeForm.get('password')?.errors?.['required']">
               {{ validationMessages.password.required }}
             </span>
-            <span *ngIf="employeeForm.get('password')?.errors?.['pattern']">
+            <span
+              *ngIf="employeeForm.get('password')?.errors?.['pattern'] && !employeeForm.get('password')?.errors?.['minlength']"
+            >
               {{ validationMessages.password.pattern }}
             </span>
             <span *ngIf="employeeForm.get('password')?.errors?.['minlength']">
@@ -156,7 +169,7 @@
         </mat-form-field>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Salary</mat-label>
@@ -198,11 +211,17 @@
         </mat-form-field>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
       >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
-          <mat-label>clinic Id</mat-label>
-          <input matInput formControlName="clinicId" type="text" required />
+          <mat-label>clinic</mat-label>
+          <mat-select formControlName="clinicId" required>
+            <mat-option value="">Select a Clinic</mat-option>
+            <mat-option *ngFor="let clinic of clinics" [value]="clinic._id"
+              >Alwafaa {{ clinic._id }} - {{ clinic._address.city }}
+              {{ clinic._address.street }}
+            </mat-option>
+          </mat-select>
           <mat-error
             *ngIf="
               employeeForm.get('clinicId')?.invalid &&
@@ -212,9 +231,6 @@
           >
             <span *ngIf="employeeForm.get('clinicId')?.errors?.['required']">
               {{ validationMessages.clinicId.required }}
-            </span>
-            <span *ngIf="employeeForm.get('clinicId')?.errors?.['pattern']">
-              {{ validationMessages.clinicId.pattern }}
             </span>
           </mat-error>
         </mat-form-field>
@@ -244,7 +260,7 @@
 
       <div formGroupName="address">
         <div
-          class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+          class="form-row d-flex flex-column flex-md-row justify-content-md-around"
         >
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Street</mat-label>
@@ -267,7 +283,7 @@
                 >{{ validationMessages.address.street.pattern }}</span
               >
               <span
-                *ngIf="employeeForm.get('address.street')?.errors?.['minlength']"
+                *ngIf="employeeForm.get('address.street')?.errors?.['minlength'] && !employeeForm.get('address.street')?.errors?.['pattern'] "
                 >{{ validationMessages.address.street.minlength }}</span
               >
             </mat-error>
@@ -294,14 +310,14 @@
                 >{{ validationMessages.address.city.pattern }}</span
               >
               <span
-                *ngIf="employeeForm.get('address.city')?.errors?.['minlength']"
+                *ngIf="employeeForm.get('address.city')?.errors?.['minlength'] && !employeeForm.get('address.city')?.errors?.['pattern']"
                 >{{ validationMessages.address.city.minlength }}</span
               >
             </mat-error>
           </mat-form-field>
         </div>
         <div
-          class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+          class="form-row d-flex flex-column flex-md-row justify-content-md-around"
         >
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Country</mat-label>
@@ -325,7 +341,7 @@
                 >{{ validationMessages.address.country.pattern }}</span
               >
               <span
-                *ngIf="employeeForm.get('address.country')?.errors?.['minlength']"
+                *ngIf="employeeForm.get('address.country')?.errors?.['minlength'] && !employeeForm.get('address.country')?.errors?.['pattern']"
                 >{{ validationMessages.address.country.minlength }}</span
               >
             </mat-error>
@@ -352,52 +368,93 @@
                 >{{ validationMessages.address.zipCode.pattern }}</span
               >
               <span
-                *ngIf="employeeForm.get('address.zipCode')?.errors?.['minlength']"
+                *ngIf="employeeForm.get('address.zipCode')?.errors?.['minlength'] && !employeeForm.get('address.zipCode')?.errors?.['pattern']"
                 >{{ validationMessages.address.zipCode.minlength }}</span
+              >
+              <span
+                *ngIf="employeeForm.get('address.zipCode')?.errors?.['maxlength'] && !employeeForm.get('address.zipCode')?.errors?.['pattern'] && !employeeForm.get('address.zipCode')?.errors?.['minlength']"
+                >{{ validationMessages.address.zipCode.maxlength }}</span
               >
             </mat-error>
           </mat-form-field>
         </div>
       </div>
       <div
-        class="form-row d-flex flex-column flex-md-row gap-md-5 justify-content-center"
+        class="form-row d-flex flex-column flex-md-row justify-content-around"
       >
         <div
-          class="d-flex flex-column justify-content-center gap-2 col-12 col-md-5"
+          class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 col-12 col-md-5"
         >
-          <mat-radio-group formControlName="gender" class="form-field">
-            <mat-radio-button value="male">Male</mat-radio-button>
-            <mat-radio-button value="female">Female</mat-radio-button>
-            <mat-error
-              *ngIf="
-                employeeForm.get('gender')?.invalid &&
-                employeeForm.get('gender')?.touched
-              "
-            >
-              {{ validationMessages.gender.required }}
-            </mat-error>
+          <mat-radio-group
+            aria-label="Select an option"
+            formControlName="gender"
+            class="form-field"
+          >
+            <div class="radio-container">
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                id="male"
+                formControlName="gender"
+              />
+              <label for="male">Male</label>
+
+              <input
+                checked
+                type="radio"
+                name="gender"
+                value="female"
+                id="female"
+                formControlName="gender"
+              />
+              <label for="female">Female</label>
+            </div>
           </mat-radio-group>
           <div class="d-flex gap-1">
-            <label for="photo">Profile Photo: </label>
-            <input
-              type="file"
-              (change)="onFileSelected($event)"
-              accept="image/*"
-            />
+            <label
+              for="images"
+              [class.uploaded]="file"
+              class="drop-container my-2"
+            >
+              <span #dropImage class="drop-title">Upload profile image</span>
+              <div class="ms-5 d-none">
+                <input
+                  type="file"
+                  id="images"
+                  (change)="onFileSelected($event, dropImage)"
+                  accept="image/*"
+                />
+              </div>
+            </label>
           </div>
         </div>
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Medical History</mat-label>
           <textarea matInput formControlName="medicalHistory"></textarea>
+          <mat-error
+            *ngIf="
+              employeeForm.get('medicalHistory')?.invalid &&
+              (employeeForm.get('medicalHistory')?.dirty ||
+                employeeForm.get('medicalHistory')?.touched)
+            "
+          >
+            <span
+              *ngIf="employeeForm.get('medicalHistory')?.errors?.['pattern']"
+            >
+              {{ validationMessages.medicalHistory.pattern }}
+            </span>
+          </mat-error>
         </mat-form-field>
       </div>
 
-      <div class="form-row d-flex justify-content-end me-5 pe-3">
+      <div class="form-row d-flex justify-content-end pe-sm-3">
         <button
           mat-raised-button
           color="primary"
           type="submit"
           [disabled]="!employeeForm.valid"
+          (click)="onSubmit()"
         >
           Add employee
         </button>

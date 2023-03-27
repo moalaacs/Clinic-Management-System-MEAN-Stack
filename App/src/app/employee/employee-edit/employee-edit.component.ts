@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { EmployeeService } from 'src/app/services/employee.service';
+import { ClinicService } from 'src/app/services/clinic.service';
+import { clinic } from 'src/app/models/clinic';
 
 @Component({
   selector: 'app-employee-edit',
@@ -15,15 +17,20 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EmployeeEditComponent implements OnInit {
 
-  employeeId: number = 0;
-  employee: any = null ;
-  updatedEmployee: any = {};
-  employeeForm: FormGroup;
+
 
   minDate: Date;
   maxDate: Date;
   defaultDate: Date;
+
+  file: any;
   image: any;
+
+  clinics: clinic[] = [];
+  employeeId: number = 0;
+  employee: any = null ;
+  updatedEmployee: any = {};
+  employeeForm: FormGroup;
 
 
   validationMessages = {
@@ -40,27 +47,30 @@ export class EmployeeEditComponent implements OnInit {
     },
 
     phoneNumber: {
-      pattern: 'Contact number should be a number'
+      pattern: 'Contact number should be a number',
+      minlength: 'Phone number should consist of 11 digits',
+      maxlength: 'Phone number should consist of 11 digits'
     },
     email: {
       email: 'Email should be in the form example@example.com'
     },
     address: {
       street: {
-        pattern: 'Street should be a string',
+        pattern: 'Invalid format',
         minlength: 'Length of street should be greater than 2 characters'
       },
       city: {
-        pattern: 'City should be a string',
+        pattern: 'Invalid format only allowed charaters are ( - . )',
         minlength: 'Length of street should be greater than 3 characters'
       },
       country: {
-        pattern: 'Country should be a string',
+        pattern: 'Country should contain charaters only',
         minlength: 'Length of street should be greater than 2 characters'
       },
       zipCode: {
         pattern: 'Zip code should be a number',
-        minlength: 'Length of Zip code should be 5 characters'
+        minlength: 'Length of Zip code should be 5 characters',
+        maxlength: 'Length of Zip code should be 5 characters'
       }
     },
     password: {
@@ -78,19 +88,23 @@ export class EmployeeEditComponent implements OnInit {
     },
     role: {
       pattern: 'Role should be a string'
+    },
+    medicalHistory:{
+      pattern: 'Medical history should be a string'
     }
   };
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private employeeService: EmployeeService,
+              private clinicService: ClinicService,
               private snackBar: MatSnackBar,
               private location: Location
               ) {
 
     this.minDate = new Date('1963-01-01');
-    this.maxDate = new Date('1999-12-31');
-    this.defaultDate = new Date('1999-01-10');
+    this.maxDate = new Date('1996-12-31');
+    this.defaultDate = new Date('1996-01-10');
 
     this.employeeForm = this.fb.group({
       firstname: ['',[Validators.minLength(3),
@@ -98,31 +112,26 @@ export class EmployeeEditComponent implements OnInit {
       lastname: ['',[Validators.minLength(3),
         Validators.pattern('^[a-zA-Z ]+$')]],
       dateOfBirth: [''],
-      gender: [''],
-      phoneNumber: ['',[ Validators.pattern(/^\d+$/)]],
+      gender: ['female'],
+      phoneNumber: ['',[ Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11), Validators.maxLength(11)]],
       email: ['', [ Validators.email]],
       address: this.fb.group({
         street: ['', [
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z0-9\\s.-]+$')
+          Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)
         ]],
         city: ['', [
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z\\s]+$')
+          Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-]*$/), Validators.minLength(3)
         ]],
         country: ['', [
-          Validators.minLength(2),
-          Validators.pattern('^[a-zA-Z0-9\\s]+$')
+           Validators.pattern(/^[\u0621-\u064Aa-zA-Z]*$/), Validators.minLength(2)
         ]],
         zipCode:['', Validators.compose([
-          Validators.minLength(5),
-          Validators.maxLength(5),
-          Validators.pattern(/^\d+$/),
+          Validators.pattern('[0-9]*'), Validators.minLength(5),Validators.maxLength(5)
         ])]
       }),
       password: [''],
       image: [''],
-      medicalHistory: '',
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],
       invoices: [],
       clinicId: ['', Validators.pattern(/^\d+$/)],
       salary: ['', Validators.pattern(/^\d+$/)],
@@ -132,6 +141,13 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.clinicService.getClinics().subscribe(
+      (response) => {
+        this.clinics = response.data;
+      },
+    );
+
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.employeeService.getEmployeeById(this.employeeId).pipe(
       map(response => response.data)).subscribe(
@@ -245,16 +261,17 @@ export class EmployeeEditComponent implements OnInit {
         this.location.back();
       },
         error => {
-          this.snackBar.open(error.message, 'Close', {
+          this.snackBar.open("error.updating employee please try again later", 'Close', {
             duration: 3000
           });
         }
       );
     }
-    onFileSelected(event: any) {
-      const file: File = event.target.files[0];
-      if (file) {
-        this.image = file;
+    onFileSelected(event: any, element: HTMLSpanElement) {
+      if (event.target.files.length > 0) {
+        this.file = event.target.files[0];
+        this.image = this.file
+        element.innerHTML = this.file.name;
       }
 }
 

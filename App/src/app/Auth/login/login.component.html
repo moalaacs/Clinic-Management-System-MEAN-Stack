@@ -7,14 +7,41 @@
     <h2>Login</h2>
   </mat-card-header>
   <mat-card-content>
-    <form class="login-form" [formGroup]="loginform" (ngSubmit)="proceedlogin()">
+    <form class="login-form" [formGroup]="loginform" (ngSubmit)="proceedLogin()">
       <mat-form-field class="col-12">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" class="col-12" />
+        <mat-error *ngIf="
+        loginform.get('email')?.invalid &&
+              (loginform.get('email')?.dirty ||
+              loginform.get('email')?.touched)
+            ">
+            <span *ngIf="loginform.get('email')?.errors?.['required']">
+              {{ validationMessages.email.required }}
+            </span>
+            <span *ngIf="loginform.get('email')?.errors?.['email']">
+              {{ validationMessages.email.email }}
+            </span>
+          </mat-error>
       </mat-form-field>
       <mat-form-field class="col-12">
         <mat-label>Password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+        <mat-error *ngIf="
+        loginform.get('password')?.invalid &&
+              (loginform.get('password')?.dirty ||
+              loginform.get('password')?.touched)
+            ">
+            <span *ngIf="loginform.get('password')?.errors?.['required']">
+              {{ validationMessages.password.required }}
+            </span>
+            <span *ngIf="loginform.get('password')?.errors?.['pattern']">
+              {{ validationMessages.password.pattern }}
+            </span>
+            <span *ngIf="loginform.get('password')?.errors?.['minlength']">
+              {{ validationMessages.password.minlength }}
+            </span>
+          </mat-error>
         <mat-icon matSuffix (click)="hide = !hide" class="mat-form-field-suffix">{{ hide ? "visibility_off" :
           "visibility" }}</mat-icon>
       </mat-form-field>

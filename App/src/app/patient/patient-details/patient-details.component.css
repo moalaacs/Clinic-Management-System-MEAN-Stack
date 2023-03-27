@@ -14,3 +14,75 @@
   object-fit: cover;
 }
 
+
+.profile-content{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.profile-card{
+  min-width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+.profile-pic-wrapper , .profile-pic{
+  width: 150px;
+  height: 150px;
+}
+
+
+.profile-name{
+  text-align: left;
+}
+.profile-important-data-sec{
+  flex-direction: row;
+  gap: 16px;
+}
+
+@media screen and (max-width: 776px){
+
+  .profile-card{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+    background: #0C4094;
+    border-radius: 8px;
+    padding: 16px;
+    min-width: 200px;
+  }
+
+
+  .profile-pic-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile-pic{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin:16px 0;
+    overflow: hidden;
+  }
+
+  .profile-important-data-sec{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px;
+    gap: 16px;
+  }
+}
+
+
+.invoices h2{
+  all: unset;
+  font-style: normal;
+  line-height: 17px;
+  font: 500 24px/32px Roboto, sans-serif;
+  color: #000000;
+}
+
