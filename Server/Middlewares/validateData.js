@@ -121,17 +121,17 @@ let validatePerson = [
     .isEmail()
     .withMessage("email should be in form example@example.com"),
   check("address.street")
-    .isString()
+  .matches(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]+$/)
     .withMessage("street should be string")
     .isLength({ min: 2 })
     .withMessage("length of street should be greater than 1 character"),
   check("address.city")
-    .matches(/^[a-zA-Z ]+$/)
+    .matches(/^[\u0621-\u064Aa-zA-Z0-9 .\-]+$/)
     .withMessage("city should be string")
     .isLength({ min: 3 })
     .withMessage("length of city should be greater than 2 characters"),
   check("address.country")
-    .matches(/^[a-zA-Z ]+$/)
+    .matches(/^[\u0621-\u064Aa-zA-Z0-9]+$/)
     .withMessage("country should be string")
     .isLength({ min: 3 })
     .withMessage("length of country should be greater than 2 characters"),
@@ -573,6 +573,12 @@ let validateLogin = [
 ];
 
 let validatePayment = [
+  check("id")
+    .not()
+    .isEmpty()
+    .withMessage("Invoice id is required")
+    .isNumeric()
+    .withMessage("Invoice id must be a number"),
   check("amount")
     .not()
     .isEmpty()

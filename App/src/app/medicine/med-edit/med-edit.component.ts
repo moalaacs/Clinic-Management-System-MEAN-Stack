@@ -7,11 +7,11 @@ import { Medicine } from 'src/app/models/medicine';
 import { MyErrorStateMatcher } from 'src/app/models/ErrorStateMatcher';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
-  selector: 'app-med-add',
-  templateUrl: './med-add.component.html',
-  styleUrls: ['./med-add.component.css']
+  selector: 'app-med-edit',
+  templateUrl: './med-edit.component.html',
+  styleUrls: ['./med-edit.component.css']
 })
-export class MedAddComponent implements OnInit {
+export class MedEditComponent implements OnInit {
   _medicine: Medicine = new Medicine(1000, "", "", "", "", 1000, 123);
   medicine: Medicine[] = [];
   medicineForm: FormGroup;
@@ -74,7 +74,7 @@ export class MedAddComponent implements OnInit {
     const formattedDatee = `${dayy}/${monthh}/${yearr}`;
     this.medicineForm.value.expiry = formattedDatee;
 
-    this.medicineService.addMedicine(this.medicineForm.value).subscribe(
+    this.medicineService.updateMedicine(this.medicineForm.value).subscribe(
       () => {
         this.router.navigate(['/medicine'])
       }, error => {
@@ -85,4 +85,5 @@ export class MedAddComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/medicine']);
   }
+
 }

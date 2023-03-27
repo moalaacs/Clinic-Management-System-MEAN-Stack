@@ -319,6 +319,10 @@
                 *ngIf="doctorForm.get('address.zipCode')?.errors?.['minlength'] && !doctorForm.get('address.zipCode')?.errors?.['pattern']"
                 >{{ validationMessages.address.zipCode.minlength }}</span
               >
+              <span
+                *ngIf="doctorForm.get('address.zipCode')?.errors?.['maxlength'] && !doctorForm.get('address.zipCode')?.errors?.['pattern'] && !doctorForm.get('address.zipCode')?.errors?.['minlength']"
+                >{{ validationMessages.address.zipCode.maxlength }}</span
+              >
             </mat-error>
           </mat-form-field>
         </div>
@@ -328,10 +332,10 @@
         <button
           class="btn btn-primary"
           [disabled]="
-            availableDays[6].length <= 1 ||
-            doctorForm.controls['schedule'].value[scheduleLength].day == ''
+            doctorForm.controls['schedule'].value[scheduleLength].day == '' ||
+            scheduleLength == 6
           "
-          (click)="addScheudle()"
+          (click)="addSchedule()"
         >
           Add Day
         </button>
@@ -343,7 +347,7 @@
             <div
               class="form-row d-flex flex-column flex-md-row justify-content-md-around"
             >
-              <mat-form-field appearance="fill" class="col-12 col-md-5">
+              <mat-form-field appearance="fill" class="col-12 col-md-3">
                 <mat-label>Day</mat-label>
                 <mat-select formControlName="day">
                   <mat-option
@@ -382,10 +386,19 @@
                   <mat-option
                     *ngFor="let endTime of endTimeList[i]"
                     [value]="endTime"
-                    >{{ endTime }}
-                  </mat-option>
+                    >{{ endTime }}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
+
+              <button
+                type="button"
+                class="btn btn-danger delete-schedule-button col-12 col-md-2"
+                [disabled]="scheduleLength == 0"
+                (click)="deleteSchedule(i)"
+              >
+                Delete
+              </button>
             </div>
           </ng-container>
         </div>
@@ -443,6 +456,7 @@
                   type="file"
                   id="images"
                   (change)="onFileSelected($event, dropImage)"
+                  accept="image/*"
                 />
               </div>
             </label>
@@ -458,7 +472,7 @@
         <button
           mat-raised-button
           color="primary"
-          type="submit"
+          type="button"
           [disabled]="!doctorForm.valid"
           (click)="onSubmit()"
         >

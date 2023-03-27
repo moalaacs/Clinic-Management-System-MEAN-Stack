@@ -6,12 +6,13 @@ import { AppointListComponent } from './appoint-list/appoint-list.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AppointEditComponent } from './appoint-edit/appoint-edit.component';
 
 const routes: Routes = [
   { path: "", component: AppointListComponent },
   { path: "add", component: AppointAddComponent },
   { path: "details/:id", component: AppointDetailsComponent },
-
+  { path: 'edit/:id', component: AppointEditComponent },
 ];
 
 @NgModule({
