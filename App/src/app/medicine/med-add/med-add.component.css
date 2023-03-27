@@ -15,4 +15,14 @@
   .example-full-width {
     width: 100%;
   }
+  .halfwidth {
+    width: 50%;
+}
+.fullwidth {
+    width: 100%;
+}
+.cuswidth {
+    width: 47%;
+}
+
   

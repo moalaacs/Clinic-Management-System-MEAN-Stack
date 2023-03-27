@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
-
-
 
 const serviceSchema = new mongoose.Schema(
   {
@@ -11,7 +8,6 @@ const serviceSchema = new mongoose.Schema(
   },
   { _id: false }
 );
-
 
 
 /*** crete schema for invoices collection ***/
