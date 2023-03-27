@@ -330,58 +330,6 @@ div.radio-container label {
 
 /*  list table style */
 
-.table-pagination-sec{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-mat-table{
-  overflow: auto;
-  min-width:fit-content;
-}
-
-.mat-form-field,mat-header-row,mat-header-cell,mat-cell {
-  font-size: 14px;
-  width: 100%;
-}
-
-.mat-table-style {
-  border-collapse: collapse;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  overflow: auto;
-}
-
-.mat-table-style mat-header-row{
-  background-color: #0c4095;
-}
-mat-header-cell {
-  font-weight: bold;
-  font-size: 14px;
-  color: #ffffff !important;
-}
-
-
-mat-header-cell,
-mat-cell {
-  padding: 12px 20px;
-  vertical-align: middle;
-  text-align: left;
-  white-space: nowrap;
-}
-
-mat-cell{
-  white-space: pre-wrap;
-
-}
-
-.mat-table-style mat-cell:last-child, .mat-table-style mat-header-cell:last-child {
-  padding: 12px 20px ;
-}
-
-mat-row {
-  border-bottom: 1px solid #dddddd;
-}
-
 
 
 /*  details page style */
@@ -444,6 +392,7 @@ mat-row {
   display: block;
   margin:16px 0;
   overflow: hidden;
+  background-color: #ffffff;
 }
 .profile-pic img{
   width: 100%;
@@ -601,7 +550,7 @@ mat-row {
 
 }
 
-.medical-history-sec p {
+.rest-profile-content-sec p {
   margin: 20px 0;
   font-style: normal;
   font-weight: 500;
@@ -613,13 +562,13 @@ mat-row {
 }
 
 
-.schedule-sec, .medical-history-sec{
+.schedule-sec, rest-profile-content-sec{
   display: flex;
   flex-direction: column;
   margin-top: 32px;
 }
 
-.schedule-sec h2, .medical-history-sec h2{
+.schedule-sec h2, .rest-profile-content-sec h2{
   all: unset;
   font-style: normal;
   font-weight: 600;
