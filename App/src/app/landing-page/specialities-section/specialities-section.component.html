@@ -1,11 +1,10 @@
 <ngb-carousel>
   <ng-template *ngFor="let clinic of clinics" ngbSlide>
     <div class="picsum-img-wrapper">
-      <img src="../../../assets/serviceHeader/{{spToImg(clinic._specilization)}}.jpg"
-        alt="{{clinic._specilization}} Department" class="w-100" />
+      <img src="../../../assets/serviceHeader/{{spToImg(clinic)}}.jpg" alt="{{clinic}} Department" class="w-100" />
     </div>
     <div class="carousel-caption">
-      <h3 class="text-primary fw-bold text-light">{{clinic._specilization}} Department</h3>
+      <h3 class="text-primary fw-bold text-light">{{clinic}} Department</h3>
     </div>
   </ng-template>
 </ngb-carousel>

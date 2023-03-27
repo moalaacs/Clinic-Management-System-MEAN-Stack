@@ -7,6 +7,7 @@ const {
   sliceData,
   paginateData,
   fillClinicServices,
+  responseFormat
 } = require("../helper/helperfns");
 
 // Calling other schemas //
@@ -25,11 +26,11 @@ exports.addClinic = async (request, response, next) => {
     });
     if (testEmailandPhone) {
       if (testEmailandPhone._email == request.body.email) {
-        return response.status(400).json({ message: `Email Already in use` });
+        return response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
       } else if (testEmailandPhone._contactNumber == request.body.phone) {
         return response
           .status(400)
-          .json({ message: `Phone number Already in use` });
+          .json(responseFormat(false, {}, "Phone number Already in use", 0, 0, 0, 0));
       }
     }
 
@@ -53,7 +54,7 @@ exports.addClinic = async (request, response, next) => {
     await clinicProfile.save();
     response
       .status(201)
-      .json({ message: "Clinic created successfully.", clinic });
+      .json(responseFormat(true, clinic, "Clinic added successfully",0,0,0,0));
   } catch (error) {
     next(error);
   }
@@ -68,7 +69,7 @@ exports.patchClinicById = async (request, response, next) => {
         _contactNumber: request.body.phone,
       });
       if (testPhone) {
-        return response.status(400).json({ message: `Phone Already in use` });
+        return response.status(400).json(responseFormat(false, {}, "Phone Number Already in use", 0, 0, 0, 0));
       }
       tempClinic._contactNumber = request.body.phone;
       tempUser._contactNumber = request.body.phone;
@@ -76,7 +77,7 @@ exports.patchClinicById = async (request, response, next) => {
     if (request.body.email) {
       let testEmail = await users.findOne({ _email: request.body.email });
       if (testEmail) {
-        return response.status(400).json({ message: `Email Already in use` });
+        return response.status(400).json(responseFormat(false, {}, "Email Already in use", 0, 0, 0, 0));
       }
       tempClinic._email = request.body.email;
       tempUser._email = request.body.email;
@@ -97,19 +98,8 @@ exports.patchClinicById = async (request, response, next) => {
         if (request.body.address.zipCode)
           tempClinic["_address.zipCode"] = request.body.address.zipCode;
       } else {
-        return response.status(200).json({ message: `Address can't be empty` });
+        return response.status(200).json(responseFormat(false, {}, "Address can't be empty", 0, 0, 0, 0));
       }
-    }
-    if (request.body.speciality) {
-      let testClinicSpeciality = await clinicSchema.findOne({
-        _specilization: request.body.speciality,
-      });
-      if (testClinicSpeciality)
-        return response
-          .status(400)
-          .json({ message: `There is already a clinic with this speciality` });
-      tempClinic._specilization = request.body.speciality;
-      tempClinic._services = fillClinicServices(request.body.speciality);
     }
     await clinicSchema.updateOne(
       { _id: request.params.id },
@@ -125,7 +115,7 @@ exports.patchClinicById = async (request, response, next) => {
     );
     response
       .status(200)
-      .json({ message: "Clinic updated successfully.", Updated: tempClinic });
+      .json(responseFormat(true, tempClinic, "Clinic updated successfully",0,0,0,0));
   } catch (error) {
     next(error);
   }
@@ -167,10 +157,9 @@ exports.removeClinicById = async (request, response, next) => {
       { _email: { $in: arrayOfExistingEmailsForDoctors } },
       { $set: { _role: "formerDoctor" } }
     );
-
     response
       .status(201)
-      .json({ message: "Clinic removed successfully.", clinic });
+      .json(responseFormat(true, clinic, "Clinic removed successfully",0,0,0,0));
   } catch (error) {
     next(error);
   }
@@ -179,11 +168,13 @@ exports.removeClinicById = async (request, response, next) => {
 exports.getAllClinics = async (request, response, next) => {
   try {
     let query = reqNamesToSchemaNames(request.query);
-    let clinic = await filterData(clinicSchema, query);
-    clinic = sortData(clinic, query);
-    clinic = paginateData(clinic, request.query);
-    clinic = sliceData(clinic, request.query);
-    response.status(200).json(clinic);
+    let clinics = await filterData(clinicSchema, query);
+    clinics = sortData(clinics, query);
+    clinics = paginateData(clinics, request.query);
+    clinics = sliceData(clinics, request.query);
+    const count = await clinicSchema.countDocuments(query);
+    response.status(200).json(responseFormat(true, clinics, "Clinics retrieved successfully", parseInt(request.query.page) || 1, parseInt(request.query.limit) || 10, count, Math.ceil(count / parseInt(request.query.limit)) || Math.ceil(count / 10)));
+
   } catch (error) {
     next(error);
   }
@@ -193,14 +184,13 @@ exports.getClinicById = async (request, response, next) => {
   try {
     const clinic = await clinicSchema.findById(request.params.id);
     if (!clinic) {
-      return next(new Error("Clinic not found"));
+      return next(responseFormat(false, {}, "Clinic not found", 0, 0, 0, 0));
     }
-    response.status(200).json({ clinic });
+    response.status(200).json(responseFormat(true, clinic, "Clinic retrieved successfully",0,0,0,0));
   } catch (error) {
     next(error);
   }
 };
-
 const reqNamesToSchemaNames = (query) => {
   const fieldsToReplace = {
     id: "_id",
