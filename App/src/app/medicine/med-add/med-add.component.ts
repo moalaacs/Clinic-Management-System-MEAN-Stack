@@ -81,6 +81,7 @@ export class MedAddComponent implements OnInit {
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
+
   goBack(): void {
     this.router.navigate(['/medicine']);
   }

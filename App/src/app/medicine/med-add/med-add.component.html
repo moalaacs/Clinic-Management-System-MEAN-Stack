@@ -1,10 +1,12 @@
 <form [formGroup]="medicineForm" class="row example-form ms-5" (ngSubmit)=" onSubmit()">
+    <!-- Back -->
     <div class="text-end">
         <button mat-button class="button back-button" (click)="goBack()">
             <mat-icon>arrow_back</mat-icon>
             Back
         </button>
     </div>
+    <!-- Header -->
     <h2 class="text-bg-primary text-center">Add New Medicine</h2>
     <!-- Medicine Name -->
     <mat-form-field>

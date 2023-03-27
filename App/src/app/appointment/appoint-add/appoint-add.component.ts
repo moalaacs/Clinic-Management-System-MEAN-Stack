@@ -73,6 +73,7 @@ export class AppointAddComponent {
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
+
   goBack(): void {
     this.router.navigate(['/appointment']);
   }
