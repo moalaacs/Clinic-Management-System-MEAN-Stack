@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row my-5">
+  <div class="row mt-5 mb-3">
     <div class="text-end">
-      <button mat-button class="button back-button" (click)="goBack()">
+      <button mat-raised-button (click)="goBack()" class="back-btn">
         <mat-icon>arrow_back</mat-icon>
         Back
       </button>
@@ -84,6 +84,11 @@
               *ngIf="doctorForm.get('phoneNumber')?.errors?.['minlength'] && !doctorForm.get('phoneNumber')?.errors?.['pattern']"
             >
               {{ validationMessages.phoneNumber.minlength }}
+            </span>
+            <span
+              *ngIf="doctorForm.get('phoneNumber')?.errors?.['maxlength'] && !doctorForm.get('phoneNumber')?.errors?.['pattern'] && !doctorForm.get('phoneNumber')?.errors?.['minlength']"
+            >
+              {{ validationMessages.phoneNumber.maxlength }}
             </span>
           </mat-error>
         </mat-form-field>
@@ -408,7 +413,7 @@
         class="form-row d-flex flex-column flex-md-row justify-content-around"
       >
         <div
-          class="d-flex justify-content-center align-items-center gap-3 col-12 col-md-5"
+          class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 col-12 col-md-5"
         >
           <mat-radio-group
             aria-label="Select an option"
@@ -465,6 +470,17 @@
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Medical History</mat-label>
           <textarea matInput formControlName="medicalHistory"></textarea>
+          <mat-error
+            *ngIf="
+              doctorForm.get('medicalHistory')?.invalid &&
+              (doctorForm.get('medicalHistory')?.dirty ||
+                doctorForm.get('medicalHistory')?.touched)
+            "
+          >
+            <span *ngIf="doctorForm.get('medicalHistory')?.errors?.['pattern']">
+              {{ validationMessages.medicalHistory.pattern }}
+            </span>
+          </mat-error>
         </mat-form-field>
       </div>
 

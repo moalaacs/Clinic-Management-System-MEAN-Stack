@@ -4,12 +4,9 @@ import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from '@ang
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 
-import { DoctorService } from '../../../services/doctor.service';
-import { Doctor } from '../../../models/doctor';
-import { clinic } from '../../../models/clinic';
-
-
-
+import { DoctorService } from 'src/app/services/doctor.service';
+import { Doctor } from 'src/app/models/doctor';
+import {clinic  } from 'src/app/models/clinic';
 @Component({
   selector: 'app-doctor-add',
   templateUrl: './doctor-add.component.html',
@@ -28,16 +25,16 @@ export class DoctorAddComponent implements OnInit {
   clinics: clinic[] = [];
 
   endTimeList: string[][] = [];
-  scheduleLength = 0;
+  scheduleLength =0;
 
   weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   availableDays: string[][] = this.weeklyDays.map(() => [...this.weeklyDays]);
 
   specialities = [
-    "Pediatrician", "Gynecologist", "Cardiologist", "Dermatologist", "Psychiatrist", "Neurologist", "Radiologist", "Dentist", "Surgeon"];
+    "Pediatrician","Gynecologist","Cardiologist","Dermatologist","Psychiatrist","Neurologist","Radiologist", "Dentist", "Surgeon"];
 
-  specialityToSpecalization: SpecialityToSpecialization = {
+  specialityToSpecalization:SpecialityToSpecialization = {
     Pediatrician: "Pediatrics",
     Gynecologist: "Women's Health",
     Cardiologist: "Cardiology",
@@ -62,7 +59,8 @@ export class DoctorAddComponent implements OnInit {
     phoneNumber: {
       required: 'Phone number is required.',
       pattern: 'Phone number should contains only numbers',
-      minlength: 'Phone number should consist of 11 digits'
+      minlength: 'Phone number should consist of 11 digits',
+      maxlength: 'Phone number should consist of 11 digits'
     },
     email: {
       required: 'Email is required.',
@@ -134,7 +132,7 @@ export class DoctorAddComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11), Validators.maxLength(11)]],
       password: ['', [Validators.required,
       Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
       Validators.minLength(8)
@@ -142,15 +140,14 @@ export class DoctorAddComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       gender: ['female', Validators.required],
       address: this.fb.group({
-        street: ['', [Validators.required, Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
+        street: ['', [Validators.required,  Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
         city: ['', [Validators.required, Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-]*$/), Validators.minLength(3)]],
         country: ['', [Validators.required, Validators.pattern(/^[\u0621-\u064Aa-zA-Z]*$/), Validators.minLength(2)]],
-        zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5), Validators.maxLength(5)]]
+        zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5),Validators.maxLength(5)]]
       }),
       clinicId: ['', Validators.required],
       image: [''],
-      medicalHistory: '',
-      invoices: [[]],
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],      invoices: [[]],
       schedule: this.fb.array([this.scheduleForm()]),
       speciality: ['', Validators.required]
     });
@@ -158,10 +155,11 @@ export class DoctorAddComponent implements OnInit {
 
 
   ngOnInit(): void {
+
   }
 
 
-  scheduleForm() {
+  scheduleForm(){
     return this.fb.group({
       day: ["", Validators.required],
       start: [""],
@@ -180,12 +178,12 @@ export class DoctorAddComponent implements OnInit {
     (<FormArray>this.doctorForm.controls["schedule"]).push(newSchedule);
     this.endTimeList.push([]);
     const selectedDay = this.doctorForm.controls["schedule"].value[index].day;
-    this.removeDayFromSubsequentSchedules(selectedDay, index);
+    this.removeDayFromSubsequentSchedules(selectedDay,index);
   }
 
-  removeDayFromSubsequentSchedules(day: string, dayIndex: number) {
+  removeDayFromSubsequentSchedules(day: string, dayIndex:number) {
     for (let i = 0; i < this.availableDays.length; i++) {
-      if (i < dayIndex) {
+      if(i < dayIndex){
         const prevDayIndex = this.availableDays[i].indexOf(day);
         if (prevDayIndex !== -1) {
           this.availableDays[i].splice(prevDayIndex, 1);
@@ -199,21 +197,21 @@ export class DoctorAddComponent implements OnInit {
     }
   }
 
-  deleteSchedule(index: number) {
+  deleteSchedule(index:number) {
     const selectedDay = this.schedule.at(index).get("day")?.value;
-    this.addDayBackToSubsequentSchedules(selectedDay, index);
+    this.addDayBackToSubsequentSchedules(selectedDay,index);
     this.schedule.removeAt(index);
     this.scheduleLength--;
 
     this.availableDays[this.availableDays.length - 1].push(selectedDay);
   }
 
-  addDayBackToSubsequentSchedules(day: string, index: number) {
+  addDayBackToSubsequentSchedules(day:string, index:number) {
     for (let i = 0; i < this.availableDays.length; i++) {
-      if (i == index) {
+      if(i==index){
         continue;
       }
-      this.availableDays[i].push(day);
+    this.availableDays[i].push(day);
     }
   }
 
@@ -223,7 +221,7 @@ export class DoctorAddComponent implements OnInit {
 
     for (let i = 0; i < 23; i++) {
       for (let j = 0; j < 60; j += 30) {
-        const startTime = moment({ hour: i, minute: j }).format('HH:mm');
+        const startTime = moment({hour: i, minute: j}).format('HH:mm');
         startTimeList.push(startTime);
       }
     }
@@ -286,10 +284,9 @@ export class DoctorAddComponent implements OnInit {
         this.location.back();
       },
       error => {
-        this.snackBar.open(error.message, 'Close', {
+        this.snackBar.open("error adding doctor please try again later", 'Close', {
           duration: 3000
         });
-        console.log(error);
       }
     )
   }

@@ -6,8 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
 import { DeleteConfirmationComponent } from '../../shared/delete-confirmation.component';
-import { DoctorService } from '../../../services/doctor.service';
-import { Doctor } from '../../../models/doctor';
+import { Doctor } from 'src/app/models/doctor';
+import { DoctorService } from 'src/app/services/doctor.service';
 
 @Component({
   selector: 'app-doctor-list',
@@ -21,7 +21,7 @@ export class DoctorListComponent implements OnInit {
   total = 0;
   currentPage = 1;
   query: string | undefined;
-  sortBy!: string;
+  sortBy: string = "id";
   order: "asc" | "desc" = "asc";
 
   dataSource!: MatTableDataSource<Doctor>;
@@ -81,8 +81,6 @@ export class DoctorListComponent implements OnInit {
           return item.id;
         case 'name':
           return item.firstname;
-        case 'email':
-          return item.email;
         case 'age':
           return item.age;
         case 'phoneNumber':
