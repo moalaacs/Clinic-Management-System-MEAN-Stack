@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
+import { LoginComponent } from './views/Auth/login/login.component';
+import { RegisterComponent } from './views/Auth/register/register.component';
 
 const routes: Routes = [
   {
@@ -15,6 +17,8 @@ const routes: Routes = [
       title: 'Home'
     },
     children: [
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
       {
         path: 'dashboard',
         loadChildren: () =>
@@ -25,11 +29,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/theme/theme.module').then((m) => m.ThemeModule)
       },
-      // {
-      //   path: 'base',
-      //   loadChildren: () =>
-      //     import('./views/base/base.module').then((m) => m.BaseModule)
-      // },
       {
         path: 'appointments',
         loadChildren: () =>
@@ -41,39 +40,24 @@ const routes: Routes = [
           import('./views/invoice-reports/invoice-reports.module').then((m) => m.InvoiceReportsModule)
       },
       {
-        path: 'buttons',
-        loadChildren: () =>
-          import('./views/buttons/buttons.module').then((m) => m.ButtonsModule)
-      },
-      {
-        path: 'forms',
-        loadChildren: () =>
-          import('./views/forms/forms.module').then((m) => m.CoreUIFormsModule)
-      },
-      {
-        path: 'charts',
-        loadChildren: () =>
-          import('./views/charts/charts.module').then((m) => m.ChartsModule)
-      },
-      {
-        path: 'icons',
-        loadChildren: () =>
-          import('./views/icons/icons.module').then((m) => m.IconsModule)
-      },
-      {
-        path: 'notifications',
-        loadChildren: () =>
-          import('./views/notifications/notifications.module').then((m) => m.NotificationsModule)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () =>
-          import('./views/widgets/widgets.module').then((m) => m.WidgetsModule)
-      },
-      {
         path: 'clinic',
         loadChildren: () =>
           import('./views/clinic/clinic.module').then((m) => m.ClinicModule),
+      },
+      {
+        path: 'doctor',
+        loadChildren: () =>
+          import('./views/doctor/doctor.module').then((m) => m.DoctorModule),
+      },
+      {
+        path: 'patient',
+        loadChildren: () =>
+          import('./views/patient/patient.module').then((m) => m.PatientModule),
+      },
+      {
+        path: 'employee',
+        loadChildren: () =>
+          import('./views/employee/employee.module').then((m) => m.EmployeeModule),
       },
     ]
   },

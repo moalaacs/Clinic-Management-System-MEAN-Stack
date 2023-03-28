@@ -45,10 +45,10 @@ export class AddClinicComponent implements OnInit {
       this.editFlag = true;
       this.clinicService.getClinicById(this.activeRoute.snapshot.params["id"]).subscribe({
         next(value) {
-          bindedThis.clinicAddForm.controls["speciality"].patchValue(value.clinic._specilization);
-          bindedThis.clinicAddForm.controls["email"].patchValue(value.clinic._email);
-          bindedThis.clinicAddForm.controls["phone"].patchValue(value.clinic._contactNumber);
-          bindedThis.clinicAddForm.controls["address"].patchValue(value.clinic._address);
+          bindedThis.clinicAddForm.controls["speciality"].patchValue(value.data._specilization);
+          bindedThis.clinicAddForm.controls["email"].patchValue(value.data._email);
+          bindedThis.clinicAddForm.controls["phone"].patchValue(value.data._contactNumber);
+          bindedThis.clinicAddForm.controls["address"].patchValue(value.data._address);
         },
         error(err) {
           console.log(err);

@@ -12,7 +12,7 @@ export class PaymentAddComponent {
   validationMessages = {
     id:{
       required: 'Invoice Id is required',
-      pattern: 'Invoice Id must be a string.',
+      pattern: 'Invoice Id must be a number like 112-123-125.',
     },
     amount: {
       required: 'Amount is required.',

@@ -1,15 +1,11 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
-  // {
-  //   name: 'Dashboard',
-  //   url: '/dashboard',
-  //   iconComponent: { name: 'cil-speedometer' },
-  //   badge: {
-  //     color: 'info',
-  //     text: 'NEW'
-  //   }
-  // },
+  {
+    name: 'Dashboard',
+    url: '/dashboard',
+    iconComponent: { name: 'cil-speedometer' }
+  },
   {
     name: 'Reports',
     title: true
@@ -46,133 +42,11 @@ export const navItems: INavData[] = [
         name: 'Daily Invoices',
         url: '/invoices/daily'
       },
-      // {
-      //   name: 'Range Appointments',
-      //   url: '/appointments/range'
-      // }
     ]
   },
-  // {
-  //   name: 'Buttons',
-  //   url: '/buttons',
-  //   iconComponent: { name: 'cil-cursor' },
-  //   children: [
-  //     {
-  //       name: 'Buttons',
-  //       url: '/buttons/buttons'
-  //     },
-  //     {
-  //       name: 'Button groups',
-  //       url: '/buttons/button-groups'
-  //     },
-  //     {
-  //       name: 'Dropdowns',
-  //       url: '/buttons/dropdowns'
-  //     },
-  //   ]
-  // },
-  // {
-  //   name: 'Forms',
-  //   url: '/forms',
-  //   iconComponent: { name: 'cil-notes' },
-  //   children: [
-  //     {
-  //       name: 'Form Control',
-  //       url: '/forms/form-control'
-  //     },
-  //     {
-  //       name: 'Select',
-  //       url: '/forms/select'
-  //     },
-  //     {
-  //       name: 'Checks & Radios',
-  //       url: '/forms/checks-radios'
-  //     },
-  //     {
-  //       name: 'Range',
-  //       url: '/forms/range'
-  //     },
-  //     {
-  //       name: 'Input Group',
-  //       url: '/forms/input-group'
-  //     },
-  //     {
-  //       name: 'Floating Labels',
-  //       url: '/forms/floating-labels'
-  //     },
-  //     {
-  //       name: 'Layout',
-  //       url: '/forms/layout'
-  //     },
-  //     {
-  //       name: 'Validation',
-  //       url: '/forms/validation'
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Charts',
-  //   url: '/charts',
-  //   iconComponent: { name: 'cil-chart-pie' }
-  // },
-  // {
-  //   name: 'Icons',
-  //   iconComponent: { name: 'cil-star' },
-  //   url: '/icons',
-  //   children: [
-  //     {
-  //       name: 'CoreUI Free',
-  //       url: '/icons/coreui-icons',
-  //       badge: {
-  //         color: 'success',
-  //         text: 'FREE'
-  //       }
-  //     },
-  //     {
-  //       name: 'CoreUI Flags',
-  //       url: '/icons/flags'
-  //     },
-  //     {
-  //       name: 'CoreUI Brands',
-  //       url: '/icons/brands'
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Notifications',
-  //   url: '/notifications',
-  //   iconComponent: { name: 'cil-bell' },
-  //   children: [
-  //     {
-  //       name: 'Alerts',
-  //       url: '/notifications/alerts'
-  //     },
-  //     {
-  //       name: 'Badges',
-  //       url: '/notifications/badges'
-  //     },
-  //     {
-  //       name: 'Modal',
-  //       url: '/notifications/modal'
-  //     },
-  //     {
-  //       name: 'Toast',
-  //       url: '/notifications/toasts'
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Widgets',
-  //   url: '/widgets',
-  //   iconComponent: { name: 'cil-calculator' },
-  //   badge: {
-  //     color: 'info',
-  //     text: 'NEW'
-  //   }
-  // },
   {
     title: true,
-    name: 'Admin'
+    name: 'Manage'
   },
   {
     name: 'Clinic',
@@ -186,6 +60,51 @@ export const navItems: INavData[] = [
       {
         name: 'Add Clinic',
         url: '/clinic/add'
+      },
+    ]
+  },
+  {
+    name: 'Doctor',
+    url: '/doctor',
+    iconComponent: { name: 'cil-star' },
+    children: [
+      {
+        name: 'Doctors List',
+        url: '/doctor'
+      },
+      {
+        name: 'Add Doctor',
+        url: '/doctor/add'
+      },
+    ]
+  },
+  {
+    name: 'Patient',
+    url: '/patient',
+    iconComponent: { name: 'cil-star' },
+    children: [
+      {
+        name: 'Patients List',
+        url: '/patient'
+      },
+      {
+        name: 'Add Patient',
+        url: '/patient/add'
+      },
+    ]
+  },
+  {
+    name: 'Employee',
+    url: '/employee',
+    iconComponent: { name: 'cil-star' },
+    children: [
+      {
+        name: 'Employee List',
+        url: '/employee'
+      },
+      {
+        name: 'Add Employee',
+        url: '/employee/add'
       },
     ]
   },

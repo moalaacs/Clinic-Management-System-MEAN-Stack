@@ -381,6 +381,7 @@ exports.patchDoctorById = async (request, response, next) => {
             $set: {
               _email: request.body.email,
               _contactNumber: request.body.phoneNumber,
+              _password: tempDoctor._password || testEmailandPhone._password
             },
           }
         );
@@ -394,7 +395,8 @@ exports.patchDoctorById = async (request, response, next) => {
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
-          { $set: { _contactNumber: request.body.phoneNumber } }
+          { $set: { _contactNumber: request.body.phoneNumber,
+            _password: tempDoctor._password || testPhone._password } }
         );
       }
     } else if (request.body.email) {
@@ -406,9 +408,15 @@ exports.patchDoctorById = async (request, response, next) => {
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
-          { $set: { _email: request.body.email } }
+          { $set: { _email: request.body.email, _password: tempDoctor._password || testEmail._password } }
         );
       }
+    } else if(request.body.password){
+      await users.updateOne(
+        { _idInSchema: request.params.id },
+        { $set: { 
+          _password: tempDoctor._password  } }
+      );
     }
     //update schedule
     if (request.body.schedule) {

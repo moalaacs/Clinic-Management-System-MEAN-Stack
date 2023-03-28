@@ -24,7 +24,6 @@ import { MatDialogRef } from '@angular/material/dialog';
   }
 
   .title {
-  color: red;
   font-size: 16px;
   font-weight: bold;
   }
@@ -44,6 +43,11 @@ import { MatDialogRef } from '@angular/material/dialog';
       font-size: 14px;
       font-weight: bold;
       padding: 8px 16px;
+    }
+
+    .delete-button{
+      background-color: #dc3545 !important;
+      border: 1px solid transparent !important;
     }
 
   `

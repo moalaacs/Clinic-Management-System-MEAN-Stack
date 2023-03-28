@@ -12,16 +12,16 @@ const router = express.Router();
 
 router
   .route("/clinic")
-  .all(authorizationMW.access())
+  // .all(authorizationMW.access())
   .post(validateClinic, validatorMiddleware, controller.addClinic);
 
 router
   .route("/clinic/:id")
-  .all(
-    numberIdParamsValidation,
-    validatorMiddleware,
-    authorizationMW.access()
-  )
+  // .all(
+  //   numberIdParamsValidation,
+  //   validatorMiddleware,
+  //   authorizationMW.access()
+  // )
   .get(controller.getClinicById)
   .patch(validatePatchClinic, validatorMiddleware, controller.patchClinicById)
   .delete(controller.removeClinicById);

@@ -23,6 +23,29 @@ export class EmployeeService {
     );
   }
 
+  getAllEmployees2(role: string, query?: string, page?:number , limit?: number, sortBy?: string, order?:"asc" | "desc"): Observable<any>{
+    let url = `${this.baseUrl}?page=${page}`;
+    if (query) {
+      url += `&${query}`;
+    }
+    if (limit){
+      url += `&limit=${limit}`;
+    }
+    if (sortBy){
+      url += `&sortBy=${sortBy}`;
+    }
+    if (order){
+      url += `&order=${order}`;
+    }
+
+
+    return this.http.get<any>(url).pipe(
+      catchError(error => {
+        return throwError(`Could not retrieve ${role}s. Please try again later.`);
+      })
+    );
+  }
+
   getEmployeeById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`).pipe(
       catchError(error => {

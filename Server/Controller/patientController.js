@@ -130,6 +130,7 @@ exports.putPatientById = async (request, response, next) => {
         return  response.status(400).json(responseFormat(false, {}, `Phone number Already in use`, 0, 0, 0, 0));
       }
     }
+
     const hash = await bcrypt.hash(request.body.password, 10);
     let now = new Date();
     let age = now.getFullYear() - request.body.dateOfBirth.split("/")[2];
@@ -260,6 +261,7 @@ exports.patchPatientById = async (request, response, next) => {
             $set: {
               _email: request.body.email,
               _contactNumber: request.body.phoneNumber,
+              _password: tempPatient._password || testEmailandPhone._password
             },
           }
         );
@@ -273,7 +275,8 @@ exports.patchPatientById = async (request, response, next) => {
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
-          { $set: { _contactNumber: request.body.phoneNumber } }
+          { $set: { _contactNumber: request.body.phoneNumber,
+            _password: tempPatient._password || testPhone._password } }
         );
       }
     } else if (request.body.email) {
@@ -287,9 +290,17 @@ exports.patchPatientById = async (request, response, next) => {
       } else {
         await users.updateOne(
           { _idInSchema: request.params.id },
-          { $set: { _email: request.body.email } }
+          { $set: { _email: request.body.email,
+            _password: tempPatient._password || testEmail._password } }
         );
       }
+    }
+    else if(request.body.password){
+      await users.updateOne(
+        { _idInSchema: request.params.id },
+        { $set: { 
+          _password: tempPatient._password  } }
+      );
     }
 
     await patientSchema.updateOne(
