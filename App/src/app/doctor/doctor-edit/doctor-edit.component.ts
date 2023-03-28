@@ -36,15 +36,15 @@ export class DoctorEditComponent implements OnInit {
 
   endTimeList: string[][] = [];
   currentScheduleIndex = 0;
-  scheduleLength =0;
+  scheduleLength = 0;
 
   weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   availableDays: string[][] = this.weeklyDays.map(() => [...this.weeklyDays]);
 
   specialities = [
-    "Pediatrician","Gynecologist","Cardiologist","Dermatologist","Psychiatrist","Neurologist","Radiologist", "Dentist", "Surgeon"];
+    "Pediatrician", "Gynecologist", "Cardiologist", "Dermatologist", "Psychiatrist", "Neurologist", "Radiologist", "Dentist", "Surgeon"];
 
-  specialityToSpecalization:SpecialityToSpecialization = {
+  specialityToSpecalization: SpecialityToSpecialization = {
     Pediatrician: "Pediatrics",
     Gynecologist: "Women's Health",
     Cardiologist: "Cardiology",
@@ -123,7 +123,7 @@ export class DoctorEditComponent implements OnInit {
       firstname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       lastname: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.minLength(3)]],
       email: ['', [Validators.email]],
-      phoneNumber: ['', [Validators.pattern(/^01[0125](\-)?[0-9]{8}$/),Validators.minLength(11),Validators.maxLength(11)]],
+      phoneNumber: ['', [Validators.pattern(/^01[0125](\-)?[0-9]{8}$/), Validators.minLength(11), Validators.maxLength(11)]],
       password: ['', [
 
         Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};\'\\:"|,.<>\\/?]).{7,}$'),
@@ -132,14 +132,14 @@ export class DoctorEditComponent implements OnInit {
       dateOfBirth: [''],
       gender: [''],
       address: this.fb.group({
-        street: ['', [ Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
+        street: ['', [Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
         city: ['', [Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-]*$/), Validators.minLength(3)]],
         country: ['', [Validators.pattern(/^[\u0621-\u064Aa-zA-Z]*$/), Validators.minLength(2)]],
-        zipCode: ['', [Validators.pattern('[0-9]*'), Validators.minLength(5),Validators.maxLength(5)]]
+        zipCode: ['', [Validators.pattern('[0-9]*'), Validators.minLength(5), Validators.maxLength(5)]]
       }),
 
       image: [''],
-      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],      invoices: [],
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$')], invoices: [],
       schedule: this.fb.array([this.scheduleForm()]),
       clinicId: ['', [Validators.pattern('[0-9]*')]],
       speciality: ['']
@@ -251,16 +251,16 @@ export class DoctorEditComponent implements OnInit {
     this.scheduleLength++;
     const newSchedule = this.scheduleForm();
 
-    (<FormArray> this.doctorForm.controls["schedule"]).push(newSchedule);
+    (<FormArray>this.doctorForm.controls["schedule"]).push(newSchedule);
 
     this.endTimeList.push([]);
 
-    this.currentScheduleIndex = (<FormArray> this.doctorForm.controls["schedule"]).length - 1;
+    this.currentScheduleIndex = (<FormArray>this.doctorForm.controls["schedule"]).length - 1;
 
-    const selectedDay = this.doctorForm.controls["schedule"].value[this.scheduleLength-1].day;
-    const dayIndex = this.availableDays[this.scheduleLength-1].indexOf(selectedDay);
+    const selectedDay = this.doctorForm.controls["schedule"].value[this.scheduleLength - 1].day;
+    const dayIndex = this.availableDays[this.scheduleLength - 1].indexOf(selectedDay);
     if (dayIndex !== -1) {
-      for(let i = this.scheduleLength; i < this.availableDays.length; i++) {
+      for (let i = this.scheduleLength; i < this.availableDays.length; i++) {
         this.availableDays[i].splice(dayIndex, 1);
       }
     }
@@ -278,7 +278,7 @@ export class DoctorEditComponent implements OnInit {
     const selectedDay = event.value;
     const dayIndex = this.availableDays[index].indexOf(selectedDay);
     if (dayIndex !== -1) {
-      for(let i = index; i < this.availableDays.length; i++) {
+      for (let i = index; i < this.availableDays.length; i++) {
         this.availableDays[i].splice(dayIndex, 1);
       }
     }
@@ -296,7 +296,7 @@ export class DoctorEditComponent implements OnInit {
 
     for (let i = 0; i < 23; i++) {
       for (let j = 0; j < 60; j += 30) {
-        const startTime = moment({hour: i, minute: j}).format('HH:mm');
+        const startTime = moment({ hour: i, minute: j }).format('HH:mm');
         startTimeList.push(startTime);
       }
     }
@@ -349,8 +349,8 @@ export class DoctorEditComponent implements OnInit {
     const speciality = this.doctorForm.get('speciality')?.value;
     if (speciality) {
       let specialization = this.specialityToSpecalization[speciality];
-      this.doctorService.getClinicsBySpeciality(specialization).subscribe(clinics => {
-        this.clinics = clinics;
+      this.doctorService.getClinicsBySpeciality(specialization).subscribe((clinics: any) => {
+        this.clinics = clinics.data;
       });
     }
   }
@@ -380,7 +380,7 @@ export class DoctorEditComponent implements OnInit {
       this.image = this.file
       element.innerHTML = this.file.name;
     }
-}
+  }
 
   goBack() {
     this.location.back();

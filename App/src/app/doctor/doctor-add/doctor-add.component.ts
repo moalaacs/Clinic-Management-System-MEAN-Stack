@@ -6,7 +6,7 @@ import * as moment from 'moment';
 
 import { DoctorService } from 'src/app/services/doctor.service';
 import { Doctor } from 'src/app/models/doctor';
-import {clinic  } from 'src/app/models/clinic';
+import { clinic } from 'src/app/models/clinic';
 @Component({
   selector: 'app-doctor-add',
   templateUrl: './doctor-add.component.html',
@@ -25,16 +25,17 @@ export class DoctorAddComponent implements OnInit {
   clinics: clinic[] = [];
 
   endTimeList: string[][] = [];
-  scheduleLength =0;
-
+  scheduleLength = 0;
+  previousDay: string;
   weeklyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   availableDays: string[][] = this.weeklyDays.map(() => [...this.weeklyDays]);
+  // on value chnage => null => remove Day from array
 
   specialities = [
-    "Pediatrician","Gynecologist","Cardiologist","Dermatologist","Psychiatrist","Neurologist","Radiologist", "Dentist", "Surgeon"];
+    "Pediatrician", "Gynecologist", "Cardiologist", "Dermatologist", "Psychiatrist", "Neurologist", "Radiologist", "Dentist", "Surgeon"];
 
-  specialityToSpecalization:SpecialityToSpecialization = {
+  specialityToSpecalization: SpecialityToSpecialization = {
     Pediatrician: "Pediatrics",
     Gynecologist: "Women's Health",
     Cardiologist: "Cardiology",
@@ -122,7 +123,7 @@ export class DoctorAddComponent implements OnInit {
     private snackBar: MatSnackBar,
     private location: Location
   ) {
-
+    this.previousDay = "";
     this.minDate = new Date('1963-01-01');
     this.maxDate = new Date('1996-12-31');
     this.defaultDate = new Date('1996-01-10');
@@ -140,14 +141,14 @@ export class DoctorAddComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       gender: ['female', Validators.required],
       address: this.fb.group({
-        street: ['', [Validators.required,  Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
+        street: ['', [Validators.required, Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-\\]*$/), Validators.minLength(2)]],
         city: ['', [Validators.required, Validators.pattern(/^[\u0621-\u064Aa-zA-Z0-9 .\-]*$/), Validators.minLength(3)]],
         country: ['', [Validators.required, Validators.pattern(/^[\u0621-\u064Aa-zA-Z]*$/), Validators.minLength(2)]],
-        zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5),Validators.maxLength(5)]]
+        zipCode: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5), Validators.maxLength(5)]]
       }),
       clinicId: ['', Validators.required],
       image: [''],
-      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$') ],      invoices: [[]],
+      medicalHistory: ['', Validators.pattern('^[a-zA-Z ]+$')], invoices: [[]],
       schedule: this.fb.array([this.scheduleForm()]),
       speciality: ['', Validators.required]
     });
@@ -159,7 +160,7 @@ export class DoctorAddComponent implements OnInit {
   }
 
 
-  scheduleForm(){
+  scheduleForm() {
     return this.fb.group({
       day: ["", Validators.required],
       start: [""],
@@ -177,51 +178,65 @@ export class DoctorAddComponent implements OnInit {
     const newSchedule = this.scheduleForm();
     (<FormArray>this.doctorForm.controls["schedule"]).push(newSchedule);
     this.endTimeList.push([]);
-    const selectedDay = this.doctorForm.controls["schedule"].value[index].day;
-    this.removeDayFromSubsequentSchedules(selectedDay,index);
+    // const selectedDay = this.doctorForm.controls["schedule"].value[index].day;
+    // this.removeDayFromSubsequentSchedules(selectedDay, index);
   }
 
-  removeDayFromSubsequentSchedules(day: string, dayIndex:number) {
+  // updateAvailableDays(day: string, dayIndex: number) {
+  //   if (this.previousDay != "") {
+  //     for (let i = 0; i < this.availableDays.length; i++) {
+  //       if (i == dayIndex) continue;
+  //       if (this.availableDays[i].indexOf(day) != -1)
+  //         this.availableDays[i].push(day);
+  //     }
+  //   }
+  //   for (let i = 0; i < this.availableDays.length; i++) {
+  //     if (i == dayIndex) continue;
+  //     let indexOfTheDay = this.availableDays[i].indexOf(day);
+  //     if (indexOfTheDay != -1)
+  //       this.availableDays[i].splice(indexOfTheDay, 1);
+  //   }
+  //   this.previousDay = day;
+  // }
+
+  updateAvailableDays(day: string, dayIndex: number) {
+    const previouslySelectedDay = this.schedule.controls[dayIndex].value.day;
     for (let i = 0; i < this.availableDays.length; i++) {
-      if(i < dayIndex){
-        const prevDayIndex = this.availableDays[i].indexOf(day);
-        if (prevDayIndex !== -1) {
-          this.availableDays[i].splice(prevDayIndex, 1);
+      if (i === dayIndex) continue;
+      const indexOfTheDay = this.availableDays[i].indexOf(day);
+      if (indexOfTheDay !== -1) {
+        // If the day is already selected in another field, do nothing
+        if (this.schedule.controls.some((control, index) => control.value.day === day && index !== dayIndex)) {
+          return;
         }
-      } else if (i > dayIndex) {
-        const index = this.availableDays[i].indexOf(day);
-        if (index !== -1) {
-          this.availableDays[i].splice(index, 1);
-        }
+        this.availableDays[i].splice(indexOfTheDay, 1);
+      }
+      // Add the previously selected day back to the available days list
+      if (previouslySelectedDay && !this.availableDays[i].includes(previouslySelectedDay)) {
+        this.availableDays[i].push(previouslySelectedDay);
       }
     }
   }
 
-  deleteSchedule(index:number) {
+
+
+
+
+  deleteSchedule(index: number) {
     const selectedDay = this.schedule.at(index).get("day")?.value;
-    this.addDayBackToSubsequentSchedules(selectedDay,index);
+    // this.addDayBackToSubsequentSchedules(selectedDay, index);
     this.schedule.removeAt(index);
     this.scheduleLength--;
 
     this.availableDays[this.availableDays.length - 1].push(selectedDay);
   }
 
-  addDayBackToSubsequentSchedules(day:string, index:number) {
-    for (let i = 0; i < this.availableDays.length; i++) {
-      if(i==index){
-        continue;
-      }
-    this.availableDays[i].push(day);
-    }
-  }
-
-
   getStartTimeList(): string[] {
     const startTimeList = [];
 
     for (let i = 0; i < 23; i++) {
       for (let j = 0; j < 60; j += 30) {
-        const startTime = moment({hour: i, minute: j}).format('HH:mm');
+        const startTime = moment({ hour: i, minute: j }).format('HH:mm');
         startTimeList.push(startTime);
       }
     }
@@ -260,8 +275,9 @@ export class DoctorAddComponent implements OnInit {
     const speciality = this.doctorForm.get('speciality')?.value;
     if (speciality) {
       let specialization = this.specialityToSpecalization[speciality];
-      this.doctorService.getClinicsBySpeciality(specialization).subscribe(clinics => {
-        this.clinics = clinics;
+      this.doctorService.getClinicsBySpeciality(specialization).subscribe((clinics: any) => {
+        this.clinics = clinics.data;
+        console.log(this.clinics);
       });
     }
   }
@@ -303,7 +319,6 @@ export class DoctorAddComponent implements OnInit {
     this.location.back();
   }
 }
-
 
 interface SpecialityToSpecialization {
   [key: string]: string;
