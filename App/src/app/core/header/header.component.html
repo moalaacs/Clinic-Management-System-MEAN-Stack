@@ -14,15 +14,18 @@
         <a class="nav-link" *ngIf="!isLoggedIn || (isLoggedIn && role != 'admin')"
           routerLink="/departments">Departments</a>
         <a class="nav-link" *ngIf="!isLoggedIn || (isLoggedIn && role != 'admin')" routerLink="/contact">Contact Us</a>
-        <a *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-primary mx-0 mx-lg-2">Log In</a>
-        <a *ngIf="!isLoggedIn" routerLink="/register" class="btn btn-secondary my-2 my-lg-0">Sign Up</a>
         <a class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/clinic">Clinics</a>
         <a class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/doctor">Doctor</a>
         <a class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/employee">Employee</a>
         <a class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/patient">Patient</a>
         <a class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/pay">Add-Payment</a>
         <a class="nav-link" *ngIf="isLoggedIn && role == 'admin'" routerLink="/prescription">Prescriptions</a>
-        <li class="nav-item dropdown" *ngIf="isLoggedIn">
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-primary mx-0 mx-lg-2">Log In</a>
+        <a *ngIf="!isLoggedIn" routerLink="/register" class="btn btn-secondary my-2 my-lg-0">Sign Up</a>
+        <a class="nav-link d-lg-none d-block" *ngIf="isLoggedIn" routerLink="/profile">Profile</a>
+        <a class="nav-link d-lg-none d-block" *ngIf="isLoggedIn" (click)="openDialog('0ms', '0ms')">Logout</a>
+
+        <li class="nav-item dropdown d-lg-block d-none" *ngIf="isLoggedIn">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="http://localhost:8080/{{userProfileImage}}" alt="profile picture" class="me-2 profilePicture">
             {{userName}}
