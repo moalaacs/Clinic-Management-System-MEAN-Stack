@@ -16,23 +16,23 @@ import { PaymentAddComponent } from './payment/payment-add/payment-add.component
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'pay', component: PaymentAddComponent },
+  { path: 'pay', component: PaymentAddComponent,canActivate:[AuthGuard] },
   {
     path: 'clinic',
     loadChildren: () =>
-      import('./clinic/clinic.module').then((m) => m.ClinicModule),
+      import('./clinic/clinic.module').then((m) => m.ClinicModule),canActivate:[AuthGuard]
   },
   {
     path: 'medicine',
     loadChildren: () =>
-      import('./medicine/medicine.module').then((m) => m.MedModule),
+      import('./medicine/medicine.module').then((m) => m.MedModule),canActivate:[AuthGuard]
   },
   {
     path: 'appointment',
     loadChildren: () =>
       import('./appointment/appointment.module').then(
         (m) => m.AppointModule
-      ),
+      ),canActivate:[AuthGuard]
   },
   {
     path: 'patient',
@@ -52,14 +52,14 @@ const routes: Routes = [
   {
     path: 'prescription',
     loadChildren: () =>
-      import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
+      import('./prescription/prescription.module').then((m) => m.PrescriptionModule),canActivate:[AuthGuard]
   },
   {
     path: 'profile',
     component: ProfileComponent
   },
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
-  { path: 'appointmentReports', component: AllAppointmentReportsComponent },
+  { path: 'appointmentReports', component: AllAppointmentReportsComponent ,canActivate:[AuthGuard] },
   { path: 'departments', component: SpecilizationComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: '**', component: NotfoundComponent },

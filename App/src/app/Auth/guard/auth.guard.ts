@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -6,8 +7,6 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
@@ -18,8 +17,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private service: AuthService,
     private router: Router,
-    private tostr: ToastrService
-  ) { }
+    private snackBar: MatSnackBar
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -30,45 +29,59 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     if (this.service.isLoggedIn()) {
       if (route.url.length > 0) {
-        //console.log(route.url);
-        //let menu = route.url[0].path;
-        //let menu =document.location.href;
         let menu = document.location.pathname;
         if (
-          (menu == '/doctor/add' ||
-            menu == '/doctor/edit/:id' ||
+          (
+            menu == 'pay' ||
+            menu == 'doctor' ||
+            menu == 'doctor/add' ||
+            menu == 'doctor/edit/:id' ||
+            menu == 'doctor/details/:id' ||
+            menu == 'emplyee' ||
             menu == 'emplyee/add' ||
             menu == 'employee/edit/:id' ||
-            menu == 'doctor/add' ||
-            menu == 'doctor/edit/:id') &&
+            menu == 'employee/details/:id' ||
+            menu == 'patient' ||
+            menu == 'patient/add' ||
+            menu == 'patient/edit/:id') ||
+            menu == 'patient/details/:id' ||
+            menu == 'clinic' ||
+            menu == 'clinic/add' ||
+            menu == 'clinic/edit/:id' ||
+            menu == 'clinic/details/:id'||
+            menu == 'clinic/location/:speciallity'||
+            menu == 'medicine' ||
+            menu == 'medicine/add' ||
+            menu == 'medicine/edit/:id' ||
+            menu == 'medicine/details/:id'||
+            menu == 'appointment' ||
+            menu == 'appointment/add' ||
+            menu == 'appointment/edit/:id' ||
+            menu == 'appointment/details/:id'||
+            menu == 'prescription' ||
+            menu == 'prescription/add' ||
+            menu == 'prescription/edit/:id' ||
+            menu == 'prescription/details/:id' ||
+            menu == 'prescription' 
+             &&
           this.service.getRole() == 'admin'
         ) {
           return true;
-        } else if (
-          (menu == '/patient' || menu == '/patient/details/:id') &&
-          this.service.getRole() == 'patient'
-        ) {
-          return true;
-        } else if (
-          (menu == '/employee' || menu == '/employee/details/:id') &&
-          (this.service.getRole() == 'employee' || this.service.getRole() == "nurse")
-        ) {
-          return true;
-        } else if (
-          (menu == '/doctor' || menu == '/doctor/details/:id') &&
-          this.service.getRole() == 'doctor'
-        ) {
-          return true;
         } else {
-          // this.router.navigate(['']);
-          // this.tostr.warning('You dont have access.');
-          return true;
+          this.router.navigate(['']);
+          this.snackBar.open('You dont have access.', 'Close', {
+            duration: 3000,
+          });
+          return false;
         }
       } else {
         return true;
       }
     } else {
       this.router.navigate(['login']);
+      this.snackBar.open('Please login first', 'Close', {
+        duration: 3000,
+      });
       return false;
     }
   }

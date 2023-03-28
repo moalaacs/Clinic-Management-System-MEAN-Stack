@@ -7,12 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppointEditComponent } from './appoint-edit/appoint-edit.component';
+import { AuthGuard } from '../Auth/guard/auth.guard';
 
 const routes: Routes = [
-  { path: "", component: AppointListComponent },
-  { path: "add", component: AppointAddComponent },
-  { path: "details/:id", component: AppointDetailsComponent },
-  { path: 'edit/:id', component: AppointEditComponent },
+  { path: "", component: AppointListComponent ,canActivate:[AuthGuard]},
+  { path: "add", component: AppointAddComponent ,canActivate:[AuthGuard]},
+  { path: "details/:id", component: AppointDetailsComponent ,canActivate:[AuthGuard]},
+  { path: 'edit/:id', component: AppointEditComponent ,canActivate:[AuthGuard]},
 ];
 
 @NgModule({
