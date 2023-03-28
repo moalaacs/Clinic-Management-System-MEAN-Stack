@@ -7,6 +7,7 @@ import { clinic } from 'src/app/models/clinic';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { prescriptionService } from 'src/app/services/prescription.service';
+import { Doctor } from 'src/app/models/doctor';
 
 @Component({
   selector: 'app-prescription-add',
@@ -16,7 +17,7 @@ import { prescriptionService } from 'src/app/services/prescription.service';
 export class PrescriptionAddComponent {
   clinics: clinic[] = [];
   clinicID: number = 0;
-  doctorsInClinic: number[] = [];
+  doctorsInClinic: {id:number,firstname:string,lastname:string}[] = [];
   validationMessages = {
     clinic: {
       required: 'Clinic is required.',
@@ -146,11 +147,11 @@ export class PrescriptionAddComponent {
     this.router.navigate(['/prescription']);
   }
   getClinic(id: string) {
-    this.clinicID = parseInt(id);
     this.clinicservice
-      .getClinicById(this.clinicID)
+      .getClinicById(parseInt(id))
       .subscribe((currentClinic) => {
         this.doctorsInClinic = currentClinic.data._doctors;
+        console.log(this.doctorsInClinic);
       });
   }
 }
