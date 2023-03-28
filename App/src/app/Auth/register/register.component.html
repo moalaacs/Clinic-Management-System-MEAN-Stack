@@ -64,7 +64,7 @@
         </mat-form-field>
         <mat-form-field class="col-12 col-md-6">
           <mat-label>Password</mat-label>
-          <input type="password" matInput formControlName="password">
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
           <mat-error *ngIf="
             registerform.get('password')?.invalid &&
               (registerform.get('password')?.dirty ||
@@ -80,6 +80,8 @@
               {{ validationMessages.password.minlength }}
             </span>
           </mat-error>
+          <mat-icon matSuffix (click)="hide = !hide" class="mat-form-field-suffix">{{ hide ? "visibility_off" :
+            "visibility" }}</mat-icon>
         </mat-form-field>
       </div>
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
@@ -118,41 +120,98 @@
         </mat-form-field>
       </div>
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 px-3 gap-0">
-        <mat-form-field class="col-12 col-md-4">
+        <mat-form-field class="col-12 col-md-6">
           <mat-label>Country</mat-label>
           <mat-select id="country" name="country" formControlName="address.country">
             <mat-option value="Egypt">Egypt</mat-option>
           </mat-select>
+          <mat-error class="error-message" *ngIf="
+              registerform.controls['address.country']?.invalid &&
+                (registerform.controls['address.country']?.dirty ||
+                registerform.controls['address.country']?.touched)
+              ">
+            <span *ngIf="registerform.controls['address.country']?.errors?.['required']">
+              {{ validationMessages.country.required }}</span>
+            <span *ngIf="registerform.controls['address.country']?.errors?.['pattern']">{{
+              validationMessages.country.pattern }}</span>
+            <span
+              *ngIf="registerform.controls['address.country']?.errors?.['minlength'] && !registerform.controls['address.country']?.errors?.['pattern']">{{
+              validationMessages.country.minlength }}</span>
+          </mat-error>
         </mat-form-field>
-        <mat-form-field class="col-12 col-md-4">
+        <mat-form-field class="col-12 col-md-6">
           <mat-label>City</mat-label>
           <mat-select id="city" name="city" formControlName="address.city">
             <mat-option *ngFor="let address of addresses" value={{address.city}}>{{address.city}}</mat-option>
           </mat-select>
+          <mat-error class="error-message" *ngIf="
+              registerform.controls['address.city']?.invalid &&
+                (registerform.controls['address.city']?.dirty ||
+                registerform.controls['address.city']?.touched)
+              ">
+            <span *ngIf="registerform.controls['address.city']?.errors?.['required']">
+              {{ validationMessages.city.required }}</span>
+            <span *ngIf="registerform.controls['address.city']?.errors?.['pattern']">{{ validationMessages.city.pattern
+              }}</span>
+            <span
+              *ngIf="registerform.controls['address.city']?.errors?.['minlength'] && !registerform.controls['address.city']?.errors?.['pattern']">{{
+              validationMessages.city.minlength }}</span>
+          </mat-error>
         </mat-form-field>
-        <mat-form-field class="col-12 col-md-4">
+
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 px-3 gap-0">
+        <mat-form-field class="col-12 col-md-6">
           <mat-label>Zip code</mat-label>
           <input matInput formControlName="address.zipCode" required>
+          <mat-error class="error-message" *ngIf="
+            registerform.controls['address.zipCode']?.invalid &&
+              (registerform.controls['address.zipCode']?.dirty ||
+              registerform.controls['address.zipCode']?.touched)
+            ">
+            <span *ngIf="registerform.controls['address.zipCode']?.errors?.['required']">
+              {{ validationMessages.zipCode.required }}</span>
+            <span *ngIf="registerform.controls['address.zipCode']?.errors?.['pattern']">{{
+              validationMessages.zipCode.pattern }}</span>
+            <span
+              *ngIf="registerform.controls['address.zipCode']?.errors?.['minlength'] && !registerform.controls['address.zipCode']?.errors?.['pattern']">{{
+              validationMessages.zipCode.minlength }}</span>
+            <span
+              *ngIf="registerform.controls['address.zipCode']?.errors?.['maxlength'] && !registerform.controls['address.zipCode']?.errors?.['minlength']">{{
+              validationMessages.zipCode.maxlength }}</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Street</mat-label>
+          <input type="text" matInput formControlName="address.street" required>
+          <mat-error class="error-message" *ngIf="
+              registerform.controls['address.street']?.invalid &&
+                (registerform.controls['address.street']?.dirty ||
+                registerform.controls['address.street']?.touched)
+              ">
+            <span *ngIf="registerform.controls['address.street']?.errors?.['required']">
+              {{ validationMessages.street.required }}</span>
+            <span *ngIf="registerform.controls['address.street']?.errors?.['pattern']">{{
+              validationMessages.street.pattern }}</span>
+            <span
+              *ngIf="registerform.controls['address.street']?.errors?.['minlength'] && !registerform.controls['address.street']?.errors?.['pattern']">{{
+              validationMessages.street.minlength }}</span>
+          </mat-error>
         </mat-form-field>
       </div>
-      <mat-form-field class="col-12 p-0">
-        <mat-label>Street</mat-label>
-        <input type="text" matInput formControlName="address.street" required>
-      </mat-form-field>
-
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 px-3 gap-0">
         <mat-radio-group aria-label="Select an option" formControlName="gender">
           <div class="radio-container">
-            <input type="radio" name="gender" value="male" id="male" required />
+            <input type="radio" name="gender" value="male" id="male" formControlName="gender" required />
             <label for="male">Male</label>
-            <input checked type="radio" name="gender" value="female" id="female" required />
+            <input checked type="radio" name="gender" value="female" id="female" formControlName="gender" required />
             <label for="female">Female</label>
             <mat-error *ngIf="
               registerform.get('gender')?.invalid &&
               registerform.get('gender')?.touched
               ">
-            {{ validationMessages.gender.required }}
-          </mat-error>
+              {{ validationMessages.gender.required }}
+            </mat-error>
           </div>
         </mat-radio-group>
         <label for="images" [class.uploaded]="file" class="drop-container my-2">

@@ -2,9 +2,9 @@ import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
-import { ToastrService } from 'ngx-toastr';
 import { ADDRESS } from './../../models/Address';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Patient } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  hide  = true;
   file: any;
+  image: any;
   addresses = ADDRESS;
   minDate: Date;
   maxDate: Date;
@@ -44,25 +46,26 @@ export class RegisterComponent {
       required: 'Email is required.',
       email: 'Email should be in the form example@example.com',
     },
-    'address.street': {
+    street: {
       required: 'Street is required.',
       pattern: 'Street should be a string',
       minlength: 'Length of street should be greater than 2 characters',
     },
-    'address.city': {
+    city: {
       required: 'City is required.',
       pattern: 'City should be a string',
       minlength: 'Length of street should be greater than 3 characters',
     },
-    'address.country': {
+    country: {
       required: 'Country is required.',
       pattern: 'Country should be a string',
       minlength: 'Length of street should be greater than 2 characters',
     },
-    'address.zipCode': {
+    zipCode: {
       required: 'Zip code is required.',
       pattern: 'Zip code should be a number',
       minlength: 'Length of Zip code should be 5 characters',
+      maxlength: 'Length of Zip code should be 5 characters'
     },
     password: {
       required: 'Password is required.',
@@ -73,7 +76,6 @@ export class RegisterComponent {
   constructor(
     private builder: FormBuilder,
     private service: AuthService,
-    private toastr: ToastrService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {
@@ -104,13 +106,14 @@ export class RegisterComponent {
         Validators.pattern(
           '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
         ),
+        Validators.minLength(2),
       ])
     ),
     email: this.builder.control(
       '',
       Validators.compose([Validators.required, Validators.email])
     ),
-    gender: this.builder.control('', Validators.required),
+    gender: this.builder.control('female', Validators.required),
     phoneNumber: this.builder.control(
       '',
       Validators.compose([
@@ -119,6 +122,7 @@ export class RegisterComponent {
       ])
     ),
     dateOfBirth: this.builder.control('', Validators.required),
+    image:this.builder.control(''),
     'address.city': this.builder.control(
       '',
       Validators.compose([
@@ -137,6 +141,7 @@ export class RegisterComponent {
       '',
       Validators.compose([
         Validators.required,
+        Validators.pattern('[0-9]*'),
         Validators.minLength(5),
         Validators.maxLength(5),
       ])
@@ -146,24 +151,36 @@ export class RegisterComponent {
       Validators.compose([
         Validators.required,
         Validators.pattern(/^[a-zA-Z ]+$/),
+        Validators.minLength(2),
       ])
     ),
   });
 
   getFile(event: any, element: HTMLSpanElement) {
-    this.file = event.target.files[0];
-    element.innerHTML = this.file.name;
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      this.image = this.file
+      element.innerHTML = this.file.name;
+    }
   }
 
   proceedregister() {
+    console.log(this.registerform.controls['address.zipCode'].errors);
+    const date = new Date(this.registerform.value.dateOfBirth!);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    const formattedDate = `${day}/${month}/${year}`;
+    this.registerform.value.dateOfBirth = formattedDate;
+    console.log(this.registerform.value);
+    const patient = this.registerform.value as Patient;
     let rC = this;
     if (this.registerform.valid) {
-      this.service.registerUser(this.registerform.value, this.file).subscribe({
+      this.service.registerUser(patient, this.file).subscribe({
         next() {
-          rC.toastr.success(
-            'Please contact admin for enable access.',
-            'Registered successfully'
-          );
+          rC.snackBar.open('Registered To System Successfully', '', {
+            duration: 3000,
+          });
           rC.router.navigate(['login']);
         },
         error(err) {

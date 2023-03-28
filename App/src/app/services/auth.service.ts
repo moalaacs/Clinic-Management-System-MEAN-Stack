@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Patient } from '../models/patient';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,18 +13,30 @@ export class AuthService {
   helper = new JwtHelperService();
   baseUrl = 'http://localhost:8080';
 
-  registerUser(patient: any, photo: File) {
-    let dob = patient.dateOfBirth;
-    const date = new Date(dob);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    const formattedDate = `${day}/${month}/${year}`;
-    patient.dateOfBirth= formattedDate;
-    patient.photo = photo;
-    console.log(patient);
-    alert("Hello")
-    return this.http.post<Patient>(`${this.baseUrl}/register`, patient);
+  registerUser(patient: Patient, photo: File): Observable<Patient> {
+    const formData = new FormData();
+    if (photo) {
+      formData.append('photo', photo);
+    }
+
+    Object.entries(patient).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          for (let key2 in value[i]) {
+            formData.append(`${key}[${i}][${key2}]`, value[i][key2]);
+            console.log(`${key}[${i}][${key2}]`, value[i][key2]);
+          }
+        }
+      } else if (typeof value === 'object') {
+        for (let key2 in value) {
+          formData.append(`${key}[${key2}]`, value[key2]);
+        }
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+    return this.http.post<Patient>(`${this.baseUrl}/register`, formData);
   }
 
   loginUser(userData: any) {
