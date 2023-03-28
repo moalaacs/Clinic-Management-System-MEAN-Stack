@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AllAppointmentReportsComponent } from './all-appointment-reports/all-appointment-reports.component';
 import { DailyAppointmentReportsComponent } from './daily-appointment-reports/daily-appointment-reports.component';
 import { RangeAppointmentReportsComponent } from './range-appointment-reports/range-appointment-reports.component';
+import { DoctorAppointmentReportsComponent } from './doctor-appointment-reports/doctor-appointment-reports.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -37,6 +38,13 @@ const routes: Routes = [
         component: RangeAppointmentReportsComponent,
         data: {
           title: 'Range',
+        }
+      },
+      {
+        path: 'doctor',
+        component: DoctorAppointmentReportsComponent,
+        data: {
+          title: 'Doctor',
         }
       }
     ],

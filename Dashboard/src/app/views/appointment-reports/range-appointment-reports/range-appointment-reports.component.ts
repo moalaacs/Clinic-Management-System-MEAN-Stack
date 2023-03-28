@@ -15,7 +15,7 @@ export class RangeAppointmentReportsComponent {
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
-  logDateRange() {
+  setDateRange() {
     let startDate = JSON.stringify(this.range.controls.start.value).split("T")[0].split('"')[1];
     let endDate = JSON.stringify(this.range.controls.end.value).split("T")[0].split('"')[1];
     let strRange = `${startDate}/${endDate}`;

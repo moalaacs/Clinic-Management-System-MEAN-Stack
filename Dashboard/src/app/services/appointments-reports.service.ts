@@ -11,10 +11,13 @@ export class AppointmentsReportsService {
   getAllAppointmentsReports() {
     return this.http.get<Appointment[]>(this.baseUrl);
   }
-  getDailyAppointmentsReports(){
-    return this.http.get<Appointment[]>(this.baseUrl+"/daily");
+  getDailyAppointmentsReports() {
+    return this.http.get<Appointment[]>(this.baseUrl + "/daily");
   }
-  getRangeAppointmentsReports(range:string){
-    return this.http.get<Appointment[]>(this.baseUrl+"/range/"+range);
+  getRangeAppointmentsReports(range: string) {
+    return this.http.get<Appointment[]>(this.baseUrl + "/range/" + range);
+  }
+  getDoctorAppointmentsReports(id: number) {
+    return this.http.get<Appointment[]>(this.baseUrl + "/doctor/" + id);
   }
 }

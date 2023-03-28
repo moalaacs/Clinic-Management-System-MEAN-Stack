@@ -387,7 +387,7 @@ exports.patientAppointmentsReports = (request, response, next) => {
 exports.doctorAppointmentsReports = (request, response, next) => {
   appointmentSchema
     .find({ _doctorId: request.params.id })
-    .populate({ path: "userId   ", select: { _id: 0, _fname: 1, _lname: 1 } })
+    .populate({ path: "patientId", select: { _id: 0, _fname: 1, _lname: 1 } })
     .populate({ path: "_doctorId", select: { _id: 0, _fname: 1, _lname: 1 } })
     .populate({
       path: "_clinicId",
