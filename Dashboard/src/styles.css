@@ -484,8 +484,8 @@ div.radio-container label {
 
   justify-content: center;
 
-  min-width: 300px;
-  min-height: 160px;
+  /* min-width: 300px;
+  min-height: 160px; */
   padding: 30px 16px;
 
   background: #ffffff;
@@ -607,4 +607,7 @@ rest-profile-content-sec {
 
   color: #0c4094;
   text-align: center;
+}
+#sidebar {
+  /* background-color: #6183ba; */
 }

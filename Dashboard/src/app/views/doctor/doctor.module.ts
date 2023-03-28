@@ -11,6 +11,7 @@ import { DoctorDetailsComponent } from './doctor-details/doctor-details.componen
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 import { DoctorAddComponent } from './doctor-add/doctor-add.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BadgeModule, CardModule, GridModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     DoctorRoutingModule,
     MaterialModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    BadgeModule, CardModule, GridModule
   ]
 })
 export class DoctorModule { }

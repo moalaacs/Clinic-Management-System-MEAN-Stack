@@ -17,16 +17,22 @@ const routes: Routes = [
     path: "details/:id",
     component: DoctorDetailsComponent,
     data: {
-      title: 'Details',
+      title: 'Doctor / Details',
     },
   },
   {
     path: "edit/:id",
-    component: DoctorEditComponent
+    component: DoctorEditComponent,
+    data: {
+      title: 'Doctor / Edit',
+    },
   },
   {
     path: 'add',
-    component: DoctorAddComponent
+    component: DoctorAddComponent,
+    data: {
+      title: 'Doctor / Add',
+    },
   },
 ];
 
