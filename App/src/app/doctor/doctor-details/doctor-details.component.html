@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row my-5">
+  <div class="row mt-5 mb-3">
     <div class="text-end">
-      <button mat-button class="button back-button" (click)="goBack()">
+      <button mat-raised-button (click)="goBack()" class="back-btn">
         <mat-icon>arrow_back</mat-icon>
         Back
       </button>
@@ -219,7 +219,10 @@
               </div>
             </div>
           </div>
-          <div *ngIf="doctor.medicalHistory" class="medical-history-sec">
+          <div
+            *ngIf="doctor.medicalHistory"
+            class="rest-profile-content-sec medical-history-sec mt-3"
+          >
             <h2>
               <i class="fa fa-book-medical"></i>
               Medical History
@@ -227,8 +230,15 @@
 
             <p>{{ doctor.medicalHistory }}</p>
           </div>
-          <div class="invoices" *ngIf="doctor.invoices?.length > 0">
-            <h3 class="mat-subheading-1">Invoices</h3>
+          <div
+            class="invoices mt-3 rest-profile-content-sec"
+            *ngIf="doctor.invoices?.length > 0"
+          >
+            <h2>
+              <i class="fa fa-file-invoice-dollar"> </i>
+              Invoices
+            </h2>
+
             <mat-accordion *ngIf="doctor.invoices?.length > 0">
               <mat-expansion-panel *ngFor="let invoice of doctor.invoices">
                 <mat-expansion-panel-header>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mt-5 mb-3">
     <div class="text-end">
-      <button mat-raised-button (click)="goBack()" class="back-to-home-btn">
+      <button mat-raised-button (click)="goBack()" class="back-btn">
         <mat-icon>arrow_back</mat-icon>
         Back
       </button>
@@ -12,15 +12,18 @@
       <mat-card-title>Clinic details</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p><strong>Specilization:</strong> {{clinic._specilization}}</p>
+      <p><strong>Specilization:</strong> {{ clinic._specilization }}</p>
       <p>
-        <strong>Address:</strong> {{clinic._address.city}} , {{clinic._address.street}} ,
-        {{clinic._address.country}}
+        <strong>Address:</strong> {{ clinic._address.city }} ,
+        {{ clinic._address.street }} ,
+        {{ clinic._address.country }}
       </p>
-      <p><strong>Postal Code</strong> {{clinic._address.zipCode}}</p>
+      <p><strong>Postal Code</strong> {{ clinic._address.zipCode }}</p>
       <p><strong>Phone Number:</strong> {{ clinic._contactNumber }}</p>
-      <div *ngIf="clinic._weeklySchedule.length>0">
-        <div class="pr text-light rounded-2 text-center py-2"><strong>Schedule</strong></div>
+      <div *ngIf="clinic._weeklySchedule.length > 0">
+        <div class="pr text-light rounded-2 text-center py-2">
+          <strong>Schedule</strong>
+        </div>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -32,10 +35,13 @@
           </thead>
           <tbody>
             <tr *ngFor="let schedule of clinic._weeklySchedule">
-              <td>{{schedule.doctorId.firstname}} {{schedule.doctorId.lastname}}</td>
-              <td>{{schedule.day}}</td>
-              <td>{{schedule.start}}</td>
-              <td>{{schedule.end}}</td>
+              <td>
+                {{ schedule.doctorId.firstname }}
+                {{ schedule.doctorId.lastname }}
+              </td>
+              <td>{{ schedule.day }}</td>
+              <td>{{ schedule.start }}</td>
+              <td>{{ schedule.end }}</td>
             </tr>
           </tbody>
         </table>

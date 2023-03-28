@@ -1,11 +1,19 @@
+
+.doctor-row:hover{
+  background-color: #f3f3f3 !important;
+}
+.doctor-row:last-of-type {
+  border-bottom: 2px solid #0c4095;
+}
+
 .table-pagination-sec{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 mat-table{
-  overflow: auto;
-  min-width:fit-content;
+  overflow: auto ;
+  min-width:1200px;
 }
 
 .mat-form-field,mat-header-row,mat-header-cell,mat-cell {
@@ -16,7 +24,7 @@ mat-table{
 .mat-table-style {
   border-collapse: collapse;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  overflow: auto;
+  overflow: auto ;
 }
 
 .mat-table-style mat-header-row{
@@ -25,7 +33,7 @@ mat-table{
 mat-header-cell {
   font-weight: bold;
   font-size: 14px;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 
@@ -42,19 +50,9 @@ mat-cell{
 
 }
 
-.mat-table-style mat-cell:last-child, .mat-table-style mat-header-cell:last-child {
-  padding: 12px 80px 12px 20px;
-}
+
 
 mat-row {
   border-bottom: 1px solid #dddddd;
 }
-
-.doctor-row:hover{
-  background-color: #f3f3f3 !important;
-}
-.doctor-row:last-of-type {
-  border-bottom: 2px solid #0c4095;
-}
-
 

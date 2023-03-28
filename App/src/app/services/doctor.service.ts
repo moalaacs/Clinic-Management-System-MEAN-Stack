@@ -17,15 +17,21 @@ export class DoctorService {
   constructor(private http: HttpClient) { }
 
   getAllDoctors2(role: string, query?: string, page?:number , limit?: number, sortBy?: string, order?:"asc" | "desc"): Observable<any> {
-    let url = `${this.baseUrl}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`;
+    let url = `${this.baseUrl}?page=${page}`;
     if (query) {
       url += `&${query}`;
     }
-
+    if (limit){
+      url += `&limit=${limit}`;
+    }
+    if (sortBy){
+      url += `&sortBy=${sortBy}`;
+    }
+    if (order){
+      url += `&order=${order}`;
+    }
     return this.http.get<any>(url).pipe(
-      // tap(response => console.log(`Response from getAll${role}s:`, response)),
       catchError(error => {
-        // console.log(`Error retrieving ${role}s: `, error);
         return throwError(`Could not retrieve ${role}s. Please try again later.`);
       })
     );

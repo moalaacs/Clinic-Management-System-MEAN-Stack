@@ -1,0 +1,59 @@
+
+.employee-row:hover{
+  background-color: #f3f3f3 !important;
+}
+.employee-row:last-of-type {
+  border-bottom: 2px solid #0c4095;
+}
+
+
+.table-pagination-sec{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+mat-table{
+  overflow: auto ;
+  min-width:1200px;
+}
+
+.mat-form-field,mat-header-row,mat-header-cell,mat-cell {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table-style {
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  overflow: auto ;
+}
+
+.mat-table-style mat-header-row{
+  background-color: #0c4095;
+}
+mat-header-cell {
+  font-weight: bold;
+  font-size: 14px;
+  color: #ffffff !important;
+}
+
+
+mat-header-cell,
+mat-cell {
+  padding: 12px 20px;
+  vertical-align: middle;
+  text-align: left;
+  white-space: nowrap;
+}
+
+mat-cell{
+  white-space: pre-wrap;
+
+}
+
+
+
+mat-row {
+  border-bottom: 1px solid #dddddd;
+}
+
