@@ -12,6 +12,7 @@ import { Patient } from 'src/app/models/patient';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  hide  = true;
   file: any;
   image: any;
   addresses = ADDRESS;

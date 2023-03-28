@@ -64,7 +64,7 @@
         </mat-form-field>
         <mat-form-field class="col-12 col-md-6">
           <mat-label>Password</mat-label>
-          <input type="password" matInput formControlName="password">
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
           <mat-error *ngIf="
             registerform.get('password')?.invalid &&
               (registerform.get('password')?.dirty ||
@@ -80,6 +80,8 @@
               {{ validationMessages.password.minlength }}
             </span>
           </mat-error>
+          <mat-icon matSuffix (click)="hide = !hide" class="mat-form-field-suffix">{{ hide ? "visibility_off" :
+            "visibility" }}</mat-icon>
         </mat-form-field>
       </div>
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
