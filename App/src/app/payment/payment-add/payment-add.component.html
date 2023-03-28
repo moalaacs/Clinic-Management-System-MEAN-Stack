@@ -64,7 +64,7 @@
                                 </mat-error>
                     </mat-form-field>
                     <mat-form-field class="col-12 col-md-6">
-                        <mat-label>Exp Month</mat-label>
+                        <mat-label>Expiry Month</mat-label>
                         <input matInput formControlName="exp_month">
                         <mat-error class="error-message" *ngIf="
                         paymentForm.get('exp_month')?.invalid &&
@@ -83,7 +83,7 @@
                 </div>
                 <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
                     <mat-form-field class="col-12 col-md-6">
-                        <mat-label>Exp Year</mat-label>
+                        <mat-label>Expiry Year</mat-label>
                         <input matInput formControlName="exp_year">
                         <mat-error class="error-message" *ngIf="
                         paymentForm.get('exp_year')?.invalid &&
@@ -123,3 +123,4 @@
             </form>
         </mat-card-content>
     </mat-card>
+    <br><br>

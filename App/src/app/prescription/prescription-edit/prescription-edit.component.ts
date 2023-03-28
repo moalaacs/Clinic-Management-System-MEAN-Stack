@@ -1,23 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Prescription } from 'src/app/models/prescription';
 import { prescriptionService } from 'src/app/services/prescription.service';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { clinic } from 'src/app/models/clinic';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { DoctorService } from 'src/app/services/doctor.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-prescription-edit',
   templateUrl: './prescription-edit.component.html',
-  styleUrls: ['./prescription-edit.component.css']
+  styleUrls: ['./prescription-edit.component.css'],
 })
 export class PrescriptionEditComponent {
   clinics: clinic[] = [];
@@ -58,9 +51,9 @@ export class PrescriptionEditComponent {
   constructor(
     public prescriptionService: prescriptionService,
     private builder: FormBuilder,
-    private toastr: ToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
     public clinicservice: ClinicService,
     public doctorservice: DoctorService
   ) {
@@ -126,17 +119,39 @@ export class PrescriptionEditComponent {
     return this.prescriptionform.controls['medicine'] as FormArray;
   }
 
-
   goBack(): void {
     this.router.navigate(['/prescription']);
   }
   save() {
-    this.activatedRoute.params.subscribe(parameters => {
-      this.prescriptionService.updatePrescriptions(parameters['id'], this.prescriptionform.value).subscribe(() => {
-        this.router.navigateByUrl("/prescription");
+    if (this.prescriptionform.valid) {
+      this.activatedRoute.params.subscribe((parameters) => {
+        this.prescriptionService
+          .updatePrescriptions(parameters['id'], this.prescriptionform.value)
+          .subscribe(
+            () => {
+              this.snackBar.open(
+                'prescription updated successfully.',
+                'Close',
+                {
+                  duration: 3000,
+                }
+              );
+              this.router.navigate(['prescription']);
+            },
+            (error) => {
+              this.snackBar.open(error.message, 'Close', {
+                duration: 3000,
+              });
+            }
+          );
       });
-    })
+    } else {
+      this.snackBar.open('Please enter valid data.', 'Close', {
+        duration: 3000,
+      });
+    }
   }
+
   getClinic(id: string) {
     this.clinicID = parseInt(id);
     this.clinicservice

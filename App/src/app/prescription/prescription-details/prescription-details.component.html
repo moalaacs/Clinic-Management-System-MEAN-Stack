@@ -17,14 +17,31 @@
             <p><strong>Clinic Number : </strong> {{newPrecscreption.clinicRef}}</p>
             <p><strong>Patient Number : </strong> {{newPrecscreption.patientRef}}</p>
             <p><strong>Doctor Number : </strong> {{newPrecscreption.doctorRef}}</p>
-            <strong>Medications : </strong>
-            <p>
-                <span *ngFor="let medications of newPrecscreption.medications; " style="margin-left: 100px;">
-                    <b>Name : </b>{{medications.name}} , <b>Type : </b>{{medications.type}} , <b>Dose :
-                    </b>{{medications.dose}} , <b>Frequency : </b>{{medications.frequency}}
-                    <br>
-                </span>
-            </p>
+            <strong>Medications List : </strong>
+            <br><br>
+            <div class="table-responsive">
+                <table class="table table-borderd styled-table " style="width:80%;margin: 0 auto;">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Dose</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let medications of newPrecscreption.medications;let i=index;" style="text-align: center;">
+                            <td>{{i+1}}</td>
+                            <td>{{medications.name}}</td>
+                            <td>{{medications.type}}</td>
+                            <td>{{medications.dose}}</td>
+                            <td>{{medications.frequency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
             <p><strong>Instructions : </strong> {{newPrecscreption.instructions}}</p>
         </mat-card-content>
     </mat-card>
