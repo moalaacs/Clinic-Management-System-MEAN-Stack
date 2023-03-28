@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { prescriptionService } from 'src/app/services/prescription.service';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { clinic } from 'src/app/models/clinic';
-import { Doctor } from 'src/app/models/doctor';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { DoctorService } from 'src/app/services/doctor.service';
+import { prescriptionService } from 'src/app/services/prescription.service';
 
 @Component({
   selector: 'app-prescription-add',
@@ -52,8 +52,8 @@ export class PrescriptionAddComponent {
   constructor(
     public prescriptionService: prescriptionService,
     private builder: FormBuilder,
-    private toastr: ToastrService,
     private router: Router,
+    private snackBar: MatSnackBar,
     public clinicservice: ClinicService,
     public doctorservice: DoctorService
   ) {
@@ -123,12 +123,23 @@ export class PrescriptionAddComponent {
     if (this.prescriptionform.valid) {
       this.prescriptionService
         .addPrescriptions(this.prescriptionform.value)
-        .subscribe(() => {
-          this.router.navigate(['prescription']);
-          this.toastr.success('prescription added successfully.');
-        });
+        .subscribe(
+          () => {
+            this.snackBar.open('prescription added successfully.', 'Close', {
+              duration: 3000,
+            });
+            this.router.navigate(['prescription']);
+          },
+          (error) => {
+            this.snackBar.open(error.message, 'Close', {
+              duration: 3000,
+            });
+          }
+        );
     } else {
-      this.toastr.warning('Please enter valid data.');
+      this.snackBar.open('Please enter valid data.', 'Close', {
+        duration: 3000,
+      });
     }
   }
   goBack(): void {
