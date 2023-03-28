@@ -1,30 +1,37 @@
-<!-- <c-row>
-  <c-col sm="3">
-    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
-      <div class="text-medium-emphasis small">Page views</div>
-      <div class="fs-5 fw-semibold">78,623</div>
-    </div>
-  </c-col>
-  <c-col sm="3">
-    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
-      <div class="text-medium-emphasis small">Organic</div>
-      <div class="fs-5 fw-semibold">49,123</div>
-    </div>
-  </c-col>
-  <c-col sm="3">
-    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
-      <div class="text-medium-emphasis small">Organic</div>
-      <div class="fs-5 fw-semibold">49,123</div>
-    </div>
-  </c-col>
-  <c-col sm="3">
-    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
-      <div class="text-medium-emphasis small">Organic</div>
-      <div class="fs-5 fw-semibold">49,123</div>
-    </div>
-  </c-col>
-</c-row> -->
 <c-row>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Clinic</div>
+      <div class="fs-5 fw-semibold">{{clinics.length}}</div>
+    </div>
+  </c-col>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Doctor</div>
+      <div class="fs-5 fw-semibold">{{doctors.length}}</div>
+    </div>
+  </c-col>
+  <c-col sm="3">
+    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Employee</div>
+      <div class="fs-5 fw-semibold">{{employees.length}}</div>
+    </div>
+  </c-col>
+  <!-- <c-col sm="3">
+    <div class="border-start border-start-4 border-start-success py-1 px-3 mb-3">
+      <div class="text-medium-emphasis small">Organic</div>
+      <div class="fs-5 fw-semibold">49,123</div>
+    </div>
+  </c-col> -->
+</c-row>
+<c-row>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a class="mb-4" color="danger" title="Patient">
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        {{patients.length}}
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
   <c-col sm="6" xl="3">
     <c-widget-stat-a class="mb-4" color="primary" title="Appointments">
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
@@ -46,13 +53,6 @@
       </ng-template>
     </c-widget-stat-a>
   </c-col>
-  <c-col sm="6" xl="3">
-    <c-widget-stat-a class="mb-4" color="danger" title="Patient">
-      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        15
-      </ng-template>
-    </c-widget-stat-a>
-  </c-col>
 </c-row>
 
 <c-row>
@@ -61,7 +61,7 @@
   <c-col xs="12" lg="6">
     <c-card class="mb-4">
       <c-card-header>
-        Bar Chart
+        Appointments
       </c-card-header>
       <c-card-body>
         <c-chart type="bar" [data]="basicData"></c-chart>
@@ -71,10 +71,30 @@
   <c-col xs="12" lg="6">
     <c-card class="mb-4">
       <c-card-header>
-        Line Chart
+        Invoices
       </c-card-header>
       <c-card-body>
         <c-chart type="line" [data]="basicData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        System Users
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="doughnut" [data]="doughnutData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        Overview
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="polarArea" [data]="polarData"></c-chart>
       </c-card-body>
     </c-card>
   </c-col>

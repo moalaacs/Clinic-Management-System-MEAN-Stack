@@ -2,8 +2,16 @@ import { Component } from '@angular/core';
 import { Appointment } from '../../models/appointment-report';
 import { AppointmentsReportsService } from '../../services/appointments-reports.service';
 
-import { Invoice } from '../../models/invoice-reports';
-import { InvoiceReportsService } from '../../services/invoice-reports.service';
+import { Invoice } from 'src/app/models/invoice-reports';
+import { InvoiceReportsService } from 'src/app/services/invoice-reports.service';
+import { Patient } from 'src/app/models/patient';
+import { PatientService } from 'src/app/services/patient.service';
+import { Doctor } from 'src/app/models/doctor';
+import { DoctorService } from 'src/app/services/doctor.service';
+import { Employee } from 'src/app/models/employee';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { clinic } from 'src/app/models/clinic';
+import { ClinicService } from 'src/app/services/clinic.service';
 import { elementAt } from 'rxjs';
 
 @Component({
@@ -14,9 +22,15 @@ import { elementAt } from 'rxjs';
 export class DashboardComponent {
   appointments: Appointment[] = [];
   invoices: Invoice[] = [];
+  patients: Patient[] = [];
+  doctors: Doctor[] = [];
+  employees: Employee[] = [];
+  clinics: clinic[] = [];
   income = 0;
   basicData: any;
   basicOptions: any;
+  doughnutData: any;
+  polarData: any;
 
   aJanCounter = 0;
   aFebCounter = 0;
@@ -44,7 +58,11 @@ export class DashboardComponent {
   iNovCounter = 0;
   iDecCounter = 0;
 
-  constructor(public AppointmentsReportsService: AppointmentsReportsService, public InvoiceReportsService: InvoiceReportsService) {
+  constructor(public AppointmentsReportsService: AppointmentsReportsService,
+    public InvoiceReportsService: InvoiceReportsService,
+    public PatientService: PatientService, public DoctorService: DoctorService,
+    public EmployeeService: EmployeeService,
+    public ClinicService: ClinicService) {
   }
 
   ngOnInit() {
@@ -110,7 +128,6 @@ export class DashboardComponent {
         this.invoices.forEach(element => {
           this.income += element.paid;
           let month = parseInt(element.date.split("/")[1]);
-          console.log(month);
           switch (month) {
             case 1: {
               this.iJanCounter += 1;
@@ -216,7 +233,69 @@ export class DashboardComponent {
         };
       })
 
+      this.PatientService.getAllPatients().subscribe(data => {
+        this.patients = data.data;
+      })
 
+      this.DoctorService.getAllDoctors().subscribe(data => {
+        this.doctors = data.data;
+      })
+
+      this.EmployeeService.getAllEmployees().subscribe(data => {
+        this.employees = data.data;
+        this.doughnutData = {
+          labels: [
+            'Doctors',
+            'Employees',
+            'Patients',
+          ],
+          datasets: [
+            {
+              data: [this.doctors.length, this.employees.length, this.patients.length],
+              backgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+              ],
+              hoverBackgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+              ],
+            }],
+        };
+      })
+
+      this.ClinicService.getClinics().subscribe(data => {
+        this.clinics = data.data;
+        this.polarData = {
+          datasets: [
+            {
+              data: [
+                this.clinics.length,
+                this.doctors.length,
+                this.patients.length,
+                this.appointments.length,
+                this.invoices.length
+              ],
+              backgroundColor: [
+                '#FF6384',
+                '#4BC0C0',
+                '#FFCE56',
+                '#36A2EB',
+                '#E7E9ED',
+              ],
+              label: ''
+            }],
+          labels: [
+            'Clinics',
+            'Doctors',
+            'Patients',
+            'Appointments',
+            'Invoices',
+          ],
+        };
+      })
     })
   }
 }
