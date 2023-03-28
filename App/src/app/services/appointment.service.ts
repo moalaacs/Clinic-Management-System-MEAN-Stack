@@ -29,7 +29,7 @@ export class AppointmentService {
     return this.http.delete<Appointment>(this.baseurl + id);
   }
   /* Update Appointment by ID */
-  updateAppointment(appointment: Appointment) {
+  updateAppointment(id: number, appointment: Appointment) {
     return this.http.patch<Appointment>(this.baseurl + appointment._id, appointment);
   }
 

@@ -82,9 +82,11 @@ export class MedEditComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(parameters => {
       this.medicineService.updateMedicine(parameters['id'], this.medicineForm.value).subscribe(() => {
-        this.router.navigateByUrl("/medicine");
+        this.router.navigateByUrl("/medicine")
+      }, error => {
+        this.mat.open(error.error.message, "", { duration: 3000 });
+      })
       });
-    });
     /*this.medicineService.updateMedicine(this.medicineForm.value).subscribe(
     () => {
       this.router.navigate(['/medicine'])

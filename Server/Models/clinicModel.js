@@ -99,7 +99,7 @@ const clinicSchema = new mongoose.Schema({
   },
   _services: [{ type: serviceSchema }],
   _weeklySchedule: [scheduleSchema],
-  _doctors: [{ type: Object, unique: true, ref:"doctor" }],
+  _doctors: [{ type: Number, unique: true , ref: "doctor",}],
 });
 
 
