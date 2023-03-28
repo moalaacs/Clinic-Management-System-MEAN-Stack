@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AllInvoiceReportsComponent } from './all-invoice-reports/all-invoice-reports.component';
 import { DailyInvoiceReportsComponent } from './daily-invoice-reports/daily-invoice-reports.component'
+import { AuthGuard } from './../Auth/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,15 +19,15 @@ const routes: Routes = [
       },
       {
         path: 'all',
-        component: AllInvoiceReportsComponent,
+        component: AllInvoiceReportsComponent, canActivate: [AuthGuard],
         data: {
           title: "All"
         }
       },
       {
         path: 'daily',
-        component: DailyInvoiceReportsComponent,
-        data:{
+        component: DailyInvoiceReportsComponent, canActivate: [AuthGuard],
+        data: {
           title: "Daily"
         }
       }

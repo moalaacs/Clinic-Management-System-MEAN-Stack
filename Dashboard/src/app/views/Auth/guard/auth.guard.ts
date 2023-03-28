@@ -35,9 +35,20 @@ export class AuthGuard implements CanActivate {
         //let menu =document.location.href;
         let menu = document.location.pathname;
         if (
-          (menu == '/doctor/add' ||
-            menu == '/doctor/edit/:id' ||
-            menu == 'emplyee/add' ||
+          (
+            menu == 'dashboard' ||
+            menu == 'appointments' ||
+            menu == 'appointments/all' ||
+            menu == 'appointments/daily' ||
+            menu == 'appointments/range' ||
+            menu == 'appointments/doctor' ||
+            menu == 'appointments/patient' ||
+            menu == 'invoices' ||
+            menu == 'invoices/all' ||
+            menu == 'invoices/daily' ||
+            menu == 'doctor/add' ||
+            menu == 'doctor/edit/:id' ||
+            menu == 'employee/add' ||
             menu == 'employee/edit/:id' ||
             menu == 'doctor/add' ||
             menu == 'doctor/edit/:id') &&
@@ -60,9 +71,9 @@ export class AuthGuard implements CanActivate {
         ) {
           return true;
         } else {
-          // this.router.navigate(['']);
-          // this.tostr.warning('You dont have access.');
-          return true;
+          this.router.navigate(['']);
+          this.tostr.warning('You dont have access.');
+          return false;
         }
       } else {
         return true;

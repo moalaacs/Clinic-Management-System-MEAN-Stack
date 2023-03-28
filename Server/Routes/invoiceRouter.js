@@ -11,21 +11,21 @@ const router = express.Router();
 
 router
   .route("/invoice")
-  .all(authorizationMW.accessClinicResources("doctor","employee"))
+  .all(authorizationMW.accessClinicResources("doctor", "employee"))
   .get(controller.getInvoices)
   .post(validateInvoice, errorValidation, controller.addInvoice);
 
-  router
+router
   .route("/invoiceReports")
-  .get(/*authorizationMW.access(),*/ controller.allInvoicesReports);
+  .get(authorizationMW.access(), controller.allInvoicesReports);
 
-  router
+router
   .route("/invoiceReports/daily")
-  .get(/*authorizationMW.access(),*/ controller.dailyInvoicesReports);
+  .get(authorizationMW.access(), controller.dailyInvoicesReports);
 
-  router
+router
   .route("/invoiceReports/patient/:id")
-  .get(/*authorizationMW.access(),*/ controller.patientInvoicesReports);
+  .get(authorizationMW.access(), controller.patientInvoicesReports);
 
 router
   .route("/invoice/:id")

@@ -7,6 +7,7 @@ import { DoctorAppointmentReportsComponent } from './doctor-appointment-reports/
 import { PatientAppointmentReportsComponent } from './patient-appointment-reports/patient-appointment-reports.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthGuard } from './../Auth/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,35 +23,35 @@ const routes: Routes = [
       },
       {
         path: 'all',
-        component: AllAppointmentReportsComponent,
+        component: AllAppointmentReportsComponent, canActivate: [AuthGuard],
         data: {
           title: 'All',
         },
       },
       {
         path: 'daily',
-        component: DailyAppointmentReportsComponent,
+        component: DailyAppointmentReportsComponent, canActivate: [AuthGuard],
         data: {
           title: 'Daily',
         }
       },
       {
         path: 'range',
-        component: RangeAppointmentReportsComponent,
+        component: RangeAppointmentReportsComponent, canActivate: [AuthGuard],
         data: {
           title: 'Range',
         }
       },
       {
         path: 'doctor',
-        component: DoctorAppointmentReportsComponent,
+        component: DoctorAppointmentReportsComponent, canActivate: [AuthGuard],
         data: {
           title: 'Doctor',
         }
       },
       {
         path: 'patient',
-        component: PatientAppointmentReportsComponent,
+        component: PatientAppointmentReportsComponent, canActivate: [AuthGuard],
         data: {
           title: 'Patient',
         }

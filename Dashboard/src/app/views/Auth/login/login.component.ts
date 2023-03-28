@@ -38,7 +38,7 @@ export class LoginComponent {
   loginform = this.builder.group({
     email: this.builder.control(
       '',
-      Validators.compose([Validators.required, Validators.email])
+      Validators.compose([Validators.required, /*Validators.email*/])
     ),
     password: this.builder.control(
       '',

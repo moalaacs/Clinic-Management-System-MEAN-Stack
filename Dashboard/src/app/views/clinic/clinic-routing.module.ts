@@ -7,35 +7,37 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AvailableClinicsComponent } from './availableClinics/availableClinics.component';
 import { ClinicsInfoComponent } from './clinic-list/clinics-list.component';
+import { AuthGuard } from './../Auth/guard/auth.guard';
+
 const routes: Routes = [
   {
-    path: '', component: ClinicsInfoComponent,
+    path: '', component: ClinicsInfoComponent, canActivate: [AuthGuard],
     data: {
       title: 'Clinic',
     },
   },
   {
     path: "add",
-    component: AddClinicComponent,
+    component: AddClinicComponent, canActivate: [AuthGuard],
     data: {
       title: 'Add',
     },
   },
   {
     path: "edit/:id",
-    component: AddClinicComponent
+    component: AddClinicComponent, canActivate: [AuthGuard]
   },
   {
     path: 'details/:id',
-    component: ClinicsInfoByIdComponent
+    component: ClinicsInfoByIdComponent, canActivate: [AuthGuard]
   },
   {
     path: 'services/:speciallity',
-    component: ServicesComponent
+    component: ServicesComponent, canActivate: [AuthGuard]
   },
   {
     path: 'location/:speciallity',
-    component: AvailableClinicsComponent
+    component: AvailableClinicsComponent, canActivate: [AuthGuard]
   },
 ];
 @NgModule({

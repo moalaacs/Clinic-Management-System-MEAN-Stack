@@ -12,45 +12,45 @@ const router = express.Router();
 
 router
   .route("/appointment")
-  // .all(
-  //   authorizationMW.accessAppointment(
-  //     "patient",
-  //     "doctor",
-  //     "receptionist",
-  //     "nurse"
-  //   )
-  // )
+  .all(
+    authorizationMW.accessAppointment(
+      "patient",
+      "doctor",
+      "receptionist",
+      "nurse"
+    )
+  )
   .get(controller.getAllAppointments)
-  // .post(validateAppointment, validatorMiddleware, controller.addAppointment)
+  .post(validateAppointment, validatorMiddleware, controller.addAppointment)
   .post(controller.addAppointment);
 
 router
   .route("/appointmentReports")
-  .get(/*authorizationMW.access(),*/ controller.allAppointmentsReports);
+  .get(authorizationMW.access(), controller.allAppointmentsReports);
 
 router
   .route("/appointmentReports/daily")
-  .get(/*authorizationMW.access(),*/ controller.dailyAppointmentsReports);
+  .get(authorizationMW.access(), controller.dailyAppointmentsReports);
 
 router
   .route("/appointmentReports/range/:startDate/:endDate")
-  .get(/*authorizationMW.access(),*/ controller.rangeAppointmentsReports);
+  .get(authorizationMW.access(), controller.rangeAppointmentsReports);
 
 router
   .route("/appointmentReports/patient/:id")
-  .get(/*authorizationMW.access(),*/ controller.patientAppointmentsReports);
+  .get(authorizationMW.access(), controller.patientAppointmentsReports);
 
 router
   .route("/appointmentReports/doctor/:id")
-  .get(/*authorizationMW.access(),*/ controller.doctorAppointmentsReports);
+  .get(authorizationMW.access(), controller.doctorAppointmentsReports);
 
 router
   .route("/appointment/:id")
-  // .all(
-  //   numberIdParamsValidation,
-  //   validatorMiddleware,
-  //   authorizationMW.accessClinicResources("receptionist")
-  // )
+  .all(
+    numberIdParamsValidation,
+    validatorMiddleware,
+    authorizationMW.accessClinicResources("receptionist")
+  )
   .get(controller.getAppointmentById)
   .patch(
     validatePatchAppointment,
