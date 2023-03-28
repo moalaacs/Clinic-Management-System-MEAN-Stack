@@ -5,6 +5,7 @@ import { AppointmentsReportsService } from '../../../services/appointments-repor
 
 import { Invoice } from 'src/app/models/invoice-reports';
 import { InvoiceReportsService } from 'src/app/services/invoice-reports.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { elementAt } from 'rxjs';
 
 @Component({

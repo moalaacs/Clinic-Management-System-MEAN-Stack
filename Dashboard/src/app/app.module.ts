@@ -15,6 +15,9 @@ import { RegisterComponent } from './views/Auth/register/register.component';
 
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
+import { TokenInterceptorService } from 'src/app/views/Auth/token-interceptor/token-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
@@ -108,6 +111,11 @@ const APP_CONTAINERS = [
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
       // useClass: PathLocationStrategy,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
     },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
