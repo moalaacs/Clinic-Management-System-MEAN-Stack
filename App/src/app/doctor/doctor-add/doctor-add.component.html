@@ -9,15 +9,19 @@
   </div>
   <mat-card class="py-4 mb-5">
     <form [formGroup]="doctorForm" class="form p-4">
-      <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+      <div
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+      >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>First Name</mat-label>
           <input matInput formControlName="firstname" required />
-          <mat-error *ngIf="
+          <mat-error
+            *ngIf="
               doctorForm.get('firstname')?.invalid &&
               (doctorForm.get('firstname')?.dirty ||
                 doctorForm.get('firstname')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('firstname')?.errors?.['required']">
               {{ validationMessages.firstname.required }}
             </span>
@@ -25,7 +29,8 @@
               {{ validationMessages.firstname.pattern }}
             </span>
             <span
-              *ngIf="doctorForm.get('firstname')?.errors?.['minlength'] && !doctorForm.get('firstname')?.errors?.['pattern'] ">
+              *ngIf="doctorForm.get('firstname')?.errors?.['minlength'] && !doctorForm.get('firstname')?.errors?.['pattern'] "
+            >
               {{ validationMessages.firstname.minlength }}
             </span>
           </mat-error>
@@ -34,11 +39,13 @@
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Last Name</mat-label>
           <input matInput formControlName="lastname" required />
-          <mat-error *ngIf="
+          <mat-error
+            *ngIf="
               doctorForm.get('lastname')?.invalid &&
               (doctorForm.get('lastname')?.dirty ||
                 doctorForm.get('lastname')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('lastname')?.errors?.['required']">
               {{ validationMessages.lastname.required }}
             </span>
@@ -46,21 +53,27 @@
               {{ validationMessages.lastname.pattern }}
             </span>
             <span
-              *ngIf="doctorForm.get('lastname')?.errors?.['minlength'] && !doctorForm.get('lastname')?.errors?.['pattern']">
+              *ngIf="doctorForm.get('lastname')?.errors?.['minlength'] && !doctorForm.get('lastname')?.errors?.['pattern']"
+            >
               {{ validationMessages.lastname.minlength }}
             </span>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+      <div
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+      >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Phone Number</mat-label>
           <input matInput formControlName="phoneNumber" required />
-          <mat-error class="error-message" *ngIf="
+          <mat-error
+            class="error-message"
+            *ngIf="
               doctorForm.get('phoneNumber')?.invalid &&
               (doctorForm.get('phoneNumber')?.dirty ||
                 doctorForm.get('phoneNumber')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('phoneNumber')?.errors?.['required']">
               {{ validationMessages.phoneNumber.required }}
             </span>
@@ -68,11 +81,13 @@
               {{ validationMessages.phoneNumber.pattern }}
             </span>
             <span
-              *ngIf="doctorForm.get('phoneNumber')?.errors?.['minlength'] && !doctorForm.get('phoneNumber')?.errors?.['pattern']">
+              *ngIf="doctorForm.get('phoneNumber')?.errors?.['minlength'] && !doctorForm.get('phoneNumber')?.errors?.['pattern']"
+            >
               {{ validationMessages.phoneNumber.minlength }}
             </span>
             <span
-              *ngIf="doctorForm.get('phoneNumber')?.errors?.['maxlength'] && !doctorForm.get('phoneNumber')?.errors?.['pattern'] && !doctorForm.get('phoneNumber')?.errors?.['minlength']">
+              *ngIf="doctorForm.get('phoneNumber')?.errors?.['maxlength'] && !doctorForm.get('phoneNumber')?.errors?.['pattern'] && !doctorForm.get('phoneNumber')?.errors?.['minlength']"
+            >
               {{ validationMessages.phoneNumber.maxlength }}
             </span>
           </mat-error>
@@ -81,51 +96,71 @@
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" type="email" required />
-          <mat-error class="error-message" *ngIf="
+          <mat-error
+            class="error-message"
+            *ngIf="
               doctorForm.get('email')?.invalid &&
               (doctorForm.get('email')?.dirty ||
                 doctorForm.get('email')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('email')?.errors?.['required']">
-              {{ validationMessages.email.required }}</span>
+              {{ validationMessages.email.required }}</span
+            >
             <span *ngIf="doctorForm.get('email')?.errors?.['email']">{{
               validationMessages.email.email
-              }}</span>
+            }}</span>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+      <div
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+      >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Date of Birth</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [min]="minDate" [max]="maxDate" />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dateOfBirth"
+            [min]="minDate"
+            [max]="maxDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="
+          <mat-error
+            *ngIf="
               doctorForm.get('dateOfBirth')?.invalid &&
               (doctorForm.get('dateOfBirth')?.dirty ||
                 doctorForm.get('dateOfBirth')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('dateOfBirth')?.errors?.['required']">{{
               validationMessages.dateOfBirth.required
-              }}</span>
+            }}</span>
             <span *ngIf="doctorForm.get('dateOfBirth')?.errors?.['pattern']">{{
               validationMessages.dateOfBirth.pattern
-              }}</span>
+            }}</span>
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Password</mat-label>
           <input matInput formControlName="password" type="password" required />
-          <mat-error *ngIf="
+          <mat-error
+            *ngIf="
               doctorForm.get('password')?.invalid &&
               (doctorForm.get('password')?.dirty ||
                 doctorForm.get('password')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('password')?.errors?.['required']">
               {{ validationMessages.password.required }}
             </span>
             <span
-              *ngIf="doctorForm.get('password')?.errors?.['pattern'] && !doctorForm.get('password')?.errors?.['minlength']">
+              *ngIf="doctorForm.get('password')?.errors?.['pattern'] && !doctorForm.get('password')?.errors?.['minlength']"
+            >
               {{ validationMessages.password.pattern }}
             </span>
             <span *ngIf="doctorForm.get('password')?.errors?.['minlength']">
@@ -135,21 +170,25 @@
         </mat-form-field>
       </div>
 
-      <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+      <div
+        class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+      >
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>clinic</mat-label>
           <mat-select formControlName="clinicId" required>
             <mat-option value="">Select a Clinic</mat-option>
-            <mat-option *ngFor="let clinic of clinics" [value]="clinic._id">Alwafaa {{ clinic._id }} - {{
-              clinic._address.city }}
+            <mat-option *ngFor="let clinic of clinics" [value]="clinic._id"
+              >Alwafaa {{ clinic._id }} - {{ clinic._address.city }}
               {{ clinic._address.street }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="
+          <mat-error
+            *ngIf="
               doctorForm.get('clinicId')?.invalid &&
               (doctorForm.get('clinicId')?.dirty ||
                 doctorForm.get('clinicId')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('clinicId')?.errors?.['required']">
               {{ validationMessages.clinicId.required }}
             </span>
@@ -157,130 +196,215 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Speciality</mat-label>
-          <mat-select formControlName="speciality" required (selectionChange)="onSpecialityChange()">
+          <mat-select
+            formControlName="speciality"
+            required
+            (selectionChange)="onSpecialityChange()"
+          >
             <mat-option value="">Select a Speciality</mat-option>
-            <mat-option *ngFor="let speciality of specialities" [value]="speciality">{{ speciality }}</mat-option>
+            <mat-option
+              *ngFor="let speciality of specialities"
+              [value]="speciality"
+              >{{ speciality }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
 
       <div formGroupName="address">
-        <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+        <div
+          class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+        >
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Street</mat-label>
             <input matInput formControlName="street" required />
-            <mat-error class="error-message" *ngIf="
+            <mat-error
+              class="error-message"
+              *ngIf="
                 doctorForm.get('address.street')?.invalid &&
                 (doctorForm.get('address.street')?.dirty ||
                   doctorForm.get('address.street')?.touched)
-              ">
-              <span *ngIf="doctorForm.get('address.street')?.errors?.['required']">
+              "
+            >
+              <span
+                *ngIf="doctorForm.get('address.street')?.errors?.['required']"
+              >
                 {{ validationMessages.address.street.required }}
               </span>
-              <span *ngIf="doctorForm.get('address.street')?.errors?.['pattern']">{{
-                validationMessages.address.street.pattern }}</span>
               <span
-                *ngIf="doctorForm.get('address.street')?.errors?.['minlength'] && !doctorForm.get('address.street')?.errors?.['pattern'] ">{{
-                validationMessages.address.street.minlength }}</span>
+                *ngIf="doctorForm.get('address.street')?.errors?.['pattern']"
+                >{{ validationMessages.address.street.pattern }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.street')?.errors?.['minlength'] && !doctorForm.get('address.street')?.errors?.['pattern'] "
+                >{{ validationMessages.address.street.minlength }}</span
+              >
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>City</mat-label>
             <input matInput formControlName="city" required />
-            <mat-error class="error-message" *ngIf="
+            <mat-error
+              class="error-message"
+              *ngIf="
                 doctorForm.get('address.city')?.invalid &&
                 (doctorForm.get('address.city')?.dirty ||
                   doctorForm.get('address.city')?.touched)
-              ">
-              <span *ngIf="doctorForm.get('address.city')?.errors?.['required']">
-                {{ validationMessages.address.city.required }}</span>
-              <span *ngIf="doctorForm.get('address.city')?.errors?.['pattern']">{{
-                validationMessages.address.city.pattern }}</span>
+              "
+            >
               <span
-                *ngIf="doctorForm.get('address.city')?.errors?.['minlength'] && !doctorForm.get('address.city')?.errors?.['pattern']">{{
-                validationMessages.address.city.minlength }}</span>
+                *ngIf="doctorForm.get('address.city')?.errors?.['required']"
+              >
+                {{ validationMessages.address.city.required }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.city')?.errors?.['pattern']"
+                >{{ validationMessages.address.city.pattern }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.city')?.errors?.['minlength'] && !doctorForm.get('address.city')?.errors?.['pattern']"
+                >{{ validationMessages.address.city.minlength }}</span
+              >
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+        <div
+          class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+        >
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Country</mat-label>
             <input matInput formControlName="country" required />
 
-            <mat-error class="error-message" *ngIf="
+            <mat-error
+              class="error-message"
+              *ngIf="
                 doctorForm.get('address.country')?.invalid &&
                 (doctorForm.get('address.country')?.dirty ||
                   doctorForm.get('address.country')?.touched)
-              ">
-              <span *ngIf="doctorForm.get('address.country')?.errors?.['required']">
-                {{ validationMessages.address.country.required }}</span>
-              <span *ngIf="doctorForm.get('address.country')?.errors?.['pattern']">{{
-                validationMessages.address.country.pattern }}</span>
+              "
+            >
               <span
-                *ngIf="doctorForm.get('address.country')?.errors?.['minlength'] && !doctorForm.get('address.country')?.errors?.['pattern']">{{
-                validationMessages.address.country.minlength }}</span>
+                *ngIf="doctorForm.get('address.country')?.errors?.['required']"
+              >
+                {{ validationMessages.address.country.required }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.country')?.errors?.['pattern']"
+                >{{ validationMessages.address.country.pattern }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.country')?.errors?.['minlength'] && !doctorForm.get('address.country')?.errors?.['pattern']"
+                >{{ validationMessages.address.country.minlength }}</span
+              >
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
             <mat-label>Zip Code</mat-label>
             <input matInput formControlName="zipCode" required />
 
-            <mat-error class="error-message" *ngIf="
+            <mat-error
+              class="error-message"
+              *ngIf="
                 doctorForm.get('address.zipCode')?.invalid &&
                 (doctorForm.get('address.zipCode')?.dirty ||
                   doctorForm.get('address.zipCode')?.touched)
-              ">
-              <span *ngIf="doctorForm.get('address.zipCode')?.errors?.['required']">
-                {{ validationMessages.address.zipCode.required }}</span>
-              <span *ngIf="doctorForm.get('address.zipCode')?.errors?.['pattern']">{{
-                validationMessages.address.zipCode.pattern }}</span>
+              "
+            >
               <span
-                *ngIf="doctorForm.get('address.zipCode')?.errors?.['minlength'] && !doctorForm.get('address.zipCode')?.errors?.['pattern']">{{
-                validationMessages.address.zipCode.minlength }}</span>
+                *ngIf="doctorForm.get('address.zipCode')?.errors?.['required']"
+              >
+                {{ validationMessages.address.zipCode.required }}</span
+              >
               <span
-                *ngIf="doctorForm.get('address.zipCode')?.errors?.['maxlength'] && !doctorForm.get('address.zipCode')?.errors?.['pattern'] && !doctorForm.get('address.zipCode')?.errors?.['minlength']">{{
-                validationMessages.address.zipCode.maxlength }}</span>
+                *ngIf="doctorForm.get('address.zipCode')?.errors?.['pattern']"
+                >{{ validationMessages.address.zipCode.pattern }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.zipCode')?.errors?.['minlength'] && !doctorForm.get('address.zipCode')?.errors?.['pattern']"
+                >{{ validationMessages.address.zipCode.minlength }}</span
+              >
+              <span
+                *ngIf="doctorForm.get('address.zipCode')?.errors?.['maxlength'] && !doctorForm.get('address.zipCode')?.errors?.['pattern'] && !doctorForm.get('address.zipCode')?.errors?.['minlength']"
+                >{{ validationMessages.address.zipCode.maxlength }}</span
+              >
             </mat-error>
           </mat-form-field>
         </div>
       </div>
       <div formArrayName="schedule" class="schedule-sec">
         <h4 class="m-0 col-12 mb-1">Schedule</h4>
-        <button class="btn btn-primary" [disabled]="
-            doctorForm.controls['schedule'].value[scheduleLength].day == '' ||
-            scheduleLength == 6
-          " (click)="addSchedule()">
+        <button
+          class="btn btn-primary"
+          [disabled]="
+            doctorForm.controls['schedule'].value[schedule.controls.length - 1]
+              .day == '' || schedule.controls.length == 7
+          "
+          (click)="addSchedule()"
+        >
           Add Day
         </button>
-        <div *ngFor="let item of schedule.controls; let i = index" class="row mt-3">
+        <div
+          *ngFor="let item of schedule.controls; let i = index"
+          class="row mt-3"
+        >
           <ng-container [formGroupName]="i">
-            <div class="form-row d-flex flex-column flex-md-row justify-content-md-around">
+            <div
+              class="form-row d-flex flex-column flex-md-row justify-content-md-around"
+            >
               <mat-form-field appearance="fill" class="col-12 col-md-3">
                 <mat-label>Day</mat-label>
-                <mat-select (selectionChange)="updateAvailableDays($event.value, i)" formControlName="day">
-                  <mat-option *ngFor="let day of availableDays[i]" [value]="day">{{day}}</mat-option>
+                <mat-select
+                  (selectionChange)="updateAvailableDays($event.value, i)"
+                  formControlName="day"
+                >
+                  <mat-option
+                    *ngFor="let day of availableDays[i]"
+                    [value]="day"
+                    >{{ day }}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
 
-              <mat-form-field appearance="fill" class="form-field col-12 col-md-3">
+              <mat-form-field
+                appearance="fill"
+                class="form-field col-12 col-md-3"
+              >
                 <mat-label>Starting Time</mat-label>
-                <mat-select formControlName="start" (selectionChange)="updateEndTimeList(i)" required>
-                  <mat-option *ngFor="let startTime of getStartTimeList()" [value]="startTime">
+                <mat-select
+                  formControlName="start"
+                  (selectionChange)="updateEndTimeList(i)"
+                  required
+                >
+                  <mat-option
+                    *ngFor="let startTime of getStartTimeList()"
+                    [value]="startTime"
+                  >
                     {{ startTime }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
 
-              <mat-form-field appearance="fill" class="form-field col-12 col-md-3">
+              <mat-form-field
+                appearance="fill"
+                class="form-field col-12 col-md-3"
+              >
                 <mat-label>Ending Time</mat-label>
                 <mat-select formControlName="end" required>
-                  <mat-option *ngFor="let endTime of endTimeList[i]" [value]="endTime">{{ endTime }}</mat-option>
+                  <mat-option
+                    *ngFor="let endTime of endTimeList[i]"
+                    [value]="endTime"
+                    >{{ endTime }}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
 
-              <button type="button" class="btn btn-danger delete-schedule-button col-12 col-md-2"
-                [disabled]="scheduleLength == 0" (click)="deleteSchedule(i)">
+              <button
+                type="button"
+                class="btn btn-danger delete-schedule-button col-12 col-md-2"
+                [disabled]="schedule.controls.length == 1"
+                (click)="deleteSchedule(i)"
+              >
                 Delete
               </button>
             </div>
@@ -288,28 +412,60 @@
         </div>
       </div>
 
-      <div class="form-row d-flex flex-column flex-md-row justify-content-around">
-        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 col-12 col-md-5">
-          <mat-radio-group aria-label="Select an option" formControlName="gender" class="form-field">
+      <div
+        class="form-row d-flex flex-column flex-md-row justify-content-around"
+      >
+        <div
+          class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 col-12 col-md-5"
+        >
+          <mat-radio-group
+            aria-label="Select an option"
+            formControlName="gender"
+            class="form-field"
+          >
             <div class="radio-container">
-              <input type="radio" name="gender" value="male" id="male" formControlName="gender" />
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                id="male"
+                formControlName="gender"
+              />
               <label for="male">Male</label>
 
-              <input checked type="radio" name="gender" value="female" id="female" formControlName="gender" />
+              <input
+                checked
+                type="radio"
+                name="gender"
+                value="female"
+                id="female"
+                formControlName="gender"
+              />
               <label for="female">Female</label>
-              <mat-error *ngIf="
+              <mat-error
+                *ngIf="
                   doctorForm.get('gender')?.invalid &&
                   doctorForm.get('gender')?.touched
-                ">
+                "
+              >
                 {{ validationMessages.gender.required }}
               </mat-error>
             </div>
           </mat-radio-group>
           <div class="d-flex gap-1">
-            <label for="images" [class.uploaded]="file" class="drop-container my-2">
+            <label
+              for="images"
+              [class.uploaded]="file"
+              class="drop-container my-2"
+            >
               <span #dropImage class="drop-title">Upload profile image</span>
               <div class="ms-5 d-none">
-                <input type="file" id="images" (change)="onFileSelected($event, dropImage)" accept="image/*" />
+                <input
+                  type="file"
+                  id="images"
+                  (change)="onFileSelected($event, dropImage)"
+                  accept="image/*"
+                />
               </div>
             </label>
           </div>
@@ -317,11 +473,13 @@
         <mat-form-field appearance="fill" class="form-field col-12 col-md-5">
           <mat-label>Medical History</mat-label>
           <textarea matInput formControlName="medicalHistory"></textarea>
-          <mat-error *ngIf="
+          <mat-error
+            *ngIf="
               doctorForm.get('medicalHistory')?.invalid &&
               (doctorForm.get('medicalHistory')?.dirty ||
                 doctorForm.get('medicalHistory')?.touched)
-            ">
+            "
+          >
             <span *ngIf="doctorForm.get('medicalHistory')?.errors?.['pattern']">
               {{ validationMessages.medicalHistory.pattern }}
             </span>
@@ -330,7 +488,13 @@
       </div>
 
       <div class="form-row d-flex justify-content-end me-5 pe-3">
-        <button mat-raised-button color="primary" type="button" [disabled]="!doctorForm.valid" (click)="onSubmit()">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          [disabled]="!doctorForm.valid"
+          (click)="onSubmit()"
+        >
           Add doctor
         </button>
       </div>

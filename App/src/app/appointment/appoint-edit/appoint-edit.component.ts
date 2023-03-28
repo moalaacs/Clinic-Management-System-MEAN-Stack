@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { Location } from '@angular/common';
@@ -18,7 +18,13 @@ export class AppointEditComponent {
   matcher: MyErrorStateMatcher;
   minDate: Date;
 
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
+  constructor(
+    public appointmentService: AppointmentService, 
+    public router: Router, 
+    public location: Location, 
+    public activatedRoute: ActivatedRoute,
+    public fb: FormBuilder, 
+    public mat: MatSnackBar) {
     this.minDate = new Date();
     this.appointmentForm = this.fb.group({
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -32,9 +38,14 @@ export class AppointEditComponent {
     this.matcher = new MyErrorStateMatcher();
   }
   ngOnInit() {
-    this.appointmentService.getAllAppointment().subscribe(data => {
+    this.activatedRoute.params.subscribe((a) => {
+      this.appointmentService.getAppointmentById(a['id']).subscribe((data) => {
+        this.appointment = data;
+      });
+    });
+    /*this.appointmentService.getAllAppointment().subscribe(data => {
       this.appointment = data;
-    })
+    })*/
   }
   get clinic() {
     return this.appointmentForm.get('_clinicId');
@@ -65,12 +76,20 @@ export class AppointEditComponent {
     const formattedDate = `${day}/${month}/${year}`;
     this.appointmentForm.value.date = formattedDate;
     console.log(this.appointmentForm.value);
-    this.appointmentService.updateAppointment(this.appointmentForm.value).subscribe(
+    
+    this.activatedRoute.params.subscribe(parameters => {
+      this.appointmentService.updateAppointment(parameters['id'], this.appointmentForm.value).subscribe(() => {
+        this.router.navigateByUrl("/appointment")
+      }, error => {
+        this.mat.open(error.error.message, "", { duration: 3000 });
+      });
+    });
+    /*this.appointmentService.updateAppointment(this.appointmentForm.value).subscribe(
       () => {
         this.router.navigate(['/appointment'])
       }, error => {
         this.mat.open(error.error.message, "", { duration: 3000 });
-      })
+      })*/
   }
   goBack(): void {
     this.router.navigate(['/appointment']);
