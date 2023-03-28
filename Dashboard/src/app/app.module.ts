@@ -5,6 +5,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AngularModules } from './views/shared/angular-modules';
+import { MaterialModule } from './views/shared/material.moduel';
+import { PrimeNgModule } from './views/shared/prime-ng-modules';
+import { ComponentsModule } from './views/shared/components-modules';
+
+import { LoginComponent } from './views/Auth/login/login.component';
+import { RegisterComponent } from './views/Auth/register/register.component';
+
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
@@ -58,7 +68,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -86,7 +96,12 @@ const APP_CONTAINERS = [
     ProgressModule,
     BadgeModule,
     ListGroupModule,
-    CardModule
+    CardModule,
+    AngularModules,
+    MaterialModule,
+    PrimeNgModule,
+    ComponentsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {
@@ -98,7 +113,7 @@ const APP_CONTAINERS = [
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     IconSetService,
-    Title
+    Title, ToastrService
   ],
   bootstrap: [AppComponent],
 })

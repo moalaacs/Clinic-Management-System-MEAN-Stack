@@ -23,7 +23,7 @@ export interface Person {
   email: string;
   address: Address;
   password: string;
-  photo: string | ArrayBuffer | null;
+  image: string | ArrayBuffer | null;
   medicalHistory: string;
   invoices: Invoices[];
 }

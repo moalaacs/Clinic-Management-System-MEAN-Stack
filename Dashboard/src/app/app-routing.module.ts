@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
+import { LoginComponent } from './views/Auth/login/login.component';
+import { RegisterComponent } from './views/Auth/register/register.component';
 
 const routes: Routes = [
   {
@@ -15,6 +17,8 @@ const routes: Routes = [
       title: 'Home'
     },
     children: [
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
       {
         path: 'dashboard',
         loadChildren: () =>
@@ -49,6 +53,11 @@ const routes: Routes = [
         path: 'patient',
         loadChildren: () =>
           import('./views/patient/patient.module').then((m) => m.PatientModule),
+      },
+      {
+        path: 'employee',
+        loadChildren: () =>
+          import('./views/employee/employee.module').then((m) => m.EmployeeModule),
       },
     ]
   },
