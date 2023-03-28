@@ -8,10 +8,15 @@ export interface clinic {
     start: string,
     end: string,
     doctorId: {
+      id?:number,
       firstname: string,
       lastname: string,
     }
   }[],
-  _doctors: number[];
+  _doctors: {
+    id:number,
+    firstname: string,
+    lastname: string
+  }[];
   _email?: string
 }

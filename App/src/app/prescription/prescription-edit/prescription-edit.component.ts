@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PrescriptionEditComponent {
   clinics: clinic[] = [];
   clinicID: number = 0;
-  doctorsInClinic: number[] = [];
+  doctorsInClinic: {id:number,firstname:string,lastname:string}[] = [];
   validationMessages = {
     clinic: {
       required: 'Clinic is required.',

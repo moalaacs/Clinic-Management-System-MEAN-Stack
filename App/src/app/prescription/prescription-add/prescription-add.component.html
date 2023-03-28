@@ -1,170 +1,165 @@
 <div class="container">
-    <div class="row my-5">
-        <div class="text-end">
-            <button mat-button class="button back-button" (click)="goBack()">
-                <mat-icon>arrow_back</mat-icon>
-                Back
-            </button>
-        </div>
+  <div class="row my-5">
+    <div class="text-end">
+      <button mat-button class="button back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
     </div>
-    <mat-card class="container p-3">
-        <mat-card-header>
-            <h2>Add Prescription</h2>
-        </mat-card-header>
-        <mat-card-content>
-            <form class="example-form" [formGroup]="prescriptionform" class="row">
-                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
-                    <mat-form-field class="col-12 col-md-4">
-                        <mat-label>Clinic</mat-label>
-                        <mat-select id="clinic" name="clinic" formControlName="clinic">
-                            <mat-option #currentClinic *ngFor="let clinic of clinics;" value={{clinic._id}}
-                                (click)="getClinic(currentClinic.value)">{{clinic._id}}</mat-option>
-                        </mat-select>
-                        <mat-error class="error-message" *ngIf="
+  </div>
+  <mat-card class="container p-3">
+    <mat-card-header>
+      <h2>Add Prescription</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form" [formGroup]="prescriptionform" class="row">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-0">
+          <mat-form-field class="col-12 col-md-4">
+            <mat-label>Clinic</mat-label>
+            <mat-select #clinicSelect (valueChange)="getClinic(clinicSelect.value)" id="clinic" name="clinic"
+              formControlName="clinic">
+              <mat-option *ngFor="let clinic of clinics;" value={{clinic._id}}>Alwafaa {{ clinic._id }} - {{ clinic._address.city }}
+            </mat-option>
+            </mat-select>
+            <mat-error class="error-message" *ngIf="
                         prescriptionform.get('clinic')?.invalid &&
                                 (prescriptionform.get('clinic')?.dirty ||
                                 prescriptionform.get('clinic')?.touched)">
-                            <span *ngIf="prescriptionform.get('clinic')?.errors?.['required']">
-                                {{ validationMessages.clinic.required }}
-                            </span>
+              <span *ngIf="prescriptionform.get('clinic')?.errors?.['required']">
+                {{ validationMessages.clinic.required }}
+              </span>
 
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="col-12 col-md-4">
-                        <mat-label>Doctor</mat-label>
-                        <mat-select id="doctor" name="doctor" formControlName="doctor">
-                            <mat-option *ngFor="let doctor of doctorsInClinic;" value={{doctor}}>{{doctor}}</mat-option>
-                        </mat-select>
-                        <mat-error class="error-message" *ngIf="
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-12 col-md-4">
+            <mat-label>Doctor</mat-label>
+            <mat-select id="doctor" name="doctor" formControlName="doctor">
+              <mat-option *ngFor="let doctor of doctorsInClinic ;let i=index;" value={{doctor.id}}>
+                {{doctor.id}}/{{doctor.firstname}} {{doctor.lastname}}</mat-option>
+            </mat-select>
+            <mat-error class="error-message" *ngIf="
                         prescriptionform.get('doctor')?.invalid &&
                                 (prescriptionform.get('doctor')?.dirty ||
                                 prescriptionform.get('doctor')?.touched)">
-                            <span *ngIf="prescriptionform.get('doctor')?.errors?.['required']">
-                                {{ validationMessages.doctor.required }}
-                            </span>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="col-12 col-md-4">
-                        <mat-label>Patient ID</mat-label>
-                        <input matInput formControlName="patient">
-                        <mat-error class="error-message" *ngIf="
+              <span *ngIf="prescriptionform.get('doctor')?.errors?.['required']">
+                {{ validationMessages.doctor.required }}
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-12 col-md-4">
+            <mat-label>Patient ID</mat-label>
+            <input matInput formControlName="patient">
+            <mat-error class="error-message" *ngIf="
                         prescriptionform.get('patient')?.invalid &&
                                 (prescriptionform.get('patient')?.dirty ||
                                 prescriptionform.get('patient')?.touched)">
-                            <span *ngIf="prescriptionform.get('patient')?.errors?.['required']">
-                                {{ validationMessages.patient.required }}
-                            </span>
-                            <span *ngIf="prescriptionform.get('patient')?.errors?.['pattern']">
-                                {{ validationMessages.patient.pattern }}
-                            </span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div style="display: flex;justify-content: center;">
-                    <button class="btn btn-primary mt-2 mb-2" style="width:100%" (click)="addMedications()">Add New Medicine</button>
-                </div>
-                <div formArrayName="medicine" *ngFor="let item of medicine.controls;let i=index;">
-                    <div [formGroupName]="i">
-                        <b class="me-2">Add Medicine : {{i+1}}</b>
-                        <button class="btn btn-danger mt-2 mb-2" (click)="removeMedications(i)">&times;</button>
-                        <div
-                            class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-di">
-                            <mat-form-field class="col-12 col-md-6">
-                                <mat-label>Medicine Type</mat-label>
-                                <mat-select id="medicine.type" name="medicinetype" formControlName="type">
-                                    <mat-option value="syrup">Syrup</mat-option>
-                                    <mat-option value="tablet">Tablet</mat-option>
-                                    <mat-option value="capsule">Capsule</mat-option>
-                                    <mat-option value="injection">Injection</mat-option>
-                                </mat-select>
-                                <mat-error class="error-message" *ngIf="
+              <span *ngIf="prescriptionform.get('patient')?.errors?.['required']">
+                {{ validationMessages.patient.required }}
+              </span>
+              <span *ngIf="prescriptionform.get('patient')?.errors?.['pattern']">
+                {{ validationMessages.patient.pattern }}
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="display: flex;justify-content: center;">
+          <button class="btn btn-primary mt-2 mb-2" style="width:100%" (click)="addMedications()">Add New
+            Medicine</button>
+        </div>
+        <div formArrayName="medicine" *ngFor="let item of medicine.controls;let i=index;">
+          <div [formGroupName]="i">
+            <b class="me-2">Add Medicine : {{i+1}}</b>
+            <button class="btn btn-danger mt-2 mb-2" (click)="removeMedications(i)">&times;</button>
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-di">
+              <mat-form-field class="col-12 col-md-6">
+                <mat-label>Medicine Type</mat-label>
+                <mat-select id="medicine.type" name="medicinetype" formControlName="type">
+                  <mat-option value="syrup">Syrup</mat-option>
+                  <mat-option value="tablet">Tablet</mat-option>
+                  <mat-option value="capsule">Capsule</mat-option>
+                  <mat-option value="injection">Injection</mat-option>
+                </mat-select>
+                <mat-error class="error-message" *ngIf="
                                 prescriptionform.controls['medicine'].controls[i].get('type')?.invalid &&
                                         (prescriptionform.controls['medicine'].controls[i].get('type')?.dirty||
                                         prescriptionform.controls['medicine'].controls[i].get('type')?.touched)">
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('type')?.errors?.['required']">
-                                        {{ validationMessages.type.required }}
-                                    </span>
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('type')?.errors?.['pattern']">
-                                        {{ validationMessages.type.pattern }}
-                                    </span>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field class="col-12 col-md-6">
-                                <mat-label>Medicine Name</mat-label>
-                                <input matInput formControlName="name">
-                                <mat-error class="error-message" *ngIf="
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('type')?.errors?.['required']">
+                    {{ validationMessages.type.required }}
+                  </span>
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('type')?.errors?.['pattern']">
+                    {{ validationMessages.type.pattern }}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-md-6">
+                <mat-label>Medicine Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error class="error-message" *ngIf="
                                 prescriptionform.controls['medicine'].controls[i].get('name')?.invalid &&
                                         (prescriptionform.controls['medicine'].controls[i].get('name')?.dirty ||
                                         prescriptionform.controls['medicine'].controls[i].get('name')?.touched)">
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('name')?.errors?.['required']">
-                                        {{ validationMessages.name.required }}
-                                    </span>
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('name')?.errors?.['pattern']">
-                                        {{ validationMessages.name.pattern }}
-                                    </span>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div
-                            class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-di">
-                            <mat-form-field class="col-12 col-md-6">
-                                <mat-label>Medicine Dose</mat-label>
-                                <input matInput formControlName="dose">
-                                <mat-error class="error-message" *ngIf="
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('name')?.errors?.['required']">
+                    {{ validationMessages.name.required }}
+                  </span>
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('name')?.errors?.['pattern']">
+                    {{ validationMessages.name.pattern }}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3 gap-di">
+              <mat-form-field class="col-12 col-md-6">
+                <mat-label>Medicine Dose</mat-label>
+                <input matInput formControlName="dose">
+                <mat-error class="error-message" *ngIf="
                                 prescriptionform.controls['medicine'].controls[i].get('dose')?.invalid &&
                                         (prescriptionform.controls['medicine'].controls[i].get('dose')?.dirty ||
                                         prescriptionform.controls['medicine'].controls[i].get('dose')?.touched)">
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('dose')?.errors?.['required']">
-                                        {{ validationMessages.dose.required }}
-                                    </span>
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('dose')?.errors?.['pattern']">
-                                        {{ validationMessages.dose.pattern }}
-                                    </span>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field class="col-12 col-md-6">
-                                <mat-label>Medicine Frequency</mat-label>
-                                <input matInput formControlName="frequency">
-                                <mat-error class="error-message" *ngIf="
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('dose')?.errors?.['required']">
+                    {{ validationMessages.dose.required }}
+                  </span>
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('dose')?.errors?.['pattern']">
+                    {{ validationMessages.dose.pattern }}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-md-6">
+                <mat-label>Medicine Frequency</mat-label>
+                <input matInput formControlName="frequency">
+                <mat-error class="error-message" *ngIf="
                                 prescriptionform.controls['medicine'].controls[i].get('frequency')?.invalid &&
                                         (prescriptionform.controls['medicine'].controls[i].get('frequency')?.dirty ||
                                         prescriptionform.controls['medicine'].controls[i].get('frequency')?.touched)">
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('frequency')?.errors?.['required']">
-                                        {{ validationMessages.frequency.required }}
-                                    </span>
-                                    <span
-                                        *ngIf="prescriptionform.controls['medicine'].controls[i].get('frequency')?.errors?.['pattern']">
-                                        {{ validationMessages.frequency.pattern }}
-                                    </span>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <span
+                    *ngIf="prescriptionform.controls['medicine'].controls[i].get('frequency')?.errors?.['required']">
+                    {{ validationMessages.frequency.required }}
+                  </span>
+                  <span *ngIf="prescriptionform.controls['medicine'].controls[i].get('frequency')?.errors?.['pattern']">
+                    {{ validationMessages.frequency.pattern }}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
 
-                </div>
-                <mat-form-field class="fullwidth">
-                    <mat-label>Instructions</mat-label>
-                    <input matInput formControlName="instructions">
-                    <mat-error class="error-message" *ngIf="
+        </div>
+        <mat-form-field class="fullwidth">
+          <mat-label>Instructions</mat-label>
+          <input matInput formControlName="instructions">
+          <mat-error class="error-message" *ngIf="
                                 prescriptionform.get('instructions')?.invalid &&
                                         (prescriptionform.get('instructions')?.dirty ||
                                         prescriptionform.get('instructions')?.touched)">
-                        <span *ngIf="prescriptionform.get('instructions')?.errors?.['minlength']">
-                            {{ validationMessages.instructions.minlength }}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-                <div style="display: flex;justify-content: center;">
-                    <button class="btn btn-primary mt-2" style="width: 15%;" (click)="save()" [disabled]="!prescriptionform.valid">Save</button>
-                </div>
+            <span *ngIf="prescriptionform.get('instructions')?.errors?.['minlength']">
+              {{ validationMessages.instructions.minlength }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <div style="display: flex;justify-content: center;">
+          <button class="btn btn-primary mt-2" style="width: 15%;" (click)="save()"
+            [disabled]="!prescriptionform.valid">Save</button>
+        </div>
 
-            </form>
-        </mat-card-content>
-    </mat-card>
+      </form>
+    </mat-card-content>
+  </mat-card>

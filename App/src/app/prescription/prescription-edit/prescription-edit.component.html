@@ -18,7 +18,7 @@
                         <mat-label>Clinic</mat-label>
                         <mat-select id="clinic" name="clinic" formControlName="clinic">
                             <mat-option #currentClinic *ngFor="let clinic of clinics;" value={{clinic._id}}
-                                (click)="getClinic(currentClinic.value)">{{clinic._id}}</mat-option>
+                                (click)="getClinic(currentClinic.value)">Alwafaa {{ clinic._id }} - {{ clinic._address.city }}</mat-option>
                         </mat-select>
                         <mat-error class="error-message" *ngIf="
                         prescriptionform.get('clinic')?.invalid &&
@@ -33,7 +33,8 @@
                     <mat-form-field class="col-12 col-md-4">
                         <mat-label>Doctor</mat-label>
                         <mat-select id="doctor" name="doctor" formControlName="doctor">
-                            <mat-option *ngFor="let doctor of doctorsInClinic;" value={{doctor}}>{{doctor}}</mat-option>
+                            <mat-option *ngFor="let doctor of doctorsInClinic ;let i=index;" value={{doctor.id}}>
+                {{doctor.id}}/{{doctor.firstname}} {{doctor.lastname}}</mat-option>
                         </mat-select>
                         <mat-error class="error-message" *ngIf="
                         prescriptionform.get('doctor')?.invalid &&

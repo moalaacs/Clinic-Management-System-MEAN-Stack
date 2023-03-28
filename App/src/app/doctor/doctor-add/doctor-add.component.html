@@ -337,8 +337,8 @@
         <button
           class="btn btn-primary"
           [disabled]="
-            doctorForm.controls['schedule'].value[scheduleLength].day == '' ||
-            scheduleLength == 6
+            doctorForm.controls['schedule'].value[schedule.controls.length - 1]
+              .day == '' || schedule.controls.length == 7
           "
           (click)="addSchedule()"
         >
@@ -354,7 +354,10 @@
             >
               <mat-form-field appearance="fill" class="col-12 col-md-3">
                 <mat-label>Day</mat-label>
-                <mat-select formControlName="day">
+                <mat-select
+                  (selectionChange)="updateAvailableDays($event.value, i)"
+                  formControlName="day"
+                >
                   <mat-option
                     *ngFor="let day of availableDays[i]"
                     [value]="day"
@@ -399,7 +402,7 @@
               <button
                 type="button"
                 class="btn btn-danger delete-schedule-button col-12 col-md-2"
-                [disabled]="scheduleLength == 0"
+                [disabled]="schedule.controls.length == 1"
                 (click)="deleteSchedule(i)"
               >
                 Delete

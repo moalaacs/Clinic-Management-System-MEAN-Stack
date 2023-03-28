@@ -182,7 +182,7 @@ exports.getAllClinics = async (request, response, next) => {
 // Get a clinic by ID
 exports.getClinicById = async (request, response, next) => {
   try {
-    const clinic = await clinicSchema.findById(request.params.id);
+    const clinic = await clinicSchema.findById(request.params.id).populate({path:"_doctors",select:{"_id":1,"_fname":1,"_lname":1}});
     if (!clinic) {
       return next(responseFormat(false, {}, "Clinic not found", 0, 0, 0, 0));
     }
