@@ -1,12 +1,12 @@
 <div class="container">
   <c-card class="mb-4">
     <c-card-header>
-      Doctor ID
+      Patient ID
     </c-card-header>
     <c-card-body>
       <mat-form-field appearance="fill">
-        <mat-label>Enter Doctor ID</mat-label>
-        <input type="number" min="1" matInput [(ngModel)]="doctorId">
+        <mat-label>Enter Patient ID</mat-label>
+        <input type="number" min="1" matInput [(ngModel)]="patientId">
       </mat-form-field>
       <button (click)="getInputValue()" mat-flat-button color="primary" class="mx-3">Show</button> </c-card-body>
   </c-card>
@@ -36,7 +36,7 @@
                 {{ item._clinicId._contactNumber }} -
                 {{ item._clinicId._specilization }}
               </td>
-              <td>{{ item._patientId }}</td>
+              <td>{{ patientId }}</td>
               <td>{{ item._doctorId.firstname }} {{ item._doctorId.lastname }}</td>
               <td>{{ item._date }}</td>
               <td>{{ item._time }}</td>

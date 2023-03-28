@@ -26,5 +26,4 @@ export class RangeAppointmentReportsComponent {
   }
   constructor(public AppointmentsReportsService: AppointmentsReportsService, public router: Router) {
   }
-
 }

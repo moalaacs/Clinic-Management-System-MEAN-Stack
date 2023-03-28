@@ -20,4 +20,7 @@ export class AppointmentsReportsService {
   getDoctorAppointmentsReports(id: number) {
     return this.http.get<Appointment[]>(this.baseUrl + "/doctor/" + id);
   }
+  getPatientAppointmentsReports(id: number) {
+    return this.http.get<Appointment[]>(this.baseUrl + "/patient/" + id);
+  }
 }

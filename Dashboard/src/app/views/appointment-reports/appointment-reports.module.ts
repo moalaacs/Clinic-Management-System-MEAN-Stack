@@ -25,9 +25,10 @@ import {
   SharedModule,
   WidgetModule
 } from '@coreui/angular';
+import { PatientAppointmentReportsComponent } from './patient-appointment-reports/patient-appointment-reports.component';
 
 @NgModule({
-  declarations: [AllAppointmentReportsComponent, DailyAppointmentReportsComponent, RangeAppointmentReportsComponent, DoctorAppointmentReportsComponent],
+  declarations: [AllAppointmentReportsComponent, DailyAppointmentReportsComponent, RangeAppointmentReportsComponent, DoctorAppointmentReportsComponent, PatientAppointmentReportsComponent],
   imports: [
     CommonModule,
     AppointmentReportsRoutingModule,

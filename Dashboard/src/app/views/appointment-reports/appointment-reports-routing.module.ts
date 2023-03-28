@@ -4,6 +4,7 @@ import { AllAppointmentReportsComponent } from './all-appointment-reports/all-ap
 import { DailyAppointmentReportsComponent } from './daily-appointment-reports/daily-appointment-reports.component';
 import { RangeAppointmentReportsComponent } from './range-appointment-reports/range-appointment-reports.component';
 import { DoctorAppointmentReportsComponent } from './doctor-appointment-reports/doctor-appointment-reports.component';
+import { PatientAppointmentReportsComponent } from './patient-appointment-reports/patient-appointment-reports.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -45,6 +46,13 @@ const routes: Routes = [
         component: DoctorAppointmentReportsComponent,
         data: {
           title: 'Doctor',
+        }
+      },
+      {
+        path: 'patient',
+        component: PatientAppointmentReportsComponent,
+        data: {
+          title: 'Patient',
         }
       }
     ],
