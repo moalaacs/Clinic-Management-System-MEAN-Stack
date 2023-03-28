@@ -129,7 +129,8 @@ mat-expansion-panel-description p {
 }
 
 textarea {
-  resize: none;
+  resize: none !important;
+  height: max-content;
 }
 
 .btn-disabled {
@@ -155,7 +156,8 @@ textarea {
   box-shadow: none !important;
 }
 
-.styled-table {
+.styled-table,
+mat-table.styled-table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 16px;
@@ -189,10 +191,6 @@ textarea {
 
 .styled-table tbody tr:hover {
   background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-  /* background-color: #f3f3f3; */
 }
 
 .styled-table tbody tr:last-of-type {
@@ -230,6 +228,104 @@ textarea {
 .p-card:hover {
   background-color: rgba(242, 241, 241, 0.6) !important;
 }
+
+.mat-sort-header-arrow,
+[dir="rtl"] .mat-sort-header-position-before .mat-sort-header-arrow {
+  color: #ffffff !important;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.5rem 0 !important;
+}
+
+/*  Gender radio box style */
+
+div.radio-container {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #3f51b5;
+  background-color: #3f51b5;
+  display: inline-block;
+  min-width: 166px;
+  border: 2px solid #3f51b5;
+}
+
+div.radio-container input[type="radio"] {
+  opacity: 0;
+  display: none;
+  margin: 0;
+  outline: none;
+}
+
+div.radio-container input[type="radio"]:checked + label {
+  background-color: #3f51b5;
+  color: white;
+  animation-name: radio-active;
+  animation-duration: 0.2s;
+}
+
+@keyframes radio-active {
+  from {
+    transform: scale(0.6, 0.6);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+
+div.radio-container label {
+  padding: 0.8em;
+  cursor: pointer;
+  background: none;
+  display: inline-block;
+  outline: none;
+  letter-spacing: 0.1em;
+  background-color: white;
+  color: black;
+  transition: all ease-in-out 0.1s;
+}
+
+/*  upload photo style */
+
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+.uploaded {
+  border: 2px solid #555;
+}
+
+.drop-container:hover {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  transition: color 0.2s ease-in-out;
+}
+
+/*  list table style */
 
 /*  details page style */
 

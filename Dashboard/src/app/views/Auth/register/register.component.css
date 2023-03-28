@@ -1,0 +1,11 @@
+.back-to-home-btn{
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+

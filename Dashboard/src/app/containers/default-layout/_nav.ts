@@ -46,7 +46,7 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Admin'
+    name: 'Manage'
   },
   {
     name: 'Clinic',
@@ -84,12 +84,27 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-star' },
     children: [
       {
-        name: 'patients List',
+        name: 'Patients List',
         url: '/patient'
       },
       {
         name: 'Add Patient',
         url: '/patient/add'
+      },
+    ]
+  },
+  {
+    name: 'Employee',
+    url: '/employee',
+    iconComponent: { name: 'cil-star' },
+    children: [
+      {
+        name: 'Employee List',
+        url: '/employee'
+      },
+      {
+        name: 'Add Employee',
+        url: '/employee/add'
       },
     ]
   },
