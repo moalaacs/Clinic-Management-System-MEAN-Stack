@@ -1,0 +1,16 @@
+.clinic-info h3{
+  all: unset;
+  font-style: normal;
+  line-height: 17px;
+  font: 500 20px/32px Roboto, sans-serif;
+  color: #000000;
+}
+
+.clinic-info span{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #000000;
+}

@@ -50,6 +50,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/patient/patient.module').then((m) => m.PatientModule),
       },
+      {
+        path: 'employee',
+        loadChildren: () =>
+          import('./views/employee/employee.module').then((m) => m.EmployeeModule),
+      },
     ]
   },
   { path: '**', redirectTo: 'dashboard' }

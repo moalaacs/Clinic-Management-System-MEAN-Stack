@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { tap, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -6,48 +7,55 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
 import { DeleteConfirmationComponent } from '../../shared/delete-confirmation.component';
-import { clinic } from 'src/app/models/clinic';
-import { ClinicService } from 'src/app/services/clinic.service';
+import { Employee } from 'src/app/models/employee';
+import { EmployeeService } from 'src/app/services/employee.service';
+
 @Component({
-  selector: 'app-clinics-list',
-  templateUrl: './clinics-list.component.html',
-  styleUrls: ['./clinics-list.component.css']
+  selector: 'app-employee-list',
+  templateUrl: './employee-list.component.html',
+  styleUrls: ['./employee-list.component.css']
 })
-export class ClinicsInfoComponent implements OnInit {
-  clinics: clinic[];
+export class EmployeeListComponent implements OnInit {
+
+  employees: Employee[] = [];
   perPage = 10;
   total = 0;
   currentPage = 1;
   query: string | undefined;
   sortBy!: string;
   order: "asc" | "desc" = "asc";
-  dataSource!: MatTableDataSource<clinic>;
+
+  dataSource!: MatTableDataSource<Employee>;
   displayedColumns: string[] = [
     'no',
-    'email',
+    'name',
+    'age',
     'phoneNumber',
-    'specilization',
     'address',
+    'role',
     'actions',
   ];
+
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private clinicService: ClinicService, private dialog: MatDialog,
-    private snackBar: MatSnackBar) {
-    this.clinics = [];
-  }
-  ngOnInit() {
+  constructor(
+    private employeeService: EmployeeService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar) { }
+
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.getClinics();
+    this.getEmployees();
   }
 
-  getClinics() {
+  getEmployees() {
     const startIndex = (this.currentPage - 1) * this.perPage;
     const endIndex = startIndex + this.perPage;
-    if (endIndex > this.clinics.length) {
-      this.clinicService
-        .getAllClinicsQuery(
+    if (endIndex > this.employees.length) {
+      this.employeeService
+        .getAllEmployees2(
+          'employee',
           this.query,
           this.currentPage,
           this.perPage,
@@ -56,7 +64,7 @@ export class ClinicsInfoComponent implements OnInit {
         )
         .subscribe(
           (response) => {
-            this.clinics = response.data;
+            this.employees = response.data;
             this.total = response.total;
             this.dataSource.data = response.data;
           },
@@ -65,18 +73,23 @@ export class ClinicsInfoComponent implements OnInit {
     }
   }
 
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (item, property) => {
       switch (property) {
         case 'no':
-          return item._id;
+          return item.id;
+        case 'name':
+          return item.firstname;
+        case 'age':
+          return item.age;
         case 'phoneNumber':
-          return item._contactNumber;
+          return item.phoneNumber;
         case 'address':
-          return item._address.city;
-        case 'specilization':
-          return item._specilization;
+          return item.address.city;
+        case 'role':
+          return item.role;
         default:
           return 0;
       }
@@ -87,23 +100,25 @@ export class ClinicsInfoComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
   pageChanged(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
     this.perPage = event.pageSize;
-    if (this.clinics.length < this.total) {
-      this.getClinics();
+    if (this.employees.length < this.total) {
+      this.getEmployees();
     }
   }
 
-  deleteClinic(id: number) {
+  deleteEmployee(id: number) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.clinicService.deleteClinicById(id).subscribe(() => {
-          const index = this.clinics.findIndex(p => p._id === id);
+        this.employeeService.removeEmployeeById(id).subscribe(() => {
+          const index = this.employees.findIndex(p => p.id === id);
           if (index >= 0) {
-            this.clinics.splice(index, 1);
-            this.snackBar.open('Clinic deleted', 'Close', {
+            this.employees.splice(index, 1);
+            this.snackBar.open('Employee deleted', 'Close', {
               duration: 2000
             });
           }
@@ -111,4 +126,5 @@ export class ClinicsInfoComponent implements OnInit {
       }
     });
   }
+
 }
