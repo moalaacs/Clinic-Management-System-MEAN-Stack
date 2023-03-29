@@ -8,6 +8,8 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
 import { PatientAddComponent } from './patient-add/patient-add.component';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { MaterialModule } from '../shared/material.moduel';
+import { BadgeModule, CardModule, GridModule } from '@coreui/angular';
+
 @NgModule({
   declarations: [
     PatientListComponent,
@@ -18,7 +20,8 @@ import { MaterialModule } from '../shared/material.moduel';
   imports: [
     CommonModule,
     FormsModule, PatientRoutingModule,
-    ReactiveFormsModule, MaterialModule
+    ReactiveFormsModule, MaterialModule,
+    CardModule, BadgeModule, CardModule, GridModule
   ]
 })
 

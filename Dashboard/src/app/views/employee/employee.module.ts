@@ -8,7 +8,7 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { MaterialModule } from '../shared/material.moduel';
-
+import { BadgeModule, CardModule, GridModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { MaterialModule } from '../shared/material.moduel';
   imports: [
     CommonModule,
     FormsModule, EmployeeRoutingModule,
-    ReactiveFormsModule, MaterialModule
+    ReactiveFormsModule, MaterialModule,
+    BadgeModule, CardModule, GridModule
   ]
 })
 export class EmployeeModule { }
