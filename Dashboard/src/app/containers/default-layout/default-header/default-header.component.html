@@ -11,7 +11,7 @@
         </a>
       </c-nav-item>
     </c-header-nav>
-
+    <!-- 
     <c-header-nav class="d-none d-lg-flex">
       <c-nav-item>
         <a routerLink="./" cNavLink>
@@ -28,7 +28,7 @@
           <svg cIcon name="cilEnvelopeOpen" size="lg"></svg>
         </a>
       </c-nav-item>
-    </c-header-nav>
+    </c-header-nav> -->
     <c-header-nav class="ms-3">
       <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
     </c-header-nav>
@@ -44,8 +44,7 @@
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
     <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
-      <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/avatars/hambola.jpg"
-        status="success">
+      <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/avatars/user.png" status="success">
       </c-avatar>
     </button>
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">
