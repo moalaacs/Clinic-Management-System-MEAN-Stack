@@ -29,43 +29,7 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     if (this.service.isLoggedIn()) {
       if (route.url.length > 0) {
-        let menu = document.location.pathname;
-        if (
-          (
-            menu == 'pay' ||
-            menu == 'doctor' ||
-            menu == 'doctor/add' ||
-            menu == 'doctor/edit/:id' ||
-            menu == 'doctor/details/:id' ||
-            menu == 'emplyee' ||
-            menu == 'emplyee/add' ||
-            menu == 'employee/edit/:id' ||
-            menu == 'employee/details/:id' ||
-            menu == 'patient' ||
-            menu == 'patient/add' ||
-            menu == 'patient/edit/:id') ||
-            menu == 'patient/details/:id' ||
-            menu == 'clinic' ||
-            menu == 'clinic/add' ||
-            menu == 'clinic/edit/:id' ||
-            menu == 'clinic/details/:id'||
-            menu == 'clinic/location/:speciallity'||
-            menu == 'medicine' ||
-            menu == 'medicine/add' ||
-            menu == 'medicine/edit/:id' ||
-            menu == 'medicine/details/:id'||
-            menu == 'appointment' ||
-            menu == 'appointment/add' ||
-            menu == 'appointment/edit/:id' ||
-            menu == 'appointment/details/:id'||
-            menu == 'prescription' ||
-            menu == 'prescription/add' ||
-            menu == 'prescription/edit/:id' ||
-            menu == 'prescription/details/:id' ||
-            menu == 'prescription' 
-             &&
-          this.service.getRole() == 'admin'
-        ) {
+        if (this.service.getRole() == 'admin') {
           return true;
         } else {
           this.router.navigate(['']);
