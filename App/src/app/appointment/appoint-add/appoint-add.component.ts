@@ -18,8 +18,12 @@ export class AppointAddComponent {
   appointmentForm: FormGroup;
   matcher: MyErrorStateMatcher;
   minDate: Date;
-
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public fb: FormBuilder, public mat: MatSnackBar) {
+  constructor(
+    public appointmentService: AppointmentService, 
+    public router: Router, 
+    public location: Location, 
+    public fb: FormBuilder, 
+    public mat: MatSnackBar) {
     this.minDate = new Date();
     this.appointmentForm = this.fb.group({
       clinicId: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -73,7 +77,8 @@ export class AppointAddComponent {
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
-  goBack(): void {
+  goBack(): void 
+  {
     this.router.navigate(['/appointment']);
   }
 }

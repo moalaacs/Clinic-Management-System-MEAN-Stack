@@ -18,7 +18,6 @@ export class MedEditComponent implements OnInit {
   matcher: MyErrorStateMatcher;
   minDate: Date;
   maxDate: Date;
-
   constructor(
     public medicineService: MedicineService,
     public router: Router,
@@ -26,7 +25,7 @@ export class MedEditComponent implements OnInit {
     public fb: FormBuilder,
     public activatedRoute: ActivatedRoute,
     public mat: MatSnackBar) {
-    this.minDate = new Date('2010-01-01');
+    this.minDate = new Date('2015-01-01');
     this.maxDate = new Date('2030-12-31');
     this.medicineForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
@@ -44,9 +43,6 @@ export class MedEditComponent implements OnInit {
         this.medicine = data;
       });
     });
-    /*this.medicineService.getAllMedicine().subscribe(data => {
-      this.medicine = data;
-    })*/
   }
   get name() {
     return this.medicineForm.get('_name');
@@ -87,15 +83,8 @@ export class MedEditComponent implements OnInit {
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
       });
-    /*this.medicineService.updateMedicine(this.medicineForm.value).subscribe(
-    () => {
-      this.router.navigate(['/medicine'])
-    }, error => {
-      this.mat.open(error.error.message, "", { duration: 3000 });
-    })*/
   }
   goBack(): void {
     this.router.navigate(['/medicine']);
   }
-
 }

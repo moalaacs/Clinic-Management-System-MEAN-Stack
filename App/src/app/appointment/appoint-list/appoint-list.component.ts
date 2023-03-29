@@ -14,7 +14,12 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AppointListComponent {
   appointment: Appointment[] = [];
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(
+    public appointmentService: AppointmentService, 
+    public router: Router, 
+    public location: Location, 
+    public dialog: MatDialog, 
+    public snackBar: MatSnackBar) {
   }
   delete(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);

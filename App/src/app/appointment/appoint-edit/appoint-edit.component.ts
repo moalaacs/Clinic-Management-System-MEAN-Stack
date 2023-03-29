@@ -17,7 +17,6 @@ export class AppointEditComponent {
   appointmentForm: FormGroup;
   matcher: MyErrorStateMatcher;
   minDate: Date;
-
   constructor(
     public appointmentService: AppointmentService, 
     public router: Router, 
@@ -43,9 +42,6 @@ export class AppointEditComponent {
         this.appointment = data;
       });
     });
-    /*this.appointmentService.getAllAppointment().subscribe(data => {
-      this.appointment = data;
-    })*/
   }
   get clinic() {
     return this.appointmentForm.get('_clinicId');
@@ -84,14 +80,9 @@ export class AppointEditComponent {
         this.mat.open(error.error.message, "", { duration: 3000 });
       });
     });
-    /*this.appointmentService.updateAppointment(this.appointmentForm.value).subscribe(
-      () => {
-        this.router.navigate(['/appointment'])
-      }, error => {
-        this.mat.open(error.error.message, "", { duration: 3000 });
-      })*/
   }
-  goBack(): void {
+  goBack(): void 
+  {
     this.router.navigate(['/appointment']);
   }
 }

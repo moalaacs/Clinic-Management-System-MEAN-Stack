@@ -18,14 +18,13 @@ export class MedAddComponent implements OnInit {
   matcher: MyErrorStateMatcher;
   minDate: Date;
   maxDate: Date;
-
   constructor(
     public medicineService: MedicineService,
     public router: Router,
     public location: Location,
     public fb: FormBuilder,
     public mat: MatSnackBar) {
-    this.minDate = new Date('2010-01-01');
+    this.minDate = new Date('2015-01-01');
     this.maxDate = new Date('2030-12-31');
     this.medicineForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern("[a-zA-Z][a-zA-Z\\s]+")]],
@@ -81,8 +80,8 @@ export class MedAddComponent implements OnInit {
         this.mat.open(error.error.message, "", { duration: 3000 });
       })
   }
-
-  goBack(): void {
+  goBack(): void 
+  {
     this.router.navigate(['/medicine']);
   }
 }

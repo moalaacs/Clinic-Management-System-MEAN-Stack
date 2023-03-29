@@ -12,20 +12,21 @@ import { Appointment } from 'src/app/models/appointment';
 export class AppointDetailsComponent implements OnInit {
   _appointment: Appointment = new Appointment("", 1, 10000, "patient", 100, "06/05/2023", "10:00", "Pending");
   appointment: Appointment[] = [];
-  constructor(public appointmentService: AppointmentService, public router: Router, public location: Location, public activatedRoute: ActivatedRoute) {
+  constructor(
+    public appointmentService: AppointmentService, 
+    public router: Router, 
+    public location: Location, 
+    public activatedRoute: ActivatedRoute) {
   }
   ngOnInit() {
     this.activatedRoute.params.subscribe(p => {
       this.appointmentService.getAppointmentById(p['id']).subscribe(data => {
         this._appointment = data[0];
-        // alert(JSON.stringify(this.medicine));
-        console.log(data);
-        console.log(this._appointment);
-
       })
     })
   }
-  back() {
+  back() 
+  {
     this.router.navigateByUrl('/appointment');
   }
 }
