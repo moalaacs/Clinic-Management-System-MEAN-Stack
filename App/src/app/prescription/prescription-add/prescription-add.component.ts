@@ -7,7 +7,7 @@ import { clinic } from 'src/app/models/clinic';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { prescriptionService } from 'src/app/services/prescription.service';
-import { Doctor } from 'src/app/models/doctor';
+
 
 @Component({
   selector: 'app-prescription-add',

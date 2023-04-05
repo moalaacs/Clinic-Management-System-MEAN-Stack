@@ -23,6 +23,11 @@ const routes: Routes = [
       import('./clinic/clinic.module').then((m) => m.ClinicModule),canActivate:[AuthGuard]
   },
   {
+    path: 'invoice',
+    loadChildren: () =>
+      import('./invoice/invoice.module').then((m) => m.InvoiceModule),canActivate:[AuthGuard]
+  },
+  {
     path: 'medicine',
     loadChildren: () =>
       import('./medicine/medicine.module').then((m) => m.MedModule),canActivate:[AuthGuard]
